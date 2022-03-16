@@ -16,12 +16,40 @@ public class SQLTableCreationFactory {
             case CLIENT -> "CREATE TABLE IF NOT EXISTS client (" +
                     "  id int(11) NOT NULL AUTO_INCREMENT," +
                     "  name varchar(100) NOT NULL," +
-                    "  card varchar(16) NOT NULL," +
                     "  CNP varchar(13) NULL," +
                     "  address varchar(100) NOT NULL," +
                     "  PRIMARY KEY (id)," +
                     "  UNIQUE INDEX id_UNIQUE (id ASC)" +
                     ");";
+
+            case ACCOUNT -> "CREATE TABLE IF NOT EXISTS account (" +
+                    "  id int(11) NOT NULL AUTO_INCREMENT," +
+                    "  number varchar(16) NOT NULL," +
+                    "  type varchar(30) NOT NULL," +
+                    "  money int(13) NOT NULL," +
+                    "  creation DATE NOT NULL," +
+                    "  PRIMARY KEY (id)," +
+                    "  UNIQUE INDEX id_UNIQUE (id ASC)" +
+                    ");";
+
+            case CLIENT_ACCOUNT -> "  CREATE TABLE IF NOT EXISTS client_account (" +
+                    "  id INT NOT NULL AUTO_INCREMENT," +
+                    "  client_id INT NOT NULL," +
+                    "  account_id INT NOT NULL," +
+                    "  PRIMARY KEY (id)," +
+                    "  UNIQUE INDEX id_UNIQUE (id ASC)," +
+                    "  INDEX role_id_idx (client_id ASC)," +
+                    "  INDEX right_id_idx (account_id ASC)," +
+                    "  CONSTRAINT client_id" +
+                    "    FOREIGN KEY (client_id)" +
+                    "    REFERENCES client (id)" +
+                    "    ON DELETE CASCADE" +
+                    "    ON UPDATE CASCADE," +
+                    "  CONSTRAINT account_id" +
+                    "    FOREIGN KEY (account_id)" +
+                    "    REFERENCES `account` (id)" +
+                    "    ON DELETE CASCADE" +
+                    "    ON UPDATE CASCADE);";
 
             case ROLE -> "  CREATE TABLE IF NOT EXISTS role (" +
                     "  id INT NOT NULL AUTO_INCREMENT," +

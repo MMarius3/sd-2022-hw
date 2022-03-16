@@ -1,16 +1,16 @@
 package repository;
 
-import model.Client;
-import model.User;
+import java.util.List;
 
-public interface Repository<I extends Number, T> {
+public interface Repository<T, I extends Number> {
 
+    List<T> findAll();
 
     T findById(I id);
 
-    boolean save(T user);
+    boolean save(T entity);
 
     boolean delete(I id);
 
-    boolean update(I id, T newUser);
+    boolean update(I id, T newEntity);
 }

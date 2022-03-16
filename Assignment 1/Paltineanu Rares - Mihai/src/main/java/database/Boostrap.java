@@ -23,7 +23,7 @@ public class Boostrap {
     public Boostrap(RightsRolesRepository rightsRolesRepository) throws SQLException {
         Boostrap.rightsRolesRepository = rightsRolesRepository;
 
-        dropAll();
+        //dropAll();
 
         bootstrapTables();
 
@@ -44,6 +44,8 @@ public class Boostrap {
                     "DROP TABLE `right`;",
                     "TRUNCATE `user_role`;",
                     "DROP TABLE `user_role`;",
+                    "TRUNCATE `client_account`;",
+                    "DROP TABLE `client_account`;",
                     "TRUNCATE `role`;",
                     "DROP TABLE  `user`, `client`, `role`;"
             };

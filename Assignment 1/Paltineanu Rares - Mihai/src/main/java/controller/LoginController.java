@@ -1,8 +1,9 @@
 package controller;
 
+import com.sun.tools.javac.Main;
 import model.User;
 import model.validator.UserValidator;
-import service.user.AuthenticationService;
+import service.user.authentication.AuthenticationService;
 import view.LoginView;
 
 import javax.swing.*;
@@ -15,11 +16,14 @@ public class LoginController {
     private final LoginView loginView;
     private final AuthenticationService authenticationService;
     private final UserValidator userValidator;
+    private final EmployeeController employeeController;
 
-    public LoginController(LoginView loginView, AuthenticationService authenticationService, UserValidator userValidator) {
+    public LoginController(LoginView loginView, AuthenticationService authenticationService, UserValidator userValidator,
+                           EmployeeController employeeController) {
         this.loginView = loginView;
         this.authenticationService = authenticationService;
         this.userValidator = userValidator;
+        this.employeeController = employeeController;
 
         loginView.addRegisterButtonListener(new RegisterButtonListener());
         loginView.addLoginButtonListener(new LoginButtonListener());
@@ -37,7 +41,8 @@ public class LoginController {
             if(errors.isEmpty()) {
                 authenticationService.register(username, password);
             } else {
-                JOptionPane.showMessageDialog(loginView.getContentPane(), userValidator.getFormattedErrors());
+                JOptionPane.showMessageDialog(loginView.getContentPane(), userValidator.getFormattedErrors(),
+                        "ERROR", JOptionPane.WARNING_MESSAGE);
             }
         }
     }
@@ -52,9 +57,12 @@ public class LoginController {
 
             if(user == null) {
                 JOptionPane.showMessageDialog(loginView.getContentPane(), "Incorrect username or password",
-                        "", JOptionPane.ERROR_MESSAGE);
-            } else {
+                        "ERROR", JOptionPane.ERROR_MESSAGE);
+            } else if(user.getUsername().equals("admin")){
 
+            } else {
+                loginView.setVisible(false);
+                employeeController.setViewVisible(true);
             }
         }
     }

@@ -8,25 +8,31 @@ import java.util.Date;
 import java.util.GregorianCalendar;
 import java.util.List;
 
-public class ClientValidator {
-
-    public static final int MIN_PASSWORD_LENGTH = 8;
+public class ClientInformationValidator {
 
     private final List<String> errors = new ArrayList<>();
     private final ClientRepository clientRepository;
 
-    public ClientValidator(ClientRepository clientRepository) {
+    public ClientInformationValidator(ClientRepository clientRepository) {
         this.clientRepository = clientRepository;
     }
 
     public void validate(String name, String personalNumericalCode) {
         errors.clear();
-        validatePersonalNumericalCodeLength(personalNumericalCode);
+        //TODO
+        // validateCardNumber(cardNumber);
+        validatePersonalNumericalCode(personalNumericalCode);
         validatePersonalNumericalCodeBirthday(personalNumericalCode);
         validateName(name);
     }
 
-    public void validatePersonalNumericalCodeLength(String personalNumericalCode) {
+    public void validateCardNumber(String cardNumber) {
+        if (!cardNumber.matches("^(\\d{16})?$")) {
+            errors.add("Card number must contain 16 digits");
+        }
+    }
+
+    public void validatePersonalNumericalCode(String personalNumericalCode) {
         if (!personalNumericalCode.matches("^(\\d{13})?$")) {
             errors.add("Personal numerical code must contain 13 digits");
         }
@@ -55,4 +61,11 @@ public class ClientValidator {
         }
     }
 
+    public List<String> getErrors() {
+        return errors;
+    }
+
+    public String getFormattedErrors() {
+        return String.join("\n", errors);
+    }
 }

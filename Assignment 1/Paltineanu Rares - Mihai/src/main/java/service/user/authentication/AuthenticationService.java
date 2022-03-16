@@ -1,4 +1,4 @@
-package service.user;
+package service.user.authentication;
 
 import model.User;
 

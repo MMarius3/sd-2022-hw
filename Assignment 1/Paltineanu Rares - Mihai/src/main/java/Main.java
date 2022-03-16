@@ -1,13 +1,26 @@
+import controller.EmployeeController;
 import controller.LoginController;
 import database.Boostrap;
 import database.JDBConnectionWrapper;
+import model.Account;
+import model.Client;
+import model.validator.ClientAccountValidator;
+import model.validator.ClientInformationValidator;
 import model.validator.UserValidator;
+import repository.account.AccountRepository;
+import repository.account.AccountRepositoryMySQL;
+import repository.client.ClientRepository;
+import repository.client.ClientRepositoryMySQL;
 import repository.user.UserRepository;
 import repository.user.UserRepositoryMySQL;
 import repository.security.RightsRolesRepository;
 import repository.security.RightsRolesRepositoryMySQL;
-import service.user.AuthenticationService;
-import service.user.AuthenticationServiceMySQL;
+import service.client.ClientService;
+import service.client.account.AccountServiceMySQL;
+import service.client.information.InformationServiceMySQL;
+import service.user.authentication.AuthenticationService;
+import service.user.authentication.AuthenticationServiceMySQL;
+import view.EmployeeView;
 import view.LoginView;
 
 import java.sql.Connection;
@@ -16,11 +29,14 @@ import java.sql.SQLException;
 import static database.Constants.Schemas.PRODUCTION;
 
 public class Main {
+
     public static void main(String[] args) {
         final Connection connection = new JDBConnectionWrapper(PRODUCTION).getConnection();
 
         final RightsRolesRepository rightsRolesRepository = new RightsRolesRepositoryMySQL(connection);
         final UserRepository userRepository = new UserRepositoryMySQL(connection, rightsRolesRepository);
+        final ClientRepository clientRepository = new ClientRepositoryMySQL(connection);
+        final AccountRepository accountRepository = new AccountRepositoryMySQL(connection);
 
         try {
             new Boostrap(rightsRolesRepository);
@@ -33,6 +49,19 @@ public class Main {
 
         final UserValidator userValidator = new UserValidator(userRepository);
 
-        new LoginController(loginView, authenticationService, userValidator);
+        final ClientInformationValidator clientInformationValidator = new ClientInformationValidator(clientRepository);
+        final ClientAccountValidator clientAccountValidator = new ClientAccountValidator(accountRepository);
+
+        ClientService<Client, Long> clientService = new InformationServiceMySQL(clientRepository);
+        ClientService<Account, Long> accountService = new AccountServiceMySQL();
+        final EmployeeController employeeController = new EmployeeController(new EmployeeView(),
+                clientInformationValidator,
+                clientAccountValidator,
+                clientService,
+                accountService);
+
+        new LoginController(loginView, authenticationService, userValidator, employeeController);
+
+
     }
 }

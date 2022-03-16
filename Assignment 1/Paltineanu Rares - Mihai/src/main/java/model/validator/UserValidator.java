@@ -9,37 +9,45 @@ import java.util.List;
 public class UserValidator {
 
     public static final int MIN_PASSWORD_LENGTH = 8;
+    public static final int MIN_USERNAME_LENGTH = 4;
 
     private final List<String> errors = new ArrayList<>();
-    private final UserRepository employeeRepository;
+    private final UserRepository userRepository;
 
-    public UserValidator(UserRepository employeeRepository) {
-        this.employeeRepository = employeeRepository;
+    public UserValidator(UserRepository userRepository) {
+        this.userRepository = userRepository;
     }
 
     public void validate(String username, String password) {
         errors.clear();
+        validateUsernameLength(username);
         validateUsernameUniqueness(username);
         validatePasswordLength(password);
         validatePasswordSpecial(password);
         validatePasswordDigit(password);
     }
 
+    public void validateUsernameLength(String username) {
+        if (!(username.length() >= MIN_USERNAME_LENGTH)) {
+            errors.add("Username must be at least " + MIN_USERNAME_LENGTH + " characters long");
+        }
+    }
+
     public void validateUsernameUniqueness(String username) {
-        final Response<Boolean> response = employeeRepository.existsByUsername(username);
+        final Response<Boolean> response = userRepository.existsByUsername(username);
         if (response.hasErrors()) {
             errors.add(response.getFormattedErrors());
         } else {
             final Boolean data = response.getData();
             if (data) {
-                errors.add("Email is already taken");
+                errors.add("Username is already taken");
             }
         }
     }
 
     private void validatePasswordLength(String password) {
         if (!(password.length() >= MIN_PASSWORD_LENGTH)) {
-            errors.add("Password must be at least 8 characters long");
+            errors.add("Password must be at least " + MIN_PASSWORD_LENGTH + " characters long");
         }
     }
 

@@ -14,8 +14,8 @@ public class ClientBuilder {
         return this;
     }
 
-    public ClientBuilder setCardNumber(String cardNumber) {
-        client.setCardNumber(cardNumber);
+    public ClientBuilder setId(Long id) {
+        client.setId(id);
         return this;
     }
 

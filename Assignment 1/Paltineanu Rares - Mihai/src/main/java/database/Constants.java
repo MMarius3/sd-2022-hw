@@ -35,13 +35,15 @@ public class Constants {
     public static class Tables {
         public static final String USER = "USER";
         public static final String CLIENT = "CLIENT";
+        public static final String ACCOUNT = "ACCOUNT";
+        public static final String CLIENT_ACCOUNT = "CLIENT_ACCOUNT";
         public static final String ROLE = "ROLE";
         public static final String RIGHT = "RIGHT";
         public static final String ROLE_RIGHT = "ROLE_RIGHT";
         public static final String USER_ROLE = "USER_ROLE";
 
-        public static final String[] ORDERED_TABLES_FOR_CREATION = new String[]{USER, CLIENT, ROLE,
-                RIGHT, ROLE_RIGHT, USER_ROLE};
+        public static final String[] ORDERED_TABLES_FOR_CREATION = new String[]{USER, CLIENT, ACCOUNT, CLIENT_ACCOUNT,
+                ROLE, RIGHT, ROLE_RIGHT, USER_ROLE};
     }
 
     public static class Roles {

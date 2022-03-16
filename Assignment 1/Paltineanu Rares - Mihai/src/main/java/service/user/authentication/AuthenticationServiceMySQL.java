@@ -1,10 +1,11 @@
-package service.user;
+package service.user.authentication;
 
 import model.Role;
 import model.User;
 import model.builder.UserBuilder;
 import repository.security.RightsRolesRepository;
 import repository.user.UserRepository;
+import service.user.authentication.AuthenticationService;
 
 import java.nio.charset.StandardCharsets;
 import java.security.MessageDigest;
@@ -18,15 +19,14 @@ public class AuthenticationServiceMySQL implements AuthenticationService {
     private final UserRepository userRepository;
     private final RightsRolesRepository rightsRolesRepository;
 
-    public AuthenticationServiceMySQL(UserRepository employeeRepository, RightsRolesRepository rightsRolesRepository) {
-        this.userRepository = employeeRepository;
+    public AuthenticationServiceMySQL(UserRepository userRepository, RightsRolesRepository rightsRolesRepository) {
+        this.userRepository = userRepository;
         this.rightsRolesRepository = rightsRolesRepository;
     }
 
     @Override
     public boolean register(String username, String password) {
         String encodedPassword = encodePassword(password);
-
 
         Role customerRole;
 

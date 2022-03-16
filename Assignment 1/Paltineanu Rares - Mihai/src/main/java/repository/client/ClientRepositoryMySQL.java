@@ -2,9 +2,10 @@ package repository.client;
 
 import model.Client;
 import model.builder.ClientBuilder;
-import repository.security.RightsRolesRepository;
 
 import java.sql.*;
+import java.util.ArrayList;
+import java.util.List;
 
 import static database.Constants.Tables.CLIENT;
 import static database.Constants.Tables.USER;
@@ -15,6 +16,37 @@ public class ClientRepositoryMySQL implements ClientRepository{
 
     public ClientRepositoryMySQL(Connection connection) {
         this.connection = connection;
+    }
+
+    @Override
+    public List<Client> findAll() {
+        try {
+            Statement statement = connection.createStatement();
+
+            String fetchClientSql =
+                    "Select * from " + CLIENT;
+            ResultSet clientResultSet = statement.executeQuery(fetchClientSql);
+            List<Client> clients = new ArrayList<>();
+            while(clientResultSet.next()) {
+                Long id = clientResultSet.getLong("id");
+                String name = clientResultSet.getString("name");
+                String cnp = clientResultSet.getString("CNP");
+                String address = clientResultSet.getString("address");
+
+                Client client = new ClientBuilder()
+                        .setId(id)
+                        .setName(name)
+                        .setCNP(cnp)
+                        .setAddress(address)
+                        .build();
+                clients.add(client);
+            }
+            return clients;
+
+        } catch (SQLException e) {
+            System.out.println(e);
+        }
+        return null;
     }
 
     @Override
@@ -43,11 +75,10 @@ public class ClientRepositoryMySQL implements ClientRepository{
     public boolean save(Client client) {
         try {
             PreparedStatement insertUserStatement = connection
-                    .prepareStatement("INSERT INTO user values (null, ?, ?, ?, ?)", Statement.RETURN_GENERATED_KEYS);
+                    .prepareStatement("INSERT INTO " + CLIENT + " values (null, ?, ?, ?)", Statement.RETURN_GENERATED_KEYS);
             insertUserStatement.setString(1, client.getName());
-            insertUserStatement.setString(2, client.getCardNumber());
             insertUserStatement.setString(2, client.getCNP());
-            insertUserStatement.setString(2, client.getAddress());
+            insertUserStatement.setString(3, client.getAddress());
             insertUserStatement.executeUpdate();
 
             ResultSet rs = insertUserStatement.getGeneratedKeys();
@@ -109,28 +140,6 @@ public class ClientRepositoryMySQL implements ClientRepository{
 
             String fetchClientSql =
                     "Select * from `" + CLIENT + "` where `CNP`=\'" + cnp + "\'";
-            ResultSet clientResultSet = statement.executeQuery(fetchClientSql);
-            clientResultSet.next();
-
-            return new ClientBuilder()
-                    .setName(clientResultSet.getString("name"))
-                    .setAddress(clientResultSet.getString("card"))
-                    .setCNP(clientResultSet.getString("CNP"))
-                    .setCNP(clientResultSet.getString("address"))
-                    .build();
-        } catch (SQLException e) {
-            System.out.println(e);
-        }
-        return null;
-    }
-
-    @Override
-    public Client findByCardNumber(String cardNumber) {
-        try {
-            Statement statement = connection.createStatement();
-
-            String fetchClientSql =
-                    "Select * from `" + CLIENT + "` where `card`=\'" + cardNumber + "\'";
             ResultSet clientResultSet = statement.executeQuery(fetchClientSql);
             clientResultSet.next();
 

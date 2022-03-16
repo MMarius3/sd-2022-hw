@@ -2,7 +2,10 @@ package repository.user;
 
 //import controller.Response;
 import controller.Response;
+import model.Account;
+import model.Client;
 import model.User;
+import model.builder.ClientBuilder;
 import model.builder.UserBuilder;
 import repository.security.RightsRolesRepository;
 
@@ -11,7 +14,10 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
+import java.util.List;
 
+import static database.Constants.Tables.CLIENT;
 import static database.Constants.Tables.USER;
 import static java.util.Collections.singletonList;
 
@@ -24,6 +30,33 @@ public class UserRepositoryMySQL implements UserRepository {
     public UserRepositoryMySQL(Connection connection, RightsRolesRepository rightsRolesRepository) {
         this.connection = connection;
         this.rightsRolesRepository = rightsRolesRepository;
+    }
+
+    @Override
+    public List<User> findAll() {
+        try {
+            Statement statement = connection.createStatement();
+
+            String fetchClientSql =
+                    "Select * from " + USER;
+            ResultSet clientResultSet = statement.executeQuery(fetchClientSql);
+            List<User> users = new ArrayList<>();
+            while(clientResultSet.next()) {
+                Long id = clientResultSet.getLong("id");
+                String username = clientResultSet.getString("username");
+
+                User user = new UserBuilder()
+                        .setId(id)
+                        .setUsername(username)
+                        .build();
+                users.add(user);
+            }
+            return users;
+
+        } catch (SQLException e) {
+            System.out.println(e);
+        }
+        return null;
     }
 
     @Override

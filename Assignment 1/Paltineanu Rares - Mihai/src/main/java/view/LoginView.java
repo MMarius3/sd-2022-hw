@@ -26,6 +26,9 @@ public class LoginView extends JFrame {
     }
 
     private void initializeFields() {
+        container = getContentPane();
+        container.setLayout(null);
+
         usernameLabel = new JLabel("username");
         usernameField = new JTextField();
 
@@ -36,19 +39,16 @@ public class LoginView extends JFrame {
         btnRegister = new JButton("Register");
 
         showPassword = new JCheckBox("Show password");
-
-        container = getContentPane();
-        container.setLayout(null);
     }
 
     private void setLocationAndBounds() {
-        usernameLabel.setBounds(50, 150, 100, 30);
-        passwordLabel.setBounds(50, 220, 100, 30);
-        usernameField.setBounds(150, 150, 150, 30);
-        passwordField.setBounds(150, 220, 150, 30);
-        showPassword.setBounds(150, 250, 150, 30);
-        btnLogin.setBounds(50, 300, 100, 30);
-        btnRegister.setBounds(200, 300, 100, 30);
+        usernameLabel.setBounds(100, 150, 100, 30);
+        passwordLabel.setBounds(100, 220, 100, 30);
+        usernameField.setBounds(200, 150, 150, 30);
+        passwordField.setBounds(200, 220, 150, 30);
+        showPassword.setBounds(197, 260, 150, 30);
+        btnLogin.setBounds(100, 300, 100, 30);
+        btnRegister.setBounds(250, 300, 100, 30);
     }
 
     private void addComponentsToContainer() {
@@ -65,13 +65,13 @@ public class LoginView extends JFrame {
         setSize(500, 500);
         setResizable(false);
         setVisible(true);
+        setTitle("Authentication");
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
     }
 
     public JTextField getUsernameField() {
         return usernameField;
     }
-
 
     public void addLoginButtonListener(ActionListener loginButtonListener) {
         btnLogin.addActionListener(loginButtonListener);
