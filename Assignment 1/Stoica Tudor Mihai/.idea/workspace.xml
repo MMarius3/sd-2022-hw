@@ -5,7 +5,14 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="8422fd59-062b-4b16-98e5-113b7c3edd7f" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/models/dtos/AccountDTO.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/models/dtos/AdministratorUserDTO.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/models/dtos/ClientDTO.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/models/dtos/CurrencyDTO.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/models/dtos/RegularUserDTO.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/models/dtos/TransactionDTO.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/models/dtos/UserDTO.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -50,6 +57,11 @@
     <property name="project.structure.side.proportion" value="0.2" />
     <property name="settings.editor.selected.configurable" value="preferences.editor" />
   </component>
+  <component name="RecentsManager">
+    <key name="CopyClassDialog.RECENTS_KEY">
+      <recent name="models.dtos" />
+    </key>
+  </component>
   <component name="RunManager">
     <configuration name="Startup" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="Startup" />
@@ -73,7 +85,7 @@
       <option name="presentableId" value="Default" />
       <updated>1647445293934</updated>
       <workItem from="1647445295192" duration="3150000" />
-      <workItem from="1647453040708" duration="2327000" />
+      <workItem from="1647453040708" duration="2743000" />
     </task>
     <servers />
   </component>
