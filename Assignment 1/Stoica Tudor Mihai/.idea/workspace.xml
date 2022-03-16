@@ -5,57 +5,8 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="8422fd59-062b-4b16-98e5-113b7c3edd7f" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/src/main/java/Startup.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/models/Account.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/models/AdministratorUser.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/models/Client.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/models/Currency.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/models/RegularUser.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/models/Transaction.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/models/User.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/repositories/account/AccountRepository.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/repositories/administrator_user/AdministratorUserRepository.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/repositories/client/ClientRepository.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/repositories/currency/CurrencyRepository.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/repositories/regular_user/RegularUserRepository.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/repositories/transaction/TransactionRepository.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/repositories/user/UserRepository.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Bacea Tudor Ovidiu/.changeMe!" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Balacescu Ionut - Vlad/.changeMe!" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Boga Titus - Nicolae/.changeMe!" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Butuza Dan/.changeMe!" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Campan Tudor - Cosmin/.changeMe!" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Chindea Tudor - Eugen/.changeMe!" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Cătălin Horvath/.changeMe!" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Dan Tudor/.changeMe!" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Daniel Reckerth/.changeMe!" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Dudas Dorian/.changeMe!" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Floriana Cenan/.changeMe!" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../George Baraian/.changeMe!" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Grama Malina Bianca/.changeMe!" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Grigore Alexandru - Cristian/.changeMe!" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Grigore Andrei - Vlad/.changeMe!" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Groza Dominic/.changeMe!" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Handra Andrei/.changeMe!" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Horvat Diana Adriana/.changeMe!" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Hulpe Dalia - Miruna/.changeMe!" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Husti George/.changeMe!" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Koblicica Andrei - Radu/.changeMe!" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Luțac Ecaterina Steliana/.changeMe!" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Macean Marius/.changeMe!" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Muth Andrei - Dorin/.changeMe!" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Paltineanu Rares - Mihai/.changeMe!" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Pasca Eduard Marian/.changeMe!" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Patica Andreea - Alexandra/.changeMe!" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Petrovan Raul/.changeMe!" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Pop Alexia/.changeMe!" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Pop Tudor (rec)/.changeMe!" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Popa Adriana/.changeMe!" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Rotaru Andrei/.changeMe!" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Sandor Doroteea/.changeMe!" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Scutea Emilia/.changeMe!" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Zara Antonia - Maria/.changeMe!" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Zarnescu Radu/.changeMe!" beforeDir="false" />
+      <change afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -122,7 +73,7 @@
       <option name="presentableId" value="Default" />
       <updated>1647445293934</updated>
       <workItem from="1647445295192" duration="3150000" />
-      <workItem from="1647453040708" duration="1962000" />
+      <workItem from="1647453040708" duration="2327000" />
     </task>
     <servers />
   </component>
