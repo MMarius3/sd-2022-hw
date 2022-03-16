@@ -5,15 +5,21 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="8422fd59-062b-4b16-98e5-113b7c3edd7f" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/src/main/java/repositories/AbstractRepository.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/repositories/account/AccountRepositoryMySQL.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/repositories/administrator_user/AdministratorUserRepositoryMySQL.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/repositories/client/ClientRepositoryMySQL.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/repositories/currency/CurrencyRepositoryMySQL.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/repositories/regular_user/RegularUserRepositoryMySQL.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/repositories/transaction/TransactionRepositoryMySQL.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/repositories/user/UserRepositoryMySQL.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/services/AdminUserClientInformationActions.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/services/ClientAccountActions.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/services/GenerateReport.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/services/ProcessUtilitiesBills.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/services/RegularUserClientInformationActions.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/services/TransferMoneyBetweenAccounts.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/models/dtos/AccountDTO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/repositories/dtos/AccountDTO.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/models/dtos/AdministratorUserDTO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/repositories/dtos/AdministratorUserDTO.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/models/dtos/ClientDTO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/repositories/dtos/ClientDTO.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/models/dtos/CurrencyDTO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/repositories/dtos/CurrencyDTO.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/models/dtos/RegularUserDTO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/repositories/dtos/RegularUserDTO.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/models/dtos/TransactionDTO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/repositories/dtos/TransactionDTO.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/models/dtos/UserDTO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/repositories/dtos/UserDTO.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/Startup.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/startup/Startup.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/repositories/account/AccountRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/repositories/account/AccountRepository.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/repositories/administrator_user/AdministratorUserRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/repositories/administrator_user/AdministratorUserRepository.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/repositories/client/ClientRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/repositories/client/ClientRepository.java" afterDir="false" />
@@ -30,8 +36,8 @@
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
       <list>
-        <option value="Class" />
         <option value="Interface" />
+        <option value="Class" />
       </list>
     </option>
   </component>
@@ -66,12 +72,13 @@
   </component>
   <component name="RecentsManager">
     <key name="CopyClassDialog.RECENTS_KEY">
+      <recent name="services" />
       <recent name="models.dtos" />
     </key>
   </component>
   <component name="RunManager">
     <configuration name="Startup" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
-      <option name="MAIN_CLASS_NAME" value="Startup" />
+      <option name="MAIN_CLASS_NAME" value="startup.Startup" />
       <module name="BankManagement" />
       <method v="2">
         <option name="Make" enabled="true" />
@@ -92,7 +99,7 @@
       <option name="presentableId" value="Default" />
       <updated>1647445293934</updated>
       <workItem from="1647445295192" duration="3150000" />
-      <workItem from="1647453040708" duration="5236000" />
+      <workItem from="1647453040708" duration="8417000" />
     </task>
     <servers />
   </component>
