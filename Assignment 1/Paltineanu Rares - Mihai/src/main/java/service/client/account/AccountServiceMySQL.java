@@ -12,13 +12,19 @@ public class AccountServiceMySQL implements ClientService<Account, Long> {
     }
 
     @Override
+    public Account findById(Long aLong) {
+        return null;
+    }
+
+    @Override
     public boolean save(Account entity) {
         return false;
     }
 
     @Override
-    public void update(Account oldEntity, Account newEntity) {
+    public boolean update(Long id, Account newEntity) {
 
+        return false;
     }
 
     @Override

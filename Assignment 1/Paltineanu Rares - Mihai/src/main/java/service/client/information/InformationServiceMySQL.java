@@ -19,13 +19,19 @@ public class InformationServiceMySQL implements ClientService<Client, Long> {
     }
 
     @Override
+    public Client findById(Long id) {
+        return clientRepository.findById(id);
+    }
+
+    @Override
     public boolean save(Client client) {
         return clientRepository.save(client);
     }
 
     @Override
-    public void update(Client oldEntity, Client newEntity) {
+    public boolean update(Long id, Client newEntity) {
 
+        return clientRepository.update(id, newEntity);
     }
 
     @Override

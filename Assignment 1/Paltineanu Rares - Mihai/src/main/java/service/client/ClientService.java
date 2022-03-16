@@ -5,9 +5,12 @@ import java.util.List;
 public interface ClientService<T, ID extends Number> {
 
     List<T> findall();
+
+    T findById(ID id);
+
     boolean save(T entity);
 
-    void update(T oldEntity, T newEntity);
+    boolean update(ID id, T newEntity);
 
     T view(ID id);
 }

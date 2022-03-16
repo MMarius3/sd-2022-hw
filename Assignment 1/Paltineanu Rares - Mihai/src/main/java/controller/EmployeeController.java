@@ -7,6 +7,7 @@ import model.validator.ClientInformationValidator;
 import service.client.ClientService;
 import view.EmployeeView;
 import view.client.information.AddInformationView;
+import view.client.information.UpdateInformationView;
 
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
@@ -72,9 +73,14 @@ public class EmployeeController {
         public void actionPerformed(ActionEvent e) {
             if(!isOneClientSelected()) {
                 JOptionPane.showMessageDialog(employeeView.getContentPane(),
-                        "Please select only one client");
+                        "Please select one client");
                 return;
             }
+
+            int selectedRow = employeeView.getClientsIntormationTable().getSelectedRow();
+            String id = (String) employeeView.getClientsIntormationTable().getValueAt(selectedRow, 0);
+            Client client = clientService.findById(Long.valueOf(id));
+            new UpdateInformationController(new UpdateInformationView(), clientValidator, clientService, Long.valueOf(id));
         }
 
         private boolean isOneClientSelected() {

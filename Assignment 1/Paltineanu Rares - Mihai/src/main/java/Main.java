@@ -22,6 +22,7 @@ import service.user.authentication.AuthenticationService;
 import service.user.authentication.AuthenticationServiceMySQL;
 import view.EmployeeView;
 import view.LoginView;
+import view.client.information.UpdateInformationView;
 
 import java.sql.Connection;
 import java.sql.SQLException;
@@ -62,6 +63,6 @@ public class Main {
 
         new LoginController(loginView, authenticationService, userValidator, employeeController);
 
-
+//        new UpdateInformationView();
     }
 }

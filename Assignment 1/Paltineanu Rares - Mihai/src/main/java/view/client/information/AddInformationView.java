@@ -1,22 +1,27 @@
 package view.client.information;
 
+import lombok.Getter;
+import lombok.Setter;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionListener;
 
+@Getter
+@Setter
 public class AddInformationView extends JFrame {
-    private Container container;
+    protected Container container;
 
-    private JLabel nameLabel;
-    private JLabel cnpLabel;
-    private JLabel addressLabel;
+    protected JLabel nameLabel;
+    protected JLabel cnpLabel;
+    protected JLabel addressLabel;
 
-    private JTextField nameField;
-    private JTextField cnpField;
-    private JTextField addressField;
+    protected JTextField nameField;
+    protected JTextField cnpField;
+    protected JTextField addressField;
 
-    private JButton addInformationButton;
-    private JButton cancelButton;
+    protected JButton addInformationButton;
+    protected JButton cancelButton;
 
     public AddInformationView() {
         initializeFields();
@@ -49,17 +54,16 @@ public class AddInformationView extends JFrame {
     }
 
     private void setLocationAndBounds() {
-        nameLabel.setBounds(30, 30, 100, 20);
-        cnpLabel.setBounds(30, 60, 100, 20);
-        addressLabel.setBounds(30, 90, 100, 20);
+        nameLabel.setBounds(30, 70, 100, 20);
+        cnpLabel.setBounds(30, 100, 100, 20);
+        addressLabel.setBounds(30, 130, 100, 20);
 
-        nameField.setBounds(140, 30, 100, 20);
-        cnpField.setBounds(140, 60, 100, 20);
-        addressField.setBounds(140, 90, 100, 20);
+        nameField.setBounds(130, 70, 110, 20);
+        cnpField.setBounds(130, 100, 110, 20);
+        addressField.setBounds(130, 130, 110, 20);
 
-        addInformationButton.setBounds(140, 150, 90, 30);
-        cancelButton.setBounds(30, 150, 90, 30);
-
+        addInformationButton.setBounds(30, 190, 90, 30);
+        cancelButton.setBounds(130, 190, 90, 30);
     }
 
     private void addComponentsToContainer() {

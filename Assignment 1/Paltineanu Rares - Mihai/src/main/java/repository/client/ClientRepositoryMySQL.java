@@ -61,7 +61,6 @@ public class ClientRepositoryMySQL implements ClientRepository{
 
             return new ClientBuilder()
                     .setName(clientResultSet.getString("name"))
-                    .setAddress(clientResultSet.getString("card"))
                     .setCNP(clientResultSet.getString("CNP"))
                     .setCNP(clientResultSet.getString("address"))
                     .build();
@@ -107,8 +106,22 @@ public class ClientRepositoryMySQL implements ClientRepository{
     }
 
     @Override
-    public boolean update(Long id, Client newUser) {
-        return false;
+    public boolean update(Long id, Client newClient) {
+        try {
+            PreparedStatement insertUserStatement = connection
+                    .prepareStatement("UPDATE " + CLIENT + " set name = ?, cnp = ?, address = ? WHERE `id`=\'" + id + "\';", Statement.RETURN_GENERATED_KEYS);
+            insertUserStatement.setString(1, newClient.getName());
+            insertUserStatement.setString(2, newClient.getCNP());
+            insertUserStatement.setString(3, newClient.getAddress());
+            insertUserStatement.executeUpdate();
+
+            newClient.setId(id);
+
+            return true;
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return false;
+        }
     }
 
     @Override
