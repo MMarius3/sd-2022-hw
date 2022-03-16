@@ -1,4 +1,4 @@
-package models.dtos;
+package repositories.dtos;
 
 public class UserDTO {
     private long id;

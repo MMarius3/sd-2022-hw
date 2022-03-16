@@ -1,4 +1,4 @@
-package models.dtos;
+package repositories.dtos;
 
 public class CurrencyDTO {
     private long id;

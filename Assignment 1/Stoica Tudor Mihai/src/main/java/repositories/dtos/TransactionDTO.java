@@ -1,4 +1,4 @@
-package models.dtos;
+package repositories.dtos;
 
 import models.Account;
 import models.Currency;

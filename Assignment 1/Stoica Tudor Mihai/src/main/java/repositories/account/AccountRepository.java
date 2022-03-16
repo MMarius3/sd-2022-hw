@@ -1,4 +1,6 @@
 package repositories.account;
 
-public interface AccountRepository {
+import repositories.AbstractRepository;
+
+public interface AccountRepository<AccountDTO> extends AbstractRepository<AccountDTO> {
 }

@@ -1,4 +1,6 @@
 package repositories.administrator_user;
 
-public interface AdministratorUserRepository {
+import repositories.AbstractRepository;
+
+public interface AdministratorUserRepository<AdministratorUserDTO> extends AbstractRepository<AdministratorUserDTO> {
 }

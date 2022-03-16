@@ -5,15 +5,22 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="8422fd59-062b-4b16-98e5-113b7c3edd7f" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/src/main/java/models/dtos/AccountDTO.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/models/dtos/AdministratorUserDTO.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/models/dtos/ClientDTO.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/models/dtos/CurrencyDTO.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/models/dtos/RegularUserDTO.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/models/dtos/TransactionDTO.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/models/dtos/UserDTO.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/repositories/AbstractRepository.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/models/dtos/AccountDTO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/repositories/dtos/AccountDTO.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/models/dtos/AdministratorUserDTO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/repositories/dtos/AdministratorUserDTO.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/models/dtos/ClientDTO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/repositories/dtos/ClientDTO.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/models/dtos/CurrencyDTO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/repositories/dtos/CurrencyDTO.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/models/dtos/RegularUserDTO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/repositories/dtos/RegularUserDTO.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/models/dtos/TransactionDTO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/repositories/dtos/TransactionDTO.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/models/dtos/UserDTO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/repositories/dtos/UserDTO.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/repositories/account/AccountRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/repositories/account/AccountRepository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/repositories/administrator_user/AdministratorUserRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/repositories/administrator_user/AdministratorUserRepository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/repositories/client/ClientRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/repositories/client/ClientRepository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/repositories/currency/CurrencyRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/repositories/currency/CurrencyRepository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/repositories/regular_user/RegularUserRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/repositories/regular_user/RegularUserRepository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/repositories/transaction/TransactionRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/repositories/transaction/TransactionRepository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/repositories/user/UserRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/repositories/user/UserRepository.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -23,8 +30,8 @@
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
       <list>
-        <option value="Interface" />
         <option value="Class" />
+        <option value="Interface" />
       </list>
     </option>
   </component>
@@ -85,7 +92,7 @@
       <option name="presentableId" value="Default" />
       <updated>1647445293934</updated>
       <workItem from="1647445295192" duration="3150000" />
-      <workItem from="1647453040708" duration="2743000" />
+      <workItem from="1647453040708" duration="5236000" />
     </task>
     <servers />
   </component>

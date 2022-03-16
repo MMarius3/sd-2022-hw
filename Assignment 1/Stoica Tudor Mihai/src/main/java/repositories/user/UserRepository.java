@@ -1,4 +1,6 @@
 package repositories.user;
 
-public class UserRepository {
+import repositories.AbstractRepository;
+
+public interface UserRepository<UserDTO> extends AbstractRepository<UserDTO> {
 }

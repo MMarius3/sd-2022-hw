@@ -1,4 +1,6 @@
 package repositories.regular_user;
 
-public interface RegularUserRepository {
+import repositories.AbstractRepository;
+
+public interface RegularUserRepository<CurrencyDTO> extends AbstractRepository<CurrencyDTO> {
 }

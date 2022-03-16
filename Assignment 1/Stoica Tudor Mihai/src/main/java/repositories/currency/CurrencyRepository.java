@@ -1,4 +1,6 @@
 package repositories.currency;
 
-public interface CurrencyRepository {
+import repositories.AbstractRepository;
+
+public interface CurrencyRepository<Currency> extends AbstractRepository<Currency> {
 }

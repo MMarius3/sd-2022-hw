@@ -1,4 +1,6 @@
 package repositories.client;
 
-public interface ClientRepository {
+import repositories.AbstractRepository;
+
+public interface ClientRepository<ClientDTO> extends AbstractRepository<ClientDTO> {
 }

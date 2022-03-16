@@ -1,4 +1,6 @@
 package repositories.transaction;
 
-public interface TransactionRepository {
+import repositories.AbstractRepository;
+
+public interface TransactionRepository<TransactionDTO> extends AbstractRepository<TransactionDTO> {
 }
