@@ -5,28 +5,35 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="8422fd59-062b-4b16-98e5-113b7c3edd7f" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/src/main/java/repositories/account/AccountRepositoryMySQL.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/repositories/administrator_user/AdministratorUserRepositoryMySQL.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/repositories/client/ClientRepositoryMySQL.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/repositories/currency/CurrencyRepositoryMySQL.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/repositories/regular_user/RegularUserRepositoryMySQL.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/repositories/transaction/TransactionRepositoryMySQL.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/repositories/user/UserRepositoryMySQL.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/services/AdminUserClientInformationActions.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/services/ClientAccountActions.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/services/GenerateReport.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/services/ProcessUtilitiesBills.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/services/RegularUserClientInformationActions.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/services/TransferMoneyBetweenAccounts.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/models/UserAction.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/repositories/dtos/UserActionDTO.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/repositories/user_action/UserAction.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/repositories/user_action/UserActionMySQL.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/services/TransferMoneyBetweenAccounts/TransferMoneyBetweenAccounts.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/services/TransferMoneyBetweenAccounts/exceptions/AccountRepositoryNotInjectedException.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/services/TransferMoneyBetweenAccounts/exceptions/MapperNotInjectedException.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/services/generate_report/AbstractReportGenerator.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/services/generate_report/GenerateReportPDF.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/services/generate_report/ReportType.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/services/generate_report/dtos/UserActionDTO.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/services/generate_report/exceptions/UserActionNotLoadedException.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/Startup.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/startup/Startup.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/repositories/account/AccountRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/repositories/account/AccountRepository.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/repositories/administrator_user/AdministratorUserRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/repositories/administrator_user/AdministratorUserRepository.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/repositories/client/ClientRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/repositories/client/ClientRepository.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/repositories/currency/CurrencyRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/repositories/currency/CurrencyRepository.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/repositories/regular_user/RegularUserRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/repositories/regular_user/RegularUserRepository.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/repositories/transaction/TransactionRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/repositories/transaction/TransactionRepository.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/repositories/user/UserRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/repositories/user/UserRepository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/models/Account.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/models/Account.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/models/AdministratorUser.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/models/AdministratorUser.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/models/Client.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/models/Client.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/models/Currency.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/models/Currency.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/models/RegularUser.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/models/RegularUser.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/models/Transaction.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/models/Transaction.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/models/User.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/models/User.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/repositories/dtos/AccountDTO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/repositories/dtos/AccountDTO.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/repositories/dtos/AdministratorUserDTO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/repositories/dtos/AdministratorUserDTO.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/repositories/dtos/ClientDTO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/repositories/dtos/ClientDTO.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/repositories/dtos/CurrencyDTO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/repositories/dtos/CurrencyDTO.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/repositories/dtos/RegularUserDTO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/repositories/dtos/RegularUserDTO.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/repositories/dtos/TransactionDTO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/repositories/dtos/TransactionDTO.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/repositories/dtos/UserDTO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/repositories/dtos/UserDTO.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/services/GenerateReport.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/services/generate_report/GenerateReport.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/services/TransferMoneyBetweenAccounts.java" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -36,6 +43,7 @@
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
       <list>
+        <option value="Enum" />
         <option value="Interface" />
         <option value="Class" />
       </list>
@@ -99,7 +107,7 @@
       <option name="presentableId" value="Default" />
       <updated>1647445293934</updated>
       <workItem from="1647445295192" duration="3150000" />
-      <workItem from="1647453040708" duration="8417000" />
+      <workItem from="1647453040708" duration="13519000" />
     </task>
     <servers />
   </component>

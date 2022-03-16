@@ -6,7 +6,9 @@ import models.User;
 
 @Getter
 @Setter
-public class RegularUserDTO {
-    private User user;
+public class UserActionDTO {
     private long id;
+    private User user;
+    private String action;
+    private String actionDetails;
 }
