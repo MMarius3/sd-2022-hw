@@ -6,6 +6,7 @@ import model.validator.ClientAccountValidator;
 import model.validator.ClientInformationValidator;
 import service.client.ClientService;
 import view.EmployeeView;
+import view.client.account.AddAccountView;
 import view.client.information.AddInformationView;
 import view.client.information.UpdateInformationView;
 
@@ -17,7 +18,8 @@ import java.util.List;
 
 public class EmployeeController {
 
-    private static final String[] tableColumns = new String[]{"ID", "Name", "CNP", "Address"};
+    private static final String[] informationTableColumns = new String[]{"ID", "Name", "CNP", "Address"};
+    private static final String[] accountTableColumns = new String[]{"ID", "Client", "Number", "Type", "Money", "Creation"};
     private EmployeeView employeeView;
     private ClientInformationValidator clientValidator;
     private ClientAccountValidator clientAccountValidator;
@@ -40,28 +42,32 @@ public class EmployeeController {
     }
 
     private void initializeButtonsListener() {
-        employeeView.setAddClientInformationListener(new AddInformationButtonListener());
-        employeeView.setUpdateClientInformationListener(new UpdateInformationButtonListener());
-        employeeView.setViewClientInformationListener(new ViewInformationButtonListener());
+        employeeView.getInformationView().setAddClientInformationListener(new AddInformationButtonListener());
+        employeeView.getInformationView().setUpdateClientInformationListener(new UpdateInformationButtonListener());
+        employeeView.getInformationView().setViewClientInformationListener(new ViewInformationButtonListener());
 
-        employeeView.setAddClientAccountListener(new AddAccountButtonListener());
-        employeeView.setUpdateClientAccountListener(new UpdateAccountButtonListener());
-        employeeView.setDeleteClientAccountListener(new DeleteAccountButtonListener());
-        employeeView.setViewClientAccountListener(new ViewAccountButtonListener());
+        employeeView.getAccountView().setAddClientAccountListener(new AddAccountButtonListener());
+        employeeView.getAccountView().setUpdateClientAccountListener(new UpdateAccountButtonListener());
+        employeeView.getAccountView().setDeleteClientAccountListener(new DeleteAccountButtonListener());
+        employeeView.getAccountView().setViewClientAccountListener(new ViewAccountButtonListener());
 
-        employeeView.setTransferAccountListener(new TransferButtonListener());
+        employeeView.getAccountView().setTransferAccountListener(new TransferButtonListener());
 
-        employeeView.getBtnViewClientInformation().doClick();
+        employeeView.getInformationView().getBtnViewClientInformation().doClick();
 
     }
 
     private void setTableColumns() {
-        DefaultTableModel defaultTableModel = (DefaultTableModel) employeeView.getClientsIntormationTable().getModel();
-        defaultTableModel.setColumnIdentifiers(tableColumns);
+        DefaultTableModel defaultTableModel = (DefaultTableModel) employeeView.getInformationView().getClientsIntormationTable().getModel();
+        defaultTableModel.setColumnIdentifiers(informationTableColumns);
+
+        DefaultTableModel accountDefaultTableModel = (DefaultTableModel) employeeView.getAccountView().getAccountInformationTable().getModel();
+        accountDefaultTableModel.setColumnIdentifiers(accountTableColumns);
     }
 
     protected void setViewVisible(boolean visible) {
-        this.employeeView.setVisible(visible);
+        this.employeeView.getInformationView().setVisible(visible);
+        this.employeeView.getAccountView().setVisible(visible);
     }
 
     private class AddInformationButtonListener implements ActionListener {
@@ -80,8 +86,8 @@ public class EmployeeController {
                 return;
             }
 
-            int selectedRow = employeeView.getClientsIntormationTable().getSelectedRow();
-            String id = (String) employeeView.getClientsIntormationTable().getValueAt(selectedRow, 0);
+            int selectedRow = employeeView.getInformationView().getClientsIntormationTable().getSelectedRow();
+            String id = (String) employeeView.getInformationView().getClientsIntormationTable().getValueAt(selectedRow, 0);
             new UpdateInformationController(new UpdateInformationView(),
                     clientValidator,
                     clientService,
@@ -90,7 +96,7 @@ public class EmployeeController {
         }
 
         private boolean isOneClientSelected() {
-            return employeeView.getClientsIntormationTable().getSelectedRows().length == 1;
+            return employeeView.getInformationView().getClientsIntormationTable().getSelectedRows().length == 1;
         }
     }
 
@@ -98,7 +104,7 @@ public class EmployeeController {
         @Override
         public void actionPerformed(ActionEvent e) {
             List<Client> clients = clientService.findall();
-            DefaultTableModel defaultTableModel = (DefaultTableModel) employeeView.getClientsIntormationTable().getModel();
+            DefaultTableModel defaultTableModel = (DefaultTableModel) employeeView.getInformationView().getClientsIntormationTable().getModel();
             defaultTableModel.setRowCount(0);
             for(Client client: clients) {
                 final String[] data = new String[]{String.valueOf(client.getId()),
@@ -113,7 +119,7 @@ public class EmployeeController {
     private class AddAccountButtonListener implements ActionListener {
         @Override
         public void actionPerformed(ActionEvent e) {
-
+            new AddAccountController(new AddAccountView(), clientService);
         }
     }
 

@@ -36,13 +36,12 @@ public class Constants {
         public static final String USER = "USER";
         public static final String CLIENT = "CLIENT";
         public static final String ACCOUNT = "ACCOUNT";
-        public static final String CLIENT_ACCOUNT = "CLIENT_ACCOUNT";
         public static final String ROLE = "ROLE";
         public static final String RIGHT = "RIGHT";
         public static final String ROLE_RIGHT = "ROLE_RIGHT";
         public static final String USER_ROLE = "USER_ROLE";
 
-        public static final String[] ORDERED_TABLES_FOR_CREATION = new String[]{USER, CLIENT, ACCOUNT, CLIENT_ACCOUNT,
+        public static final String[] ORDERED_TABLES_FOR_CREATION = new String[]{USER, CLIENT, ACCOUNT,
                 ROLE, RIGHT, ROLE_RIGHT, USER_ROLE};
     }
 
@@ -58,7 +57,6 @@ public class Constants {
         public static final String UPDATE_CLIENT_INF = "update_client_inf";
         public static final String VIEW_CLIENT_INF = "view_client_inf";
 
-        public static final String CREATE_CLIENT_ACC = "create_client_acc";
         public static final String UPDATE_CLIENT_ACC = "update_client_acc";
         public static final String DELETE_CLIENT_ACC = "delete_client_acc";
         public static final String VIEW_CLIENT_ACC = "view_client_acc";
@@ -74,7 +72,7 @@ public class Constants {
 
 
         public static final String[] EMP_RIGHTS = new String[]{CREATE_CLIENT_INF, UPDATE_CLIENT_INF, VIEW_CLIENT_INF,
-                CREATE_CLIENT_ACC, UPDATE_CLIENT_ACC, DELETE_CLIENT_ACC, VIEW_CLIENT_ACC, TRANSFER_MONEY, PROCESS_BILLS};
+                UPDATE_CLIENT_ACC, DELETE_CLIENT_ACC, VIEW_CLIENT_ACC, TRANSFER_MONEY, PROCESS_BILLS};
 
         public static final String[] ADMIN_RIGHTS = new String[]{CREATE_EMP, VIEW_EMP, UPDATE_EMP, DELETE_EMP, GENERATE_REPORTS};
     }

@@ -25,6 +25,7 @@ import view.LoginView;
 import view.client.information.UpdateInformationView;
 
 import java.sql.Connection;
+import java.sql.Date;
 import java.sql.SQLException;
 
 import static database.Constants.Schemas.PRODUCTION;
