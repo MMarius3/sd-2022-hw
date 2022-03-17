@@ -58,34 +58,33 @@ public class EmployeeView extends JFrame {
     }
 
     private void setLocationAndBounds() {
+        jScrollPane.setBounds(0, 0, 488, 200);
+        btnAddClientInformation.setBounds(50, 250, 150, 30);
+        btnUpdateClientInformation.setBounds(50, 300, 150, 30);
+        btnViewClientInformation.setBounds(50, 350, 150, 30);
 
-        jScrollPane.setBounds(50, 100, 400, 200);
-        btnAddClientInformation.setBounds(50, 350, 150, 30);
-        btnUpdateClientInformation.setBounds(50, 400, 150, 30);
-        btnViewClientInformation.setBounds(50, 450, 150, 30);
+        btnAddClientAccount.setBounds(50, 450, 150, 30);
+        btnUpdateClientAccount.setBounds(250, 450, 150, 30);
+        btnDeleteClientAccount.setBounds(450, 450, 150, 30);
+        btnViewClientAccount.setBounds(650, 450, 150, 30);
 
-        btnAddClientAccount.setBounds(400, 350, 150, 30);
-        btnUpdateClientAccount.setBounds(400, 400, 150, 30);
-        btnDeleteClientAccount.setBounds(400, 450, 150, 30);
-        btnViewClientAccount.setBounds(400, 500, 150, 30);
-
-        btnTransferMoneyButton.setBounds(400, 550,150, 30);
+        btnTransferMoneyButton.setBounds(750, 450,150, 30);
     }
 
     private void addComponentsToContainer() {
         container.add(btnAddClientInformation);
         container.add(btnUpdateClientInformation);
         container.add(btnViewClientInformation);
-        container.add(btnAddClientAccount);
-        container.add(btnUpdateClientAccount);
-        container.add(btnDeleteClientAccount);
-        container.add(btnViewClientAccount);
-        container.add(btnTransferMoneyButton);
+        //container.add(btnAddClientAccount);
+        //container.add(btnUpdateClientAccount);
+        //container.add(btnDeleteClientAccount);
+       // container.add(btnViewClientAccount);
+        //container.add(btnTransferMoneyButton);
         container.add(jScrollPane);
     }
 
     private void initializeFrame() {
-        setSize(650, 650);
+        setSize(500, 500);
         setResizable(false);
         setVisible(false);
         setTitle("Employee");
@@ -124,6 +123,13 @@ public class EmployeeView extends JFrame {
         this.btnTransferMoneyButton.addActionListener(actionListener);
     }
 
+    public JButton getBtnViewClientInformation() {
+        return btnViewClientInformation;
+    }
+
+    public JButton getBtnViewClientAccount() {
+        return btnViewClientAccount;
+    }
     public JTable getClientsIntormationTable() {
         return clientsIntormationTable;
     }

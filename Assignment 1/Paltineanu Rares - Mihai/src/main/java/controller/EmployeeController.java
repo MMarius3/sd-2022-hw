@@ -50,6 +50,9 @@ public class EmployeeController {
         employeeView.setViewClientAccountListener(new ViewAccountButtonListener());
 
         employeeView.setTransferAccountListener(new TransferButtonListener());
+
+        employeeView.getBtnViewClientInformation().doClick();
+
     }
 
     private void setTableColumns() {
@@ -79,8 +82,11 @@ public class EmployeeController {
 
             int selectedRow = employeeView.getClientsIntormationTable().getSelectedRow();
             String id = (String) employeeView.getClientsIntormationTable().getValueAt(selectedRow, 0);
-            Client client = clientService.findById(Long.valueOf(id));
-            new UpdateInformationController(new UpdateInformationView(), clientValidator, clientService, Long.valueOf(id));
+            new UpdateInformationController(new UpdateInformationView(),
+                    clientValidator,
+                    clientService,
+                    employeeView,
+                    Long.valueOf(id));
         }
 
         private boolean isOneClientSelected() {

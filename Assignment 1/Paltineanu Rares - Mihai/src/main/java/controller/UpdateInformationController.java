@@ -4,6 +4,7 @@ import model.Client;
 import model.builder.ClientBuilder;
 import model.validator.ClientInformationValidator;
 import service.client.ClientService;
+import view.EmployeeView;
 import view.client.information.UpdateInformationView;
 
 import javax.swing.*;
@@ -15,26 +16,30 @@ public class UpdateInformationController {
     private UpdateInformationView updateInformationView;
     private ClientInformationValidator clientInformationValidator;
     private ClientService<Client, Long> clientService;
+    private EmployeeView employeeView;
 
     private final Long clientId;
     public UpdateInformationController(UpdateInformationView updateInformationView,
-                                       ClientInformationValidator clientInformationValidator, ClientService<Client, Long> clientService, Long clientId) {
+                                       ClientInformationValidator clientInformationValidator,
+                                       ClientService<Client, Long> clientService,
+                                       EmployeeView employeeView,
+                                       Long clientId) {
         this.updateInformationView = updateInformationView;
         this.clientInformationValidator = clientInformationValidator;
         this.clientService = clientService;
+        this.employeeView = employeeView;
         this.clientId = clientId;
 
+        initializeTextFields();
         updateInformationView.setAddInformationListener(new UpdateInformationButtonListener());
         updateInformationView.setCancelAddInformationListener(new CancelButtonListener());
-        //updateInformationView.setFieldsCheckBoxListener(new FieldsCheckBoxListener());
-
     }
 
-    private class FieldsCheckBoxListener implements ActionListener {
-        @Override
-        public void actionPerformed(ActionEvent e) {
-            updateInformationView.setVisible(false);
-        }
+    private void initializeTextFields() {
+        Client client = clientService.findById(clientId);
+        updateInformationView.getAddressField().setText(client.getAddress());
+        updateInformationView.getNameField().setText(client.getName());
+        updateInformationView.getCnpField().setText(client.getCNP());
     }
 
     private class CancelButtonListener implements ActionListener {
