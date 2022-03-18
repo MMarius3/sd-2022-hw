@@ -16,6 +16,7 @@ import repository.user.UserRepositoryMySQL;
 import repository.security.RightsRolesRepository;
 import repository.security.RightsRolesRepositoryMySQL;
 import service.client.ClientService;
+import service.client.account.AccountService;
 import service.client.account.AccountServiceMySQL;
 import service.client.information.InformationServiceMySQL;
 import service.user.authentication.AuthenticationService;
@@ -55,7 +56,7 @@ public class Main {
         final ClientAccountValidator clientAccountValidator = new ClientAccountValidator(clientRepository);
 
         ClientService<Client, Long> clientService = new InformationServiceMySQL(clientRepository);
-        ClientService<Account, Long> accountService = new AccountServiceMySQL(accountRepository);
+        AccountService accountService = new AccountServiceMySQL(accountRepository);
         final EmployeeController employeeController = new EmployeeController(new EmployeeView(),
                 clientInformationValidator,
                 clientAccountValidator,

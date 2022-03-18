@@ -5,6 +5,7 @@ import model.Client;
 import model.validator.ClientAccountValidator;
 import model.validator.ClientInformationValidator;
 import service.client.ClientService;
+import service.client.account.AccountService;
 import view.EmployeeView;
 import view.client.account.AddAccountView;
 import view.client.account.UpdateAccountView;
@@ -21,17 +22,17 @@ public class EmployeeController {
 
     private static final String[] informationTableColumns = new String[]{"ID", "Name", "CNP", "Address"};
     private static final String[] accountTableColumns = new String[]{"ID", "Client", "Number", "Type", "Money", "Creation"};
-    private EmployeeView employeeView;
-    private ClientInformationValidator clientValidator;
-    private ClientAccountValidator accountValidator;
-    private ClientService<Client, Long> clientService;
-    private ClientService<Account, Long> accountService;
+    private final EmployeeView employeeView;
+    private final ClientInformationValidator clientValidator;
+    private final ClientAccountValidator accountValidator;
+    private final ClientService<Client, Long> clientService;
+    private final AccountService accountService;
 
     public EmployeeController(EmployeeView employeeView,
                               ClientInformationValidator clientValidator,
                               ClientAccountValidator accountValidator,
                               ClientService<Client, Long> clientService,
-                              ClientService<Account, Long> accountService) {
+                              AccountService accountService) {
         this.employeeView = employeeView;
         this.clientValidator = clientValidator;
         this.accountValidator = accountValidator;
@@ -67,9 +68,9 @@ public class EmployeeController {
         accountDefaultTableModel.setColumnIdentifiers(accountTableColumns);
     }
 
-    protected void setViewVisible(boolean visible) {
-        this.employeeView.getInformationView().setVisible(visible);
-        this.employeeView.getAccountView().setVisible(visible);
+    protected void setViewVisible() {
+        this.employeeView.getInformationView().setVisible(true);
+        this.employeeView.getAccountView().setVisible(true);
     }
 
     private class AddInformationButtonListener implements ActionListener {
@@ -156,7 +157,15 @@ public class EmployeeController {
                         "Please select one account");
                 return;
             }
-            // TODO DELETE
+            int row = employeeView.getAccountView().getAccountInformationTable().getSelectedRow();
+            Long id = Long.parseLong((String) employeeView.getAccountView().getAccountInformationTable().getValueAt(row, 0));
+            System.out.println(id);
+            boolean flag = accountService.delete(id);
+            if(flag) {
+                JOptionPane.showMessageDialog(employeeView.getAccountView().getContentPane(), "" +
+                        "Account with id " + id + " has been deleted");
+                employeeView.getAccountView().getBtnViewClientAccount().doClick();
+            }
         }
 
         private boolean isOneAccountSelected() {

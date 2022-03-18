@@ -8,7 +8,7 @@ import service.client.ClientService;
 
 import java.util.List;
 
-public class AccountServiceMySQL implements ClientService<Account, Long> {
+public class AccountServiceMySQL implements AccountService {
     private final AccountRepository accountRepository;
 
     public AccountServiceMySQL(AccountRepository accountRepository) {
@@ -39,5 +39,10 @@ public class AccountServiceMySQL implements ClientService<Account, Long> {
     @Override
     public Account view(Long id) {
         return accountRepository.findById(id);
+    }
+
+    @Override
+    public boolean delete(Long id) {
+        return accountRepository.delete(id);
     }
 }

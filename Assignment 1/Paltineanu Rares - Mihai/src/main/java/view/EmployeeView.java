@@ -5,20 +5,19 @@ import view.client.account.AccountView;
 import view.client.information.InformationView;
 
 import javax.swing.*;
-import javax.swing.table.DefaultTableModel;
-import java.awt.*;
-import java.awt.event.ActionListener;
 
 @Getter
 public class EmployeeView extends JFrame {
 
 
-    private InformationView informationView;
-    private AccountView accountView;
+    private final InformationView informationView;
+    private final AccountView accountView;
 
     public EmployeeView() {
         informationView = new InformationView();
         accountView = new AccountView();
+        accountView.getAccountInformationTable().getTableHeader().setReorderingAllowed(false);
+        informationView.getClientsIntormationTable().getTableHeader().setReorderingAllowed(false);
     }
 
 }

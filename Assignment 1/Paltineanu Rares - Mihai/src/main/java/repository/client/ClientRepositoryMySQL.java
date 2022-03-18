@@ -58,9 +58,6 @@ public class ClientRepositoryMySQL implements ClientRepository{
                     "Select * from `" + CLIENT + "` where `id`=\'" + id + "\'";
             ResultSet clientResultSet = statement.executeQuery(fetchClientSql);
             clientResultSet.next();
-            System.out.println(clientResultSet.getString(2));
-            System.out.println(clientResultSet.getString(3));
-            System.out.println(clientResultSet.getString(4));
             return new ClientBuilder()
                     .setId(clientResultSet.getLong("id"))
                     .setName(clientResultSet.getString(2))

@@ -1,6 +1,5 @@
 package controller;
 
-import com.sun.tools.javac.Main;
 import model.User;
 import model.validator.UserValidator;
 import service.user.authentication.AuthenticationService;
@@ -62,7 +61,7 @@ public class LoginController {
 
             } else {
                 loginView.setVisible(false);
-                employeeController.setViewVisible(true);
+                employeeController.setViewVisible();
             }
         }
     }

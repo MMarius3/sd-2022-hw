@@ -99,7 +99,6 @@ public class Boostrap {
     private static void bootstrapRoles() {
         for (String role : ROLES) {
             rightsRolesRepository.addRole(role);
-            System.out.println(role);
         }
     }
 

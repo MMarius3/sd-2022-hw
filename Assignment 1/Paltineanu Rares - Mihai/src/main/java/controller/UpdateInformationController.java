@@ -13,10 +13,10 @@ import java.awt.event.ActionListener;
 import java.util.List;
 
 public class UpdateInformationController {
-    private UpdateInformationView updateInformationView;
-    private ClientInformationValidator clientInformationValidator;
-    private ClientService<Client, Long> clientService;
-    private EmployeeView employeeView;
+    private final UpdateInformationView updateInformationView;
+    private final ClientInformationValidator clientInformationValidator;
+    private final ClientService<Client, Long> clientService;
+    private final EmployeeView employeeView;
 
     private final Long clientId;
     public UpdateInformationController(UpdateInformationView updateInformationView,
