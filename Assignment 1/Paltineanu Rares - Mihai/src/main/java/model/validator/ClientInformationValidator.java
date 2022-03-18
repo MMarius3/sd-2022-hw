@@ -26,12 +26,6 @@ public class ClientInformationValidator {
         validateName(name);
     }
 
-    public void validateCardNumber(String cardNumber) {
-        if (!cardNumber.matches("^(\\d{16})?$")) {
-            errors.add("Card number must contain 16 digits");
-        }
-    }
-
     public void validatePersonalNumericalCode(String personalNumericalCode) {
         if (!personalNumericalCode.matches("^(\\d{13})?$")) {
             errors.add("Personal numerical code must contain 13 digits");

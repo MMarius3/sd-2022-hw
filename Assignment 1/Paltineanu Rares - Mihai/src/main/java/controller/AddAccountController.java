@@ -1,26 +1,28 @@
 package controller;
 
-import model.Client;
-import model.builder.ClientBuilder;
-import model.validator.ClientInformationValidator;
+import model.Account;
+import model.validator.ClientAccountValidator;
 import service.client.ClientService;
 import view.client.account.AddAccountView;
-import view.client.information.AddInformationView;
 
 import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.sql.Date;
 import java.util.List;
 
 public class AddAccountController {
     private final AddAccountView addAccountView;
-    private final ClientService<Client, Long> clientService;
+    private final ClientService<Account, Long> clientService;
+    private final ClientAccountValidator clientAccountValidator;
     public AddAccountController(AddAccountView addAccountView,
-                                    ClientService<Client, Long> clientService){
+                                    ClientService<Account, Long> clientService,
+                                ClientAccountValidator clientAccountValidator){
         this.addAccountView = addAccountView;
         this.clientService = clientService;
+        this.clientAccountValidator = clientAccountValidator;
 
-        addAccountView.setAddInformationListener(new AddAccountButtonListener());
+        addAccountView.setActionButtonListener(new AddAccountButtonListener());
         addAccountView.setCancelAddInformationListener(new CancelButtonListener());
     }
 
@@ -39,16 +41,30 @@ public class AddAccountController {
             String type = addAccountView.getTypeField().getText();
             String money = addAccountView.getMoneyField().getText();
 
-//            String creation = addAccountView.getNumberField().getText();
-        }
+            clientAccountValidator.validate(clientId, number, type, money);
 
-        private boolean isInteger(String text) {
-            try {
-                Integer.parseInt(text);
-                return true;
-            } catch (NumberFormatException ex) {
-                return false;
+            final List<String> errors = clientAccountValidator.getErrors();
+
+            if(errors.isEmpty()) {
+                Account account =  Account.builder()
+                        .type(type)
+                        .money(Integer.parseInt(money))
+                        .number(number)
+                        .client_id(Long.parseLong(clientId))
+                        .date(new Date(1000, 10, 10))
+                        .build();
+                boolean flag = clientService.save(account);
+                if(flag) {
+                    JOptionPane.showMessageDialog(addAccountView.getContentPane(),
+                            "Account added successfully");
+                    addAccountView.setVisible(false);
+                }
+
+            } else {
+                JOptionPane.showMessageDialog(addAccountView.getContentPane(), clientAccountValidator.getFormattedErrors());
             }
+
+//            String creation = addAccountView.getNumberField().getText();
         }
     }
 }

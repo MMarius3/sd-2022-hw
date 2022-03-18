@@ -111,14 +111,12 @@ public class ClientRepositoryMySQL implements ClientRepository{
     @Override
     public boolean update(Long id, Client newClient) {
         try {
-            PreparedStatement insertUserStatement = connection
+            PreparedStatement updateClientStatement = connection
                     .prepareStatement("UPDATE " + CLIENT + " set name = ?, cnp = ?, address = ? WHERE `id`=\'" + id + "\';", Statement.RETURN_GENERATED_KEYS);
-            insertUserStatement.setString(1, newClient.getName());
-            insertUserStatement.setString(2, newClient.getCNP());
-            insertUserStatement.setString(3, newClient.getAddress());
-            insertUserStatement.executeUpdate();
-
-            newClient.setId(id);
+            updateClientStatement.setString(1, newClient.getName());
+            updateClientStatement.setString(2, newClient.getCNP());
+            updateClientStatement.setString(3, newClient.getAddress());
+            updateClientStatement.executeUpdate();
 
             return true;
         } catch (SQLException e) {

@@ -62,6 +62,7 @@ public class UpdateInformationController {
 
             if(errors.isEmpty()) {
                 Client client = new ClientBuilder()
+                        .setId(clientId)
                         .setName(name)
                         .setAddress(address)
                         .setCNP(cnp)
@@ -71,6 +72,7 @@ public class UpdateInformationController {
                     JOptionPane.showMessageDialog(updateInformationView.getContentPane(),
                             "Client updated successfully");
                     updateInformationView.setVisible(false);
+                    employeeView.getInformationView().getBtnViewClientInformation().doClick();
                 }
 
             } else {

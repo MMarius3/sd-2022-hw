@@ -7,6 +7,7 @@ import model.validator.ClientInformationValidator;
 import service.client.ClientService;
 import view.EmployeeView;
 import view.client.account.AddAccountView;
+import view.client.account.UpdateAccountView;
 import view.client.information.AddInformationView;
 import view.client.information.UpdateInformationView;
 
@@ -22,18 +23,18 @@ public class EmployeeController {
     private static final String[] accountTableColumns = new String[]{"ID", "Client", "Number", "Type", "Money", "Creation"};
     private EmployeeView employeeView;
     private ClientInformationValidator clientValidator;
-    private ClientAccountValidator clientAccountValidator;
+    private ClientAccountValidator accountValidator;
     private ClientService<Client, Long> clientService;
     private ClientService<Account, Long> accountService;
 
     public EmployeeController(EmployeeView employeeView,
                               ClientInformationValidator clientValidator,
-                              ClientAccountValidator clientAccountValidator,
+                              ClientAccountValidator accountValidator,
                               ClientService<Client, Long> clientService,
                               ClientService<Account, Long> accountService) {
         this.employeeView = employeeView;
         this.clientValidator = clientValidator;
-        this.clientAccountValidator = clientAccountValidator;
+        this.accountValidator = accountValidator;
         this.clientService = clientService;
         this.accountService = accountService;
 
@@ -54,6 +55,7 @@ public class EmployeeController {
         employeeView.getAccountView().setTransferAccountListener(new TransferButtonListener());
 
         employeeView.getInformationView().getBtnViewClientInformation().doClick();
+        employeeView.getAccountView().getBtnViewClientAccount().doClick();
 
     }
 
@@ -119,28 +121,64 @@ public class EmployeeController {
     private class AddAccountButtonListener implements ActionListener {
         @Override
         public void actionPerformed(ActionEvent e) {
-            new AddAccountController(new AddAccountView(), clientService);
+            new AddAccountController(new AddAccountView(), accountService, accountValidator);
         }
     }
 
     private class UpdateAccountButtonListener implements ActionListener {
         @Override
         public void actionPerformed(ActionEvent e) {
+            if(!isOneAccountSelected()) {
+                JOptionPane.showMessageDialog(employeeView.getAccountView().getContentPane(),
+                        "Please select one account");
+                return;
+            }
 
+            int selectedRow = employeeView.getAccountView().getAccountInformationTable().getSelectedRow();
+            String id = (String) employeeView.getAccountView().getAccountInformationTable().getValueAt(selectedRow, 0);
+                new UpdateAccountController(new UpdateAccountView(),
+                    accountValidator,
+                    accountService,
+                    employeeView,
+                    Long.valueOf(id));
+        }
+
+        private boolean isOneAccountSelected() {
+            return employeeView.getAccountView().getAccountInformationTable().getSelectedRows().length == 1;
         }
     }
 
     private class DeleteAccountButtonListener implements ActionListener {
         @Override
         public void actionPerformed(ActionEvent e) {
+            if(!isOneAccountSelected()) {
+                JOptionPane.showMessageDialog(employeeView.getAccountView().getContentPane(),
+                        "Please select one account");
+                return;
+            }
+            // TODO DELETE
+        }
 
+        private boolean isOneAccountSelected() {
+            return employeeView.getAccountView().getAccountInformationTable().getSelectedRows().length == 1;
         }
     }
 
     private class ViewAccountButtonListener implements ActionListener {
         @Override
         public void actionPerformed(ActionEvent e) {
-
+            List<Account> accounts = accountService.findall();
+            DefaultTableModel defaultTableModel = (DefaultTableModel) employeeView.getAccountView().getAccountInformationTable().getModel();
+            defaultTableModel.setRowCount(0);
+            for(Account account: accounts) {
+                final String[] data = new String[]{String.valueOf(account.getId()),
+                    String.valueOf(account.getClient_id()),
+                    account.getNumber(),
+                    account.getType(),
+                    String.valueOf(account.getMoney()),
+                    String.valueOf(account.getDate())};
+                defaultTableModel.addRow(data);
+            }
         }
     }
 

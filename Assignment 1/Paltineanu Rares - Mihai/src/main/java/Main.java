@@ -52,10 +52,10 @@ public class Main {
         final UserValidator userValidator = new UserValidator(userRepository);
 
         final ClientInformationValidator clientInformationValidator = new ClientInformationValidator(clientRepository);
-        final ClientAccountValidator clientAccountValidator = new ClientAccountValidator(accountRepository);
+        final ClientAccountValidator clientAccountValidator = new ClientAccountValidator(clientRepository);
 
         ClientService<Client, Long> clientService = new InformationServiceMySQL(clientRepository);
-        ClientService<Account, Long> accountService = new AccountServiceMySQL();
+        ClientService<Account, Long> accountService = new AccountServiceMySQL(accountRepository);
         final EmployeeController employeeController = new EmployeeController(new EmployeeView(),
                 clientInformationValidator,
                 clientAccountValidator,

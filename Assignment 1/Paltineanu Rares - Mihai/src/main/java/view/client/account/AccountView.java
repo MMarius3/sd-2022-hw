@@ -52,7 +52,7 @@ public class AccountView extends JFrame {
     }
 
     private void setLocationAndBounds() {
-        jScrollPane.setBounds(0, 0, 488, 200);
+        jScrollPane.setBounds(0, 0, 650, 200);
 
         btnAddClientAccount.setBounds(50, 250, 150, 30);
         btnUpdateClientAccount.setBounds(50, 300, 150, 30);
@@ -72,7 +72,7 @@ public class AccountView extends JFrame {
     }
 
     private void initializeFrame() {
-        setSize(500, 500);
+        setSize(660, 500);
         setResizable(false);
         setLocationRelativeTo(null);
         setVisible(false);

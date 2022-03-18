@@ -23,7 +23,7 @@ public class AddAccountView extends JFrame {
     private JTextField creationField;
     private JTextField idField;
 
-    private JButton addAccountButton;
+    private JButton actionButton;
     private JButton cancelButton;
 
     public AddAccountView() {
@@ -56,28 +56,29 @@ public class AddAccountView extends JFrame {
         moneyField = new JTextField();
         creationField = new JTextField();
 
-        addAccountButton = new JButton("Add");
+        actionButton = new JButton("Add");
         cancelButton = new JButton("Cancel");
     }
 
     private void setLocationAndBounds() {
-        idLabel.setBounds(30, 40, 100, 20);
-        numberLabel.setBounds(30, 70, 100, 20);
-        typeLabel.setBounds(30, 100, 100, 20);
-        moneyLabel.setBounds(30, 130, 100, 20);
-        creationLabel.setBounds(30, 160, 100, 20);
+        idLabel.setBounds(30, 10, 100, 20);
+        numberLabel.setBounds(30, 40, 100, 20);
+        typeLabel.setBounds(30, 70, 100, 20);
+        moneyLabel.setBounds(30, 100, 100, 20);
+        creationLabel.setBounds(30, 130, 100, 20);
 
-        idField.setBounds(130, 40, 110, 20);
-        numberField.setBounds(130, 70, 110, 20);
-        typeField.setBounds(130, 100, 110, 20);
-        moneyField.setBounds(130, 130, 110, 20);
-        creationField.setBounds(130, 160, 110, 20);
+        idField.setBounds(130, 10, 110, 20);
+        numberField.setBounds(130, 40, 110, 20);
+        typeField.setBounds(130, 70, 110, 20);
+        moneyField.setBounds(130, 100, 110, 20);
+        creationField.setBounds(130, 130, 110, 20);
 
-        addAccountButton.setBounds(30, 200, 90, 30);
-        cancelButton.setBounds(130, 200, 90, 30);
+        actionButton.setBounds(30, 200, 90, 30);
+        cancelButton.setBounds(150, 200, 90, 30);
     }
 
     private void addComponentsToContainer() {
+        container.add(idLabel);
         container.add(numberLabel);
         container.add(typeLabel);
         container.add(moneyLabel);
@@ -86,12 +87,13 @@ public class AddAccountView extends JFrame {
         container.add(typeField);
         container.add(moneyField);
         container.add(creationField);
-        container.add(addAccountButton);
+        container.add(idField);
+        container.add(actionButton);
         container.add(cancelButton);
     }
 
-    public void setAddInformationListener(ActionListener actionListener) {
-        this.addAccountButton.addActionListener(actionListener);
+    public void setActionButtonListener(ActionListener actionListener) {
+        this.actionButton.addActionListener(actionListener);
     }
 
     public void setCancelAddInformationListener(ActionListener actionListener) {
