@@ -2,12 +2,13 @@ package controller;
 
 import model.Account;
 import model.Client;
-import model.validator.ClientAccountValidator;
+import model.validator.AccountValidator;
 import model.validator.ClientInformationValidator;
 import service.client.ClientService;
 import service.client.account.AccountService;
 import view.EmployeeView;
 import view.client.account.AddAccountView;
+import view.client.account.ProcessBillView;
 import view.client.account.TransferMoneyView;
 import view.client.account.UpdateAccountView;
 import view.client.information.AddInformationView;
@@ -25,13 +26,13 @@ public class EmployeeController {
     private static final String[] accountTableColumns = new String[]{"ID", "Client", "Number", "Type", "Money", "Creation"};
     private final EmployeeView employeeView;
     private final ClientInformationValidator clientValidator;
-    private final ClientAccountValidator accountValidator;
+    private final AccountValidator accountValidator;
     private final ClientService<Client, Long> clientService;
     private final AccountService accountService;
 
     public EmployeeController(EmployeeView employeeView,
                               ClientInformationValidator clientValidator,
-                              ClientAccountValidator accountValidator,
+                              AccountValidator accountValidator,
                               ClientService<Client, Long> clientService,
                               AccountService accountService) {
         this.employeeView = employeeView;
@@ -55,6 +56,7 @@ public class EmployeeController {
         employeeView.getAccountView().setViewClientAccountListener(new ViewAccountButtonListener());
 
         employeeView.getAccountView().setTransferAccountListener(new TransferButtonListener());
+        employeeView.getAccountView().setProcessBillListener(new ProcessBillButtonListener());
 
         employeeView.getInformationView().getBtnViewClientInformation().doClick();
         employeeView.getAccountView().getBtnViewClientAccount().doClick();
@@ -77,7 +79,7 @@ public class EmployeeController {
     private class AddInformationButtonListener implements ActionListener {
         @Override
         public void actionPerformed(ActionEvent e) {
-            new AddInformationController(new AddInformationView(), clientValidator, clientService);
+            new AddInformationController(new AddInformationView(), clientValidator, clientService, employeeView);
         }
     }
 
@@ -123,7 +125,7 @@ public class EmployeeController {
     private class AddAccountButtonListener implements ActionListener {
         @Override
         public void actionPerformed(ActionEvent e) {
-            new AddAccountController(new AddAccountView(), accountService, accountValidator);
+            new AddAccountController(new AddAccountView(), accountService, accountValidator, employeeView);
         }
     }
 
@@ -196,6 +198,13 @@ public class EmployeeController {
         @Override
         public void actionPerformed(ActionEvent e) {
             new TransferMoneyController(new TransferMoneyView(), accountService, employeeView, accountValidator);
+        }
+    }
+
+    private class ProcessBillButtonListener implements ActionListener {
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            new ProcessBillController(new ProcessBillView(), accountService, accountValidator, employeeView);
         }
     }
 }

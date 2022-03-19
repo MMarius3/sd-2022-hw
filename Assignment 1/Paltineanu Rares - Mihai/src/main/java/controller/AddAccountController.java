@@ -1,8 +1,9 @@
 package controller;
 
 import model.Account;
-import model.validator.ClientAccountValidator;
+import model.validator.AccountValidator;
 import service.client.ClientService;
+import view.EmployeeView;
 import view.client.account.AddAccountView;
 
 import javax.swing.*;
@@ -13,14 +14,17 @@ import java.util.List;
 
 public class AddAccountController {
     private final AddAccountView addAccountView;
+    private final EmployeeView employeeView;
     private final ClientService<Account, Long> clientService;
-    private final ClientAccountValidator clientAccountValidator;
+    private final AccountValidator accountValidator;
     public AddAccountController(AddAccountView addAccountView,
                                     ClientService<Account, Long> clientService,
-                                ClientAccountValidator clientAccountValidator){
+                                AccountValidator accountValidator,
+                                EmployeeView employeeView){
         this.addAccountView = addAccountView;
         this.clientService = clientService;
-        this.clientAccountValidator = clientAccountValidator;
+        this.accountValidator = accountValidator;
+        this.employeeView = employeeView;
 
         addAccountView.setActionButtonListener(new AddAccountButtonListener());
         addAccountView.setCancelAddInformationListener(new CancelButtonListener());
@@ -41,9 +45,9 @@ public class AddAccountController {
             String type = addAccountView.getTypeField().getText();
             String money = addAccountView.getMoneyField().getText();
 
-            clientAccountValidator.validate(clientId, number, type, money);
+            accountValidator.validate(clientId, number, money, false);
 
-            final List<String> errors = clientAccountValidator.getErrors();
+            final List<String> errors = accountValidator.getErrors();
 
             if(errors.isEmpty()) {
                 Account account =  Account.builder()
@@ -58,10 +62,11 @@ public class AddAccountController {
                     JOptionPane.showMessageDialog(addAccountView.getContentPane(),
                             "Account added successful");
                     addAccountView.setVisible(false);
+                    employeeView.getAccountView().getBtnViewClientAccount().doClick();
                 }
 
             } else {
-                JOptionPane.showMessageDialog(addAccountView.getContentPane(), clientAccountValidator.getFormattedErrors());
+                JOptionPane.showMessageDialog(addAccountView.getContentPane(), accountValidator.getFormattedErrors());
             }
 
 //            String creation = addAccountView.getNumberField().getText();

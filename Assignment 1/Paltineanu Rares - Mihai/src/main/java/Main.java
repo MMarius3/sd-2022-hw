@@ -2,9 +2,8 @@ import controller.EmployeeController;
 import controller.LoginController;
 import database.Boostrap;
 import database.JDBConnectionWrapper;
-import model.Account;
 import model.Client;
-import model.validator.ClientAccountValidator;
+import model.validator.AccountValidator;
 import model.validator.ClientInformationValidator;
 import model.validator.UserValidator;
 import repository.account.AccountRepository;
@@ -23,11 +22,8 @@ import service.user.authentication.AuthenticationService;
 import service.user.authentication.AuthenticationServiceMySQL;
 import view.EmployeeView;
 import view.LoginView;
-import view.client.account.TransferMoneyView;
-import view.client.information.UpdateInformationView;
 
 import java.sql.Connection;
-import java.sql.Date;
 import java.sql.SQLException;
 
 import static database.Constants.Schemas.PRODUCTION;
@@ -54,13 +50,13 @@ public class Main {
         final UserValidator userValidator = new UserValidator(userRepository);
 
         final ClientInformationValidator clientInformationValidator = new ClientInformationValidator(clientRepository);
-        final ClientAccountValidator clientAccountValidator = new ClientAccountValidator(clientRepository, accountRepository);
+        final AccountValidator accountValidator = new AccountValidator(clientRepository, accountRepository);
 
         ClientService<Client, Long> clientService = new InformationServiceMySQL(clientRepository);
         AccountService accountService = new AccountServiceMySQL(accountRepository);
         final EmployeeController employeeController = new EmployeeController(new EmployeeView(),
                 clientInformationValidator,
-                clientAccountValidator,
+                accountValidator,
                 clientService,
                 accountService);
 

@@ -9,17 +9,26 @@ import repository.client.ClientRepository;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ClientAccountValidator {
+public class AccountValidator {
 
     private final List<String> errors = new ArrayList<>();
     private final ClientRepository clientRepository;
     private final AccountRepository accountRepository;
 
-    public ClientAccountValidator(ClientRepository clientRepository, AccountRepository accountRepository) {
+    public AccountValidator(ClientRepository clientRepository, AccountRepository accountRepository) {
         this.clientRepository = clientRepository;
         this.accountRepository = accountRepository;
     }
 
+    public void validate(String accountId, String money) {
+        errors.clear();
+        boolean validateAccountId = validateAccountId(accountId);
+        boolean validateMoney = validateMoney(money);
+
+        if(validateAccountId && validateMoney) {
+            areEnoughMoney(Long.parseLong(accountId), Integer.parseInt(money));
+        }
+    }
     public void validate(String fromAccountId, String toAccountId, String money) {
         errors.clear();
         boolean validateMoney = validateMoney(money);
@@ -31,13 +40,22 @@ public class ClientAccountValidator {
         }
     }
 
-    public void validate(String client_id, String number, String type, String money) {
+    public void validate(String client_id, String number, String money, boolean isUpdate) {
         errors.clear();
         validateClientId(client_id);
         validateMoney(money);
         validateNumber(number);
+        if(!isUpdate) {
+            existsByCardNumber(number);
+        }
     }
 
+    private void existsByCardNumber(String number) {
+        Account account = accountRepository.findByNumber(number);
+        if(account != null) {
+            errors.add("Account with card number " + number + " already exists");
+        }
+    }
     private boolean validateAccountId(String accountId) {
         boolean isAccountIdNumber = isAccountIdNumber(accountId);
         if(isAccountIdNumber) {

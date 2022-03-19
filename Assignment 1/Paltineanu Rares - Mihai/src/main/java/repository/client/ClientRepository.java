@@ -9,6 +9,4 @@ public interface ClientRepository extends Repository<Client, Long> {
     Client findByName(String name);
 
     Client findByCNP(String cnp);
-
-    boolean transferMoney(Client fromClient, Client toClient, int amount);
 }

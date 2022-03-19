@@ -1,6 +1,6 @@
 package controller;
 
-import model.validator.ClientAccountValidator;
+import model.validator.AccountValidator;
 import service.client.account.AccountService;
 import view.EmployeeView;
 import view.client.account.TransferMoneyView;
@@ -14,16 +14,16 @@ public class TransferMoneyController {
     private final TransferMoneyView transferMoneyView;
     private final AccountService accountService;
     private final EmployeeView employeeView;
-    private final ClientAccountValidator clientAccountValidator;
+    private final AccountValidator accountValidator;
 
     public TransferMoneyController(TransferMoneyView transferMoneyView,
                                    AccountService accountService,
                                    EmployeeView employeeView,
-                                   ClientAccountValidator clientAccountValidator) {
+                                   AccountValidator accountValidator) {
         this.transferMoneyView = transferMoneyView;
         this.accountService = accountService;
         this.employeeView = employeeView;
-        this.clientAccountValidator = clientAccountValidator;
+        this.accountValidator = accountValidator;
 
         this.transferMoneyView.setCancelButtonActionListener(new CancelButtonListener());
         this.transferMoneyView.setTransferMoneyButtonActionListener(new TransferMoneyButtonListener());
@@ -43,19 +43,19 @@ public class TransferMoneyController {
             String toAccountId = transferMoneyView.getToAccountField().getText();
             String money = transferMoneyView.getMoneyAmountField().getText();
 
-            clientAccountValidator.validate(fromAccountId, toAccountId, money);
-            List<String> errors = clientAccountValidator.getErrors();
+            accountValidator.validate(fromAccountId, toAccountId, money);
+            List<String> errors = accountValidator.getErrors();
 
             if(errors.isEmpty()) {
                 boolean firstFlag = accountService.transferMoney(Long.parseLong(fromAccountId), (-1) * Integer.parseInt(money));
                 boolean secondFlag = accountService.transferMoney(Long.parseLong(toAccountId), Integer.parseInt(money));
-                employeeView.getAccountView().getBtnViewClientAccount().doClick();
                 if(firstFlag && secondFlag) {
                     JOptionPane.showMessageDialog(transferMoneyView.getContentPane(), "Transfer successful");
+                    employeeView.getAccountView().getBtnViewClientAccount().doClick();
                     transferMoneyView.setVisible(false);
                 }
             } else {
-                JOptionPane.showMessageDialog(transferMoneyView.getContentPane(), clientAccountValidator.getFormattedErrors());
+                JOptionPane.showMessageDialog(transferMoneyView.getContentPane(), accountValidator.getFormattedErrors());
             }
         }
     }

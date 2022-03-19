@@ -21,6 +21,7 @@ public class AccountView extends JFrame {
     private JButton btnViewClientAccount;
 
     private JButton btnTransferMoneyButton;
+    private JButton processBill;
 
     public AccountView() {
         initializeFields();
@@ -49,6 +50,7 @@ public class AccountView extends JFrame {
         btnViewClientAccount = new JButton("View account");
 
         btnTransferMoneyButton = new JButton("Transfer money");
+        processBill = new JButton("Process bill");
     }
 
     private void setLocationAndBounds() {
@@ -60,6 +62,7 @@ public class AccountView extends JFrame {
         btnViewClientAccount.setBounds(50, 400, 150, 30);
 
         btnTransferMoneyButton.setBounds(250, 250,150, 30);
+        processBill.setBounds(250, 280, 150, 30);
     }
 
     private void addComponentsToContainer() {
@@ -68,6 +71,7 @@ public class AccountView extends JFrame {
         container.add(btnDeleteClientAccount);
         container.add(btnViewClientAccount);
         container.add(btnTransferMoneyButton);
+        container.add(processBill);
         container.add(jScrollPane);
     }
 
@@ -98,6 +102,10 @@ public class AccountView extends JFrame {
 
     public void setTransferAccountListener(ActionListener actionListener) {
         this.btnTransferMoneyButton.addActionListener(actionListener);
+    }
+
+    public void setProcessBillListener(ActionListener actionListener) {
+        this.processBill.addActionListener(actionListener);
     }
 
 }

@@ -1,5 +1,6 @@
 package model.validator;
 
+import model.Client;
 import repository.client.ClientRepository;
 
 import java.time.LocalDate;
@@ -19,30 +20,22 @@ public class ClientInformationValidator {
 
     public void validate(String name, String personalNumericalCode) {
         errors.clear();
-        //TODO
-        // validateCardNumber(cardNumber);
         validatePersonalNumericalCode(personalNumericalCode);
-        validatePersonalNumericalCodeBirthday(personalNumericalCode);
         validateName(name);
+        existsByCNP(personalNumericalCode);
     }
 
-    public void validatePersonalNumericalCode(String personalNumericalCode) {
+    private void existsByCNP(String personalNumericalCode) {
+        Client client = clientRepository.findByCNP(personalNumericalCode);
+        if(client != null) {
+            errors.add("Client with PNC " + personalNumericalCode + " already exists");
+        }
+    }
+
+    private void validatePersonalNumericalCode(String personalNumericalCode) {
         if (!personalNumericalCode.matches("^(\\d{13})?$")) {
             errors.add("Personal numerical code must contain 13 digits");
         }
-    }
-
-    public void validatePersonalNumericalCodeBirthday(String pnc) {
-        int birthYear = Integer.parseInt(pnc.substring(1, 2));
-        int birthMonth = Integer.parseInt(pnc.substring(3, 4));
-        int birthDay = Integer.parseInt(pnc.substring(5, 6));
-
-        if(birthMonth > 12) {
-            errors.add("The month must be between 1 and 12");
-        }
-        Date date = new GregorianCalendar(birthYear, birthMonth, birthDay).getTime();
-        LocalDate localDate = LocalDate.now();
-//        localDate.get
     }
 
     private void idDateValid(Date date) {

@@ -99,4 +99,5 @@ public class AddAccountView extends JFrame {
     public void setCancelAddInformationListener(ActionListener actionListener) {
         this.cancelButton.addActionListener(actionListener);
     }
+
 }

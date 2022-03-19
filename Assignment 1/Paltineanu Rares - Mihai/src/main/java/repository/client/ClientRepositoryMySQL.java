@@ -44,6 +44,7 @@ public class ClientRepositoryMySQL implements ClientRepository{
             return clients;
 
         } catch (SQLException e) {
+            System.out.println("Error in find all");
             System.out.println(e);
         }
         return null;
@@ -65,6 +66,7 @@ public class ClientRepositoryMySQL implements ClientRepository{
                     .setAddress(clientResultSet.getString(4))
                     .build();
         } catch (SQLException e) {
+            System.out.println("Error in find by id");
             System.out.println(e);
         }
         return null;
@@ -87,7 +89,8 @@ public class ClientRepositoryMySQL implements ClientRepository{
 
             return true;
         } catch (SQLException e) {
-            e.printStackTrace();
+            System.out.println("Error in save");
+            System.out.println(e);
             return false;
         }
     }
@@ -100,6 +103,7 @@ public class ClientRepositoryMySQL implements ClientRepository{
             statement.executeUpdate(sql);
             return true;
         } catch (SQLException e) {
+            System.out.println("Error in delete");
             e.printStackTrace();
             return false;
         }
@@ -117,6 +121,7 @@ public class ClientRepositoryMySQL implements ClientRepository{
 
             return true;
         } catch (SQLException e) {
+            System.out.println("Error in update");
             e.printStackTrace();
             return false;
         }
@@ -133,12 +138,13 @@ public class ClientRepositoryMySQL implements ClientRepository{
             clientResultSet.next();
 
             return new ClientBuilder()
+                    .setId(clientResultSet.getLong("id"))
                     .setName(clientResultSet.getString("name"))
-                    .setAddress(clientResultSet.getString("card"))
                     .setCNP(clientResultSet.getString("CNP"))
                     .setCNP(clientResultSet.getString("address"))
                     .build();
         } catch (SQLException e) {
+            System.out.println("Error in find by name");
             System.out.println(e);
         }
         return null;
@@ -152,22 +158,20 @@ public class ClientRepositoryMySQL implements ClientRepository{
             String fetchClientSql =
                     "Select * from `" + CLIENT + "` where `CNP`=\'" + cnp + "\'";
             ResultSet clientResultSet = statement.executeQuery(fetchClientSql);
-            clientResultSet.next();
+            if(!clientResultSet.next()) {
+                return null;
+            }
 
             return new ClientBuilder()
+                    .setId(clientResultSet.getLong("id"))
                     .setName(clientResultSet.getString("name"))
-                    .setAddress(clientResultSet.getString("card"))
                     .setCNP(clientResultSet.getString("CNP"))
-                    .setCNP(clientResultSet.getString("address"))
+                    .setAddress(clientResultSet.getString("address"))
                     .build();
         } catch (SQLException e) {
+            System.out.println("Error in find by cnp");
             System.out.println(e);
         }
         return null;
-    }
-
-    @Override
-    public boolean transferMoney(Client fromClient, Client toClient, int amount) {
-        return false;
     }
 }

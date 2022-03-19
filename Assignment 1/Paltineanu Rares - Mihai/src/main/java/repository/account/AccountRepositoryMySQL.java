@@ -1,10 +1,6 @@
 package repository.account;
 
 import model.Account;
-import model.Client;
-import model.User;
-import model.builder.ClientBuilder;
-import model.builder.UserBuilder;
 
 import java.sql.*;
 import java.util.ArrayList;
@@ -64,7 +60,7 @@ public class AccountRepositoryMySQL implements AccountRepository{
             ResultSet accountResultSet = statement.executeQuery(fetchAccountSql);
             accountResultSet.next();
 
-            Account account = Account.builder()
+            return Account.builder()
                     .id(accountResultSet.getLong("id"))
                     .client_id(accountResultSet.getLong("client_id"))
                     .number(accountResultSet.getString("number"))
@@ -72,8 +68,30 @@ public class AccountRepositoryMySQL implements AccountRepository{
                     .money(accountResultSet.getInt("money"))
                     .date(accountResultSet.getDate("creation"))
                     .build();
+        } catch (SQLException e) {
+            System.out.println(e);
+        }
+        return null;
+    }
 
-            return account;
+    @Override
+    public Account findByNumber(String number) {
+        try {
+            Statement statement = connection.createStatement();
+
+            String fetchAccountSql =
+                    "Select * from `" + ACCOUNT + "` where `number`=\'" + number + "\'";
+            ResultSet accountResultSet = statement.executeQuery(fetchAccountSql);
+            accountResultSet.next();
+
+            return Account.builder()
+                    .id(accountResultSet.getLong("id"))
+                    .client_id(accountResultSet.getLong("client_id"))
+                    .number(accountResultSet.getString("number"))
+                    .type(accountResultSet.getString("type"))
+                    .money(accountResultSet.getInt("money"))
+                    .date(accountResultSet.getDate("creation"))
+                    .build();
         } catch (SQLException e) {
             System.out.println(e);
         }

@@ -4,6 +4,7 @@ import model.Client;
 import model.builder.ClientBuilder;
 import model.validator.ClientInformationValidator;
 import service.client.ClientService;
+import view.EmployeeView;
 import view.client.information.AddInformationView;
 
 import javax.swing.*;
@@ -15,11 +16,15 @@ public class AddInformationController {
     private final AddInformationView addInformationView;
     private final ClientInformationValidator clientInformationValidator;
     private final ClientService<Client, Long> clientService;
+    private final EmployeeView employeeView;
     public AddInformationController(AddInformationView addInformationView,
-                                    ClientInformationValidator clientInformationValidator, ClientService<Client, Long> clientService) {
+                                    ClientInformationValidator clientInformationValidator,
+                                    ClientService<Client, Long> clientService,
+                                    EmployeeView employeeView) {
         this.addInformationView = addInformationView;
         this.clientInformationValidator = clientInformationValidator;
         this.clientService = clientService;
+        this.employeeView = employeeView;
 
         addInformationView.setAddInformationListener(new AddInformationButtonListener());
         addInformationView.setCancelAddInformationListener(new CancelButtonListener());
@@ -54,6 +59,7 @@ public class AddInformationController {
                     JOptionPane.showMessageDialog(addInformationView.getContentPane(),
                             "Client added successful");
                     addInformationView.setVisible(false);
+                    employeeView.getInformationView().getBtnViewClientInformation().doClick();
                 }
 
             } else {

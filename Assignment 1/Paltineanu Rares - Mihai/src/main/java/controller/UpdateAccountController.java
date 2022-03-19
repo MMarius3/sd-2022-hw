@@ -1,7 +1,7 @@
 package controller;
 
 import model.Account;
-import model.validator.ClientAccountValidator;
+import model.validator.AccountValidator;
 import service.client.ClientService;
 import view.EmployeeView;
 import view.client.account.UpdateAccountView;
@@ -14,18 +14,18 @@ import java.util.List;
 
 public class UpdateAccountController {
     private final UpdateAccountView updateAccountView;
-    private final ClientAccountValidator clientAccountValidator;
+    private final AccountValidator accountValidator;
     private final ClientService<Account, Long> accountService;
     private final EmployeeView employeeView;
 
     private final Long accountId;
     public UpdateAccountController(UpdateAccountView updateAccountView,
-                                   ClientAccountValidator clientAccountValidator,
+                                   AccountValidator accountValidator,
                                    ClientService<Account, Long> accountService,
                                    EmployeeView employeeView,
                                    Long accountId) {
         this.updateAccountView = updateAccountView;
-        this.clientAccountValidator = clientAccountValidator;
+        this.accountValidator = accountValidator;
         this.accountService = accountService;
         this.employeeView = employeeView;
         this.accountId = accountId;
@@ -59,9 +59,9 @@ public class UpdateAccountController {
             String type = updateAccountView.getTypeField().getText();
             String money = updateAccountView.getMoneyField().getText();
 
-            clientAccountValidator.validate(clientId, number, type, money);
+            accountValidator.validate(clientId, number, money, true);
 
-            final List<String> errors = clientAccountValidator.getErrors();
+            final List<String> errors = accountValidator.getErrors();
 
             if(errors.isEmpty()) {
                 Account account = Account.builder()
@@ -80,7 +80,7 @@ public class UpdateAccountController {
                     employeeView.getAccountView().getBtnViewClientAccount().doClick();
                 }
             } else {
-                JOptionPane.showMessageDialog(updateAccountView.getContentPane(), clientAccountValidator.getFormattedErrors());
+                JOptionPane.showMessageDialog(updateAccountView.getContentPane(), accountValidator.getFormattedErrors());
             }
 
         }
