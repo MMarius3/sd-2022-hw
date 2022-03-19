@@ -75,7 +75,7 @@ public class UpdateAccountController {
                 boolean flag = accountService.update(accountId, account);
                 if(flag) {
                     JOptionPane.showMessageDialog(updateAccountView.getContentPane(),
-                            "Account updated successfully");
+                            "Account updated successful");
                     updateAccountView.setVisible(false);
                     employeeView.getAccountView().getBtnViewClientAccount().doClick();
                 }

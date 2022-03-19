@@ -23,6 +23,7 @@ import service.user.authentication.AuthenticationService;
 import service.user.authentication.AuthenticationServiceMySQL;
 import view.EmployeeView;
 import view.LoginView;
+import view.client.account.TransferMoneyView;
 import view.client.information.UpdateInformationView;
 
 import java.sql.Connection;
@@ -53,7 +54,7 @@ public class Main {
         final UserValidator userValidator = new UserValidator(userRepository);
 
         final ClientInformationValidator clientInformationValidator = new ClientInformationValidator(clientRepository);
-        final ClientAccountValidator clientAccountValidator = new ClientAccountValidator(clientRepository);
+        final ClientAccountValidator clientAccountValidator = new ClientAccountValidator(clientRepository, accountRepository);
 
         ClientService<Client, Long> clientService = new InformationServiceMySQL(clientRepository);
         AccountService accountService = new AccountServiceMySQL(accountRepository);
@@ -64,7 +65,5 @@ public class Main {
                 accountService);
 
         new LoginController(loginView, authenticationService, userValidator, employeeController);
-
-//        new UpdateInformationView();
     }
 }

@@ -45,4 +45,9 @@ public class AccountServiceMySQL implements AccountService {
     public boolean delete(Long id) {
         return accountRepository.delete(id);
     }
+
+    @Override
+    public boolean transferMoney(Long id, int money) {
+        return accountRepository.transferMoney(id, money);
+    }
 }

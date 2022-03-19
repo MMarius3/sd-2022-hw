@@ -70,7 +70,7 @@ public class UpdateInformationController {
                 boolean flag = clientService.update(clientId, client);
                 if(flag) {
                     JOptionPane.showMessageDialog(updateInformationView.getContentPane(),
-                            "Client updated successfully");
+                            "Client updated successful");
                     updateInformationView.setVisible(false);
                     employeeView.getInformationView().getBtnViewClientInformation().doClick();
                 }

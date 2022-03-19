@@ -56,7 +56,7 @@ public class AddAccountController {
                 boolean flag = clientService.save(account);
                 if(flag) {
                     JOptionPane.showMessageDialog(addAccountView.getContentPane(),
-                            "Account added successfully");
+                            "Account added successful");
                     addAccountView.setVisible(false);
                 }
 

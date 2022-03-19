@@ -136,4 +136,21 @@ public class AccountRepositoryMySQL implements AccountRepository{
             return false;
         }
     }
+
+    @Override
+    public boolean transferMoney(Long id, int money) {
+        try {
+            Account account = findById(id);
+            PreparedStatement updateAccountStatement = connection
+                    .prepareStatement("UPDATE " + ACCOUNT + " set money = ?" +
+                            " WHERE `id`=\'" + id + "\';", Statement.RETURN_GENERATED_KEYS);
+            updateAccountStatement.setInt(1, account.getMoney() + money);
+            updateAccountStatement.executeUpdate();
+
+            return true;
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return false;
+        }
+    }
 }

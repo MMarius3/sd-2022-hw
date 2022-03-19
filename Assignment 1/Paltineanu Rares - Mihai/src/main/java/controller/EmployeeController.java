@@ -8,6 +8,7 @@ import service.client.ClientService;
 import service.client.account.AccountService;
 import view.EmployeeView;
 import view.client.account.AddAccountView;
+import view.client.account.TransferMoneyView;
 import view.client.account.UpdateAccountView;
 import view.client.information.AddInformationView;
 import view.client.information.UpdateInformationView;
@@ -194,7 +195,7 @@ public class EmployeeController {
     private class TransferButtonListener implements ActionListener {
         @Override
         public void actionPerformed(ActionEvent e) {
-
+            new TransferMoneyController(new TransferMoneyView(), accountService, employeeView, accountValidator);
         }
     }
 }

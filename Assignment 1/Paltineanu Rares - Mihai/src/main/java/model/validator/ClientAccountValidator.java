@@ -1,6 +1,7 @@
 package model.validator;
 
 import controller.Response;
+import model.Account;
 import model.Client;
 import repository.account.AccountRepository;
 import repository.client.ClientRepository;
@@ -12,9 +13,22 @@ public class ClientAccountValidator {
 
     private final List<String> errors = new ArrayList<>();
     private final ClientRepository clientRepository;
+    private final AccountRepository accountRepository;
 
-    public ClientAccountValidator(ClientRepository clientRepository) {
+    public ClientAccountValidator(ClientRepository clientRepository, AccountRepository accountRepository) {
         this.clientRepository = clientRepository;
+        this.accountRepository = accountRepository;
+    }
+
+    public void validate(String fromAccountId, String toAccountId, String money) {
+        errors.clear();
+        boolean validateMoney = validateMoney(money);
+        boolean validateFromAccountId = validateAccountId(fromAccountId);
+        boolean validateToAccountId = validateAccountId(toAccountId);
+
+        if(validateMoney && validateFromAccountId && validateToAccountId) {
+            areEnoughMoney(Long.parseLong(fromAccountId), Integer.parseInt(money));
+        }
     }
 
     public void validate(String client_id, String number, String type, String money) {
@@ -22,6 +36,40 @@ public class ClientAccountValidator {
         validateClientId(client_id);
         validateMoney(money);
         validateNumber(number);
+    }
+
+    private boolean validateAccountId(String accountId) {
+        boolean isAccountIdNumber = isAccountIdNumber(accountId);
+        if(isAccountIdNumber) {
+            return doesAccountExist(Long.parseLong(accountId));
+        }
+        return false;
+    }
+
+    private boolean isAccountIdNumber(String accountId) {
+        try {
+            Integer.parseInt(accountId);
+            return true;
+        } catch (NumberFormatException ex) {
+            errors.add("Account id must be integer");
+            return false;
+        }
+    }
+
+    private void areEnoughMoney(Long fromAccountId, int money) {
+        Account account = accountRepository.findById(fromAccountId);
+        if(account.getMoney() < money) {
+            errors.add("Account with id " + fromAccountId + " does not have enough money");
+        }
+    }
+
+    private boolean doesAccountExist(Long id) {
+        Account account = accountRepository.findById(id);
+        if(account == null) {
+            errors.add("Account with id " + id + " does not exist");
+            return false;
+        }
+        return true;
     }
 
     private void validateNumber(String number) {
@@ -54,11 +102,12 @@ public class ClientAccountValidator {
         }
     }
 
-    private void validateMoney(String money) {
+    private boolean validateMoney(String money) {
         boolean isMoneyNumber = isMoneyNumber(money);
         if(isMoneyNumber) {
-            isMoneyPositive(Integer.parseInt(money));
+            return isMoneyPositive(Integer.parseInt(money));
         }
+        return false;
     }
 
     private boolean isMoneyNumber(String money) {
@@ -71,10 +120,12 @@ public class ClientAccountValidator {
         }
     }
 
-    private void isMoneyPositive(int money) {
+    private boolean isMoneyPositive(int money) {
         if(money < 0) {
             errors.add("Money must be positive");
+            return false;
         }
+        return true;
     }
 
     public List<String> getErrors() {

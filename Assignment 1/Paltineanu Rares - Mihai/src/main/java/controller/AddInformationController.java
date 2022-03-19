@@ -52,7 +52,7 @@ public class AddInformationController {
                 boolean flag = clientService.save(client);
                 if(flag) {
                     JOptionPane.showMessageDialog(addInformationView.getContentPane(),
-                            "Client added successfully");
+                            "Client added successful");
                     addInformationView.setVisible(false);
                 }
 
