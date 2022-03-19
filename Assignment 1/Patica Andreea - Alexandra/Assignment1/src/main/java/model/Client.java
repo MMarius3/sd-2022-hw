@@ -3,13 +3,21 @@ package model;
 import java.util.List;
 
 public class Client {
+    private Long id;
     private String name;
     private String idNumber;
     private Integer personalNumericalCode;
     private String address;
     //private Integer phoneNumber;
-    private List<Account> accounts;
+    private List<Account> accounts;     //TODO
 
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
 
     public String getName() {
         return name;

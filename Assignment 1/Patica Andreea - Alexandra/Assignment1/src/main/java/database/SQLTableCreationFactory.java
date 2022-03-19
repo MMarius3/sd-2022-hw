@@ -6,48 +6,71 @@ public class SQLTableCreationFactory {
 
     public String getCreateSQLForTable(String table) {
         return switch (table) {
+//            case CLIENT -> "CREATE TABLE IF NOT EXISTS client (" +
+//                    "  id int(11) NOT NULL AUTO_INCREMENT," +
+//                    "  name varchar(500) NOT NULL," +
+//                    "  idNumber varchar(500) NOT NULL," +
+//                    "  personalNumericalCode int(11) NOT NULL," +
+//                    "  address varchar(500) NOT NULL," +
+//                    "  client_account int(11) NOT NULL" +
+//                    "  PRIMARY KEY (id)," +
+//                    "  UNIQUE KEY id_UNIQUE (id ASC)," +
+//                    "  INDEX client_account_idx (client_account ASC)," +
+//                    "  CONSTRAINT fk_client_account" +
+//                    "    FOREIGN KEY (client_account)" +
+//                    "    REFERENCES account (id)" +
+//                    "    ON DELETE CASCADE" +
+//                    "    ON UPDATE CASCADE," +
+//                    ") ENGINE=InnoDB AUTO_INCREMENT=0 DEFAULT CHARSET=utf8;";
             case CLIENT -> "CREATE TABLE IF NOT EXISTS client (" +
                     "  id int(11) NOT NULL AUTO_INCREMENT," +
                     "  name varchar(500) NOT NULL," +
                     "  idNumber varchar(500) NOT NULL," +
                     "  personalNumericalCode int(11) NOT NULL," +
                     "  address varchar(500) NOT NULL," +
-                    "  client_account int(11) NOT NULL" +
                     "  PRIMARY KEY (id)," +
-                    "  UNIQUE KEY id_UNIQUE (id ASC)," +
-                    "  INDEX client_account_idx (client_account ASC)," +
-                    "  CONSTRAINT fk_client_account" +
-                    "    FOREIGN KEY (client_account)" +
-                    "    REFERENCES account (id)" +
-                    "    ON DELETE CASCADE" +
-                    "    ON UPDATE CASCADE," +
-                    ") ENGINE=InnoDB AUTO_INCREMENT=0 DEFAULT CHARSET=utf8;";
+                    "  UNIQUE KEY id_UNIQUE (id ASC));"  ;
+//                    //") ENGINE=InnoDB AUTO_INCREMENT=0 DEFAULT CHARSET=utf8;";
             case ACCOUNT -> "CREATE TABLE IF NOT EXISTS account (" +
                     "  id int(11) NOT NULL AUTO_INCREMENT," +
-                    "  type varchar(500) NOT NULL," +
+                    "  client int(11) NOT NULL," +
+                    "  type int(11) NOT NULL," +
                     "  balance int(11) NOT NULL," +
                     "  creationDate datetime DEFAULT NULL," +
                     "  PRIMARY KEY (id)," +
-                    "  UNIQUE KEY id_UNIQUE (id)," +
-                    "  CONSTRAINT fk_type_account" +
+                    "  UNIQUE KEY id_UNIQUE (id ASC)," +
+                    "  INDEX type_idx (type ASC)," +
+                    "  INDEX client_idx (client ASC)," +
+                    "  CONSTRAINT type_fkid" +
                     "    FOREIGN KEY (type)" +
                     "    REFERENCES account_type (id)" +
                     "    ON DELETE CASCADE" +
                     "    ON UPDATE CASCADE," +
-                    ") ENGINE=InnoDB AUTO_INCREMENT=0 DEFAULT CHARSET=utf8;";
+                    "  CONSTRAINT fk_client_account" +
+                    "    FOREIGN KEY (client)" +
+                    "    REFERENCES client (id)" +
+                    "    ON DELETE CASCADE" +
+                    "    ON UPDATE CASCADE);";
+//                    "  INDEX type_idx (type ASC)," +
+//                    "  CONSTRAINT fk_type_account" +
+//                    "    FOREIGN KEY (type)" +
+//                    "    REFERENCES account_type (id)" +
+//                    "    ON DELETE CASCADE" +
+//                    "    ON UPDATE CASCADE);" ;
+                    //") ENGINE=InnoDB AUTO_INCREMENT=0 DEFAULT CHARSET=utf8;";
             case ACCOUNT_TYPE ->  "CREATE TABLE IF NOT EXISTS account_type (" +
                     "  id int(11) NOT NULL AUTO_INCREMENT," +
                     "  type varchar(500) NOT NULL," +
                     "  PRIMARY KEY (id)," +
-                    "  UNIQUE KEY id_UNIQUE (id)," +
-                    ") ENGINE=InnoDB AUTO_INCREMENT=0 DEFAULT CHARSET=utf8;";
+                    "  UNIQUE KEY id_UNIQUE (id ASC));" ;
+                    //") ENGINE=InnoDB AUTO_INCREMENT=0 DEFAULT CHARSET=utf8;";
             case USER -> "CREATE TABLE IF NOT EXISTS user (" +
                     "  id INT NOT NULL AUTO_INCREMENT," +
                     "  username VARCHAR(200) NOT NULL," +
                     "  password VARCHAR(64) NOT NULL," +
                     "  PRIMARY KEY (id)," +
-                    "  UNIQUE INDEX id_UNIQUE (id ASC)," +
-                    "  UNIQUE INDEX username_UNIQUE (username ASC));";
+                    "  UNIQUE INDEX id_UNIQUE (id ASC));" ;
+                    //"  UNIQUE INDEX username_UNIQUE (username ASC));";
             case ROLE -> "  CREATE TABLE IF NOT EXISTS role (" +
                     "  id INT NOT NULL AUTO_INCREMENT," +
                     "  role VARCHAR(100) NOT NULL," +

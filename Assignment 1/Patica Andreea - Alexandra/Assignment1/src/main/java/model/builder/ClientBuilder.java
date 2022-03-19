@@ -12,6 +12,11 @@ public class ClientBuilder {
         client = new Client();
     }
 
+    public ClientBuilder setId(Long id) {
+        client.setId(id);
+        return this;
+    }
+
     public ClientBuilder setName(String name) {
         client.setName(name);
         return this;
@@ -32,7 +37,7 @@ public class ClientBuilder {
         return this;
     }
 
-    public ClientBuilder setAccount(List<Account> accounts) {
+    public ClientBuilder setAccount(List<Account> accounts) {       //TODO
         client.setAccounts(accounts);
         return this;
     }

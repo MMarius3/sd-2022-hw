@@ -19,7 +19,7 @@ public class UserValidator {
 
     public void validate(String username, String password) {
         errors.clear();
-        //validateEmailUniqueness(username);        //TODO
+        validateEmailUniqueness(username);
         validateEmail(username);
         validatePasswordLength(password);
         validatePasswordSpecial(password);

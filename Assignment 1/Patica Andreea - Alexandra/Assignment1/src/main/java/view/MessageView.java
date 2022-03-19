@@ -5,11 +5,11 @@ import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
-public class ErrorView {
+public class MessageView {
 
     public void display(String message){
         Stage window = new Stage();
-        window.setTitle("Error message");
+        window.setTitle("Message");
 
         Text text = new Text(message);
 

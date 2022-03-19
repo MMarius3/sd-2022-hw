@@ -1,7 +1,5 @@
 import controller.LoginController;
 import database.JDBConnectionWrapper;
-import javafx.application.Application;
-import javafx.stage.Stage;
 import model.validator.UserValidator;
 import repository.security.RightsRolesRepository;
 import repository.security.RightsRolesRepositoryMySQL;
@@ -10,6 +8,7 @@ import repository.user.UserRepositoryMySQL;
 import service.user.AuthenticationService;
 import service.user.AuthenticationServiceMySQL;
 import view.LoginView;
+import view.MainUI;
 
 import java.sql.Connection;
 

@@ -1,14 +1,17 @@
 package controller;
 
 import javafx.event.EventHandler;
+import model.Role;
+import model.User;
+import model.builder.UserBuilder;
 import model.validator.UserValidator;
 import service.user.AuthenticationService;
-import view.ErrorView;
+import view.MessageView;
 import view.LoginView;
 
-import javax.swing.*;
 import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
+
+import java.util.ArrayList;
 import java.util.List;
 
 public class LoginController {
@@ -49,7 +52,15 @@ public class LoginController {
             String username = loginView.getUsername();
             String password = loginView.getPassword();
 
-            authenticationService.login(username, password);
+                                                                             //TODO
+            User user = authenticationService.login(username, password);
+
+            if (user == null){
+                new MessageView().display( "Invalid username or password");
+            }
+            else{
+                new UserController(user);
+            }
         };
     }
 
@@ -67,8 +78,9 @@ public class LoginController {
             final List<String> errors = userValidator.getErrors();
             if (errors.isEmpty()) {
                 authenticationService.register(username, password);
+                new MessageView().display("User registered successfully");
             } else {
-                new ErrorView().display( userValidator.getFormattedErrors());
+                new MessageView().display( userValidator.getFormattedErrors());
                 //JOptionPane.showMessageDialog(loginView.getContentPane(), userValidator.getFormattedErrors());
             }
         };

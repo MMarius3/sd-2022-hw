@@ -1,9 +1,12 @@
+package view;
+
 import javafx.application.Application;
+import javafx.scene.Scene;
 import javafx.stage.Stage;
 import view.LoginView;
 
 public class MainUI extends Application {
-    private Stage window;
+    private static Stage window;
     private LoginView loginView;
 
 
@@ -22,5 +25,11 @@ public class MainUI extends Application {
 
     }
 
+    public static Stage getWindow(){
+        return window;
+    }
 
+    public static void changeScene(Scene scene){
+        window.setScene(scene);
+    }
 }

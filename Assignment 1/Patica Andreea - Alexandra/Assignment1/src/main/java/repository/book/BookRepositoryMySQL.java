@@ -48,7 +48,7 @@ public class BookRepositoryMySQL implements BookRepository {
   public boolean save(Book book) {
     try {
       PreparedStatement insertStatement = connection
-          .prepareStatement("INSERT INTO book values (null, ?, ?, ?)");
+              .prepareStatement("INSERT INTO book values (null, ?, ?, ?)");
       insertStatement.setString(1, book.getAuthor());
       insertStatement.setString(2, book.getTitle());
       insertStatement.setDate(3, new Date(book.getPublishedDate().getTime()));
