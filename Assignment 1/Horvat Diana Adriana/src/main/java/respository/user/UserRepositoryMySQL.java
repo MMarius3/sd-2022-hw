@@ -10,8 +10,10 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.Optional;
 
 import static java.util.Collections.singletonList;
 
@@ -27,6 +29,29 @@ public class UserRepositoryMySQL implements UserRepository{
 
     @Override
     public List<User> findAll() {
+        try {
+            Statement statement = connection.createStatement();
+
+            String getAllUsersSql =
+                    "Select * from `" + USER + "`";
+            ResultSet userResultSet = statement.executeQuery(getAllUsersSql);
+
+            List<User> users = new ArrayList<>();
+
+            while(userResultSet.next()){
+                User user = new UserBuilder()
+                        .setUsername(userResultSet.getString("username"))
+                        .setPassword(userResultSet.getString("password"))
+                        .setRoles(rolesRepository.findRolesForUser(userResultSet.getInt("id")))
+                        .build();
+
+                users.add(user);
+            }
+
+            return users;
+        } catch (SQLException e) {
+            System.out.println(e.toString());
+        }
         return null;
     }
 

@@ -1,12 +1,23 @@
 package controller;
 
+import model.User;
+import model.validator.ClientValidator;
 import model.validator.UserValidator;
+import respository.client.ClientRepository;
+import respository.client.ClientRepositoryMySQL;
+import service.client.ClientService;
+import service.client.ClientServiceMySQL;
 import service.user.AuthenticationService;
 import view.LoginView;
+import view.admin.AdminIndexView;
+import view.employee.EmployeeAddClientView;
+import view.employee.EmployeeIndexView;
+import view.employee.EmployeeUpdateClientView;
 
 import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.sql.Connection;
 import java.util.List;
 
 public class LoginController {
@@ -14,12 +25,14 @@ public class LoginController {
     private final LoginView loginView;
     private final AuthenticationService authenticationService;
     private final UserValidator userValidator;
+    private final Connection connection;
 
 
-    public LoginController(LoginView loginView, AuthenticationService authenticationService, UserValidator userValidator) {
+    public LoginController(LoginView loginView, AuthenticationService authenticationService, UserValidator userValidator, Connection connection) {
         this.loginView = loginView;
         this.authenticationService = authenticationService;
         this.userValidator = userValidator;
+        this.connection = connection;
 
         this.loginView.addLoginButtonListener(new LoginButtonListener());
         this.loginView.addRegisterButtonListener(new RegisterButtonListener());
@@ -32,7 +45,25 @@ public class LoginController {
             String username = loginView.getUsername();
             String password = loginView.getPassword();
 
-            authenticationService.login(username, password);
+            User user = authenticationService.login(username, password);
+            if(user == null){
+                JOptionPane.showMessageDialog(loginView.getContentPane(), "Incorrect credentials");
+            }else{
+                if(user.getRoles().get(0).getRole().equals("employee")){
+                    final ClientRepository clientRepository = new ClientRepositoryMySQL(connection);
+                    final ClientService clientService = new ClientServiceMySQL(clientRepository);
+                    ClientValidator clientValidator = new ClientValidator(clientRepository);
+                    EmployeeIndexView employeeIndexView = new EmployeeIndexView();
+                    EmployeeAddClientView employeeAddClientView = new EmployeeAddClientView();
+                    EmployeeUpdateClientView employeeUpdateClientView = new EmployeeUpdateClientView();
+                    EmployeeController employeeController = new EmployeeController(clientService, clientValidator, employeeIndexView, employeeAddClientView, employeeUpdateClientView);
+                    employeeIndexView.setVisible(true);
+
+                } else{
+                    AdminIndexView adminIndexView = new AdminIndexView();
+                    adminIndexView.setVisible(true);
+                }
+            }
         }
     }
 
@@ -46,6 +77,7 @@ public class LoginController {
             final List<String> errors = userValidator.getErrors();
             if (errors.isEmpty()) {
                 authenticationService.register(username, password);
+                JOptionPane.showMessageDialog(loginView.getContentPane(), "Registered successfully");
             } else {
                 JOptionPane.showMessageDialog(loginView.getContentPane(), userValidator.getFormattedErrors());
             }

@@ -74,8 +74,8 @@ public class RolesRepositoryMySQL implements RolesRepository{
             for (Role role : roles) {
                 PreparedStatement insertUserRoleStatement = connection
                         .prepareStatement("INSERT INTO `user_role` values (null, ?, ?)");
-                insertUserRoleStatement.setLong(1, user.getId());
-                insertUserRoleStatement.setLong(2, role.getId());
+                insertUserRoleStatement.setInt(2, user.getId());
+                insertUserRoleStatement.setInt(1, role.getId());
                 insertUserRoleStatement.executeUpdate();
             }
         } catch (SQLException e) {

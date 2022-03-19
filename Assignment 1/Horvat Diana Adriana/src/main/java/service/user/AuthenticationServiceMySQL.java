@@ -5,12 +5,13 @@ import model.User;
 import model.builder.UserBuilder;
 import respository.security.RolesRepository;
 import respository.user.UserRepository;
+import service.user.AuthenticationService;
 
 import java.nio.charset.StandardCharsets;
 import java.security.MessageDigest;
 import java.util.Collections;
 
-public class AuthenticationServiceMySQL implements AuthenticationService{
+public class AuthenticationServiceMySQL implements AuthenticationService {
     private final UserRepository userRepository;
     private final RolesRepository rolesRepository;
 
@@ -32,6 +33,8 @@ public class AuthenticationServiceMySQL implements AuthenticationService{
                 .setPassword(encodedPassword)
                 .setRoles(Collections.singletonList(employeeRole))
                 .build();
+
+        rolesRepository.addRolesToUser(user, user.getRoles());
 
         return userRepository.save(user);
     }

@@ -27,6 +27,6 @@ public class Main {
 
         final UserValidator userValidator = new UserValidator(userRepository);
 
-        new LoginController(loginView, authenticationService, userValidator);
+        new LoginController(loginView, authenticationService, userValidator, connection);
     }
 }
