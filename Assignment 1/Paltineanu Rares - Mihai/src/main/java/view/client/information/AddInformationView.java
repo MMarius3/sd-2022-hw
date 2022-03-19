@@ -25,7 +25,7 @@ public class AddInformationView extends JFrame {
 
     public AddInformationView() {
         initializeFields();
-        setLocationAndBounds();
+        setBounds();
         addComponentsToContainer();
         initializeFrame();
     }
@@ -53,7 +53,7 @@ public class AddInformationView extends JFrame {
         cancelButton = new JButton("Cancel");
     }
 
-    private void setLocationAndBounds() {
+    private void setBounds() {
         nameLabel.setBounds(30, 70, 100, 20);
         cnpLabel.setBounds(30, 100, 100, 20);
         addressLabel.setBounds(30, 130, 100, 20);

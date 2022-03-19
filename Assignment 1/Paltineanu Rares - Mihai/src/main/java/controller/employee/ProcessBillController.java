@@ -1,6 +1,7 @@
-package controller;
+package controller.employee;
 
 import model.validator.AccountValidator;
+import service.action.ActionService;
 import service.client.account.AccountService;
 import view.EmployeeView;
 import view.client.account.ProcessBillView;
@@ -19,7 +20,7 @@ public class ProcessBillController {
     public ProcessBillController(ProcessBillView processBillView,
                                  AccountService accountService,
                                  AccountValidator accountValidator,
-                                 EmployeeView employeeView) {
+                                 EmployeeView employeeView, ActionService actionService) {
         this.processBillView = processBillView;
         this.accountService = accountService;
         this.employeeView = employeeView;

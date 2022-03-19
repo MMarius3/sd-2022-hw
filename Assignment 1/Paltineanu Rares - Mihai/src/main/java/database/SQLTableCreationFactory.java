@@ -84,6 +84,18 @@ public class SQLTableCreationFactory {
                     "    REFERENCES role (id)" +
                     "    ON DELETE CASCADE" +
                     "    ON UPDATE CASCADE);";
+            case ACTION -> "CREATE TABLE IF NOT EXISTS action (" +
+                    "  id int(11) NOT NULL AUTO_INCREMENT," +
+                    "  user_id int NOT NULL," +
+                    "  action varchar(64) NOT NULL," +
+                    "  date DATE NOT NULL," +
+                    "  PRIMARY KEY (id)," +
+                    "  UNIQUE INDEX id_UNIQUE (id ASC)," +
+                    "  CONSTRAINT user_id" +
+                    "    FOREIGN KEY (user_id)" +
+                    "    REFERENCES `user` (id)" +
+                    "    ON DELETE CASCADE" +
+                    "    ON UPDATE CASCADE);";
             default -> "";
         };
     }

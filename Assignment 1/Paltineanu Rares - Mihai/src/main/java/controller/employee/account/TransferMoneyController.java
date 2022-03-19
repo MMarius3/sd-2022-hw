@@ -1,6 +1,9 @@
-package controller;
+package controller.employee.account;
 
+import model.Action;
+import model.User;
 import model.validator.AccountValidator;
+import service.action.ActionService;
 import service.client.account.AccountService;
 import view.EmployeeView;
 import view.client.account.TransferMoneyView;
@@ -8,22 +11,29 @@ import view.client.account.TransferMoneyView;
 import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.sql.Date;
+import java.time.LocalDate;
 import java.util.List;
 
+import static database.Constants.Actions.TRANFER_MONEY;
 public class TransferMoneyController {
     private final TransferMoneyView transferMoneyView;
     private final AccountService accountService;
     private final EmployeeView employeeView;
     private final AccountValidator accountValidator;
+    private final ActionService actionService;
+    private final User user;
 
     public TransferMoneyController(TransferMoneyView transferMoneyView,
                                    AccountService accountService,
                                    EmployeeView employeeView,
-                                   AccountValidator accountValidator) {
+                                   AccountValidator accountValidator, ActionService actionService, User user) {
         this.transferMoneyView = transferMoneyView;
         this.accountService = accountService;
         this.employeeView = employeeView;
         this.accountValidator = accountValidator;
+        this.actionService = actionService;
+        this.user = user;
 
         this.transferMoneyView.setCancelButtonActionListener(new CancelButtonListener());
         this.transferMoneyView.setTransferMoneyButtonActionListener(new TransferMoneyButtonListener());
@@ -53,6 +63,11 @@ public class TransferMoneyController {
                     JOptionPane.showMessageDialog(transferMoneyView.getContentPane(), "Transfer successful");
                     employeeView.getAccountView().getBtnViewClientAccount().doClick();
                     transferMoneyView.setVisible(false);
+                    actionService.save(Action.builder()
+                                    .user_id(user.getId())
+                                    .action(TRANFER_MONEY)
+                                    .date(Date.valueOf(LocalDate.now()))
+                            .build());
                 }
             } else {
                 JOptionPane.showMessageDialog(transferMoneyView.getContentPane(), accountValidator.getFormattedErrors());

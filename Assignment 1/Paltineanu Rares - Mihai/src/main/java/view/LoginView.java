@@ -20,7 +20,7 @@ public class LoginView extends JFrame {
 
     public LoginView() {
         initializeFields();
-        setLocationAndBounds();
+        setBounds();
         addComponentsToContainer();
         initializeFrame();
     }
@@ -41,7 +41,7 @@ public class LoginView extends JFrame {
         showPassword = new JCheckBox("Show password");
     }
 
-    private void setLocationAndBounds() {
+    private void setBounds() {
         usernameLabel.setBounds(100, 150, 100, 30);
         passwordLabel.setBounds(100, 220, 100, 30);
         usernameField.setBounds(200, 150, 150, 30);

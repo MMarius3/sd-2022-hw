@@ -1,7 +1,10 @@
-package controller;
+package controller.employee.account;
 
 import model.Account;
+import model.Action;
+import model.User;
 import model.validator.AccountValidator;
+import service.action.ActionService;
 import service.client.ClientService;
 import view.EmployeeView;
 import view.client.account.UpdateAccountView;
@@ -10,24 +13,31 @@ import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.sql.Date;
+import java.time.LocalDate;
 import java.util.List;
+
+import static database.Constants.Actions.UPDATE_ACCOUNT;
 
 public class UpdateAccountController {
     private final UpdateAccountView updateAccountView;
     private final AccountValidator accountValidator;
     private final ClientService<Account, Long> accountService;
     private final EmployeeView employeeView;
-
+    private final ActionService actionService;
+    private final User user;
     private final Long accountId;
+
     public UpdateAccountController(UpdateAccountView updateAccountView,
                                    AccountValidator accountValidator,
                                    ClientService<Account, Long> accountService,
                                    EmployeeView employeeView,
-                                   Long accountId) {
+                                   ActionService actionService, User user, Long accountId) {
         this.updateAccountView = updateAccountView;
         this.accountValidator = accountValidator;
         this.accountService = accountService;
         this.employeeView = employeeView;
+        this.actionService = actionService;
+        this.user = user;
         this.accountId = accountId;
 
         initializeTextFields();
@@ -78,6 +88,11 @@ public class UpdateAccountController {
                             "Account updated successful");
                     updateAccountView.setVisible(false);
                     employeeView.getAccountView().getBtnViewClientAccount().doClick();
+                    actionService.save(Action.builder()
+                            .user_id(user.getId())
+                            .action(UPDATE_ACCOUNT)
+                            .date(Date.valueOf(LocalDate.now()))
+                            .build());
                 }
             } else {
                 JOptionPane.showMessageDialog(updateAccountView.getContentPane(), accountValidator.getFormattedErrors());

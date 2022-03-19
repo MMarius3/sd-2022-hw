@@ -1,9 +1,17 @@
-package controller;
+package controller.employee;
 
+import controller.employee.account.AddAccountController;
+import controller.employee.account.TransferMoneyController;
+import controller.employee.account.UpdateAccountController;
+import controller.employee.information.AddInformationController;
+import controller.employee.information.UpdateInformationController;
 import model.Account;
+import model.Action;
 import model.Client;
+import model.User;
 import model.validator.AccountValidator;
 import model.validator.ClientInformationValidator;
+import service.action.ActionService;
 import service.client.ClientService;
 import service.client.account.AccountService;
 import view.EmployeeView;
@@ -18,7 +26,11 @@ import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.sql.Date;
+import java.time.LocalDate;
 import java.util.List;
+
+import static database.Constants.Actions.*;
 
 public class EmployeeController {
 
@@ -29,19 +41,22 @@ public class EmployeeController {
     private final AccountValidator accountValidator;
     private final ClientService<Client, Long> clientService;
     private final AccountService accountService;
+    private final ActionService actionService;
+    private User user;
 
     public EmployeeController(EmployeeView employeeView,
                               ClientInformationValidator clientValidator,
                               AccountValidator accountValidator,
                               ClientService<Client, Long> clientService,
-                              AccountService accountService) {
+                              AccountService accountService, ActionService actionService) {
         this.employeeView = employeeView;
         this.clientValidator = clientValidator;
         this.accountValidator = accountValidator;
         this.clientService = clientService;
         this.accountService = accountService;
+        this.actionService = actionService;
 
-        setTableColumns();
+        setTablesHeader();
         initializeButtonsListener();
     }
 
@@ -63,7 +78,7 @@ public class EmployeeController {
 
     }
 
-    private void setTableColumns() {
+    private void setTablesHeader() {
         DefaultTableModel defaultTableModel = (DefaultTableModel) employeeView.getInformationView().getClientsIntormationTable().getModel();
         defaultTableModel.setColumnIdentifiers(informationTableColumns);
 
@@ -71,15 +86,19 @@ public class EmployeeController {
         accountDefaultTableModel.setColumnIdentifiers(accountTableColumns);
     }
 
-    protected void setViewVisible() {
+    public void setViewVisible() {
         this.employeeView.getInformationView().setVisible(true);
         this.employeeView.getAccountView().setVisible(true);
+    }
+
+    public void setUser(User user) {
+        this.user = user;
     }
 
     private class AddInformationButtonListener implements ActionListener {
         @Override
         public void actionPerformed(ActionEvent e) {
-            new AddInformationController(new AddInformationView(), clientValidator, clientService, employeeView);
+            new AddInformationController(new AddInformationView(), clientValidator, clientService, employeeView, actionService, user);
         }
     }
 
@@ -98,7 +117,8 @@ public class EmployeeController {
                     clientValidator,
                     clientService,
                     employeeView,
-                    Long.valueOf(id));
+                    actionService,
+                    user, Long.valueOf(id));
         }
 
         private boolean isOneClientSelected() {
@@ -125,7 +145,7 @@ public class EmployeeController {
     private class AddAccountButtonListener implements ActionListener {
         @Override
         public void actionPerformed(ActionEvent e) {
-            new AddAccountController(new AddAccountView(), accountService, accountValidator, employeeView);
+            new AddAccountController(new AddAccountView(), accountService, accountValidator, employeeView, actionService, user);
         }
     }
 
@@ -140,11 +160,8 @@ public class EmployeeController {
 
             int selectedRow = employeeView.getAccountView().getAccountInformationTable().getSelectedRow();
             String id = (String) employeeView.getAccountView().getAccountInformationTable().getValueAt(selectedRow, 0);
-                new UpdateAccountController(new UpdateAccountView(),
-                    accountValidator,
-                    accountService,
-                    employeeView,
-                    Long.valueOf(id));
+                new UpdateAccountController(new UpdateAccountView(), accountValidator, accountService,
+                        employeeView, actionService, user, Long.valueOf(id));
         }
 
         private boolean isOneAccountSelected() {
@@ -167,6 +184,12 @@ public class EmployeeController {
             if(flag) {
                 JOptionPane.showMessageDialog(employeeView.getAccountView().getContentPane(), "" +
                         "Account with id " + id + " has been deleted");
+                Action action = Action.builder()
+                        .user_id(user.getId())
+                        .action(DELETE_ACCOUNT)
+                        .date(Date.valueOf(LocalDate.now()))
+                        .build();
+                actionService.save(action);
                 employeeView.getAccountView().getBtnViewClientAccount().doClick();
             }
         }
@@ -197,14 +220,14 @@ public class EmployeeController {
     private class TransferButtonListener implements ActionListener {
         @Override
         public void actionPerformed(ActionEvent e) {
-            new TransferMoneyController(new TransferMoneyView(), accountService, employeeView, accountValidator);
+            new TransferMoneyController(new TransferMoneyView(), accountService, employeeView, accountValidator, actionService, user);
         }
     }
 
     private class ProcessBillButtonListener implements ActionListener {
         @Override
         public void actionPerformed(ActionEvent e) {
-            new ProcessBillController(new ProcessBillView(), accountService, accountValidator, employeeView);
+            new ProcessBillController(new ProcessBillView(), accountService, accountValidator, employeeView, actionService);
         }
     }
 }

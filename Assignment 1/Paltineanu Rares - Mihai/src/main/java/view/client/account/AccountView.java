@@ -26,7 +26,7 @@ public class AccountView extends JFrame {
     public AccountView() {
         initializeFields();
         initializeFrame();
-        setLocationAndBounds();
+        setBounds();
         addComponentsToContainer();
     }
 
@@ -53,7 +53,7 @@ public class AccountView extends JFrame {
         processBill = new JButton("Process bill");
     }
 
-    private void setLocationAndBounds() {
+    private void setBounds() {
         jScrollPane.setBounds(0, 0, 650, 200);
 
         btnAddClientAccount.setBounds(50, 250, 150, 30);

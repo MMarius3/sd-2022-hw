@@ -21,7 +21,7 @@ public class ProcessBillView extends JFrame {
 
     public ProcessBillView() {
         initializeFields();
-        setLocationAndBounds();
+        setBounds();
         addComponentsToContainer();
         initializeFrame();
     }
@@ -47,7 +47,7 @@ public class ProcessBillView extends JFrame {
         cancelButton = new JButton("Cancel");
     }
 
-    private void setLocationAndBounds() {
+    private void setBounds() {
         accountIdLabel.setBounds(30, 10, 100, 20);
         moneyLabel.setBounds(30, 40, 100, 20);
 

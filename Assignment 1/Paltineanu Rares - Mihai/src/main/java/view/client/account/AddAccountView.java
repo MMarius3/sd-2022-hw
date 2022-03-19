@@ -28,7 +28,7 @@ public class AddAccountView extends JFrame {
 
     public AddAccountView() {
         initializeFields();
-        setLocationAndBounds();
+        setBounds();
         addComponentsToContainer();
         initializeFrame();
     }
@@ -37,7 +37,7 @@ public class AddAccountView extends JFrame {
         setSize(280, 280);
         setResizable(false);
         setVisible(true);
-        setTitle("Add information");
+        setTitle("Add account");
     }
 
     private void initializeFields() {
@@ -60,7 +60,7 @@ public class AddAccountView extends JFrame {
         cancelButton = new JButton("Cancel");
     }
 
-    private void setLocationAndBounds() {
+    private void setBounds() {
         idLabel.setBounds(30, 10, 100, 20);
         numberLabel.setBounds(30, 40, 100, 20);
         typeLabel.setBounds(30, 70, 100, 20);

@@ -1,5 +1,7 @@
 package controller;
 
+import controller.admin.AdminController;
+import controller.employee.EmployeeController;
 import model.User;
 import model.validator.UserValidator;
 import service.user.authentication.AuthenticationService;
@@ -16,13 +18,14 @@ public class LoginController {
     private final AuthenticationService authenticationService;
     private final UserValidator userValidator;
     private final EmployeeController employeeController;
-
+    private final AdminController adminController;
     public LoginController(LoginView loginView, AuthenticationService authenticationService, UserValidator userValidator,
-                           EmployeeController employeeController) {
+                           EmployeeController employeeController, AdminController adminController) {
         this.loginView = loginView;
         this.authenticationService = authenticationService;
         this.userValidator = userValidator;
         this.employeeController = employeeController;
+        this.adminController = adminController;
 
         loginView.addRegisterButtonListener(new RegisterButtonListener());
         loginView.addLoginButtonListener(new LoginButtonListener());
@@ -57,12 +60,14 @@ public class LoginController {
             if(user == null) {
                 JOptionPane.showMessageDialog(loginView.getContentPane(), "Incorrect username or password",
                         "ERROR", JOptionPane.ERROR_MESSAGE);
+                return;
             } else if(user.getUsername().equals("admin")){
-
+                adminController.setViewVisible();
             } else {
-                loginView.setVisible(false);
                 employeeController.setViewVisible();
+                employeeController.setUser(user);
             }
+            loginView.setVisible(false);
         }
     }
 

@@ -70,6 +70,7 @@ public class UserRepositoryMySQL implements UserRepository {
             userResultSet.next();
 
             User user = new UserBuilder()
+                    .setId(id)
                     .setUsername(userResultSet.getString("username"))
                     .setPassword(userResultSet.getString("password"))
                     .setRoles(rightsRolesRepository.findRolesForUser(userResultSet.getLong("id")))
@@ -93,6 +94,7 @@ public class UserRepositoryMySQL implements UserRepository {
             userResultSet.next();
 
             User user = new UserBuilder()
+                    .setId(userResultSet.getLong("id"))
                     .setUsername(userResultSet.getString("username"))
                     .setPassword(userResultSet.getString("password"))
                     .setRoles(rightsRolesRepository.findRolesForUser(userResultSet.getLong("id")))
@@ -158,7 +160,20 @@ public class UserRepositoryMySQL implements UserRepository {
 
     @Override
     public boolean update(Long id, User newUser) {
-        return false;
+        try {
+            PreparedStatement statement = connection.prepareStatement("UPDATE " + USER + " SET username = ?, password = ? " +
+                    "WHERE `id`=\'" + id + "\';");
+
+            statement.setString(1, newUser.getUsername());
+            statement.setString(2, newUser.getPassword());
+
+            statement.executeUpdate();
+            return true;
+        } catch (SQLException e) {
+            System.out.println("Update user error");
+            System.out.println(e);
+            return false;
+        }
     }
 
 //    @Override

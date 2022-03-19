@@ -21,7 +21,7 @@ public class InformationView extends JFrame{
 
     public InformationView() {
         initializeFields();
-        setLocationAndBounds();
+        setBounds();
         addComponentsToContainer();
         initializeFrame();
     }
@@ -54,7 +54,7 @@ public class InformationView extends JFrame{
         btnViewClientInformation = new JButton("View information");
     }
 
-    private void setLocationAndBounds() {
+    private void setBounds() {
         jScrollPane.setBounds(0, 0, 488, 200);
         btnAddClientInformation.setBounds(50, 250, 150, 30);
         btnUpdateClientInformation.setBounds(50, 300, 150, 30);

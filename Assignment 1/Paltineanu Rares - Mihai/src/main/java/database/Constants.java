@@ -40,9 +40,10 @@ public class Constants {
         public static final String RIGHT = "RIGHT";
         public static final String ROLE_RIGHT = "ROLE_RIGHT";
         public static final String USER_ROLE = "USER_ROLE";
+        public static final String ACTION = "ACTION";
 
         public static final String[] ORDERED_TABLES_FOR_CREATION = new String[]{USER, CLIENT, ACCOUNT,
-                ROLE, RIGHT, ROLE_RIGHT, USER_ROLE};
+                ROLE, RIGHT, ROLE_RIGHT, USER_ROLE, ACTION};
     }
 
     public static class Roles {
@@ -75,6 +76,18 @@ public class Constants {
                 UPDATE_CLIENT_ACC, DELETE_CLIENT_ACC, VIEW_CLIENT_ACC, TRANSFER_MONEY, PROCESS_BILLS};
 
         public static final String[] ADMIN_RIGHTS = new String[]{CREATE_EMP, VIEW_EMP, UPDATE_EMP, DELETE_EMP, GENERATE_REPORTS};
+    }
+
+    public static class Actions {
+        public static final String ADD_CLIENT = "add_client";
+        public static final String UPDATE_CLIENT = "update_client";
+
+        public static final String ADD_ACCOUNT = "add_account";
+        public static final String UPDATE_ACCOUNT = "update_account";
+        public static final String DELETE_ACCOUNT = "delete_account";
+
+        public static final String TRANFER_MONEY = "tranfer_money";
+        public static final String PROCESS_BILL = "process_bill";
     }
 
 }

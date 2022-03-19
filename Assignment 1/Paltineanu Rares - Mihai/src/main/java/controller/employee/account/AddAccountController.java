@@ -1,7 +1,10 @@
-package controller;
+package controller.employee.account;
 
 import model.Account;
+import model.Action;
+import model.User;
 import model.validator.AccountValidator;
+import service.action.ActionService;
 import service.client.ClientService;
 import view.EmployeeView;
 import view.client.account.AddAccountView;
@@ -10,21 +13,28 @@ import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.sql.Date;
+import java.time.LocalDate;
 import java.util.List;
+
+import static database.Constants.Actions.ADD_ACCOUNT;
 
 public class AddAccountController {
     private final AddAccountView addAccountView;
     private final EmployeeView employeeView;
     private final ClientService<Account, Long> clientService;
     private final AccountValidator accountValidator;
+    private final ActionService actionService;
+    private final User user;
     public AddAccountController(AddAccountView addAccountView,
-                                    ClientService<Account, Long> clientService,
+                                ClientService<Account, Long> clientService,
                                 AccountValidator accountValidator,
-                                EmployeeView employeeView){
+                                EmployeeView employeeView, ActionService actionService, User user){
         this.addAccountView = addAccountView;
         this.clientService = clientService;
         this.accountValidator = accountValidator;
         this.employeeView = employeeView;
+        this.actionService = actionService;
+        this.user = user;
 
         addAccountView.setActionButtonListener(new AddAccountButtonListener());
         addAccountView.setCancelAddInformationListener(new CancelButtonListener());
@@ -63,6 +73,11 @@ public class AddAccountController {
                             "Account added successful");
                     addAccountView.setVisible(false);
                     employeeView.getAccountView().getBtnViewClientAccount().doClick();
+                    actionService.save(Action.builder()
+                            .user_id(user.getId())
+                            .action(ADD_ACCOUNT)
+                            .date(Date.valueOf(LocalDate.now()))
+                            .build());
                 }
 
             } else {
