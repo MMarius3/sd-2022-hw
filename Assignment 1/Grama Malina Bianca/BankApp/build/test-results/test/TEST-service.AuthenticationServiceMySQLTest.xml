@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="service.AuthenticationServiceMySQLTest" tests="1" skipped="0" failures="0" errors="0" timestamp="2022-03-20T17:08:09" hostname="DESKTOP-DMACU7M" time="0.053">
+  <properties/>
+  <testcase name="login()" classname="service.AuthenticationServiceMySQLTest" time="0.053"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[Sun Mar 20 19:08:08 EET 2022 WARN: Establishing SSL connection without server's identity verification is not recommended. According to MySQL 5.5.45+, 5.6.26+ and 5.7.6+ requirements SSL connection must be established by default if explicit option isn't set. For compliance with existing applications not using SSL the verifyServerCertificate property is set to 'false'. You need either to explicitly disable SSL by setting useSSL=false, or set useSSL=true and provide truststore for server certificate verification.
+]]></system-err>
+</testsuite>
