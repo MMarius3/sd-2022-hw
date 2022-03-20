@@ -72,32 +72,40 @@ public class UserView extends JFrame {
         labelAccount = new JLabel("\n");
     }
 
-    public JTextField getTfInfoName() {
-        return tfInfoName;
+    public String getTfInfoName() {
+        return tfInfoName.getText();
     }
 
-    public JTextField getTfInfoCardId() {
-        return tfInfoCardId;
+    public String getTfInfoCardId() {
+        return tfInfoCardId.getText();
     }
 
-    public JTextField getTfInfoCNP() {
-        return tfInfoCNP;
+    public String getTfInfoCNP() {
+        return tfInfoCNP.getText();
     }
 
-    public JTextField getTfInfoAddress() {
-        return tfInfoAddress;
+    public String getTfInfoAddress() {
+        return tfInfoAddress.getText();
     }
 
-    public JTextField getTfAccountId() {
-        return tfAccountId;
+    public String getTfAccountId() {
+        return tfAccountId.getText();
     }
 
-    public JTextField getTfAccountType() {
-        return tfAccountType;
+    public String getTfAccountType() {
+        return tfAccountType.getText();
     }
 
-    public JTextField getTfAccountAmmount() {
-        return tfAccountAmmount;
+    public String getTfAccountAmmount() {
+        return tfAccountAmmount.getText();
+    }
+
+    public JLabel getLabelInfo() {
+        return labelInfo;
+    }
+
+    public JLabel getLabelAccount() {
+        return labelAccount;
     }
 
     public void setBtnInfoViewListener(ActionListener listener){

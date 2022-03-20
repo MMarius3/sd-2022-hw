@@ -37,7 +37,6 @@ public class UserRepositoryMySQL implements UserRepository {
       Statement statement = connection.createStatement();
       String fetchUserSql = "Select * from `" + USER + "` where `username`=\'" + username + "\' and `password`=\'" + password + "\'";
       ResultSet userResultSet = statement.executeQuery(fetchUserSql);
-      System.out.println(username+" "+password);
       if (userResultSet.next()) {
         User user = new UserBuilder()
             .setUsername(userResultSet.getString("username"))

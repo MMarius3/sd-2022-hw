@@ -1,7 +1,9 @@
 package controller;
 
+import model.Client;
 import model.User;
 import model.validation.Notification;
+import service.client.ClientService;
 import service.user.AuthenticationService;
 import view.LoginView;
 import view.UserView;
@@ -14,11 +16,13 @@ public class UserController {
     private final UserView userView;
     //private final AuthenticationService authenticationService;
     //private final User currentUser;
+    private final ClientService clientService;
 
-    public UserController(UserView userView){//},User currentUser){//, AuthenticationService authenticationService, User currentUser) {
+    public UserController(UserView userView, ClientService clientService){//},User currentUser){//, AuthenticationService authenticationService, User currentUser) {
         this.userView = userView;
         //this.authenticationService = authenticationService;
         //this.currentUser = currentUser;
+        this.clientService = clientService;
         userView.setBtnInfoViewListener(new UserController.BtnInfoViewListener());
         userView.setBtnInfoUpdateListener(new UserController.BtnInfoUpdateListener());
         userView.setBtnAccountCreateListener(new UserController.BtnAccountCreateListener());
@@ -70,14 +74,29 @@ public class UserController {
     private class BtnInfoViewListener implements ActionListener {
         @Override
         public void actionPerformed(ActionEvent e) {
-
+            String name = userView.getTfInfoName();
+            Client client = clientService.findByNameInfo(name);
+            userView.getLabelInfo().setText(//"Id:" + client.getId() + "  " +
+                    "Name:" + client.getName() + "  " +
+                    "CardID:" + client.getCardID() + "  " +
+                    "CNP:" + client.getCNP() + "  " +
+                    "Address:" + client.getAddress() + "  "
+                    //"Balance:" + client.getBalance() + "  " +
+                    //"Type:" + client.getType() + "  " +
+                    //"Date of creation:" + client.getDateOfCreation().toString()
+                    );
         }
     }
 
     public class BtnInfoUpdateListener implements ActionListener {
         @Override
         public void actionPerformed(ActionEvent e) {
-
+            String name = userView.getTfInfoName();
+            Long cardID = Long.parseLong(userView.getTfInfoCardId());
+            String CNP = userView.getTfInfoCNP();
+            String address = userView.getTfInfoAddress();
+            clientService.updateInfo(name,cardID,CNP,address);
+            //System.out.println("ceva");
         }
     }
 

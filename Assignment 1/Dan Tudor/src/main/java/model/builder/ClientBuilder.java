@@ -45,4 +45,13 @@ public class ClientBuilder {
         client.setDateOfCreation(date);
         return this;
     }
+    public ClientBuilder setType(String type)
+    {
+        client.setType(type);
+        return this;
+    }
+
+    public Client build(){
+        return client;
+    }
 }

@@ -29,6 +29,7 @@ public class SQLTableCreationFactory {
               "  address VARCHAR(100) NOT NULL," +
               "  balance INT NOT NULL," +
               "  dateOfCreation DATE NOT NULL," +
+              "  type VARCHAR(15) NOT NULL," +
               "  PRIMARY KEY (id)," +
               "  UNIQUE INDEX id_UNIQUE (id ASC));";
       case ROLE -> "  CREATE TABLE IF NOT EXISTS role (" +

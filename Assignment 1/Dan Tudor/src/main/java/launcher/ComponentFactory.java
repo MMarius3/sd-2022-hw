@@ -5,10 +5,14 @@ import controller.UserController;
 import database.DBConnectionFactory;
 import model.User;
 import repository.book.BookRepositoryMySQL;
+import repository.client.ClientRepository;
+import repository.client.ClientRepositoryMySQL;
 import repository.security.RightsRolesRepository;
 import repository.security.RightsRolesRepositoryMySQL;
 import repository.user.UserRepository;
 import repository.user.UserRepositoryMySQL;
+import service.client.ClientService;
+import service.client.ClientServiceImpl;
 import service.user.AuthenticationService;
 import service.user.AuthenticationServiceMySQL;
 import view.LoginView;
@@ -26,10 +30,12 @@ public class ComponentFactory {
 //  private final UserController userController;
 
   private final AuthenticationService authenticationService;
+  private final ClientService clientService;
 
   private final UserRepository userRepository;
   private final RightsRolesRepository rightsRolesRepository;
   private final BookRepositoryMySQL bookRepositoryMySQL;
+  private final ClientRepositoryMySQL clientRepositoryMySQL;
 
   private static ComponentFactory instance;
 
@@ -43,10 +49,12 @@ public class ComponentFactory {
   private ComponentFactory(Boolean componentsForTests) {
     Connection connection = new DBConnectionFactory().getConnectionWrapper(componentsForTests).getConnection();
     this.rightsRolesRepository = new RightsRolesRepositoryMySQL(connection);
+    this.clientRepositoryMySQL = new ClientRepositoryMySQL(connection);
     this.userRepository = new UserRepositoryMySQL(connection, rightsRolesRepository);
     this.authenticationService = new AuthenticationServiceMySQL(this.userRepository, this.rightsRolesRepository);
+    this.clientService = new ClientServiceImpl(this.clientRepositoryMySQL);
     this.loginView = new LoginView();
-    this.loginController = new LoginController(loginView, authenticationService);
+    this.loginController = new LoginController(loginView, authenticationService, clientService);
     bookRepositoryMySQL = new BookRepositoryMySQL(connection);
   }
 

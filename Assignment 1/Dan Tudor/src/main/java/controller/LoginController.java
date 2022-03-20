@@ -1,8 +1,14 @@
 package controller;
 
+import database.DBConnectionFactory;
 import model.User;
 import model.validation.Notification;
+import repository.book.BookRepositoryMySQL;
+import repository.security.RightsRolesRepositoryMySQL;
+import repository.user.UserRepositoryMySQL;
+import service.client.ClientService;
 import service.user.AuthenticationService;
+import service.user.AuthenticationServiceMySQL;
 import view.AdminView;
 import view.LoginView;
 import view.UserView;
@@ -10,21 +16,24 @@ import view.UserView;
 import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.sql.Connection;
 
 public class LoginController {
   private final LoginView loginView;
   private final AuthenticationService authenticationService;
+  private final ClientService clientService;
 
-  public LoginController(LoginView loginView, AuthenticationService authenticationService) {
+  public LoginController(LoginView loginView, AuthenticationService authenticationService, ClientService clientService) {
     this.loginView = loginView;
     this.authenticationService = authenticationService;
+    this.clientService = clientService;
     loginView.setLoginButtonListener(new LoginButtonListener());
     loginView.setRegisterButtonListener(new RegisterButtonListener());
   }
 
   private class LoginButtonListener implements ActionListener {
     private final UserView userView = new UserView();
-    private final UserController userController = new UserController(userView);
+    private final UserController userController = new UserController(userView,clientService);
     private final AdminView adminView = new AdminView();
     private final AdminController adminController = new AdminController(adminView);
     @Override
@@ -39,6 +48,7 @@ public class LoginController {
       } else {
         JOptionPane.showMessageDialog(loginView.getContentPane(), "Login successful!");
         if(username.compareTo("admin@gmail.com") != 0){
+
           userView.setVisible();
         }
         else{

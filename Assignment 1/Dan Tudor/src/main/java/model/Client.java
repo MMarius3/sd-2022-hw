@@ -10,6 +10,15 @@ public class Client {
     private String address;
     private int balance;
     private Date dateOfCreation;
+    private String type;
+
+    public String getType() {
+        return type;
+    }
+
+    public void setType(String type) {
+        this.type = type;
+    }
 
     public Long getId() {
         return id;
