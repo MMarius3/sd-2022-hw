@@ -20,7 +20,7 @@ public class Boostraper {
   private RightsRolesRepository rightsRolesRepository;
 
   public void execute() throws SQLException {
-    dropAll();
+    //dropAll();
 
     bootstrapTables();
 

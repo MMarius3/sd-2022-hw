@@ -1,24 +1,19 @@
 package database;
 
-import static database.Constants.Tables.BOOK;
-import static database.Constants.Tables.RIGHT;
-import static database.Constants.Tables.ROLE;
-import static database.Constants.Tables.ROLE_RIGHT;
-import static database.Constants.Tables.USER;
-import static database.Constants.Tables.USER_ROLE;
+import static database.Constants.Tables.*;
 
 public class SQLTableCreationFactory {
 
   public String getCreateSQLForTable(String table) {
     return switch (table) {
-      case BOOK -> "CREATE TABLE IF NOT EXISTS book (" +
-          "  id int(11) NOT NULL AUTO_INCREMENT," +
-          "  author varchar(500) NOT NULL," +
-          "  title varchar(500) NOT NULL," +
-          "  publishedDate datetime DEFAULT NULL," +
-          "  PRIMARY KEY (id)," +
-          "  UNIQUE KEY id_UNIQUE (id)" +
-          ") ENGINE=InnoDB AUTO_INCREMENT=0 DEFAULT CHARSET=utf8;";
+//      case BOOK -> "CREATE TABLE IF NOT EXISTS book (" +
+//          "  id int(11) NOT NULL AUTO_INCREMENT," +
+//          "  author varchar(500) NOT NULL," +
+//          "  title varchar(500) NOT NULL," +
+//          "  publishedDate datetime DEFAULT NULL," +
+//          "  PRIMARY KEY (id)," +
+//          "  UNIQUE KEY id_UNIQUE (id)" +
+//          ") ENGINE=InnoDB AUTO_INCREMENT=0 DEFAULT CHARSET=utf8;";
       case USER -> "CREATE TABLE IF NOT EXISTS user (" +
           "  id INT NOT NULL AUTO_INCREMENT," +
           "  username VARCHAR(200) NOT NULL," +
@@ -26,6 +21,16 @@ public class SQLTableCreationFactory {
           "  PRIMARY KEY (id)," +
           "  UNIQUE INDEX id_UNIQUE (id ASC)," +
           "  UNIQUE INDEX username_UNIQUE (username ASC));";
+      case CLIENT -> "CREATE TABLE IF NOT EXISTS client (" +
+              "  id INT NOT NULL AUTO_INCREMENT," +
+              "  name VARCHAR(200) NOT NULL," +
+              "  cardID INT NOT NULL," +
+              "  CNP VARCHAR(64) NOT NULL," +
+              "  address VARCHAR(100) NOT NULL," +
+              "  balance INT NOT NULL," +
+              "  dateOfCreation DATE NOT NULL," +
+              "  PRIMARY KEY (id)," +
+              "  UNIQUE INDEX id_UNIQUE (id ASC));";
       case ROLE -> "  CREATE TABLE IF NOT EXISTS role (" +
           "  id INT NOT NULL AUTO_INCREMENT," +
           "  role VARCHAR(100) NOT NULL," +
@@ -74,6 +79,7 @@ public class SQLTableCreationFactory {
           "    REFERENCES role (id)" +
           "    ON DELETE CASCADE" +
           "    ON UPDATE CASCADE);";
+
       default -> "";
     };
   }

@@ -3,7 +3,9 @@ package controller;
 import model.User;
 import model.validation.Notification;
 import service.user.AuthenticationService;
+import view.AdminView;
 import view.LoginView;
+import view.UserView;
 
 import javax.swing.*;
 import java.awt.event.ActionEvent;
@@ -21,7 +23,10 @@ public class LoginController {
   }
 
   private class LoginButtonListener implements ActionListener {
-
+    private final UserView userView = new UserView();
+    private final UserController userController = new UserController(userView);
+    private final AdminView adminView = new AdminView();
+    private final AdminController adminController = new AdminController(adminView);
     @Override
     public void actionPerformed(ActionEvent e) {
       String username = loginView.getUsername();
@@ -33,7 +38,14 @@ public class LoginController {
         JOptionPane.showMessageDialog(loginView.getContentPane(), loginNotification.getFormattedErrors());
       } else {
         JOptionPane.showMessageDialog(loginView.getContentPane(), "Login successful!");
+        if(username.compareTo("admin@gmail.com") != 0){
+          userView.setVisible();
+        }
+        else{
+          adminView.setVisible();
+        }
       }
+
     }
   }
 
@@ -58,6 +70,4 @@ public class LoginController {
       }
     }
   }
-
-
 }

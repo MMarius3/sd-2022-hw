@@ -12,7 +12,8 @@ import java.nio.charset.StandardCharsets;
 import java.security.MessageDigest;
 import java.util.Collections;
 
-import static database.Constants.Roles.CUSTOMER;
+//import static database.Constants.Roles.CUSTOMER;
+import static database.Constants.Roles.USER;
 
 public class AuthenticationServiceMySQL implements AuthenticationService {
 
@@ -26,11 +27,11 @@ public class AuthenticationServiceMySQL implements AuthenticationService {
 
   @Override
   public Notification<Boolean> register(String username, String password) {
-    Role customerRole = rightsRolesRepository.findRoleByTitle(CUSTOMER);
+    Role userRole = rightsRolesRepository.findRoleByTitle(USER);
     User user = new UserBuilder()
         .setUsername(username)
         .setPassword(password)
-        .setRoles(Collections.singletonList(customerRole))
+        .setRoles(Collections.singletonList(userRole))
         .build();
 
     UserValidator userValidator = new UserValidator(user);
@@ -45,6 +46,7 @@ public class AuthenticationServiceMySQL implements AuthenticationService {
       userRegisterNotification.setResult(userRepository.save(user));
     }
     return userRegisterNotification;
+    //return null;
   }
 
   @Override

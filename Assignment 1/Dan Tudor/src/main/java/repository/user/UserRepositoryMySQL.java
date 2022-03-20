@@ -37,6 +37,7 @@ public class UserRepositoryMySQL implements UserRepository {
       Statement statement = connection.createStatement();
       String fetchUserSql = "Select * from `" + USER + "` where `username`=\'" + username + "\' and `password`=\'" + password + "\'";
       ResultSet userResultSet = statement.executeQuery(fetchUserSql);
+      System.out.println(username+" "+password);
       if (userResultSet.next()) {
         User user = new UserBuilder()
             .setUsername(userResultSet.getString("username"))
@@ -44,6 +45,7 @@ public class UserRepositoryMySQL implements UserRepository {
             .setRoles(rightsRolesRepository.findRolesForUser(userResultSet.getLong("id")))
             .build();
         findByUsernameAndPasswordNotification.setResult(user);
+        //System.out.println(user.getUsername()+"  "+user.getPassword());
         return findByUsernameAndPasswordNotification;
       } else {
         findByUsernameAndPasswordNotification.addError("Invalid email or password!");
