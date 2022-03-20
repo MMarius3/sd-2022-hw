@@ -36,6 +36,11 @@ public class ClientBuilder {
         return this;
     }
 
+    public ClientBuilder setId(int id){
+        client.setId(id);
+        return this;
+    }
+
     public Client build() {
         return client;
     }

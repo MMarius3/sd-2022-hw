@@ -34,6 +34,7 @@ public class ClientRepositoryMySQL implements ClientRepository{
 
             while(clientResultSet.next()){
                 Client client = new ClientBuilder()
+                        .setId(clientResultSet.getInt("id"))
                         .setName(clientResultSet.getString("name"))
                         .setIdCardNr(clientResultSet.getLong("ID_card_nr"))
                         .setPNC(clientResultSet.getLong("PNC"))
@@ -165,6 +166,22 @@ public class ClientRepositoryMySQL implements ClientRepository{
             statement.executeUpdate();
 
             return true;
+        } catch (SQLException e) {
+            return false;
+        }
+    }
+
+    @Override
+    public boolean existsById(int id){
+        try {
+            Statement statement = connection.createStatement();
+
+            String fetchClientSql =
+                    "Select * from `" + CLIENT + "` where `id`=\'" + id + "\'";
+            ResultSet clientResultSet = statement.executeQuery(fetchClientSql);
+            if(clientResultSet.next()){
+                return true;
+            }else{return false;}
         } catch (SQLException e) {
             return false;
         }

@@ -21,5 +21,7 @@ public interface ClientRepository {
 
     Response<Boolean> existsByEmail(String email);
 
+    boolean existsById(int id);
+
     boolean updateClient(Client client);
 }

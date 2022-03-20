@@ -1,18 +1,21 @@
 package controller;
 
 import model.User;
+import model.validator.AccountValidator;
 import model.validator.ClientValidator;
 import model.validator.UserValidator;
+import respository.account.AccountRepository;
+import respository.account.AccountRepositoryMySQL;
 import respository.client.ClientRepository;
 import respository.client.ClientRepositoryMySQL;
+import service.account.AccountService;
+import service.account.AccountServiceMySQL;
 import service.client.ClientService;
 import service.client.ClientServiceMySQL;
 import service.user.AuthenticationService;
 import view.LoginView;
 import view.admin.AdminIndexView;
-import view.employee.EmployeeAddClientView;
-import view.employee.EmployeeIndexView;
-import view.employee.EmployeeUpdateClientView;
+import view.employee.*;
 
 import javax.swing.*;
 import java.awt.event.ActionEvent;
@@ -53,10 +56,20 @@ public class LoginController {
                     final ClientRepository clientRepository = new ClientRepositoryMySQL(connection);
                     final ClientService clientService = new ClientServiceMySQL(clientRepository);
                     ClientValidator clientValidator = new ClientValidator(clientRepository);
+
+                    final AccountRepository accountRepository = new AccountRepositoryMySQL(connection);
+                    final AccountService accountService = new AccountServiceMySQL(accountRepository);
+                    final AccountValidator accountValidator = new AccountValidator(clientRepository);
                     EmployeeIndexView employeeIndexView = new EmployeeIndexView();
                     EmployeeAddClientView employeeAddClientView = new EmployeeAddClientView();
                     EmployeeUpdateClientView employeeUpdateClientView = new EmployeeUpdateClientView();
-                    EmployeeController employeeController = new EmployeeController(clientService, clientValidator, employeeIndexView, employeeAddClientView, employeeUpdateClientView);
+                    EmployeeAddAccountView employeeAddAccountView = new EmployeeAddAccountView();
+                    EmployeeUpdateAccountView employeeUpdateAccountView = new EmployeeUpdateAccountView();
+                    EmployeeTransferMoneyView employeeTransferMoneyView = new EmployeeTransferMoneyView();
+                    EmployeeProcessBillsView employeeProcessBillsView = new EmployeeProcessBillsView();
+                    EmployeeController employeeController = new EmployeeController(clientService, clientValidator, employeeIndexView, employeeAddClientView,
+                            employeeUpdateClientView, employeeAddAccountView, accountValidator, accountService, employeeUpdateAccountView,
+                            employeeTransferMoneyView, employeeProcessBillsView);
                     employeeIndexView.setVisible(true);
 
                 } else{
