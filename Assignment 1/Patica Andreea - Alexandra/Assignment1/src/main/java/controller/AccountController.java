@@ -4,19 +4,25 @@ import model.Account;
 import model.AccountType;
 import model.Client;
 import model.builder.AccountBuilder;
+import model.validator.AccountValidator;
+import repository.account.AccountRepository;
 import service.account.AccountService;
 import view.AccountView;
+import view.MessageView;
 
 import java.sql.Date;
 import java.util.Calendar;
+import java.util.List;
 
 public class AccountController {
     private final AccountView accountView;
     private final AccountService accountService;
+    private final AccountValidator accountValidator;
 
-    public AccountController(AccountService accountService){
+    public AccountController(AccountService accountService, AccountRepository accountRepository){
         this.accountView = new AccountView();
         this.accountService = accountService;
+        this.accountValidator = new AccountValidator(accountRepository);
     }
 
     public void startController(Account account, Client client){
@@ -40,13 +46,27 @@ public class AccountController {
 
     private void initializeSaveButtonListener(Client client){
         accountView.getSaveButton().setOnAction(e -> {
-            Account account = new AccountBuilder()
-                    .setType(new AccountType(Long.parseLong("1"), accountView.getTypeField())) //TODO checkbox
-                    .setBalance(Integer.valueOf(accountView.getBalanceField()))
-                    .setCreationDate(new Date(Calendar.DATE))
-                    .setClient(client)
-                    .build();
-            accountService.save(account);
+            String type = accountView.getTypeField();
+            String balance = accountView.getBalanceField();
+
+            accountValidator.validate(type, balance);
+
+            final List<String> errors = accountValidator.getErrors();
+            if (errors.isEmpty()) {
+                Account account = new AccountBuilder()
+                        .setType(new AccountType(Long.parseLong("1"), accountView.getTypeField())) //TODO checkbox
+                        .setBalance(Integer.valueOf(accountView.getBalanceField()))
+                        .setCreationDate(new Date(Calendar.getInstance().getTime().getTime()))
+                        .setClient(client)
+                        .build();
+                accountService.save(account);
+                new MessageView().display("Account saved successfully");
+            } else {
+                new MessageView().display( accountValidator.getFormattedErrors());
+                //JOptionPane.showMessageDialog(loginView.getContentPane(), userValidator.getFormattedErrors());
+            }
+
+
         });
     }
 
