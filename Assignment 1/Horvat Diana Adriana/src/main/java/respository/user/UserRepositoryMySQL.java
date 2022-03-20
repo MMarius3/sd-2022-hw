@@ -1,6 +1,8 @@
 package respository.user;
 
 import controller.Response;
+import model.Account;
+import model.Activity;
 import model.User;
 import model.builder.UserBuilder;
 import respository.security.RolesRepository;
@@ -56,6 +58,53 @@ public class UserRepositoryMySQL implements UserRepository{
     }
 
     @Override
+    public List<Integer> getAllActivities(User user){
+//        try {
+//            Statement statement = connection.createStatement();
+//
+//            String getAllActivitiesSql =
+//                    "SELECT * from activity_user where `user_id`=\'" + user.getId() + "\'";
+//            ResultSet activityResultSet = statement.executeQuery(getAllActivitiesSql);
+//
+//            List<Activity> activities = new ArrayList<>();
+//
+//            while(activityResultSet.next()){
+//                int activityId = activityResultSet.getInt("activity_id");
+//                activitiesId.add(activityResultSet.getInt("activity_id"));
+//            }
+//
+//            return activitiesId;
+//        } catch (SQLException e) {
+//            System.out.println(e.toString());
+//        }
+        return null;
+    }
+
+    @Override
+    public User findById(int id){
+        try {
+            Statement statement = connection.createStatement();
+
+            String fetchUserSql =
+                    "Select * from `" + USER + "` where `id`=\'" + id + "\'";
+            ResultSet userResultSet = statement.executeQuery(fetchUserSql);
+            userResultSet.next();
+
+            User user = new UserBuilder()
+                    .setId(userResultSet.getInt("id"))
+                    .setUsername(userResultSet.getString("username"))
+                    .setPassword(userResultSet.getString("password"))
+                    .setRoles(rolesRepository.findRolesForUser(userResultSet.getInt("id")))
+                    .build();
+
+            return user;
+        } catch (SQLException e) {
+            System.out.println(e.toString());
+        }
+        return null;
+    }
+
+    @Override
     public User findByUsernameAndPassword(String username, String password) {
         try {
             Statement statement = connection.createStatement();
@@ -66,6 +115,7 @@ public class UserRepositoryMySQL implements UserRepository{
             userResultSet.next();
 
             User user = new UserBuilder()
+                    .setId(userResultSet.getInt("id"))
                     .setUsername(userResultSet.getString("username"))
                     .setPassword(userResultSet.getString("password"))
                     .setRoles(rolesRepository.findRolesForUser(userResultSet.getInt("id")))
@@ -124,6 +174,63 @@ public class UserRepositoryMySQL implements UserRepository{
             return new Response<>(userResultSet.next());
         } catch (SQLException e) {
             return new Response<>(singletonList(e.getMessage()));
+        }
+    }
+
+    @Override
+    public User findByUsername(String username){
+        try {
+            Statement statement = connection.createStatement();
+
+            String fetchUserSql =
+                    "Select * from `" + USER + "` where `username`=\'" + username + "\'";
+            ResultSet userResultSet = statement.executeQuery(fetchUserSql);
+            userResultSet.next();
+
+            User user = new UserBuilder()
+                    .setId(userResultSet.getInt("id"))
+                    .setUsername(userResultSet.getString("username"))
+                    .setPassword(userResultSet.getString("password"))
+                    .setRoles(rolesRepository.findRolesForUser(userResultSet.getInt("id")))
+                    .build();
+
+            return user;
+        } catch (SQLException e) {
+            return null;
+        }
+    }
+
+    @Override
+    public boolean removeUser(User user){
+        try {
+            Statement statement = connection.createStatement();
+            String sqlUserRole = "DELETE from user_role where `user_id`=\'" + user.getId() + "\'";
+            statement.executeUpdate(sqlUserRole);
+
+            String sqlUser = "DELETE from `" + USER + "` where `id`=\'" + user.getId() + "\'";
+            statement.executeUpdate(sqlUser);
+
+            return true;
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return false;
+        }
+    }
+
+    @Override
+    public boolean updateUser(User user){
+        try {
+            String fetchAccountSql =
+                    "UPDATE users SET username = ?, password = ? WHERE id= ?";
+            PreparedStatement statement = connection.prepareStatement(fetchAccountSql);
+            statement.setString(1, user.getUsername());
+            statement.setString(2, user.getPassword());
+            statement.setInt(3, user.getId());
+            statement.executeUpdate();
+
+            return true;
+        } catch (SQLException e) {
+            return false;
         }
     }
 

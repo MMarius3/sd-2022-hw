@@ -42,6 +42,7 @@ public class EmployeeUpdateClientView extends JFrame {
 
     public void setClientData(String name, Long idCardNr, String address, String email){
         tfName.setText(name);
+        setTfName(name);
         tfIdCardNr.setText(idCardNr.toString());
         tfAddress.setText(address);
         tfEmail.setText(email);
@@ -67,8 +68,8 @@ public class EmployeeUpdateClientView extends JFrame {
         return tfName.getText();
     }
 
-    public void setTfName(JTextField tfName) {
-        this.tfName = tfName;
+    public void setTfName(String tfName) {
+        this.tfName.setName(tfName);
     }
 
     public String getTfIdCardNr() {

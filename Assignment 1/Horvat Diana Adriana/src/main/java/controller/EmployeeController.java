@@ -1,16 +1,18 @@
 package controller;
 
-import model.Account;
-import model.Client;
+import model.*;
 import model.builder.ClientBuilder;
 import model.validator.AccountValidator;
 import model.validator.ClientValidator;
 import model.validator.UserValidator;
 import respository.client.ClientRepository;
 import service.account.AccountService;
+import service.activity.ActivityService;
 import service.client.ClientService;
 import service.client.ClientServiceMySQL;
+import service.user.AuthenticationService;
 import view.RowFilterUtil;
+import view.admin.AdminIndexView;
 import view.employee.*;
 
 import javax.swing.*;
@@ -33,15 +35,21 @@ public class EmployeeController {
     private final ClientValidator clientValidator;
     private final ClientService clientService;
 
+    private final ActivityService activityService;
+    private final String[] activities = {"Add client", "Update client", "Add client account", "Update client account",
+            "Delete client account", "Transfer money", "Process utility bill"};
+
     private final AccountValidator accountValidator;
     private final AccountService accountService;
+    private final AuthenticationService authenticationService;
+
 
     public EmployeeController(ClientService clientService, ClientValidator clientValidator,
                               EmployeeIndexView employeeIndexView, EmployeeAddClientView employeeAddClientView,
                               EmployeeUpdateClientView employeeUpdateClientView, EmployeeAddAccountView employeeAddAccountView,
                               AccountValidator accountValidator, AccountService accountService,
                               EmployeeUpdateAccountView employeeUpdateAccountView, EmployeeTransferMoneyView employeeTransferMoneyView,
-                              EmployeeProcessBillsView employeeProcessBillsView){
+                              EmployeeProcessBillsView employeeProcessBillsView, ActivityService activityService, AuthenticationService authenticationService){
         this.clientService = clientService;
         this.clientValidator = clientValidator;
         this.employeeIndexView = employeeIndexView;
@@ -53,6 +61,8 @@ public class EmployeeController {
         this.employeeUpdateAccountView = employeeUpdateAccountView;
         this.employeeTransferMoneyView = employeeTransferMoneyView;
         this.employeeProcessBillsView = employeeProcessBillsView;
+        this.activityService = activityService;
+        this.authenticationService = authenticationService;
 
         this.employeeIndexView.addClientViewBtnListener(new CreateClientViewBtnListener());
         this.employeeAddClientView.addClientBtnListener(new AddClientBtnListener());
@@ -92,6 +102,8 @@ public class EmployeeController {
             if (errors.isEmpty()) {
                 if(clientService.addClient(name, idCardNr, PNC, address, email)){
                     JOptionPane.showMessageDialog(employeeAddClientView.getContentPane(), "Client added successfully");
+                    Activity activity = activityService.save("Added client");
+                    activityService.addActivityToUser(authenticationService.getSentinel().getUser(), activity.getId());
                 }else{
                     JOptionPane.showMessageDialog(employeeAddClientView.getContentPane(), "Something went wrong");
                 }
@@ -137,8 +149,8 @@ public class EmployeeController {
             String PNCStr = employeeUpdateClientView.getTfPNC();
             String idCardNrStr = employeeUpdateClientView.getTfIdCardNr();
             String address = employeeUpdateClientView.getTfAddress();
-            String email = employeeAddClientView.getEmail();
-            String name = employeeAddClientView.getName();
+            String email = employeeUpdateClientView.getTfEmail();
+            String name = employeeUpdateClientView.getTfName();
 
             clientValidator.validateUpdate(idCardNrStr, PNCStr, email);
             final List<String> errors = clientValidator.getErrors();
@@ -157,6 +169,8 @@ public class EmployeeController {
 
                 if(clientService.updateClient(client)){
                     JOptionPane.showMessageDialog(employeeUpdateClientView.getContentPane(), "Client updated");
+                    Activity activity = activityService.save("Edited client");
+                    activityService.addActivityToUser(authenticationService.getSentinel().getUser(), activity.getId());
                 }else{
                     JOptionPane.showMessageDialog(employeeUpdateClientView.getContentPane(), "Something went wrong");
                 }
@@ -193,6 +207,8 @@ public class EmployeeController {
 
                 if(accountService.addAccount(clientId, type, amount)){
                     JOptionPane.showMessageDialog(employeeAddAccountView.getContentPane(), "Account added successfully");
+                    Activity activity = activityService.save("Added account");
+                    activityService.addActivityToUser(authenticationService.getSentinel().getUser(), activity.getId());
                 }else{
                     JOptionPane.showMessageDialog(employeeAddAccountView.getContentPane(), "Something went wrong");
                 }
@@ -256,6 +272,8 @@ public class EmployeeController {
                     if(accountService.updateAccount(account)){
 
                         JOptionPane.showMessageDialog(employeeUpdateAccountView.getContentPane(), "Account updated");
+                        Activity activity = activityService.save("Updated account");
+                        activityService.addActivityToUser(authenticationService.getSentinel().getUser(), activity.getId());
                     }else{
                         JOptionPane.showMessageDialog(employeeUpdateAccountView.getContentPane(), "Something went wrong");
                     }
@@ -281,6 +299,8 @@ public class EmployeeController {
                 if(account != null){
                     if(accountService.removeAccount(account)){
                         JOptionPane.showMessageDialog(employeeUpdateAccountView.getContentPane(), "Account deleted successfully");
+                        Activity activity = activityService.save("Deleted account");
+                        activityService.addActivityToUser(authenticationService.getSentinel().getUser(), activity.getId());
                     }else{
                         JOptionPane.showMessageDialog(employeeUpdateAccountView.getContentPane(), "Something went wrong");
                     }
@@ -328,6 +348,8 @@ public class EmployeeController {
 
                     if(accountService.updateAccount(fromAccount) && accountService.updateAccount(toAccount)){
                         JOptionPane.showMessageDialog(employeeTransferMoneyView.getContentPane(), "Transferred successfully");
+                        Activity activity = activityService.save("Transferred money");
+                        activityService.addActivityToUser(authenticationService.getSentinel().getUser(), activity.getId());
                     }else{
                         JOptionPane.showMessageDialog(employeeTransferMoneyView.getContentPane(), "Something went wrong");
                     }
@@ -370,6 +392,8 @@ public class EmployeeController {
                     account.setAmount(account.getAmount() - amount);
                     if(accountService.updateAccount(account)){
                         JOptionPane.showMessageDialog(employeeProcessBillsView.getContentPane(), "Bill payed successfully");
+                        Activity activity = activityService.save("Payed bill");
+                        activityService.addActivityToUser(authenticationService.getSentinel().getUser(), activity.getId());
                     }
                     else{
                         JOptionPane.showMessageDialog(employeeProcessBillsView.getContentPane(), "Something went wrong");

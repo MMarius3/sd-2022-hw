@@ -40,7 +40,7 @@ public class ClientValidator {
         if(idCardNrLong == null || PNCLong == null){
             errors.add("Identification card number or personal numerical code is not valid");
         }else{
-            validateEmail(email);
+            this.validateEmail(email);
         }
     }
 

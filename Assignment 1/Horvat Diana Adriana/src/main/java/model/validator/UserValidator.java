@@ -27,7 +27,7 @@ public class UserValidator {
         validatePasswordDigit(password);
     }
 
-    private void validateEmailUniqueness(String email) {
+    public void validateEmailUniqueness(String email) {
         final Response<Boolean> response = userRepository.existsByUsername(email);
         if (response.hasErrors()) {
             errors.add(response.getFormattedErrors());
@@ -39,27 +39,37 @@ public class UserValidator {
         }
     }
 
-    private void validateEmail(String email) {
+    public void validateEmail(String email) {
         if (!email.matches(EMAIL_VALIDATION_REGEX)) {
             errors.add("Email is not valid");
         }
     }
 
-    private void validatePasswordLength(String password) {
+    public void validatePasswordLength(String password) {
         if (!(password.length() >= MIN_PASSWORD_LENGTH)) {
             errors.add("Password must be at least 8 characters long");
         }
     }
 
-    private void validatePasswordSpecial(String password) {
+    public void validatePasswordSpecial(String password) {
         if (!password.matches(".*[!@#$%^&*()_+].*")) {
             errors.add("Password must contain at least one special character");
         }
     }
 
-    private void validatePasswordDigit(String password) {
+    public void validatePasswordDigit(String password) {
         if (!password.matches(".*[0-9].*")) {
             errors.add("Password must contain at least one digit");
+        }
+    }
+
+    public boolean validateId(String id){
+        try
+        {
+            int id_int = Integer.parseInt(id);
+            return true;
+        }catch(NumberFormatException e){
+            return false;
         }
     }
 

@@ -1,6 +1,7 @@
 package respository.user;
 
 import controller.Response;
+import model.Activity;
 import model.User;
 
 import java.util.List;
@@ -17,4 +18,14 @@ public interface UserRepository {
     void removeAll();
 
     Response<Boolean> existsByUsername(String email);
+
+    User findByUsername(String username);
+
+    boolean removeUser(User user);
+
+    boolean updateUser(User user);
+
+    User findById(int id);
+
+    List<Integer> getAllActivities(User user);
 }
