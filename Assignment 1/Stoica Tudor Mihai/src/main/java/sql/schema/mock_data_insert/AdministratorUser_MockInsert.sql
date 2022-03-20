@@ -1,0 +1,1 @@
+INSERT INTO `Administrator_User` (`id`, `user_id`) VALUES (NULL, '3'), (NULL, '4');

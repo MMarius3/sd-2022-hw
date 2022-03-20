@@ -5,35 +5,125 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="8422fd59-062b-4b16-98e5-113b7c3edd7f" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/src/main/java/models/UserAction.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/repositories/dtos/UserActionDTO.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/repositories/user_action/UserAction.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/repositories/user_action/UserActionMySQL.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/services/TransferMoneyBetweenAccounts/TransferMoneyBetweenAccounts.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/services/TransferMoneyBetweenAccounts/exceptions/AccountRepositoryNotInjectedException.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/services/TransferMoneyBetweenAccounts/exceptions/MapperNotInjectedException.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/services/generate_report/AbstractReportGenerator.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/services/generate_report/GenerateReportPDF.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/services/generate_report/ReportType.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/services/generate_report/dtos/UserActionDTO.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/services/generate_report/exceptions/UserActionNotLoadedException.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/controller/ControllerActions.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/controller/Scene.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/controller/UserController.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/database/DatabaseConnectionFactory.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/database/DatabaseInitializer.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/database/JDBConnectionWrapper.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/dtos/AccountDTO.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/dtos/AdministratorUserDTO.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/dtos/RegularUserDTO.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/dtos/TransactionDTO.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/mapper/AccountMapper.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/mapper/ClientMapper.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/mapper/CurrencyMapper.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/mapper/MapperGetter.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/mapper/UserActionMapper.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/mapper/UserMapper.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/repository/account/AccountRepositoryMySQL.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/repository/administrator_user/AdministratorUserRepositoryMySQL.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/repository/client/ClientRepositoryMySQL.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/repository/currency/CurrencyRepositoryMySQL.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/repository/user/UserRepositoryMySQL.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/repository/user_action/UserActionRepositoryMySQL.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/service/TransferMoneyBetweenAccounts/TransactionMaker.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/service/TransferMoneyBetweenAccounts/exception/InvalidTransactionException.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/service/crud/AccountCRUD.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/service/crud/ClientCRUD.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/service/crud/CrudActions.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/service/crud/UserCRUD.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/service/generate_report/PDFReportGenerator.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/service/generate_report/ReportGenerator.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/service/process_utilities_bills/ProcessUtilitiesBills.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/service/process_utilities_bills/UtilitiesBillsProcessor.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/sql/schema/RefreshDB.sql" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/sql/schema/constraint/Account_ForeignKeys.sql" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/sql/schema/constraint/AdministratorUser_ForeignKeys.sql" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/sql/schema/constraint/RegularUser_ForeignKeys.sql" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/sql/schema/constraint/Transaction_ForeignKeys.sql" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/sql/schema/constraint/UserAction_ForeignKeys.sql" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/sql/schema/mock_data_insert/Account_MockInsert.sql" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/sql/schema/mock_data_insert/AdministratorUser_MockInsert.sql" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/sql/schema/mock_data_insert/Client_MockInsert.sql" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/sql/schema/mock_data_insert/Currency_MockInsert.sql" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/sql/schema/mock_data_insert/RegularUser_MockInsert.sql" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/sql/schema/mock_data_insert/Transaction_MockInsert.sql" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/sql/schema/mock_data_insert/UserAction_MockInsert.sql" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/sql/schema/mock_data_insert/User_MockInsert.sql" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/sql/schema/tabel/Account.sql" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/sql/schema/tabel/AdministratorUser.sql" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/sql/schema/tabel/Client.sql" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/sql/schema/tabel/Currency.sql" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/sql/schema/tabel/RegularUser.sql" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/sql/schema/tabel/Transaction.sql" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/sql/schema/tabel/User.sql" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/sql/schema/tabel/UserAction.sql" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/util/SQLSchemaUtil.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/validator/AccountDTOValidator.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/validator/ClientDTOValidator.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/validator/Validator.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/view/UserView.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/view/component/ClientsDetailsBuilder.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/view/component/ClientsListBuilder.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/view/component/ComponentsFetcher.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/view/component/ReportGeneratorFormBuilder.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/test/java/repository/ClientRepositoryMySQLTest.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/test/java/service/GenerateReportTest.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/test/java/service/TransferMoneyTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/compiler.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/compiler.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/modules.xml" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/models/Account.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/models/Account.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/models/AdministratorUser.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/models/AdministratorUser.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/models/Client.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/models/Client.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/models/Currency.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/models/Currency.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/models/RegularUser.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/models/RegularUser.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/models/Transaction.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/models/Transaction.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/models/User.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/models/User.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/repositories/dtos/AccountDTO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/repositories/dtos/AccountDTO.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/repositories/dtos/AdministratorUserDTO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/repositories/dtos/AdministratorUserDTO.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/repositories/dtos/ClientDTO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/repositories/dtos/ClientDTO.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/repositories/dtos/CurrencyDTO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/repositories/dtos/CurrencyDTO.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/repositories/dtos/RegularUserDTO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/repositories/dtos/RegularUserDTO.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/repositories/dtos/TransactionDTO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/repositories/dtos/TransactionDTO.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/repositories/dtos/UserDTO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/repositories/dtos/UserDTO.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/services/GenerateReport.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/services/generate_report/GenerateReport.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/services/TransferMoneyBetweenAccounts.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/BankManagement.iml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/models/Account.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/model/Account.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/models/AdministratorUser.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/model/AdministratorUser.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/models/Client.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/model/Client.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/models/Currency.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/model/Currency.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/models/RegularUser.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/model/RegularUser.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/models/Transaction.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/model/Transaction.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/models/User.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/model/User.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/models/UserAction.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/model/UserAction.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/repositories/AbstractRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/repository/AbstractRepository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/repositories/account/AccountRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/repository/account/AccountRepository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/repositories/account/AccountRepositoryMySQL.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/repositories/administrator_user/AdministratorUserRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/repository/administrator_user/AdministratorUserRepository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/repositories/administrator_user/AdministratorUserRepositoryMySQL.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/repositories/client/ClientRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/repository/client/ClientRepository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/repositories/client/ClientRepositoryMySQL.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/repositories/currency/CurrencyRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/repository/currency/CurrencyRepository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/repositories/currency/CurrencyRepositoryMySQL.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/repositories/dtos/AccountDTO.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/repositories/dtos/AdministratorUserDTO.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/repositories/dtos/ClientDTO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/dtos/ClientDTO.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/repositories/dtos/CurrencyDTO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/dtos/CurrencyDTO.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/repositories/dtos/RegularUserDTO.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/repositories/dtos/TransactionDTO.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/repositories/dtos/UserActionDTO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/dtos/UserActionDTO.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/repositories/dtos/UserDTO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/dtos/UserDTO.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/repositories/regular_user/RegularUserRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/repository/regular_user/RegularUserRepository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/repositories/regular_user/RegularUserRepositoryMySQL.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/repository/regular_user/RegularUserRepositoryMySQL.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/repositories/transaction/TransactionRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/repository/transaction/TransactionRepository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/repositories/transaction/TransactionRepositoryMySQL.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/repository/transaction/TransactionRepositoryMySQL.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/repositories/user/UserRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/repository/user/UserRepository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/repositories/user/UserRepositoryMySQL.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/repositories/user_action/UserAction.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/repository/user_action/UserActionRepository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/repositories/user_action/UserActionMySQL.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/services/AdminUserClientInformationActions.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/service/AdminUserClientInformationActions.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/services/ClientAccountActions.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/service/ClientAccountActions.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/services/ProcessUtilitiesBills.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/service/ProcessUtilitiesBillsTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/services/RegularUserClientInformationActions.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/service/RegularUserClientInformationActions.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/services/TransferMoneyBetweenAccounts/TransferMoneyBetweenAccounts.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/service/TransferMoneyBetweenAccounts/TransferMoneyBetweenAccounts.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/services/TransferMoneyBetweenAccounts/exceptions/AccountRepositoryNotInjectedException.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/services/TransferMoneyBetweenAccounts/exceptions/MapperNotInjectedException.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/services/generate_report/AbstractReportGenerator.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/services/generate_report/GenerateReport.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/services/generate_report/GenerateReportPDF.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/services/generate_report/dtos/UserActionDTO.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/services/generate_report/exceptions/UserActionNotLoadedException.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/startup/Startup.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/startup/Startup.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/Startup.class" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -45,6 +135,7 @@
       <list>
         <option value="Enum" />
         <option value="Interface" />
+        <option value="FxmlFile" />
         <option value="Class" />
       </list>
     </option>
@@ -73,28 +164,145 @@
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
+    <property name="last_opened_file_path" value="$PATH_TO_FX$" />
     <property name="project.structure.last.edited" value="Modules" />
     <property name="project.structure.proportion" value="0.15" />
     <property name="project.structure.side.proportion" value="0.2" />
-    <property name="settings.editor.selected.configurable" value="preferences.editor" />
+    <property name="settings.editor.selected.configurable" value="preferences.pathVariables" />
   </component>
   <component name="RecentsManager">
+    <key name="CreateClassDialog.RecentsKey">
+      <recent name="controller" />
+      <recent name="service.TransferMoneyBetweenAccounts" />
+      <recent name="view.component" />
+    </key>
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/src/main/java" />
+      <recent name="$PROJECT_DIR$/src/main/java/sql/schema/mock_data_inserts" />
+      <recent name="$PROJECT_DIR$/src/main/java/sql/schema/constraints" />
+    </key>
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/src/main/java/sql/schema/tabels" />
+    </key>
     <key name="CopyClassDialog.RECENTS_KEY">
       <recent name="services" />
       <recent name="models.dtos" />
     </key>
   </component>
-  <component name="RunManager">
-    <configuration name="Startup" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+  <component name="RunManager" selected="JUnit.TransferMoneyTest.transactionTest">
+    <configuration name="Startup" type="Application" factoryName="Application" nameIsGenerated="true">
+      <option name="ALTERNATIVE_JRE_PATH" value="$USER_HOME$/.jdks/openjdk-17.0.2" />
+      <option name="MAIN_CLASS_NAME" value="startup.Startup" />
+      <module name="BankManagement" />
+      <option name="VM_PARAMETERS" value="--module-path ${PATH_TO_FX} --add-modules javafx.controls" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration default="true" type="Application" factoryName="Application">
+      <option name="ALTERNATIVE_JRE_PATH" value="$USER_HOME$/.jdks/openjdk-17.0.2" />
+      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="true" />
       <option name="MAIN_CLASS_NAME" value="startup.Startup" />
       <module name="BankManagement" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
     </configuration>
+    <configuration name="ClientRepositoryMySQLTest.deleteAll" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="BankManagement" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="repository.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="repository" />
+      <option name="MAIN_CLASS_NAME" value="repository.ClientRepositoryMySQLTest" />
+      <option name="METHOD_NAME" value="deleteAll" />
+      <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="ClientRepositoryMySQLTest.getByID" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="BankManagement" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="repository.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="repository" />
+      <option name="MAIN_CLASS_NAME" value="repository.ClientRepositoryMySQLTest" />
+      <option name="METHOD_NAME" value="getByID" />
+      <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="GenerateReportTest.generatePDF" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="BankManagement" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="service.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="service" />
+      <option name="MAIN_CLASS_NAME" value="service.GenerateReportTest" />
+      <option name="METHOD_NAME" value="generatePDF" />
+      <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="ProcessUtilitiesBillsTest.process" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="BankManagement" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="service.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="service" />
+      <option name="MAIN_CLASS_NAME" value="service.ProcessUtilitiesBillsTest" />
+      <option name="METHOD_NAME" value="process" />
+      <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="TransferMoneyTest.transactionTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="BankManagement" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="service.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="service" />
+      <option name="MAIN_CLASS_NAME" value="service.TransferMoneyTest" />
+      <option name="METHOD_NAME" value="transactionTest" />
+      <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <list>
+      <item itemvalue="Application.Startup" />
+      <item itemvalue="JUnit.ClientRepositoryMySQLTest.deleteAll" />
+      <item itemvalue="JUnit.ClientRepositoryMySQLTest.getByID" />
+      <item itemvalue="JUnit.GenerateReportTest.generatePDF" />
+      <item itemvalue="JUnit.ProcessUtilitiesBillsTest.process" />
+      <item itemvalue="JUnit.TransferMoneyTest.transactionTest" />
+    </list>
     <recent_temporary>
       <list>
-        <item itemvalue="Application.Startup" />
+        <item itemvalue="JUnit.TransferMoneyTest.transactionTest" />
+        <item itemvalue="JUnit.GenerateReportTest.generatePDF" />
+        <item itemvalue="JUnit.ProcessUtilitiesBillsTest.process" />
+        <item itemvalue="JUnit.ClientRepositoryMySQLTest.deleteAll" />
+        <item itemvalue="JUnit.ClientRepositoryMySQLTest.getByID" />
       </list>
     </recent_temporary>
   </component>
@@ -107,7 +315,15 @@
       <option name="presentableId" value="Default" />
       <updated>1647445293934</updated>
       <workItem from="1647445295192" duration="3150000" />
-      <workItem from="1647453040708" duration="13519000" />
+      <workItem from="1647453040708" duration="13640000" />
+      <workItem from="1647553123941" duration="419000" />
+      <workItem from="1647553558971" duration="15000" />
+      <workItem from="1647622115881" duration="9603000" />
+      <workItem from="1647679138549" duration="30781000" />
+      <workItem from="1647724449879" duration="1501000" />
+      <workItem from="1647725973737" duration="8355000" />
+      <workItem from="1647765464522" duration="9392000" />
+      <workItem from="1647778750442" duration="22658000" />
     </task>
     <servers />
   </component>
@@ -124,5 +340,35 @@
         </entry>
       </map>
     </option>
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/main/java/repository/account/AccountRepositoryMySQL.java</url>
+          <line>104</line>
+          <option name="timeStamp" value="27" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/main/java/service/crud/UserCRUD.java</url>
+          <line>64</line>
+          <option name="timeStamp" value="34" />
+        </line-breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
+    <pin-to-top-manager>
+      <pinned-members>
+        <PinnedItemInfo parentTag="model.Account" memberName="client" />
+      </pinned-members>
+    </pin-to-top-manager>
+    <watches-manager>
+      <configuration name="JUnit">
+        <watch expression="object.id" />
+      </configuration>
+    </watches-manager>
+  </component>
+  <component name="XSLT-Support.FileAssociations.UIState">
+    <expand />
+    <select />
   </component>
 </project>

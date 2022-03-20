@@ -1,0 +1,1 @@
+INSERT INTO `Client` (`id`, `name`, `identity_card_number`, `personal_numeric_code`, `address`) VALUES (NULL, 'name0', 'identity_card_number0', 'personal_numeric_code0', 'address0'), (NULL, 'name1', 'identity_card_number1', 'personal_numeric_code1', 'address1'), (NULL, 'name2', 'identity_card_number2', 'personal_numeric_code2', 'address2');

@@ -1,0 +1,1 @@
+CREATE TABLE {DB}.User_Action ( `id` BIGINT NOT NULL AUTO_INCREMENT , `user_id` BIGINT NOT NULL , `action` VARCHAR(255) NOT NULL , `action_details` VARCHAR(255) NOT NULL, `date` DATE NOT NULL , PRIMARY KEY (`id`), INDEX (`user_id`)) ENGINE = InnoDB;

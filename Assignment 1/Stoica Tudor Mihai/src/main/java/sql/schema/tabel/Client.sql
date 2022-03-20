@@ -1,0 +1,1 @@
+CREATE TABLE {DB}.`Client` ( `id` BIGINT NOT NULL AUTO_INCREMENT , `name` VARCHAR(255) NOT NULL , `identity_card_number` VARCHAR(255) NOT NULL , `personal_numeric_code` VARCHAR(255) NOT NULL , `address` VARCHAR(255) NOT NULL , PRIMARY KEY (`id`)) ENGINE = InnoDB;
