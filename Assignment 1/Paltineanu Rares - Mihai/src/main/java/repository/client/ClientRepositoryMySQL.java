@@ -73,6 +73,17 @@ public class ClientRepositoryMySQL implements ClientRepository{
     }
 
     @Override
+    public void removeAll() {
+        try {
+            Statement statement = connection.createStatement();
+            String sql = "DELETE from " + CLIENT +  " where id >= 0";
+            statement.executeUpdate(sql);
+        } catch (SQLException e) {
+            System.out.println("Error in remove all client repository");
+            System.out.println(e);
+        }
+    }
+    @Override
     public boolean save(Client client) {
         try {
             PreparedStatement insertUserStatement = connection
@@ -81,11 +92,12 @@ public class ClientRepositoryMySQL implements ClientRepository{
             insertUserStatement.setString(2, client.getCNP());
             insertUserStatement.setString(3, client.getAddress());
             insertUserStatement.executeUpdate();
-
             ResultSet rs = insertUserStatement.getGeneratedKeys();
-            rs.next();
-            long userId = rs.getLong(1);
-            client.setId(userId);
+
+            if(rs.next()) {
+                long userId = rs.getLong(1);
+                client.setId(userId);
+            }
 
             return true;
         } catch (SQLException e) {
@@ -135,14 +147,14 @@ public class ClientRepositoryMySQL implements ClientRepository{
             String fetchClientSql =
                     "Select * from `" + CLIENT + "` where `name`=\'" + name + "\'";
             ResultSet clientResultSet = statement.executeQuery(fetchClientSql);
-            clientResultSet.next();
-
-            return new ClientBuilder()
-                    .setId(clientResultSet.getLong("id"))
-                    .setName(clientResultSet.getString("name"))
-                    .setCNP(clientResultSet.getString("CNP"))
-                    .setCNP(clientResultSet.getString("address"))
-                    .build();
+            if(clientResultSet.next()) {
+                return new ClientBuilder()
+                        .setId(clientResultSet.getLong("id"))
+                        .setName(clientResultSet.getString("name"))
+                        .setCNP(clientResultSet.getString("CNP"))
+                        .setCNP(clientResultSet.getString("address"))
+                        .build();
+            }
         } catch (SQLException e) {
             System.out.println("Error in find by name");
             System.out.println(e);

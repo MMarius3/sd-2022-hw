@@ -1,6 +1,7 @@
 package controller.employee;
 
 import controller.employee.account.AddAccountController;
+import controller.employee.account.ProcessBillController;
 import controller.employee.account.TransferMoneyController;
 import controller.employee.account.UpdateAccountController;
 import controller.employee.information.AddInformationController;
@@ -15,12 +16,10 @@ import service.action.ActionService;
 import service.client.ClientService;
 import service.client.account.AccountService;
 import view.EmployeeView;
-import view.client.account.AddAccountView;
+import view.client.account.ActionAccountView;
 import view.client.account.ProcessBillView;
 import view.client.account.TransferMoneyView;
-import view.client.account.UpdateAccountView;
-import view.client.information.AddInformationView;
-import view.client.information.UpdateInformationView;
+import view.client.information.ActionInformationView;
 
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
@@ -98,7 +97,7 @@ public class EmployeeController {
     private class AddInformationButtonListener implements ActionListener {
         @Override
         public void actionPerformed(ActionEvent e) {
-            new AddInformationController(new AddInformationView(), clientValidator, clientService, employeeView, actionService, user);
+            new AddInformationController(new ActionInformationView(), clientValidator, clientService, employeeView, actionService, user);
         }
     }
 
@@ -113,7 +112,7 @@ public class EmployeeController {
 
             int selectedRow = employeeView.getInformationView().getClientsIntormationTable().getSelectedRow();
             String id = (String) employeeView.getInformationView().getClientsIntormationTable().getValueAt(selectedRow, 0);
-            new UpdateInformationController(new UpdateInformationView(),
+            new UpdateInformationController(new ActionInformationView(),
                     clientValidator,
                     clientService,
                     employeeView,
@@ -145,7 +144,7 @@ public class EmployeeController {
     private class AddAccountButtonListener implements ActionListener {
         @Override
         public void actionPerformed(ActionEvent e) {
-            new AddAccountController(new AddAccountView(), accountService, accountValidator, employeeView, actionService, user);
+            new AddAccountController(new ActionAccountView(), accountService, accountValidator, employeeView, actionService, user);
         }
     }
 
@@ -160,7 +159,7 @@ public class EmployeeController {
 
             int selectedRow = employeeView.getAccountView().getAccountInformationTable().getSelectedRow();
             String id = (String) employeeView.getAccountView().getAccountInformationTable().getValueAt(selectedRow, 0);
-                new UpdateAccountController(new UpdateAccountView(), accountValidator, accountService,
+                new UpdateAccountController(new ActionAccountView(), accountValidator, accountService,
                         employeeView, actionService, user, Long.valueOf(id));
         }
 
@@ -227,7 +226,7 @@ public class EmployeeController {
     private class ProcessBillButtonListener implements ActionListener {
         @Override
         public void actionPerformed(ActionEvent e) {
-            new ProcessBillController(new ProcessBillView(), accountService, accountValidator, employeeView, actionService);
+            new ProcessBillController(new ProcessBillView(), accountService, accountValidator, employeeView, actionService, user);
         }
     }
 }

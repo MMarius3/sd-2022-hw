@@ -35,6 +35,10 @@ public class TransferMoneyController {
         this.actionService = actionService;
         this.user = user;
 
+        initializeButtonsListener();
+    }
+
+    private void initializeButtonsListener() {
         this.transferMoneyView.setCancelButtonActionListener(new CancelButtonListener());
         this.transferMoneyView.setTransferMoneyButtonActionListener(new TransferMoneyButtonListener());
     }
@@ -61,13 +65,13 @@ public class TransferMoneyController {
                 boolean secondFlag = accountService.transferMoney(Long.parseLong(toAccountId), Integer.parseInt(money));
                 if(firstFlag && secondFlag) {
                     JOptionPane.showMessageDialog(transferMoneyView.getContentPane(), "Transfer successful");
-                    employeeView.getAccountView().getBtnViewClientAccount().doClick();
                     transferMoneyView.setVisible(false);
                     actionService.save(Action.builder()
                                     .user_id(user.getId())
                                     .action(TRANFER_MONEY)
                                     .date(Date.valueOf(LocalDate.now()))
                             .build());
+                    employeeView.getAccountView().getBtnViewClientAccount().doClick();
                 }
             } else {
                 JOptionPane.showMessageDialog(transferMoneyView.getContentPane(), accountValidator.getFormattedErrors());

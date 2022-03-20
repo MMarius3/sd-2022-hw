@@ -4,6 +4,8 @@ import model.Action;
 import repository.action.ActionRepository;
 
 import java.sql.Date;
+import java.sql.SQLException;
+import java.util.List;
 
 public class ActionServiceMySQL implements ActionService {
     private ActionRepository actionRepository;
@@ -18,7 +20,7 @@ public class ActionServiceMySQL implements ActionService {
     }
 
     @Override
-    public boolean filterByDateAndId(Long user_id, Date from, Date to) {
-        return false;
+    public List<Action> filterByDateAndId(Long user_id, Date from, Date to) {
+        return actionRepository.filterByDateAndId(user_id, from, to);
     }
 }

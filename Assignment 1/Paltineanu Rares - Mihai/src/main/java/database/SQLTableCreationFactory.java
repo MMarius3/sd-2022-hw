@@ -88,7 +88,7 @@ public class SQLTableCreationFactory {
                     "  id int(11) NOT NULL AUTO_INCREMENT," +
                     "  user_id int NOT NULL," +
                     "  action varchar(64) NOT NULL," +
-                    "  date DATE NOT NULL," +
+                    "  action_date DATE NOT NULL," +
                     "  PRIMARY KEY (id)," +
                     "  UNIQUE INDEX id_UNIQUE (id ASC)," +
                     "  CONSTRAINT user_id" +

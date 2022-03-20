@@ -9,7 +9,7 @@ import java.awt.event.ActionListener;
 
 @Getter
 @Setter
-public class AddInformationView extends JFrame {
+public class ActionInformationView extends JFrame {
     protected Container container;
 
     protected JLabel nameLabel;
@@ -23,7 +23,7 @@ public class AddInformationView extends JFrame {
     protected JButton addInformationButton;
     protected JButton cancelButton;
 
-    public AddInformationView() {
+    public ActionInformationView() {
         initializeFields();
         setBounds();
         addComponentsToContainer();

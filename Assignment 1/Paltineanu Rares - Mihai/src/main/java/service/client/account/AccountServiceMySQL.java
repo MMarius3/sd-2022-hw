@@ -37,8 +37,8 @@ public class AccountServiceMySQL implements AccountService {
     }
 
     @Override
-    public Account view(Long id) {
-        return accountRepository.findById(id);
+    public void removeAll() {
+        accountRepository.removeAll();
     }
 
     @Override

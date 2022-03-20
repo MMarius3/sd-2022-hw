@@ -18,6 +18,11 @@ public class UserServiceMySQL implements UserService {
     }
 
     @Override
+    public User findById(Long id) {
+        return userRepository.findById(id);
+    }
+
+    @Override
     public List<User> findAll() {
         return userRepository.findAll();
     }
@@ -35,5 +40,10 @@ public class UserServiceMySQL implements UserService {
     @Override
     public boolean save(User user) {
         return userRepository.save(user);
+    }
+
+    @Override
+    public void removeAll() {
+        userRepository.removeAll();
     }
 }

@@ -71,7 +71,7 @@ public class Main {
                 clientService,
                 accountService, actionService);
         final UserService userService = new UserServiceMySQL(userRepository, rightsRolesRepository);
-        final AdminController adminController = new AdminController(new AdminView(), userValidator, userService);
+        final AdminController adminController = new AdminController(new AdminView(), userValidator, userService, actionService, rightsRolesRepository);
         new LoginController(loginView, authenticationService, userValidator, employeeController, adminController);
     }
 }

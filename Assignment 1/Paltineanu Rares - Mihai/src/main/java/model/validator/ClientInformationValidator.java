@@ -18,11 +18,13 @@ public class ClientInformationValidator {
         this.clientRepository = clientRepository;
     }
 
-    public void validate(String name, String personalNumericalCode) {
+    public void validate(String name, String personalNumericalCode, boolean verifyPNCUniqueness) {
         errors.clear();
         validatePersonalNumericalCode(personalNumericalCode);
         validateName(name);
-        existsByCNP(personalNumericalCode);
+        if(verifyPNCUniqueness) {
+            existsByCNP(personalNumericalCode);
+        }
     }
 
     private void existsByCNP(String personalNumericalCode) {

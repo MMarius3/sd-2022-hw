@@ -2,6 +2,8 @@ package controller.admin;
 
 import model.User;
 import model.validator.UserValidator;
+import repository.security.RightsRolesRepository;
+import service.action.ActionService;
 import service.user.UserService;
 import view.admin.ActionEmployeeView;
 import view.admin.AdminView;
@@ -17,11 +19,17 @@ public class AdminController {
     private final AdminView adminView;
     private final UserValidator userValidator;
     private final UserService userService;
+    private final ActionService actionService;
+    private final RightsRolesRepository rightsRolesRepository;
 
-    public AdminController(AdminView adminView, UserValidator userValidator, UserService userService) {
+    public AdminController(AdminView adminView, UserValidator userValidator, UserService userService, ActionService actionService, RightsRolesRepository rightsRolesRepository) {
         this.adminView = adminView;
         this.userValidator = userValidator;
         this.userService = userService;
+        this.actionService = actionService;
+        this.rightsRolesRepository = rightsRolesRepository;
+
+        new GenerateReportController(adminView, actionService);
 
         setTableHeader();
         initializeButtonsListener();
@@ -32,7 +40,6 @@ public class AdminController {
         this.adminView.setAddEmployeeButtonListener(new AddUserButtonListener());
         this.adminView.setDeleteEmployeeButtonListener(new DeleteUserButtonListener());
         this.adminView.setUpdateEmployeeButtonListener(new UpdateUserButtonListener());
-
         this.adminView.getViewEmployeesButton().doClick();
     }
 
@@ -44,7 +51,7 @@ public class AdminController {
     private class AddUserButtonListener implements ActionListener {
         @Override
         public void actionPerformed(ActionEvent e) {
-            new AddEmployeeController(adminView, new ActionEmployeeView(), userService, userValidator);
+            new AddEmployeeController(adminView, new ActionEmployeeView(), userService, userValidator, rightsRolesRepository);
         }
     }
 

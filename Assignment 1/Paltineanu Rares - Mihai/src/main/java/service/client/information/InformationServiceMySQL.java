@@ -35,7 +35,7 @@ public class InformationServiceMySQL implements ClientService<Client, Long> {
     }
 
     @Override
-    public Client view(Long id) {
-        return clientRepository.findById(id);
+    public void removeAll() {
+        clientRepository.removeAll();
     }
 }

@@ -19,6 +19,7 @@ public class LoginController {
     private final UserValidator userValidator;
     private final EmployeeController employeeController;
     private final AdminController adminController;
+
     public LoginController(LoginView loginView, AuthenticationService authenticationService, UserValidator userValidator,
                            EmployeeController employeeController, AdminController adminController) {
         this.loginView = loginView;
@@ -27,6 +28,10 @@ public class LoginController {
         this.employeeController = employeeController;
         this.adminController = adminController;
 
+        initializeButtonsListener();
+    }
+
+    private void initializeButtonsListener() {
         loginView.addRegisterButtonListener(new RegisterButtonListener());
         loginView.addLoginButtonListener(new LoginButtonListener());
         loginView.addShowPasswordListener(new ShowPasswordListener());
@@ -38,9 +43,9 @@ public class LoginController {
             String username = loginView.getUsernameField().getText();
             String password = new String(loginView.getPasswordField().getPassword());
 
-            userValidator.validate(username, password);
+            userValidator.validate(username, password, true);
             final List<String> errors = userValidator.getErrors();
-            if(errors.isEmpty()) {
+            if (errors.isEmpty()) {
                 authenticationService.register(username, password);
             } else {
                 JOptionPane.showMessageDialog(loginView.getContentPane(), userValidator.getFormattedErrors(),
@@ -57,11 +62,11 @@ public class LoginController {
 
             User user = authenticationService.login(username, password);
 
-            if(user == null) {
+            if (user == null) {
                 JOptionPane.showMessageDialog(loginView.getContentPane(), "Incorrect username or password",
                         "ERROR", JOptionPane.ERROR_MESSAGE);
                 return;
-            } else if(user.getUsername().equals("admin")){
+            } else if (user.getUsername().equals("admin")) {
                 adminController.setViewVisible();
             } else {
                 employeeController.setViewVisible();
@@ -75,7 +80,7 @@ public class LoginController {
         @Override
         public void actionPerformed(ActionEvent e) {
             boolean isCheckBoxSelected = loginView.getShowPassword().isSelected();
-            if(isCheckBoxSelected) {
+            if (isCheckBoxSelected) {
                 loginView.getPasswordField().setEchoChar((char) 0);
             } else {
                 loginView.getPasswordField().setEchoChar('*');

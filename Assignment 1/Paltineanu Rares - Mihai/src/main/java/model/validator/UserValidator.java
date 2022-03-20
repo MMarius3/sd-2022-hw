@@ -18,10 +18,12 @@ public class UserValidator {
         this.userRepository = userRepository;
     }
 
-    public void validate(String username, String password) {
+    public void validate(String username, String password, boolean verifyUsernameUniqueness) {
         errors.clear();
         validateUsernameLength(username);
-        validateUsernameUniqueness(username);
+        if(verifyUsernameUniqueness) {
+            validateUsernameUniqueness(username);
+        }
         validatePasswordLength(password);
         validatePasswordSpecial(password);
         validatePasswordDigit(password);

@@ -9,4 +9,6 @@ public interface UserRepository extends Repository<User, Long> {
     User findByUsernameAndPassword(String username, String password);
 
     Response<Boolean> existsByUsername(String username);
+
+    void removeAll();
 }

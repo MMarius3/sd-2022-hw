@@ -43,6 +43,8 @@ public class JDBConnectionWrapper {
             statement.execute(new SQLTableCreationFactory().getCreateSQLForTable("RIGHT"));
             statement.execute(new SQLTableCreationFactory().getCreateSQLForTable("ROLE_RIGHT"));
             statement.execute(new SQLTableCreationFactory().getCreateSQLForTable("USER_ROLE"));
+            statement.execute(new SQLTableCreationFactory().getCreateSQLForTable("ACTION"));
+            statement.execute(new SQLTableCreationFactory().getCreateSQLForTable("ACCOUNT"));
         } catch (SQLException e) {
             System.out.println(e);
         }

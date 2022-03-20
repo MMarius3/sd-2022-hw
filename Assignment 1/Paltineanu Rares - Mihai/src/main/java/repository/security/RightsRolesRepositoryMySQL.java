@@ -53,10 +53,11 @@ public class RightsRolesRepositoryMySQL implements RightsRolesRepository{
             statement = connection.createStatement();
             String fetchRoleSql = "Select * from " + ROLE + " where `role`=\'" + role + "\'";
             ResultSet roleResultSet = statement.executeQuery(fetchRoleSql);
-            roleResultSet.next();
-            Long roleId = roleResultSet.getLong("id");
-            String roleTitle = roleResultSet.getString("role");
-            return new Role(roleId, roleTitle, null);
+            if(roleResultSet.next()) {
+                Long roleId = roleResultSet.getLong("id");
+                String roleTitle = roleResultSet.getString("role");
+                return new Role(roleId, roleTitle, null);
+            }
         } catch (SQLException e) {
             e.printStackTrace();
         }

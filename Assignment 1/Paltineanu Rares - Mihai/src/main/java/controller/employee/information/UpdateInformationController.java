@@ -8,7 +8,7 @@ import model.validator.ClientInformationValidator;
 import service.action.ActionService;
 import service.client.ClientService;
 import view.EmployeeView;
-import view.client.information.UpdateInformationView;
+import view.client.information.ActionInformationView;
 
 import javax.swing.*;
 import java.awt.event.ActionEvent;
@@ -20,7 +20,7 @@ import java.util.List;
 import static database.Constants.Actions.UPDATE_CLIENT;
 
 public class UpdateInformationController {
-    private final UpdateInformationView updateInformationView;
+    private final ActionInformationView actionInformationView;
     private final ClientInformationValidator clientInformationValidator;
     private final ClientService<Client, Long> clientService;
     private final EmployeeView employeeView;
@@ -28,12 +28,13 @@ public class UpdateInformationController {
     private final ActionService actionService;
     private final User user;
     private final Long clientId;
-    public UpdateInformationController(UpdateInformationView updateInformationView,
+
+    public UpdateInformationController(ActionInformationView actionInformationView,
                                        ClientInformationValidator clientInformationValidator,
                                        ClientService<Client, Long> clientService,
                                        EmployeeView employeeView,
                                        ActionService actionService, User user, Long clientId) {
-        this.updateInformationView = updateInformationView;
+        this.actionInformationView = actionInformationView;
         this.clientInformationValidator = clientInformationValidator;
         this.clientService = clientService;
         this.employeeView = employeeView;
@@ -42,57 +43,63 @@ public class UpdateInformationController {
         this.clientId = clientId;
 
         initializeTextFields();
-        updateInformationView.setAddInformationListener(new UpdateInformationButtonListener());
-        updateInformationView.setCancelAddInformationListener(new CancelButtonListener());
+        initializeButtonsListener();
+    }
+
+    private void initializeButtonsListener() {
+        actionInformationView.setAddInformationListener(new UpdateInformationButtonListener());
+        actionInformationView.setCancelAddInformationListener(new CancelButtonListener());
     }
 
     private void initializeTextFields() {
         Client client = clientService.findById(clientId);
-        updateInformationView.getAddressField().setText(client.getAddress());
-        updateInformationView.getNameField().setText(client.getName());
-        updateInformationView.getCnpField().setText(client.getCNP());
+        actionInformationView.getAddressField().setText(client.getAddress());
+        actionInformationView.getNameField().setText(client.getName());
+        actionInformationView.getCnpField().setText(client.getCNP());
     }
 
     private class CancelButtonListener implements ActionListener {
         @Override
         public void actionPerformed(ActionEvent e) {
-            updateInformationView.setVisible(false);
+            actionInformationView.setVisible(false);
         }
     }
 
     private class UpdateInformationButtonListener implements ActionListener {
         @Override
         public void actionPerformed(ActionEvent e) {
-            String name = updateInformationView.getName();
-            String address = updateInformationView.getAddress();
-            String cnp = updateInformationView.getCNP();
+            String name = actionInformationView.getName();
+            String address = actionInformationView.getAddress();
+            String cnp = actionInformationView.getCNP();
 
-            clientInformationValidator.validate(name, cnp);
+            Client client = clientService.findById(clientId);
+            boolean validatePNCUniqueness = !client.getCNP().equals(cnp);
+            clientInformationValidator.validate(name, cnp, validatePNCUniqueness);
 
             final List<String> errors = clientInformationValidator.getErrors();
 
-            if(errors.isEmpty()) {
-                Client client = new ClientBuilder()
+            if (errors.isEmpty()) {
+                Client newClient = new ClientBuilder()
                         .setId(clientId)
                         .setName(name)
                         .setAddress(address)
                         .setCNP(cnp)
                         .build();
-                boolean flag = clientService.update(clientId, client);
-                if(flag) {
-                    JOptionPane.showMessageDialog(updateInformationView.getContentPane(),
+                boolean flag = clientService.update(clientId, newClient);
+                if (flag) {
+                    JOptionPane.showMessageDialog(actionInformationView.getContentPane(),
                             "Client updated successful");
-                    updateInformationView.setVisible(false);
-                    employeeView.getInformationView().getBtnViewClientInformation().doClick();
+                    actionInformationView.setVisible(false);
                     actionService.save(Action.builder()
                             .user_id(user.getId())
                             .action(UPDATE_CLIENT)
                             .date(Date.valueOf(LocalDate.now()))
                             .build());
+                    employeeView.getInformationView().getBtnViewClientInformation().doClick();
                 }
 
             } else {
-                JOptionPane.showMessageDialog(updateInformationView.getContentPane(), clientInformationValidator.getFormattedErrors());
+                JOptionPane.showMessageDialog(actionInformationView.getContentPane(), clientInformationValidator.getFormattedErrors());
             }
         }
     }

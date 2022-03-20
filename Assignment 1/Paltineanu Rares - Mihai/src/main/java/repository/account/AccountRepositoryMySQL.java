@@ -58,7 +58,9 @@ public class AccountRepositoryMySQL implements AccountRepository{
             String fetchAccountSql =
                     "Select * from `" + ACCOUNT + "` where `id`=\'" + id + "\'";
             ResultSet accountResultSet = statement.executeQuery(fetchAccountSql);
-            accountResultSet.next();
+            if(!accountResultSet.next()) {
+                return null;
+            }
 
             return Account.builder()
                     .id(accountResultSet.getLong("id"))
@@ -82,20 +84,33 @@ public class AccountRepositoryMySQL implements AccountRepository{
             String fetchAccountSql =
                     "Select * from `" + ACCOUNT + "` where `number`=\'" + number + "\'";
             ResultSet accountResultSet = statement.executeQuery(fetchAccountSql);
-            accountResultSet.next();
 
-            return Account.builder()
-                    .id(accountResultSet.getLong("id"))
-                    .client_id(accountResultSet.getLong("client_id"))
-                    .number(accountResultSet.getString("number"))
-                    .type(accountResultSet.getString("type"))
-                    .money(accountResultSet.getInt("money"))
-                    .date(accountResultSet.getDate("creation"))
-                    .build();
+            if(accountResultSet.next()) {
+                return Account.builder()
+                        .id(accountResultSet.getLong("id"))
+                        .client_id(accountResultSet.getLong("client_id"))
+                        .number(accountResultSet.getString("number"))
+                        .type(accountResultSet.getString("type"))
+                        .money(accountResultSet.getInt("money"))
+                        .date(accountResultSet.getDate("creation"))
+                        .build();
+            }
         } catch (SQLException e) {
             System.out.println(e);
         }
         return null;
+    }
+
+    @Override
+    public void removeAll() {
+        try {
+            Statement statement = connection.createStatement();
+            String sql = "DELETE from " + ACCOUNT +  " where id >= 0";
+            statement.executeUpdate(sql);
+        } catch (SQLException e) {
+            System.out.println("Error in remove all account repository");
+            System.out.println(e);
+        }
     }
 
     @Override
@@ -108,13 +123,14 @@ public class AccountRepositoryMySQL implements AccountRepository{
             insertAccountStatement.setString(2, account.getNumber());
             insertAccountStatement.setString(3, account.getType());
             insertAccountStatement.setInt(4, account.getMoney());
-            insertAccountStatement.setDate(5, (Date) account.getDate());
+            insertAccountStatement.setDate(5, account.getDate());
             insertAccountStatement.executeUpdate();
 
             ResultSet rs = insertAccountStatement.getGeneratedKeys();
-            rs.next();
-            long accountId = rs.getLong(1);
-            account.setId(accountId);
+            if(rs.next()) {
+                long accountId = rs.getLong(1);
+                account.setId(accountId);
+            }
 
             return true;
         } catch (SQLException e) {

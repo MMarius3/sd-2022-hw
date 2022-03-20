@@ -28,8 +28,19 @@ public class UpdateEmployeeController {
         this.userService = userService;
         this.id = id;
 
+        initializeFields();
+        initializeButtonListener();
+    }
+
+    private void initializeButtonListener() {
         this.updateEmployeeView.setCancelButtonListener(new CancelButtonListener());
         this.updateEmployeeView.setAddEmployeeButtonListener(new UpdateButtonListener());
+    }
+
+    private void initializeFields() {
+        User user = userService.findById(id);
+
+        updateEmployeeView.getUsernameField().setText(user.getUsername());
     }
 
     private class CancelButtonListener implements ActionListener {
@@ -45,27 +56,34 @@ public class UpdateEmployeeController {
             String username = updateEmployeeView.getUsernameField().getText();
             String password = new String(updateEmployeeView.getPasswordField().getPassword());
 
-            userValidator.validate(username, password);
+            User user = userService.findById(id);
+            boolean verifyUsernameUniqueness = !user.getUsername().equals(username);
+            userValidator.validate(username, password, verifyUsernameUniqueness);
 
             List<String> errors = userValidator.getErrors();
 
-            if(errors.isEmpty()) {
-                User user = new UserBuilder()
+            if (errors.isEmpty()) {
+                User newUser = new UserBuilder()
                         .setUsername(username)
                         .setPassword(encodePassword(password))
                         .build();
                 boolean flag = userService.update(id, user);
 
-                if(flag) {
+                if (flag) {
                     JOptionPane.showMessageDialog(updateEmployeeView.getContentPane(), "Update successful");
                     updateEmployeeView.setVisible(false);
+                    userService.update(id, newUser);
                     adminView.getViewEmployeesButton().doClick();
+
                 } else {
                     JOptionPane.showMessageDialog(updateEmployeeView.getContentPane(), "An error occurred while trying to " +
                             "update user with id " + id);
                 }
+            } else {
+                JOptionPane.showMessageDialog(updateEmployeeView.getContentPane(), userValidator.getFormattedErrors());
             }
         }
+
         private String encodePassword(String password) {
             try {
                 MessageDigest digest = MessageDigest.getInstance("SHA-256");

@@ -1,11 +1,7 @@
 package repository.user;
 
-//import controller.Response;
 import controller.Response;
-import model.Account;
-import model.Client;
 import model.User;
-import model.builder.ClientBuilder;
 import model.builder.UserBuilder;
 import repository.security.RightsRolesRepository;
 
@@ -17,7 +13,6 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
-import static database.Constants.Tables.CLIENT;
 import static database.Constants.Tables.USER;
 import static java.util.Collections.singletonList;
 
@@ -67,16 +62,15 @@ public class UserRepositoryMySQL implements UserRepository {
             String fetchUserSql =
                     "Select * from `" + USER + "` where `id`=\'" + id + "\'";
             ResultSet userResultSet = statement.executeQuery(fetchUserSql);
-            userResultSet.next();
-
-            User user = new UserBuilder()
-                    .setId(id)
-                    .setUsername(userResultSet.getString("username"))
-                    .setPassword(userResultSet.getString("password"))
-                    .setRoles(rightsRolesRepository.findRolesForUser(userResultSet.getLong("id")))
-                    .build();
-
-            return user;
+            if(userResultSet.next()) {
+                User user = new UserBuilder()
+                        .setId(id)
+                        .setUsername(userResultSet.getString("username"))
+                        .setPassword(userResultSet.getString("password"))
+                        .setRoles(rightsRolesRepository.findRolesForUser(userResultSet.getLong("id")))
+                        .build();
+                return user;
+            }
         } catch (SQLException e) {
             System.out.println(e);
         }
@@ -91,16 +85,14 @@ public class UserRepositoryMySQL implements UserRepository {
             String fetchUserSql =
                     "Select * from `" + USER + "` where `username`=\'" + username + "\' and `password`=\'" + password + "\'";
             ResultSet userResultSet = statement.executeQuery(fetchUserSql);
-            userResultSet.next();
-
-            User user = new UserBuilder()
-                    .setId(userResultSet.getLong("id"))
-                    .setUsername(userResultSet.getString("username"))
-                    .setPassword(userResultSet.getString("password"))
-                    .setRoles(rightsRolesRepository.findRolesForUser(userResultSet.getLong("id")))
-                    .build();
-
-            return user;
+            if(userResultSet.next()) {
+                return new UserBuilder()
+                        .setId(userResultSet.getLong("id"))
+                        .setUsername(userResultSet.getString("username"))
+                        .setPassword(userResultSet.getString("password"))
+                        .setRoles(rightsRolesRepository.findRolesForUser(userResultSet.getLong("id")))
+                        .build();
+            }
         } catch (SQLException e) {
             System.out.println(e);
         }
@@ -121,6 +113,17 @@ public class UserRepositoryMySQL implements UserRepository {
         }
     }
 
+    @Override
+    public void removeAll() {
+        try {
+            Statement statement = connection.createStatement();
+            String sql = "DELETE from " + USER +  " where id >= 0";
+            statement.executeUpdate(sql);
+        } catch (SQLException e) {
+            System.out.println("Error in remove all user repository");
+            System.out.println(e);
+        }
+    }
 
     @Override
     public boolean save(User user) {
@@ -132,9 +135,10 @@ public class UserRepositoryMySQL implements UserRepository {
             insertUserStatement.executeUpdate();
 
             ResultSet rs = insertUserStatement.getGeneratedKeys();
-            rs.next();
-            long userId = rs.getLong(1);
-            user.setId(userId);
+            if(rs.next()) {
+                long userId = rs.getLong(1);
+                user.setId(userId);
+            }
 
             rightsRolesRepository.addRolesToUser(user, user.getRoles());
 
@@ -175,18 +179,4 @@ public class UserRepositoryMySQL implements UserRepository {
             return false;
         }
     }
-
-//    @Override
-//    public Response<Boolean> existsByUsername(String email) {
-//        try {
-//            Statement statement = connection.createStatement();
-//
-//            String fetchUserSql =
-//                    "Select * from `" + USER + "` where `username`=\'" + email + "\'";
-//            ResultSet userResultSet = statement.executeQuery(fetchUserSql);
-//            return new Response<>(userResultSet.next());
-//        } catch (SQLException e) {
-//            return new Response<>(singletonList(e.getMessage()));
-//        }
-//    }
 }

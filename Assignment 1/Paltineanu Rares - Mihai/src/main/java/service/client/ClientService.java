@@ -12,5 +12,5 @@ public interface ClientService<T, ID extends Number> {
 
     boolean update(ID id, T newEntity);
 
-    T view(ID id);
+    void removeAll();
 }

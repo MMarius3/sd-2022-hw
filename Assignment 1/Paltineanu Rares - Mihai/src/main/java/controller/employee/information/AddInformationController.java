@@ -8,7 +8,7 @@ import model.validator.ClientInformationValidator;
 import service.action.ActionService;
 import service.client.ClientService;
 import view.EmployeeView;
-import view.client.information.AddInformationView;
+import view.client.information.ActionInformationView;
 
 import javax.swing.*;
 import java.awt.event.ActionEvent;
@@ -20,14 +20,14 @@ import java.util.List;
 import static database.Constants.Actions.ADD_CLIENT;
 
 public class AddInformationController {
-    private final AddInformationView addInformationView;
+    private final ActionInformationView addInformationView;
     private final ClientInformationValidator clientInformationValidator;
     private final ClientService<Client, Long> clientService;
     private final EmployeeView employeeView;
     private final ActionService actionService;
     private final User user;
 
-    public AddInformationController(AddInformationView addInformationView,
+    public AddInformationController(ActionInformationView addInformationView,
                                     ClientInformationValidator clientInformationValidator,
                                     ClientService<Client, Long> clientService,
                                     EmployeeView employeeView, ActionService actionService, User user) {
@@ -38,6 +38,10 @@ public class AddInformationController {
         this.actionService = actionService;
         this.user = user;
 
+        initializeButtonsListener();
+    }
+
+    private void initializeButtonsListener() {
         addInformationView.setAddInformationListener(new AddInformationButtonListener());
         addInformationView.setCancelAddInformationListener(new CancelButtonListener());
     }
@@ -56,7 +60,7 @@ public class AddInformationController {
             String address = addInformationView.getAddress();
             String cnp = addInformationView.getCNP();
 
-            clientInformationValidator.validate(name, cnp);
+            clientInformationValidator.validate(name, cnp, true);
 
             final List<String> errors = clientInformationValidator.getErrors();
 
@@ -71,12 +75,12 @@ public class AddInformationController {
                     JOptionPane.showMessageDialog(addInformationView.getContentPane(),
                             "Client added successful");
                     addInformationView.setVisible(false);
-                    employeeView.getInformationView().getBtnViewClientInformation().doClick();
                     actionService.save(Action.builder()
                             .user_id(user.getId())
                             .action(ADD_CLIENT)
                             .date(Date.valueOf(LocalDate.now()))
                             .build());
+                    employeeView.getInformationView().getBtnViewClientInformation().doClick();
                 }
 
             } else {

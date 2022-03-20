@@ -40,12 +40,12 @@ public class AccountValidator {
         }
     }
 
-    public void validate(String client_id, String number, String money, boolean isUpdate) {
+    public void validate(String client_id, String number, String money, boolean verifyCardUniqueness) {
         errors.clear();
         validateClientId(client_id);
         validateMoney(money);
         validateNumber(number);
-        if(!isUpdate) {
+        if(verifyCardUniqueness) {
             existsByCardNumber(number);
         }
     }

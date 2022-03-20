@@ -7,7 +7,7 @@ import model.validator.AccountValidator;
 import service.action.ActionService;
 import service.client.ClientService;
 import view.EmployeeView;
-import view.client.account.AddAccountView;
+import view.client.account.ActionAccountView;
 
 import javax.swing.*;
 import java.awt.event.ActionEvent;
@@ -19,13 +19,13 @@ import java.util.List;
 import static database.Constants.Actions.ADD_ACCOUNT;
 
 public class AddAccountController {
-    private final AddAccountView addAccountView;
+    private final ActionAccountView addAccountView;
     private final EmployeeView employeeView;
     private final ClientService<Account, Long> clientService;
     private final AccountValidator accountValidator;
     private final ActionService actionService;
     private final User user;
-    public AddAccountController(AddAccountView addAccountView,
+    public AddAccountController(ActionAccountView addAccountView,
                                 ClientService<Account, Long> clientService,
                                 AccountValidator accountValidator,
                                 EmployeeView employeeView, ActionService actionService, User user){
@@ -36,6 +36,10 @@ public class AddAccountController {
         this.actionService = actionService;
         this.user = user;
 
+        initializeButtonsListener();
+    }
+
+    private void initializeButtonsListener() {
         addAccountView.setActionButtonListener(new AddAccountButtonListener());
         addAccountView.setCancelAddInformationListener(new CancelButtonListener());
     }
@@ -65,26 +69,24 @@ public class AddAccountController {
                         .money(Integer.parseInt(money))
                         .number(number)
                         .client_id(Long.parseLong(clientId))
-                        .date(new Date(1000, 10, 10))
+                        .date(Date.valueOf(LocalDate.now()))
                         .build();
                 boolean flag = clientService.save(account);
                 if(flag) {
                     JOptionPane.showMessageDialog(addAccountView.getContentPane(),
                             "Account added successful");
                     addAccountView.setVisible(false);
-                    employeeView.getAccountView().getBtnViewClientAccount().doClick();
                     actionService.save(Action.builder()
                             .user_id(user.getId())
                             .action(ADD_ACCOUNT)
                             .date(Date.valueOf(LocalDate.now()))
                             .build());
+                    employeeView.getAccountView().getBtnViewClientAccount().doClick();
                 }
 
             } else {
                 JOptionPane.showMessageDialog(addAccountView.getContentPane(), accountValidator.getFormattedErrors());
             }
-
-//            String creation = addAccountView.getNumberField().getText();
         }
     }
 }
