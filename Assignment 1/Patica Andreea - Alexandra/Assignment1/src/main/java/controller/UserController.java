@@ -40,9 +40,8 @@ public class UserController {
         this.user = user;
         userView = new UserView();
         UserView.setController(this);
-        userView.setWindowTitle(user.getRoles().get(0).getRole());
         //initializeChoiceBox(regularUserView.getChoiceBox());
-        userView.display(MainUI.getWindow());
+        userView.display(MainUI.getWindow(), user.getRoles().get(0).getRole());
     }
 
     public User getUser() {
@@ -115,7 +114,12 @@ public class UserController {
 
     public EventHandler<ActionEvent> handleAddButtonListener(){
         return e ->{
-            clientController.startController(null);
+            if (user.getRoles().get(0).getRole().equals(Constants.Roles.USER)){
+                clientController.startController(null);
+            }
+            else{
+                employeeController.startController(null);
+            }
         };
     }
 

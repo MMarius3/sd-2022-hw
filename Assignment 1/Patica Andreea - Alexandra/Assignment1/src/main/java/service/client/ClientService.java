@@ -14,5 +14,5 @@ public interface ClientService {
 
     boolean save(Client client);
 
-
+    boolean update(Client client);
 }

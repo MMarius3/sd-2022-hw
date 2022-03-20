@@ -119,6 +119,22 @@ public class UserRepositoryMySQL implements UserRepository {
   }
 
   @Override
+  public boolean update(User user) {
+    try {
+      PreparedStatement insertStatement = connection
+              .prepareStatement("UPDATE user SET username = (?), password = (?) WHERE id = (?)");
+      insertStatement.setString(1, user.getUsername());
+      insertStatement.setString(2, user.getPassword());
+      insertStatement.setInt(3, user.getId().intValue());
+      insertStatement.executeUpdate();
+      return true;
+    } catch (SQLException e) {
+      e.printStackTrace();
+      return false;
+    }
+  }
+
+  @Override
   public void removeAll() {
     try {
       Statement statement = connection.createStatement();

@@ -30,8 +30,9 @@ public class ClientController {
         if (client != null){
             setFields(client);
             initializeAccountsDisplay(client);
+            initializeAddAccountButton(client);
         }
-        initializeSaveButtonListener();
+        initializeSaveButtonListener(client);
         clientView.display();
 
     }
@@ -43,15 +44,23 @@ public class ClientController {
         clientView.setAddressField(client.getAddress());
     }
 
-    private void initializeSaveButtonListener(){
+    private void initializeSaveButtonListener(Client client){
         clientView.getSaveButton().setOnAction(event ->{
-            Client client = new ClientBuilder()
+
+            Client newClient = new ClientBuilder()
                     .setName(clientView.getNameField().getText())
                     .setIdNumber(clientView.getIdNumberField().getText())
                     .setPersonalNumericalCode(Integer.valueOf(clientView.getPersonalIdentificationCodeField().getText()))
                     .setAddress(clientView.getAddressField().getText())
                     .build();
-            clientService.save(client);
+            if (client == null){
+                clientService.save(newClient);
+            }
+            else{
+                newClient.setId(client.getId());
+                clientService.update(newClient);
+            }
+
         });
     }
 
@@ -59,17 +68,23 @@ public class ClientController {
         List<Account> accounts = new ArrayList<>(accountService.findByClientId(client.getId()));
         List<Button> buttons = new ArrayList<>();
         for(Account account : accounts){
-            Button button = new Button(account.getId()+ " " + account.getType());
+            Button button = new Button(account.getId()+ " " + account.getType().getType());
             button.setOnAction(e ->{
-                accountButtonListener(account);
+                accountButtonListener(account, client);
             });
 
             buttons.add(button);
         }
-        clientView.refreshScrollPane(buttons);
+        clientView.initializeScrollPane(buttons);
     }
 
-    private void accountButtonListener(Account account){
-        accountController.startController(account);
+    private void accountButtonListener(Account account, Client client){
+        accountController.startController(account, client);
+    }
+
+    private void initializeAddAccountButton(Client client){
+        clientView.getAddAccountButton().setOnAction(e -> {
+            accountController.startController(null, client);
+        });
     }
 }

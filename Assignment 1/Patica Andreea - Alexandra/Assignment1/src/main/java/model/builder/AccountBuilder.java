@@ -2,6 +2,7 @@ package model.builder;
 
 import model.Account;
 import model.AccountType;
+import model.Client;
 
 import java.sql.Date;
 
@@ -29,6 +30,11 @@ public class AccountBuilder {
 
     public AccountBuilder setCreationDate(Date creationDate) {
         account.setCreationDate(creationDate);
+        return this;
+    }
+
+    public AccountBuilder setClient(Client client){
+        account.setClient(client);
         return this;
     }
 

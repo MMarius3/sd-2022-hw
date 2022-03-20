@@ -50,7 +50,7 @@ public class Main{
 
 
 
-        final AccountController accountController = new AccountController();
+        final AccountController accountController = new AccountController(accountService);
         final EmployeeController employeeController = new EmployeeController(userService);
         final ClientController clientController = new ClientController(clientService, accountService, accountController);
         final UserController userController = new UserController(userService, clientService, clientController, employeeController);

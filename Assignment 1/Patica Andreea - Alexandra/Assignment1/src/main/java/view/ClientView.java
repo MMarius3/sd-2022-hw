@@ -102,7 +102,7 @@ public class ClientView {
         hBox.getChildren().addAll(gridPane, scrollPane);
     }
 
-    public void refreshScrollPane(List<Button> buttons){
+    public void initializeScrollPane(List<Button> buttons){
         scrollPane.setContent(null);
 
         VBox vBox = new VBox();

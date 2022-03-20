@@ -16,4 +16,6 @@ public interface ClientRepository {
     Optional<Client> findByName(String name);
 
     boolean save(Client client);
+
+    boolean update(Client client);
 }

@@ -13,4 +13,6 @@ public interface UserService {
     User findByName(String name);
 
     boolean save(User user);
+
+    boolean update(User user);
 }

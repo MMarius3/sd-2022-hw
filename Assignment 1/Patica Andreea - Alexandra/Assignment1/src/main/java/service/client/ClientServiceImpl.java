@@ -36,4 +36,10 @@ public class ClientServiceImpl implements ClientService{
         return repository.save(client);
     }
 
+    @Override
+    public boolean update(Client client) {
+        return repository.update(client);
+    }
+
+
 }

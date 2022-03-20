@@ -36,9 +36,9 @@ public class UserView {
 
     private static UserController controller;
 
-    public void display(Stage stage){
+    public void display(Stage stage, String windowTitle){
         this.window = stage;
-        //window.setTitle("Regular User");
+        window.setTitle(windowTitle);
 
         initializeFields();
         initializeButtons();

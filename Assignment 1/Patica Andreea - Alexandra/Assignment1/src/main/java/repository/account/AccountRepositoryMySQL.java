@@ -39,10 +39,11 @@ public class AccountRepositoryMySQL implements AccountRepository{
         try {
             PreparedStatement insertStatement = connection
                     .prepareStatement("INSERT INTO account values (null, ?, ?, ?, ?)");
-            insertStatement.setInt(1, account.getType().getId().intValue());
-            insertStatement.setInt(2, account.getBalance());
-            insertStatement.setDate(3, new Date(account.getCreationDate().getTime()));
-            insertStatement.setInt(4, account.getClient().getId().intValue());
+            insertStatement.setInt(1, account.getClient().getId().intValue());
+            insertStatement.setInt(2, account.getType().getId().intValue());
+            insertStatement.setInt(3, account.getBalance());
+            insertStatement.setDate(4, new Date(account.getCreationDate().getTime()));
+
             insertStatement.executeUpdate();
             return true;
         } catch (SQLException e) {
@@ -54,6 +55,34 @@ public class AccountRepositoryMySQL implements AccountRepository{
     @Override
     public boolean update(Account account) {
         return false;
+    }
+
+    @Override
+    public boolean updateBalance(Account account, Long balance) {
+        try {
+            String sql = "UPDATE account SET balance = " + balance + "WHERE id = " + account.getId();
+            PreparedStatement updateStatement = connection
+                    .prepareStatement(sql);
+            updateStatement.executeUpdate();
+            return true;
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return false;
+        }
+    }
+
+    @Override
+    public boolean delete(Account account) {
+        try {
+            String sql = "DELETE FROM account " + "WHERE id = " + account.getId();
+            PreparedStatement updateStatement = connection
+                    .prepareStatement(sql);
+            updateStatement.executeUpdate();
+            return true;
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return false;
+        }
     }
 
     private Account getAccountsFromResultSet(ResultSet rs) throws SQLException {

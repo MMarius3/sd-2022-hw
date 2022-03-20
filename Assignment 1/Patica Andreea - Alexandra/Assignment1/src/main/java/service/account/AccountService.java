@@ -10,4 +10,8 @@ public interface AccountService {
     boolean save(Account account);
 
     boolean update(Account account);
+
+    boolean updateBalance(Account account, Long balance);
+
+    boolean delete(Account account);
 }

@@ -28,4 +28,14 @@ public class AccountServiceImpl implements AccountService{
     public boolean update(Account account) {
         return repository.update(account);
     }
+
+    @Override
+    public boolean updateBalance(Account account, Long balance) {
+        return repository.updateBalance(account, balance);
+    }
+
+    @Override
+    public boolean delete(Account account) {
+        return repository.delete(account);
+    }
 }

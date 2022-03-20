@@ -9,7 +9,7 @@ import service.user.UserService;
 import view.ClientView;
 import view.EmployeeView;
 
-public class EmployeeController {           //TODO update button
+public class EmployeeController {
 
     private final UserService userService;
     private final EmployeeView employeeView;
@@ -25,7 +25,7 @@ public class EmployeeController {           //TODO update button
         if (user != null){
             setFields(user);
         }
-        initializeSaveButtonListener();
+        initializeSaveButtonListener(user);
         employeeView.display();
 
     }
@@ -38,14 +38,20 @@ public class EmployeeController {           //TODO update button
 
     }
 
-    private void initializeSaveButtonListener(){
+    private void initializeSaveButtonListener(User user){
         employeeView.getSaveButton().setOnAction(event ->{
-            User user = new UserBuilder()
+            User newUser = new UserBuilder()
                     .setUsername(employeeView.getUsernameField().getText())
                     .setPassword(employeeView.getPasswordField().getText())
                     //.setRoles(rightsRolesRepository.findRolesForUser(userResultSet.getLong("id")))    //TODO rights
                     .build();
-            userService.save(user);
+            if (user == null){
+                userService.save(newUser);
+            }
+            else{
+                newUser.setId(user.getId());
+                userService.update(newUser);
+            }
         });
     }
 }
