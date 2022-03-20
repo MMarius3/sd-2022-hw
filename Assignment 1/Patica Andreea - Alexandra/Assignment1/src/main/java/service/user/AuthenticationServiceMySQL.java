@@ -23,10 +23,10 @@ public class AuthenticationServiceMySQL implements AuthenticationService {
   }
 
   @Override
-  public boolean register(String username, String password) {
+  public boolean register(String username, String password, String role) {
     String encodedPassword = encodePassword(password);
 
-    Role customerRole = rightsRolesRepository.findRoleByTitle(USER);
+    Role customerRole = rightsRolesRepository.findRoleByTitle(role);
 
     User user = new UserBuilder()
         .setUsername(username)

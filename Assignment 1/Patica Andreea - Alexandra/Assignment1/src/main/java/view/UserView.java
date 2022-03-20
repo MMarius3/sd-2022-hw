@@ -13,31 +13,42 @@ import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
-public class RegularUserView {
+import java.util.List;
+
+public class UserView {
 
     ChoiceBox<String> choiceBox;
     private Text idFilterText;
     private Text nameFilterText;
+
     private TextField idTextField;
     private TextField nameTextField;
+
     private Button searchButton;
+    private Button addButton;
+    private Button logoutButton;
+
     private GridPane gridPane;
     private ScrollPane scrollPane;
     private HBox hBox;
+
+    private Stage window;
+
     private static UserController controller;
 
-    public void display(Stage window){
-        window.setTitle("Regular User");
+    public void display(Stage stage){
+        this.window = stage;
+        //window.setTitle("Regular User");
 
         initializeFields();
-        initializeSearchButton();
+        initializeButtons();
         initializeGridPane();
         initializeHbox();
         //initializeChoiceBoxAction();
         //HBox hbox = new HBox(choiceBox);
 
 
-        Scene scene = new Scene(hBox, 500, 500);
+        Scene scene = new Scene(hBox, 600, 500);
         window.setScene(scene);
     }
 
@@ -47,11 +58,17 @@ public class RegularUserView {
         idTextField = new TextField();
         nameTextField = new TextField();
         searchButton = new Button("Search");
+        addButton = new Button("Add");
+        logoutButton = new Button("Log Out");
         scrollPane = new ScrollPane();
+        scrollPane.setPrefViewportWidth(200);
+        scrollPane.setPrefViewportHeight(100);
+
     }
 
-    private void initializeSearchButton(){
+    private void initializeButtons(){
         searchButton.setOnAction(controller.handleSearchButtonListener());
+        addButton.setOnAction(controller.handleAddButtonListener());
     }
 
     private void initializeGridPane(){
@@ -60,13 +77,16 @@ public class RegularUserView {
         gridPane.setVgap(20);
         gridPane.setHgap(20);
 
-        gridPane.getChildren().addAll(idFilterText, nameFilterText, idTextField, nameTextField, searchButton);
+        gridPane.getChildren().addAll(idFilterText, nameFilterText, idTextField, nameTextField, searchButton, logoutButton,
+                addButton);
 
         GridPane.setConstraints(idFilterText, 0, 1);
         GridPane.setConstraints(idTextField, 1, 1);
         GridPane.setConstraints(nameFilterText, 0, 2);
         GridPane.setConstraints(nameTextField, 1, 2);
         GridPane.setConstraints(searchButton, 1, 3);
+        GridPane.setConstraints(addButton, 1, 4);
+        GridPane.setConstraints(logoutButton, 1, 6);
     }
 
     private void initializeHbox(){
@@ -76,6 +96,14 @@ public class RegularUserView {
         hBox.getChildren().addAll(gridPane, scrollPane);
     }
 
+    public void refreshScrollPane(List<Button> buttons){
+        scrollPane.setContent(null);
+
+        VBox vBox = new VBox();
+        vBox.getChildren().addAll(buttons);
+        scrollPane.setContent(vBox);
+    }
+
     private void initializeChoiceBox(){
         choiceBox = new ChoiceBox<>();
         //controller.initializeChoiceBox(choiceBox);      //TODO
@@ -83,6 +111,10 @@ public class RegularUserView {
         choiceBox.getItems().add("Choice 1");
         choiceBox.getItems().add("Choice 2");
         choiceBox.getItems().add("Choice 3");
+    }
+
+    public void setWindowTitle(String title){
+        this.window.setTitle(title);
     }
 
     private void initializeChoiceBoxAction(){

@@ -12,6 +12,8 @@ import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
+import java.util.List;
+
 public class ClientView {
 
     private Text name;
@@ -37,18 +39,18 @@ public class ClientView {
         Stage window = new Stage();
         window.setTitle("Client");
 
-        initializeFields();
+        //initializeFields();
         initializeGridPane();
         initializeHbox();
         initializeButtonListener();
 
 
-        window.setScene(new Scene(gridPane, 500, 500));
+        window.setScene(new Scene(hBox, 600, 500));
         window.setResizable(false);
         window.showAndWait();
     }
 
-    private void initializeFields(){
+    public void initializeFields(){
         name = new Text("Name");
         idNumber = new Text("Id Number");
         personalIdentificationCode = new Text("Personal Identification Code");
@@ -62,6 +64,10 @@ public class ClientView {
 
         saveButton = new Button("Save");
         addAccountButton = new Button("Add Account");
+
+        scrollPane = new ScrollPane();
+        scrollPane.setPrefViewportWidth(200);
+        scrollPane.setPrefViewportHeight(100);
     }
 
     private void initializeGridPane(){
@@ -91,43 +97,71 @@ public class ClientView {
     private void initializeHbox(){
         hBox = new HBox();
 
+        hBox.setPadding(new Insets(20, 20, 20, 20));
 
+        hBox.getChildren().addAll(gridPane, scrollPane);
     }
+
+    public void refreshScrollPane(List<Button> buttons){
+        scrollPane.setContent(null);
+
+        VBox vBox = new VBox();
+        vBox.getChildren().addAll(buttons);
+        scrollPane.setContent(vBox);
+    }
+
 
 
     private void initializeButtonListener(){
         //saveButton.setOnAction();             //TODO
+        //addAccountButton.setOnAction();
     }
 
     public TextField getNameField() {
         return nameField;
     }
 
-    public void setNameField(TextField nameField) {
-        this.nameField = nameField;
+    public void setNameField(String text) {
+        this.nameField.setText(text);
     }
 
     public TextField getIdNumberField() {
         return idNumberField;
     }
 
-    public void setIdNumberField(TextField idNumberField) {
-        this.idNumberField = idNumberField;
+    public void setIdNumberField(String text) {
+        this.idNumberField.setText(text);
     }
 
     public TextField getPersonalIdentificationCodeField() {
         return personalIdentificationCodeField;
     }
 
-    public void setPersonalIdentificationCodeField(TextField personalIdentificationCodeField) {
-        this.personalIdentificationCodeField = personalIdentificationCodeField;
+    public void setPersonalIdentificationCodeField(String text) {
+        this.personalIdentificationCodeField.setText(text);
     }
 
     public TextField getAddressField() {
         return addressField;
     }
 
-    public void setAddressField(TextField addressField) {
-        this.addressField = addressField;
+    public void setAddressField(String text) {
+        this.addressField.setText(text);
+    }
+
+    public Button getSaveButton() {
+        return saveButton;
+    }
+
+    public void setSaveButton(Button saveButton) {
+        this.saveButton = saveButton;
+    }
+
+    public Button getAddAccountButton() {
+        return addAccountButton;
+    }
+
+    public void setAddAccountButton(Button addAccountButton) {
+        this.addAccountButton = addAccountButton;
     }
 }

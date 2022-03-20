@@ -1,12 +1,24 @@
-import controller.LoginController;
+import controller.*;
 import database.JDBConnectionWrapper;
 import model.validator.UserValidator;
+import repository.account.AccountRepository;
+import repository.account.AccountRepositoryMySQL;
+import repository.client.ClientRepository;
+import repository.client.ClientRepositoryMySQL;
 import repository.security.RightsRolesRepository;
 import repository.security.RightsRolesRepositoryMySQL;
+import repository.type.AccountTypeRepository;
+import repository.type.AccountTypeRepositoryImpl;
 import repository.user.UserRepository;
 import repository.user.UserRepositoryMySQL;
+import service.account.AccountService;
+import service.account.AccountServiceImpl;
+import service.client.ClientService;
+import service.client.ClientServiceImpl;
 import service.user.AuthenticationService;
 import service.user.AuthenticationServiceMySQL;
+import service.user.UserService;
+import service.user.UserServiceImpl;
 import view.LoginView;
 import view.MainUI;
 
@@ -22,14 +34,27 @@ public class Main{
 
         final RightsRolesRepository rightsRolesRepository = new RightsRolesRepositoryMySQL(connection);
         final UserRepository userRepository = new UserRepositoryMySQL(connection, rightsRolesRepository);
+        final UserService userService = new UserServiceImpl(userRepository);
 
-        final AuthenticationService authenticationService = new AuthenticationServiceMySQL(userRepository,
-                rightsRolesRepository);
+        final AuthenticationService authenticationService = new AuthenticationServiceMySQL(userRepository, rightsRolesRepository);
 
-        //final LoginView loginView = new LoginView();
         final UserValidator userValidator = new UserValidator(userRepository);
 
-        final LoginController loginController = new LoginController(null, authenticationService, userValidator);
+
+        final ClientRepository clientRepository = new ClientRepositoryMySQL(connection);
+        final ClientService clientService = new ClientServiceImpl(clientRepository);
+
+        final AccountTypeRepository accountTypeRepository = new AccountTypeRepositoryImpl(connection);
+        final AccountRepository accountRepository = new AccountRepositoryMySQL(accountTypeRepository, connection);
+        final AccountService accountService = new AccountServiceImpl(accountRepository);
+
+
+
+        final AccountController accountController = new AccountController();
+        final EmployeeController employeeController = new EmployeeController(userService);
+        final ClientController clientController = new ClientController(clientService, accountService, accountController);
+        final UserController userController = new UserController(userService, clientService, clientController, employeeController);
+        final LoginController loginController = new LoginController(authenticationService, userValidator, userController);
 
         LoginView.setController(loginController);
 

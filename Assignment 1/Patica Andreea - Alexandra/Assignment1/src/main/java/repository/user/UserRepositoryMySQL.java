@@ -1,7 +1,9 @@
 package repository.user;
 
 import controller.Response;
+import model.Client;
 import model.User;
+import model.builder.ClientBuilder;
 import model.builder.UserBuilder;
 import repository.security.RightsRolesRepository;
 
@@ -10,8 +12,10 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.Optional;
 
 import static database.Constants.Tables.USER;
 import static java.util.Collections.singletonList;
@@ -27,10 +31,6 @@ public class UserRepositoryMySQL implements UserRepository {
     this.rightsRolesRepository = rightsRolesRepository;
   }
 
-  @Override
-  public List<User> findAll() {
-    return null;
-  }
 
   @Override
   public User findByUsernameAndPassword(String username, String password) {
@@ -45,7 +45,7 @@ public class UserRepositoryMySQL implements UserRepository {
       User user = new UserBuilder()
           .setUsername(userResultSet.getString("username"))
           .setPassword(userResultSet.getString("password"))
-          .setRoles(rightsRolesRepository.findRolesForUser(userResultSet.getLong("id")))
+          .setRoles(rightsRolesRepository.findRolesForUser(userResultSet.getLong("id")))    //TODO rights
           .build();
 
       return user;
@@ -54,6 +54,45 @@ public class UserRepositoryMySQL implements UserRepository {
     }
     return null;
   }
+
+  @Override
+  public List<User> findAll() {
+    List<User> users = new ArrayList<>();
+    try {
+      Statement statement = connection.createStatement();
+      String sql = "Select * from user";
+      ResultSet rs = statement.executeQuery(sql);
+
+      while (rs.next()) {
+        users.add(getUsersFromResultSet(rs));
+      }
+    } catch (SQLException e) {
+      e.printStackTrace();
+    }
+
+    return users;
+  }
+
+  @Override
+  public Optional<User> findById(Long id) {
+    User user = null;
+    try {
+      Statement statement = connection.createStatement();
+      String sql = "Select * from user where id=" + id;
+      ResultSet rs = statement.executeQuery(sql);
+
+      user = getUsersFromResultSet(rs);
+    } catch (SQLException e) {
+      e.printStackTrace();
+    }
+    return Optional.ofNullable(user);
+  }
+
+  @Override
+  public Optional<User> findByName(String name) {
+    return Optional.empty();
+  }
+
 
   @Override
   public boolean save(User user) {
@@ -104,5 +143,12 @@ public class UserRepositoryMySQL implements UserRepository {
     }
   }
 
+  private User getUsersFromResultSet(ResultSet rs) throws SQLException {
+    return new  UserBuilder()
+            .setUsername(rs.getString("username"))
+            .setPassword(rs.getString("password"))
+            .setRoles(rightsRolesRepository.findRolesForUser(rs.getLong("id")))
+            .build();
+  }
 
 }

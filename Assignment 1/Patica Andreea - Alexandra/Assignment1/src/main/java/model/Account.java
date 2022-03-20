@@ -7,6 +7,7 @@ public class Account {
     private AccountType type;
     private Integer balance;
     private Date creationDate;
+    private Client client;
 
     public Integer getId() {
         return id;
@@ -38,5 +39,13 @@ public class Account {
 
     public void setCreationDate(Date creationDate) {
         this.creationDate = creationDate;
+    }
+
+    public Client getClient() {
+        return client;
+    }
+
+    public void setClient(Client client) {
+        this.client = client;
     }
 }

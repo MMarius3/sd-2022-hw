@@ -7,7 +7,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class UserValidator {
-    private static final String EMAIL_VALIDATION_REGEX = "^[a-zA-Z0-9_!#$%&'*+/=?`{|}~^.-]+@[a-zA-Z0-9.-]+$";
+    //private static final String EMAIL_VALIDATION_REGEX = "^[a-zA-Z0-9_!#$%&'*+/=?`{|}~^.-]+@[a-zA-Z0-9.-]+$";
+    private static final String EMAIL_VALIDATION_REGEX = "^[a-zA-Z0-9_.+-]+@(?:(?:[a-zA-Z0-9-]+\\.)?[a-zA-Z]+\\.)?(employee|admin)\\.com$";
+    private static final String ADMIN_EMAIL_REGEX = "^[a-zA-Z0-9_.+-]+@(?:(?:[a-zA-Z0-9-]+\\.)?[a-zA-Z]+\\.)?(admin)\\.com$";
+    private static final String EMPLOYEE_EMAIL_REGEX = "^[a-zA-Z0-9_.+-]+@(?:(?:[a-zA-Z0-9-]+\\.)?[a-zA-Z]+\\.)?(employee)\\.com$";
     public static final int MIN_PASSWORD_LENGTH = 8;
 
     private final List<String> errors = new ArrayList<>();
@@ -68,5 +71,14 @@ public class UserValidator {
 
     public String getFormattedErrors() {
         return String.join("\n", errors);
+    }
+
+    public String getRole(String email){
+        if (email.matches(ADMIN_EMAIL_REGEX)){
+            return "administrator";
+        }
+        else{
+            return "user";
+        }
     }
 }

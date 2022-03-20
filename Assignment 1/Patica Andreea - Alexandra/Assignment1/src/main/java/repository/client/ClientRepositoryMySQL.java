@@ -1,8 +1,6 @@
 package repository.client;
 
-import model.Book;
 import model.Client;
-import model.builder.BookBuilder;
 import model.builder.ClientBuilder;
 
 import java.sql.*;
@@ -37,7 +35,18 @@ public class ClientRepositoryMySQL implements ClientRepository{
 
     @Override
     public Optional<Client> findById(Long id) {
-        return Optional.empty();
+        Client client = null;
+        try {
+            Statement statement = connection.createStatement();
+            String sql = "Select * from client where id =" + id;
+            ResultSet rs = statement.executeQuery(sql);
+
+            rs.next();
+            client = getClientsFromResultSet(rs);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return Optional.ofNullable(client);
     }
 
     @Override

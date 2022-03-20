@@ -4,7 +4,7 @@ import model.User;
 
 public interface AuthenticationService {
 
-  boolean register(String username, String password);
+  boolean register(String username, String password, String role);
 
   User login(String username, String password);
 

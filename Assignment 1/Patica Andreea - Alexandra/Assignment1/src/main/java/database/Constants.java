@@ -54,6 +54,7 @@ public class Constants {
 
         public static final String[] ORDERED_TABLES_FOR_CREATION = new String[]{USER, ROLE, RIGHT, ROLE_RIGHT, USER_ROLE,
                 ACCOUNT_TYPE, CLIENT, ACCOUNT};
+
     }
 
     public static class Roles {
