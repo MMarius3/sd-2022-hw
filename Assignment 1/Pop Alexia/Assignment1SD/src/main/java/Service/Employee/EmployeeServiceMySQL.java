@@ -1,18 +1,40 @@
 package Service.Employee;
 
+import Model.Builder.UserBuilder;
+import Model.Role;
 import Model.User;
+import Repository.Security.RightsRolesRepository;
 import Repository.User.UserRepository;
 import javafx.collections.ObservableList;
 
 import java.nio.charset.StandardCharsets;
 import java.security.MessageDigest;
+import java.util.Collections;
+
+import static Database.Constants.Roles.EMPLOYEE;
 
 public class EmployeeServiceMySQL implements EmployeeService {
 
     private final UserRepository userRepository;
+    private final RightsRolesRepository rightsRolesRepository;
 
-    public EmployeeServiceMySQL(UserRepository userRepository){
+    public EmployeeServiceMySQL(UserRepository userRepository,RightsRolesRepository rightsRolesRepository){
         this.userRepository = userRepository;
+        this.rightsRolesRepository = rightsRolesRepository;
+    }
+    @Override
+    public boolean addEmp(String username, String password) {
+        String encodedPassword = encodePassword(password);
+
+        Role customerRole= rightsRolesRepository.findRoleByTitle(EMPLOYEE);
+
+        User user = new UserBuilder()
+                .setUsername(username)
+                .setPassword(encodedPassword)
+                .setRoles(Collections.singletonList(customerRole))
+                .build();
+
+        return userRepository.save(user);
     }
 
     @Override

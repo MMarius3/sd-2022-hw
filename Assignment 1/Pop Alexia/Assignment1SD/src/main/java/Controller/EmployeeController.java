@@ -1,60 +1,36 @@
 package Controller;
 
-import Model.Event;
-import Model.Role;
 import Model.User;
 import Model.Validator.AccountValidator;
 import Model.Validator.ClientValidator;
-import Model.Validator.EventValidator;
-import Model.Validator.UserValidator;
 import Service.Account.AccountService;
 import Service.Client.ClientService;
-import Service.Employee.EmployeeService;
 import Service.Event.EventService;
-import Service.Secutiry.AuthenticationService;
-import View.AdminView;
 import View.EmployeeView;
-import View.LoginView;
 import javafx.collections.ObservableList;
 
-import java.sql.Date;
 import java.util.List;
-import java.util.Optional;
 
-import static Database.Constants.Roles.*;
+public class EmployeeController {
 
-public class Controller {
-
-    private final LoginView loginView;
-    private final AdminView adminView;
     private final EmployeeView employeeView;
-    private final AuthenticationService authenticationService;
     private final EventService eventService;
-    private final EmployeeService employeeService;
     private final AccountService accountService;
     private final ClientService clientService;
-    private final UserValidator userValidator;
     private final AccountValidator accountValidator;
     private final ClientValidator clientValidator;
-    private final EventValidator eventValidator;
     private User loggedUser;
 
-    public Controller(LoginView loginView, AdminView adminView, EmployeeView employeeView, AuthenticationService authenticationService, EventService eventService, EmployeeService employeeService, AccountService accountService, ClientService clientService, UserValidator userValidator, AccountValidator accountValidator, ClientValidator clientValidator, EventValidator eventValidator) {
-        this.adminView = adminView;
+
+    public EmployeeController(User loggedUser,EmployeeView employeeView, EventService eventService, AccountService accountService, ClientService clientService, AccountValidator accountValidator, ClientValidator clientValidator) {
         this.employeeView = employeeView;
-        this.authenticationService = authenticationService;
         this.eventService = eventService;
-        this.employeeService = employeeService;
         this.accountService = accountService;
         this.clientService = clientService;
-        this.userValidator = userValidator;
-        this.loginView = loginView;
         this.accountValidator = accountValidator;
         this.clientValidator = clientValidator;
-        this.eventValidator = eventValidator;
+        this.loggedUser = loggedUser;
 
-        loginAction();
-        logOutAction();
         addClientAction();
         updateClientAction();
         viewClientsAction();
@@ -64,117 +40,7 @@ public class Controller {
         deleteAccountAction();
         payBillAction();
         transferMoneyAction();
-        addEmployeeAction();
-        updateEmployeeAction();
-        deleteEmployeeAction();
-        viewEmployeesAction();
-        generateReportAction();
-    }
 
-    public void loginAction() {
-        loginView.getLogin().setOnAction(e->{
-            loginView.getNoSuchUserMsg().setText("");
-            String username = loginView.getUsername().getText();
-            String password = loginView.getPassword().getText();
-
-            userValidator.validateLogin(username, password);
-            loggedUser = authenticationService.login(username, password);
-            final List<String> errors = userValidator.getErrors();
-            if(errors.isEmpty()){
-                if(loggedUser == null) loginView.getNoSuchUserMsg().setText("Wrong password");
-                else {
-                    Optional<Role> role = loggedUser.getRoles().stream().filter(r -> r.getRole().equals(ADMINISTRATOR)).findFirst();
-                    if (role.isPresent()) loginView.changeView(adminView.getMainScene());
-                    else loginView.changeView(employeeView.getMainScene());
-                }
-            }else loginView.getNoSuchUserMsg().setText(userValidator.getFormattedErrors());
-
-            loginView.getUsername().clear();
-            loginView.getPassword().clear();
-        });
-    }
-
-    public void logOutAction(){
-        employeeView.getLogOut().setOnAction(e-> loginView.changeView(loginView.getMainScene()));
-        adminView.getLogOut().setOnAction(e->loginView.changeView(loginView.getMainScene()));
-    }
-
-    public void addEmployeeAction(){
-        adminView.getAddEmployee().setOnAction(e->{
-            adminView.getErrorMsg().setText("");
-            String username = adminView.getUsername().getText();
-            String password = adminView.getPassword().getText();
-
-            userValidator.validate(username, password);
-            final List<String> errors = userValidator.getErrors();
-            if (errors.isEmpty()) authenticationService.register(username, password);
-            else adminView.getErrorMsg().setText(userValidator.getFormattedErrors());
-            clearFieldsAdmin();
-        });
-    }
-
-    public void deleteEmployeeAction(){
-        adminView.getDeleteEmployee().setOnAction(e->{
-            adminView.getErrorMsg().setText("");
-            String username = adminView.getUsername().getText();
-
-            userValidator.validateDelete(username);
-            final List<String> errors = userValidator.getErrors();
-            if(errors.isEmpty()) employeeService.deleteEmp(username);
-            else adminView.getErrorMsg().setText(userValidator.getFormattedErrors());
-            clearFieldsAdmin();
-        });
-    }
-
-    public void updateEmployeeAction(){
-        adminView.getUpdateEmployee().setOnAction(e->{
-            adminView.getErrorMsg().setText("");
-            String id = adminView.getEmployeeId().getText();
-            String username = adminView.getUsername().getText();
-            String password = adminView.getPassword().getText();
-
-            userValidator.validateUpdate(id,username,password);
-            final List<String> errors = userValidator.getErrors();
-            if(errors.isEmpty()) employeeService.updateEmp(Long.parseLong(id),username,password);
-            else adminView.getErrorMsg().setText(userValidator.getFormattedErrors());
-            clearFieldsAdmin();
-        });
-    }
-
-    public void viewEmployeesAction(){
-        adminView.getViewEmployees().setOnAction(e->{
-            adminView.getErrorMsg().setText("");
-            adminView.getVbox().getChildren().clear();
-            clearFieldsAdmin();
-            adminView.getVbox().getChildren().add(adminView.createTable(employeeService.viewEmp()));
-        });
-    }
-
-    public void generateReportAction(){
-        adminView.getGenerateReport().setOnAction(e->{
-            adminView.getVbox().getChildren().clear();
-            adminView.getErrorMsg().setText("");
-            String dateFrom = adminView.getDateFrom().getText();
-            String dateTo = adminView.getDateTo().getText();
-            String username = adminView.getUsername2().getText();
-
-            eventValidator.validate(username,dateFrom,dateTo);
-            final List<String> errors = eventValidator.getErrors();
-            if(errors.isEmpty()){
-                ObservableList<Event> events = eventService.findByUsernameAndDates(Date.valueOf(dateFrom),Date.valueOf(dateTo),username);
-                adminView.getVbox().getChildren().add(adminView.createTable(events));
-            }else adminView.getErrorMsg().setText(eventValidator.getFormattedErrors());
-         clearFieldsAdmin();
-        });
-    }
-
-    public void clearFieldsAdmin(){
-        adminView.getEmployeeId().clear();
-        adminView.getUsername().clear();
-        adminView.getPassword().clear();
-        adminView.getUsername2().clear();
-        adminView.getDateTo().clear();
-        adminView.getDateFrom().clear();
     }
 
     public void addAccountAction(){

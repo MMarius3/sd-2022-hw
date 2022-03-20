@@ -1,5 +1,6 @@
-import Controller.Controller;
+import Controller.LoginController;
 import Database.JDBConnectionWrapper;
+import Model.User;
 import Model.Validator.AccountValidator;
 import Model.Validator.ClientValidator;
 import Model.Validator.EventValidator;
@@ -29,6 +30,8 @@ import View.EmployeeView;
 import View.LoginView;
 import javafx.application.Application;
 import javafx.stage.Stage;
+import Controller.EmployeeController;
+import Controller.AdminController;
 
 import java.sql.Connection;
 
@@ -45,7 +48,7 @@ public class Launcher extends  Application {
         final ClientRepository clientRepository = new ClientRepositoryMySQL(connection);
         final AccountRepository accountRepository = new AccountRepositoryMySQL(connection);
         final AuthenticationService authenticationService = new AuthenticationServiceMySQL(userRepository, rightsRolesRepository);
-        final EmployeeService employeeService = new EmployeeServiceMySQL(userRepository);
+        final EmployeeService employeeService = new EmployeeServiceMySQL(userRepository,rightsRolesRepository);
         final ClientService clientService = new ClientServiceMySQL(clientRepository);
         final AccountService accountService = new AccountServiceMySQL(accountRepository);
         final EventRepository eventRepository = new EventRepositoryMySQL(connection);
@@ -55,10 +58,15 @@ public class Launcher extends  Application {
         final ClientValidator clientValidator = new ClientValidator(clientRepository);
         final UserValidator userValidator = new UserValidator(userRepository);
         final EventValidator eventValidator = new EventValidator(eventRepository);
-        view = new LoginView();
+
         final AdminView  adminView = new AdminView();
         final EmployeeView employeeView = new EmployeeView();
-        new Controller(view,adminView,employeeView,authenticationService,eventService,employeeService,accountService,clientService,userValidator,accountValidator,clientValidator, eventValidator);
+        view = new LoginView();
+        User loggedUser = new User();
+
+        new LoginController(loggedUser,view,adminView,employeeView,authenticationService,userValidator);
+        new EmployeeController(loggedUser,employeeView,eventService,accountService,clientService,accountValidator,clientValidator);
+        new AdminController(adminView,eventService,employeeService,userValidator,eventValidator);
     }
 
     @Override

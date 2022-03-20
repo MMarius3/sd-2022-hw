@@ -32,7 +32,7 @@ public class EventServiceMySQL implements EventService {
     public ObservableList<Event> findByUsernameAndDates(Date d1, Date d2, String username) {
        ObservableList<Event> events;
        events = eventRepository.findByUsername(username);
-       return events.stream().filter(e-> (e.getDate().after(d1) && e.getDate().before(d2)) || e.getDate().equals(d1) || e.getDate().equals(d2)).collect(Collectors.toCollection(FXCollections::observableArrayList));
+       return events.stream().filter(e-> ((e.getDate().after(d1) || e.getDate().equals(d1)) && (e.getDate().before(d2) || e.getDate().equals(d2)))).collect(Collectors.toCollection(FXCollections::observableArrayList));
     }
 
 }

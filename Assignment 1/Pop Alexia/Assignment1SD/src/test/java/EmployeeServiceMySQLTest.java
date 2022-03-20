@@ -22,7 +22,6 @@ import static org.junit.jupiter.api.Assertions.*;
 public class EmployeeServiceMySQLTest {
 
     private static EmployeeService employeeService;
-    private static AuthenticationService authenticationService;
     private static UserRepository userRepository;
 
     @BeforeAll
@@ -30,8 +29,7 @@ public class EmployeeServiceMySQLTest {
         Connection connection = new DBConnectionFactory().getConnectionWrapper(true).getConnection();
         RightsRolesRepository rightsRolesRepository = new RightsRolesRepositoryMySQL(connection);
         userRepository = new UserRepositoryMySQL(connection, rightsRolesRepository);
-        authenticationService = new AuthenticationServiceMySQL(userRepository,rightsRolesRepository);
-        employeeService = new EmployeeServiceMySQL(userRepository);
+        employeeService = new EmployeeServiceMySQL(userRepository,rightsRolesRepository);
         connection.isValid(10);
     }
 
@@ -42,7 +40,7 @@ public class EmployeeServiceMySQLTest {
 
     @Test
     public void update() throws Exception {
-        authenticationService.register("test@yahoo.com","Alexia1*");
+        employeeService.addEmp("test@yahoo.com","Alexia1*");
         User user = userRepository.findByUsernameAndPassword("test@yahoo.com",encodePassword("Alexia1*"));
         employeeService.updateEmp( user.getId(),"test2@yahoo.com","");
         User user2 = userRepository.findById(user.getId());
@@ -58,9 +56,9 @@ public class EmployeeServiceMySQLTest {
 
     @Test
     public void delete() throws  Exception{
-        authenticationService.register("test2@yahoo.com","Alexia1*");
+        employeeService.addEmp("test2@yahoo.com","Alexia1*");
         employeeService.deleteEmp("test2@yahoo.com");
-        assertTrue(authenticationService.register("test2@yahoo.com","alexia1*"));
+        assertTrue(employeeService.addEmp("test2@yahoo.com","alexia1*"));
     }
 
     private String encodePassword(String password) {
