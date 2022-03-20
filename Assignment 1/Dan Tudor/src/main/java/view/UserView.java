@@ -53,13 +53,13 @@ public class UserView extends JFrame {
     }
 
     private void initializeFields() {
-        tfInfoName = new JTextField();
-        tfInfoCardId = new JTextField();
-        tfInfoCNP = new JTextField();
-        tfInfoAddress = new JTextField();
-        tfAccountId = new JTextField();
-        tfAccountType = new JTextField();
-        tfAccountAmmount = new JTextField();
+        tfInfoName = new JTextField("Name");
+        tfInfoCardId = new JTextField("CardID");
+        tfInfoCNP = new JTextField("CNP");
+        tfInfoAddress = new JTextField("Address");
+        tfAccountId = new JTextField("ID");
+        tfAccountType = new JTextField("Type");
+        tfAccountAmmount = new JTextField("Ammount");
 
         btnInfoView = new JButton("View information");
         btnInfoUpdate = new JButton("Update information");

@@ -5,6 +5,8 @@ import repository.book.BookRepository;
 import repository.client.ClientRepository;
 import service.client.ClientService;
 
+import java.util.Date;
+
 public class ClientServiceImpl implements ClientService {
     private final ClientRepository repository;
 
@@ -24,27 +26,23 @@ public class ClientServiceImpl implements ClientService {
     }
 
     @Override
-    public void removeByNameInfo(String name) {
-
-    }
-
-    @Override
-    public Client findByNameAccount(String name) {
-        return null;
+    public Client findByID(Long id) {
+        return repository.findByID(id)
+                .orElseThrow(() -> new IllegalArgumentException("Client with name %d not found".formatted(id)));
     }
 
     @Override
     public boolean create(Client client) {
-        return false;
+        return repository.create(client);
     }
 
     @Override
     public boolean updateAccount(Client client) {
-        return false;
+        return repository.updateAccount(client);
     }
 
     @Override
-    public void removeByNameAccount(String name) {
-
+    public void remove(Long id) {
+        repository.remove(id);
     }
 }

@@ -7,6 +7,7 @@ import model.builder.ClientBuilder;
 
 import java.sql.*;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
@@ -41,12 +42,6 @@ public class ClientRepositoryMySQL implements ClientRepository{
     @Override
     public boolean updateInfo(String name, Long cardId, String CNP, String address) {
         try{
-//            Statement statement = connection.createStatement();
-//            String sql = "Update `" + CLIENT +"` set `cardID=`\'" + cardId + "\', " + "`CNP=`\'" + "\', " + "`Address=`\'" + address
-//                    + "\' where `name`=\'" + name + "\'";
-//            ResultSet rs = statement.executeQuery(sql);
-//            System.out.println(name+cardId+CNP+address);
-
             PreparedStatement insertClientStatement = connection
                     .prepareStatement("Update `" + CLIENT +"` set `cardID`=\'" + cardId + "\', " + "`CNP`=\'" + CNP + "\', " + "`Address`=\'" + address
                             + "\' where `name`=\'" + name + "\'");
@@ -60,28 +55,67 @@ public class ClientRepositoryMySQL implements ClientRepository{
     }
 
     @Override
-    public void removeByNameInfo(String name) {
+    public Optional<Client> findByID(Long id) {
+        try{
+            Statement statement = connection.createStatement();
+            String sql = "Select * from `" + CLIENT +"` where `ID`=\'" + id + "\'";
+            ResultSet rs = statement.executeQuery(sql);
 
-    }
-
-    @Override
-    public Optional<Client> findByNameAccount(String name) {
+            if(rs.next()){
+                return Optional.of(getClientFromResultSet(rs));
+            }
+        }catch (SQLException e){
+            e.printStackTrace();
+        }
         return Optional.empty();
     }
 
     @Override
+    //public boolean create(String name, Long cardId, String CNP, String address, Long id, int balance, String type, Date date) {
     public boolean create(Client client) {
-        return false;
+        try{
+            PreparedStatement insertUserStatement = connection
+                    .prepareStatement("INSERT INTO client values (null, ?, ?, ?, ?, ?, ?, ?)", Statement.RETURN_GENERATED_KEYS);
+            insertUserStatement.setString(1, client.getName());
+            insertUserStatement.setLong(2, client.getCardID());
+            insertUserStatement.setString(3, client.getCNP());
+            insertUserStatement.setString(4, client.getAddress());
+            insertUserStatement.setInt(5, client.getBalance());
+            insertUserStatement.setDate(6, new java.sql.Date(client.getDateOfCreation().getDate()));
+            insertUserStatement.setString(7, client.getType());
+            insertUserStatement.executeUpdate();
+
+            return true;
+        }catch (Exception e){
+            e.printStackTrace();
+            return false;
+        }
     }
 
     @Override
     public boolean updateAccount(Client client) {
-        return false;
+        try{
+            PreparedStatement insertClientStatement = connection
+                    .prepareStatement("Update `" + CLIENT +"` set `dateOfCreation`=\'" + new java.sql.Date(client.getDateOfCreation().getDate()) + "\', " + "`type`=\'" + client.getType() + "\', " + "`balance`=\'" + client.getBalance()
+                            + "\' where `id`=\'" + client.getId() + "\'");
+            insertClientStatement.executeUpdate();
+
+            return true;
+        }catch (SQLException e){
+            e.printStackTrace();
+            return false;
+        }
     }
 
     @Override
-    public void removeByNameAccount(String name) {
-
+    public void remove(Long id) {
+        try {
+            Statement statement = connection.createStatement();
+            String sql = "DELETE from client where id =" + id;
+            statement.executeUpdate(sql);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
     }
 
     private Client getClientFromResultSet(ResultSet rs) throws SQLException {

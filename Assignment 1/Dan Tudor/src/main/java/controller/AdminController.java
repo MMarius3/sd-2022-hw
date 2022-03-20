@@ -1,5 +1,6 @@
 package controller;
 
+import service.user.UserService;
 import view.AdminView;
 
 import java.awt.event.ActionEvent;
@@ -7,9 +8,11 @@ import java.awt.event.ActionListener;
 
 public class AdminController {
     private final AdminView adminView;
+    private final UserService userService;
 
-    public AdminController(AdminView adminView){
+    public AdminController(AdminView adminView, UserService userService){
         this.adminView = adminView;
+        this.userService = userService;
         adminView.setBtnCreateListener(new AdminController.BtnCreateListener());
         adminView.setBtnUpdateListener(new AdminController.BtnUpdateListener());
         adminView.setBtnReadListener(new AdminController.BtnReadListener());

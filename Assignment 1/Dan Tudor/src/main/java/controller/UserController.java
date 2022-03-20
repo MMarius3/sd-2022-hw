@@ -2,6 +2,7 @@ package controller;
 
 import model.Client;
 import model.User;
+import model.builder.ClientBuilder;
 import model.validation.Notification;
 import service.client.ClientService;
 import service.user.AuthenticationService;
@@ -11,6 +12,8 @@ import view.UserView;
 import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.Date;
+import java.util.function.LongToIntFunction;
 
 public class UserController {
     private final UserView userView;
@@ -75,16 +78,18 @@ public class UserController {
         @Override
         public void actionPerformed(ActionEvent e) {
             String name = userView.getTfInfoName();
-            Client client = clientService.findByNameInfo(name);
-            userView.getLabelInfo().setText(//"Id:" + client.getId() + "  " +
-                    "Name:" + client.getName() + "  " +
-                    "CardID:" + client.getCardID() + "  " +
-                    "CNP:" + client.getCNP() + "  " +
-                    "Address:" + client.getAddress() + "  "
-                    //"Balance:" + client.getBalance() + "  " +
-                    //"Type:" + client.getType() + "  " +
-                    //"Date of creation:" + client.getDateOfCreation().toString()
-                    );
+            if(name.compareTo("") != 0) {
+                Client client = clientService.findByNameInfo(name);
+                userView.getLabelInfo().setText(//"Id:" + client.getId() + "  " +
+                        "Name:" + client.getName() + "  " +
+                                "CardID:" + client.getCardID() + "  " +
+                                "CNP:" + client.getCNP() + "  " +
+                                "Address:" + client.getAddress() + "  "
+                        //"Balance:" + client.getBalance() + "  " +
+                        //"Type:" + client.getType() + "  " +
+                        //"Date of creation:" + client.getDateOfCreation().toString()
+                );
+            }
         }
     }
 
@@ -95,36 +100,81 @@ public class UserController {
             Long cardID = Long.parseLong(userView.getTfInfoCardId());
             String CNP = userView.getTfInfoCNP();
             String address = userView.getTfInfoAddress();
-            clientService.updateInfo(name,cardID,CNP,address);
-            //System.out.println("ceva");
+            if(name.compareTo("")!=0 && cardID!=null && CNP.compareTo("")!=0 && address.compareTo("")!=0) {
+                clientService.updateInfo(name, cardID, CNP, address);
+            }
         }
     }
 
     public class BtnAccountCreateListener implements ActionListener {
         @Override
         public void actionPerformed(ActionEvent e) {
-
+            String name = userView.getTfInfoName();
+            Long cardID = Long.parseLong(userView.getTfInfoCardId());
+            String CNP = userView.getTfInfoCNP();
+            String address = userView.getTfInfoAddress();
+            String type = userView.getTfAccountType();
+            int balance = Integer.parseInt(userView.getTfAccountAmmount());
+            Date date = new Date();
+            Client client = new ClientBuilder()
+                    .setName(name)
+                    .setCardID(cardID)
+                    .setCNP(CNP)
+                    .setAddress(address)
+                    .setBalance(balance)
+                    .setType(type)
+                    .setDateOfCreation(date)
+                    .build();
+            clientService.create(client);
         }
     }
 
     public class BtnAccountUpdateListener implements ActionListener {
         @Override
         public void actionPerformed(ActionEvent e) {
-
+            //String name = userView.getTfInfoName();
+            //Long cardID = Long.parseLong(userView.getTfInfoCardId());
+            //String CNP = userView.getTfInfoCNP();
+            //String address = userView.getTfInfoAddress();
+            String type = userView.getTfAccountType();
+            int balance = Integer.parseInt(userView.getTfAccountAmmount());
+            Date date = new Date();
+            Long id = Long.parseLong(userView.getTfAccountId());
+            Client client = new ClientBuilder()
+                    //.setName(name)
+                    //.setCardID(cardID)
+                    //.setCNP(CNP)
+                    //.setAddress(address)
+                    .setBalance(balance)
+                    .setType(type)
+                    .setDateOfCreation(date)
+                    .setID(id)
+                    .build();
+            clientService.updateAccount(client);
         }
     }
 
     public class BtnAccountDeleteListener implements ActionListener {
         @Override
         public void actionPerformed(ActionEvent e) {
-
+            Long id = Long.parseLong(userView.getTfAccountId());
+            clientService.remove(id);
         }
     }
 
     public class BtnAccountViewListener implements ActionListener {
         @Override
         public void actionPerformed(ActionEvent e) {
-
+            Long id = Long.parseLong(userView.getTfAccountId());
+            if(id!=null) {
+                Client client = clientService.findByID(id);
+                userView.getLabelAccount().setText("Id:" + client.getId() + "  " +
+                        "Name:" + client.getName() + "  " +
+                        "Balance:" + client.getBalance() + "  " +
+                        "Type:" + client.getType() + "  " +
+                        "Date of creation:" + client.getDateOfCreation().toString()
+                );
+            }
         }
     }
 }

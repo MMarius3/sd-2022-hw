@@ -15,6 +15,8 @@ import service.client.ClientService;
 import service.client.ClientServiceImpl;
 import service.user.AuthenticationService;
 import service.user.AuthenticationServiceMySQL;
+import service.user.UserService;
+import service.user.UserServiceImpl;
 import view.LoginView;
 import view.UserView;
 
@@ -31,6 +33,7 @@ public class ComponentFactory {
 
   private final AuthenticationService authenticationService;
   private final ClientService clientService;
+  private final UserService userService;
 
   private final UserRepository userRepository;
   private final RightsRolesRepository rightsRolesRepository;
@@ -53,8 +56,9 @@ public class ComponentFactory {
     this.userRepository = new UserRepositoryMySQL(connection, rightsRolesRepository);
     this.authenticationService = new AuthenticationServiceMySQL(this.userRepository, this.rightsRolesRepository);
     this.clientService = new ClientServiceImpl(this.clientRepositoryMySQL);
+    this.userService = new UserServiceImpl(this.clientRepositoryMySQL);
     this.loginView = new LoginView();
-    this.loginController = new LoginController(loginView, authenticationService, clientService);
+    this.loginController = new LoginController(loginView, authenticationService, clientService, userService);
     bookRepositoryMySQL = new BookRepositoryMySQL(connection);
   }
 

@@ -9,6 +9,7 @@ import repository.user.UserRepositoryMySQL;
 import service.client.ClientService;
 import service.user.AuthenticationService;
 import service.user.AuthenticationServiceMySQL;
+import service.user.UserService;
 import view.AdminView;
 import view.LoginView;
 import view.UserView;
@@ -22,11 +23,13 @@ public class LoginController {
   private final LoginView loginView;
   private final AuthenticationService authenticationService;
   private final ClientService clientService;
+  private final UserService userService;
 
-  public LoginController(LoginView loginView, AuthenticationService authenticationService, ClientService clientService) {
+  public LoginController(LoginView loginView, AuthenticationService authenticationService, ClientService clientService, UserService userService) {
     this.loginView = loginView;
     this.authenticationService = authenticationService;
     this.clientService = clientService;
+    this.userService = userService;
     loginView.setLoginButtonListener(new LoginButtonListener());
     loginView.setRegisterButtonListener(new RegisterButtonListener());
   }
@@ -35,7 +38,7 @@ public class LoginController {
     private final UserView userView = new UserView();
     private final UserController userController = new UserController(userView,clientService);
     private final AdminView adminView = new AdminView();
-    private final AdminController adminController = new AdminController(adminView);
+    private final AdminController adminController = new AdminController(adminView,userService);
     @Override
     public void actionPerformed(ActionEvent e) {
       String username = loginView.getUsername();

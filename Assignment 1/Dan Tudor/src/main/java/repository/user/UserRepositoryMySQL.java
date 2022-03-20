@@ -11,6 +11,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.List;
+import java.util.Optional;
 
 import static database.Constants.Tables.USER;
 
@@ -90,6 +91,26 @@ public class UserRepositoryMySQL implements UserRepository {
     } catch (SQLException e) {
       e.printStackTrace();
     }
+  }
+
+  @Override
+  public Optional<User> findByUsername(String username) {
+    return Optional.empty();
+  }
+
+  @Override
+  public boolean create(User user) {
+    return false;
+  }
+
+  @Override
+  public void remove(Long id) {
+
+  }
+
+  @Override
+  public boolean update(User user) {
+    return false;
   }
 
 
