@@ -23,6 +23,6 @@ public interface UserRepository {
 
   void remove(Long id);
 
-  boolean update(User user);
+  boolean update(User user, Long id);
 
 }

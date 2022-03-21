@@ -39,6 +39,7 @@ public class ComponentFactory {
   private final RightsRolesRepository rightsRolesRepository;
   private final BookRepositoryMySQL bookRepositoryMySQL;
   private final ClientRepositoryMySQL clientRepositoryMySQL;
+  private final UserRepositoryMySQL userRepositoryMySQL;
 
   private static ComponentFactory instance;
 
@@ -53,24 +54,16 @@ public class ComponentFactory {
     Connection connection = new DBConnectionFactory().getConnectionWrapper(componentsForTests).getConnection();
     this.rightsRolesRepository = new RightsRolesRepositoryMySQL(connection);
     this.clientRepositoryMySQL = new ClientRepositoryMySQL(connection);
+    this.userRepositoryMySQL = new UserRepositoryMySQL(connection,rightsRolesRepository);
     this.userRepository = new UserRepositoryMySQL(connection, rightsRolesRepository);
     this.authenticationService = new AuthenticationServiceMySQL(this.userRepository, this.rightsRolesRepository);
     this.clientService = new ClientServiceImpl(this.clientRepositoryMySQL);
-    this.userService = new UserServiceImpl(this.clientRepositoryMySQL);
+    this.userService = new UserServiceImpl(this.userRepositoryMySQL);
     this.loginView = new LoginView();
     this.loginController = new LoginController(loginView, authenticationService, clientService, userService);
     bookRepositoryMySQL = new BookRepositoryMySQL(connection);
   }
 
-//  private ComponentFactory(Boolean componentsForTests) {
-//    Connection connection = new DBConnectionFactory().getConnectionWrapper(componentsForTests).getConnection();
-//    this.rightsRolesRepository = new RightsRolesRepositoryMySQL(connection);
-//    this.userRepository = new UserRepositoryMySQL(connection, rightsRolesRepository);
-//    this.authenticationService = new AuthenticationServiceMySQL(this.userRepository, this.rightsRolesRepository);
-//    this.userView = new UserView();
-//    this.userController = new UserController(userView, authenticationService);
-//    bookRepositoryMySQL = new BookRepositoryMySQL(connection);
-//  }
 
   public AuthenticationService getAuthenticationService() {
     return authenticationService;

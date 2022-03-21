@@ -46,16 +46,20 @@ public class AdminView extends JFrame{
         label = new JLabel("\n");
     }
 
-    public JTextField getTfId() {
-        return tfId;
+    public String getTfId() {
+        return tfId.getText();
     }
 
-    public JTextField getTfUsername() {
-        return tfUsername;
+    public String getTfUsername() {
+        return tfUsername.getText();
     }
 
-    public JTextField getTfPassword() {
-        return tfPassword;
+    public String getTfPassword() {
+        return tfPassword.getText();
+    }
+
+    public JLabel getLabel() {
+        return label;
     }
 
     public void setBtnCreateListener(ActionListener listener){

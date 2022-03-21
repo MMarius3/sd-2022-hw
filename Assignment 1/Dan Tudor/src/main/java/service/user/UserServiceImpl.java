@@ -2,32 +2,34 @@ package service.user;
 
 import model.User;
 import repository.client.ClientRepository;
+import repository.user.UserRepository;
 
 import java.util.Optional;
 
 public class UserServiceImpl implements UserService{
-    private final ClientRepository repository;
-    public UserServiceImpl(ClientRepository repository) {
+    private final UserRepository repository;
+    public UserServiceImpl(UserRepository repository) {
         this.repository = repository;
     }
 
     @Override
-    public Optional<User> findByUsername(String username) {
-        return Optional.empty();
+    public User findByUsername(String username) {
+        return repository.findByUsername(username)
+                .orElseThrow(() -> new IllegalArgumentException("User with username %s not found".formatted(username)));
     }
 
     @Override
     public boolean create(User user) {
-        return false;
+        return repository.create(user);
     }
 
     @Override
     public void remove(Long id) {
-
+        repository.remove(id);
     }
 
     @Override
-    public boolean update(User user) {
-        return false;
+    public boolean update(User user, Long id) {
+        return repository.update(user,id);
     }
 }

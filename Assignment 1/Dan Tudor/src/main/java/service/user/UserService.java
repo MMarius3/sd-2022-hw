@@ -5,11 +5,11 @@ import model.User;
 import java.util.Optional;
 
 public interface UserService {
-    Optional<User> findByUsername(String username);
+    User findByUsername(String username);
 
     boolean create(User user);
 
     void remove(Long id);
 
-    boolean update(User user);
+    boolean update(User user, Long id);
 }
