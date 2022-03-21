@@ -26,10 +26,10 @@ import static database.Constants.Roles.ROLES;
 public class Constants {
 
   public static class Schemas {
-//    public static final String TEST = "test_library";
-    public static final String PRODUCTION = "SdBankApp";
+    public static final String TEST = "SdBankApp?currentSchema=test";
+    public static final String PRODUCTION = "SdBankApp?currentSchema=public";
 
-    public static final String[] SCHEMAS = new String[]{PRODUCTION};
+    public static final String[] SCHEMAS = new String[]{TEST, PRODUCTION};
   }
 
   public static class Tables {
@@ -40,10 +40,11 @@ public class Constants {
     public static final String RIGHT = "right";
     public static final String ROLE_RIGHT = "role_right";
     public static final String USER_ROLE = "user_role";
+    public static final String LOG = "log";
 
 
     public static final String[] ORDERED_TABLES_FOR_CREATION = new String[]{USER, ROLE, RIGHT, ROLE_RIGHT, USER_ROLE,
-        ACCOUNT, CLIENT};
+        ACCOUNT, CLIENT, LOG};
   }
 
   public static class Roles {

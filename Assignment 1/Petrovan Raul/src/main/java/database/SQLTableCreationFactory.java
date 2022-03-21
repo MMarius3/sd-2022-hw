@@ -3,6 +3,7 @@ package database;
 
 import static database.Constants.Tables.ACCOUNT;
 import static database.Constants.Tables.CLIENT;
+import static database.Constants.Tables.LOG;
 import static database.Constants.Tables.RIGHT;
 import static database.Constants.Tables.ROLE;
 import static database.Constants.Tables.ROLE_RIGHT;
@@ -14,63 +15,144 @@ public class SQLTableCreationFactory {
   public String getCreateSQLForTable(String table) {
     return switch (table) {
 
-      case USER -> "CREATE TABLE IF NOT EXISTS user (" +
-          "  id INT NOT NULL AUTO_INCREMENT," +
-          "  username VARCHAR(200) NOT NULL," +
-          "  password VARCHAR(64) NOT NULL," +
-          "  PRIMARY KEY (id)," +
-          "  UNIQUE INDEX id_UNIQUE (id ASC)," +
-          "  UNIQUE INDEX username_UNIQUE (username ASC));";
-      case ROLE -> "  CREATE TABLE IF NOT EXISTS role (" +
-          "  id INT NOT NULL AUTO_INCREMENT," +
-          "  role VARCHAR(100) NOT NULL," +
-          "  PRIMARY KEY (id)," +
-          "  UNIQUE INDEX id_UNIQUE (id ASC)," +
-          "  UNIQUE INDEX role_UNIQUE (role ASC));";
-      case RIGHT -> "  CREATE TABLE IF NOT EXISTS `right` (" +
-          "  `id` INT NOT NULL AUTO_INCREMENT," +
-          "  `right` VARCHAR(100) NOT NULL," +
-          "  PRIMARY KEY (`id`)," +
-          "  UNIQUE INDEX `id_UNIQUE` (`id` ASC)," +
-          "  UNIQUE INDEX `right_UNIQUE` (`right` ASC));";
-      case ROLE_RIGHT -> "  CREATE TABLE IF NOT EXISTS role_right (" +
-          "  id INT NOT NULL AUTO_INCREMENT," +
-          "  role_id INT NOT NULL," +
-          "  right_id INT NOT NULL," +
-          "  PRIMARY KEY (id)," +
-          "  UNIQUE INDEX id_UNIQUE (id ASC)," +
-          "  INDEX role_id_idx (role_id ASC)," +
-          "  INDEX right_id_idx (right_id ASC)," +
-          "  CONSTRAINT role_id" +
-          "    FOREIGN KEY (role_id)" +
-          "    REFERENCES role (id)" +
-          "    ON DELETE CASCADE" +
-          "    ON UPDATE CASCADE," +
-          "  CONSTRAINT right_id" +
-          "    FOREIGN KEY (right_id)" +
-          "    REFERENCES `right` (id)" +
-          "    ON DELETE CASCADE" +
-          "    ON UPDATE CASCADE);";
-      case USER_ROLE -> "\tCREATE TABLE IF NOT EXISTS user_role (" +
-          "  id INT NOT NULL AUTO_INCREMENT," +
-          "  user_id INT NOT NULL," +
-          "  role_id INT NOT NULL," +
-          "  PRIMARY KEY (id)," +
-          "  UNIQUE INDEX id_UNIQUE (id ASC)," +
-          "  INDEX user_id_idx (user_id ASC)," +
-          "  INDEX role_id_idx (role_id ASC)," +
-          "  CONSTRAINT user_fkid" +
-          "    FOREIGN KEY (user_id)" +
-          "    REFERENCES user (id)" +
-          "    ON DELETE CASCADE" +
-          "    ON UPDATE CASCADE," +
-          "  CONSTRAINT role_fkid" +
-          "    FOREIGN KEY (role_id)" +
-          "    REFERENCES role (id)" +
-          "    ON DELETE CASCADE" +
-          "    ON UPDATE CASCADE);";
-      case ACCOUNT -> "";
-      case CLIENT -> "";
+      case USER -> "create table \"user\"\n" +
+              "(\n" +
+              "    id       serial\n" +
+              "        constraint user_pk\n" +
+              "            primary key,\n" +
+              "    username varchar(255),\n" +
+              "    password varchar(64)\n" +
+              ");\n" +
+              "\n" +
+              "alter table \"user\"\n" +
+              "    owner to sd_user;\n" +
+              "\n" +
+              "create unique index user_id_uindex\n" +
+              "    on \"user\" (id);\n" +
+              "\n" +
+              "create unique index user_username_uindex\n" +
+              "    on \"user\" (username);";
+      case ROLE -> "create table role\n" +
+              "(\n" +
+              "    id   serial\n" +
+              "        constraint role_pk\n" +
+              "            primary key,\n" +
+              "    role varchar(100) not null\n" +
+              ");\n" +
+              "\n" +
+              "alter table role\n" +
+              "    owner to sd_user;\n" +
+              "\n" +
+              "create unique index role_id_uindex\n" +
+              "    on role (id);\n" +
+              "\n" +
+              "create unique index role_role_uindex\n" +
+              "    on role (role);\n";
+      case RIGHT -> "create table \"right\"\n" +
+              "(\n" +
+              "    id      serial\n" +
+              "        constraint right_pk\n" +
+              "            primary key,\n" +
+              "    \"right\" varchar(100) not null\n" +
+              ");\n" +
+              "\n" +
+              "alter table \"right\"\n" +
+              "    owner to sd_user;\n" +
+              "\n" +
+              "create unique index right_id_uindex\n" +
+              "    on \"right\" (id);\n" +
+              "\n" +
+              "create unique index right_right_uindex\n" +
+              "    on \"right\" (\"right\");\n";
+      case USER_ROLE -> "create table user_role\n" +
+              "(\n" +
+              "    id      serial\n" +
+              "        constraint user_role_pk\n" +
+              "            primary key,\n" +
+              "    user_id integer not null\n" +
+              "        constraint user_role_user_id_fk\n" +
+              "            references \"user\",\n" +
+              "    role_id integer not null\n" +
+              "        constraint user_role_role_id_fk\n" +
+              "            references role\n" +
+              ");\nalter table user_role\n" +
+              "    owner to sd_user;\n" +
+              "\n" +
+              "create unique index user_role_id_uindex\n" +
+              "    on user_role (id);\n";
+      case ACCOUNT -> "create table account\n" +
+              "(\n" +
+              "    id             serial\n" +
+              "        constraint account_pk\n" +
+              "            primary key,\n" +
+              "    user_id        integer\n" +
+              "        constraint account_user_id_fk\n" +
+              "            references \"user\",\n" +
+              "    balance        numeric(12, 2),\n" +
+              "    type           varchar(255),\n" +
+              "    creation_date  date,\n" +
+              "    account_number varchar(255)\n" +
+              ");\n" +
+              "\n" +
+              "alter table account\n" +
+              "    owner to sd_user;\n" +
+              "\n" +
+              "create unique index account_id_uindex\n" +
+              "    on account (id);\n";
+      case CLIENT -> "create table client\n" +
+              "(\n" +
+              "    id         serial\n" +
+              "        constraint client_pk\n" +
+              "            primary key,\n" +
+              "    user_id    integer\n" +
+              "        constraint client_user_id_fk\n" +
+              "            references \"user\",\n" +
+              "    name       varchar(255),\n" +
+              "    \"idNumber\" varchar(255),\n" +
+              "    cnp        varchar(255),\n" +
+              "    address    varchar(255)\n" +
+              ");\n" +
+              "\n" +
+              "alter table client\n" +
+              "    owner to sd_user;\n" +
+              "\n" +
+              "create unique index client_id_uindex\n" +
+              "    on client (id);\n";
+      case ROLE_RIGHT -> "create table role_right\n" +
+              "(\n" +
+              "    id       serial\n" +
+              "        constraint role_right_pk\n" +
+              "            primary key,\n" +
+              "    role_id  integer not null\n" +
+              "        constraint role_right_role_id_fk\n" +
+              "            references role,\n" +
+              "    right_id integer not null\n" +
+              "        constraint role_right_right_id_fk\n" +
+              "            references \"right\",\n" +
+              "    constraint role_right_pk_2\n" +
+              "        unique (role_id, right_id)\n" +
+              ");\n" +
+              "\n" +
+              "alter table role_right\n" +
+              "    owner to sd_user;\n" +
+              "\n" +
+              "create unique index role_right_id_uindex\n" +
+              "    on role_right (id);\n";
+      case LOG -> "create table log\n" +
+              "(\n" +
+              "    id            serial\n" +
+              "        constraint log_pk\n" +
+              "            primary key,\n" +
+              "    user_id       integer,\n" +
+              "    action        varchar(255),\n" +
+              "    creation_date date\n" +
+              ");\n" +
+              "\n" +
+              "alter table log\n" +
+              "    owner to sd_user;\n" +
+              "\n" +
+              "create unique index log_id_uindex\n" +
+              "    on log (id);\n";
       default -> "";
     };
   }

@@ -22,7 +22,7 @@ public class Boostraper {
   public void execute() throws SQLException {
 //    dropAll();
 
-//    bootstrapTables();
+    bootstrapTables();
 
     bootstrapUserData();
   }
