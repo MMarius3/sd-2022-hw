@@ -27,6 +27,13 @@ public class UserView extends JFrame {
     private JButton btnAccount;
     private JLabel labelAccount;
 
+    private JTextField tfName1;
+    private JTextField tfName2;
+    private JTextField tfBill;
+    private JButton btnPayBill;
+    private JButton btnTransfer;
+    private JLabel labelOperations;
+
     public UserView() throws HeadlessException {
         setSize(1200, 800);
         setLocationRelativeTo(null);
@@ -49,6 +56,13 @@ public class UserView extends JFrame {
         add(btnAccountView);
         add(labelAccount);
 
+        add(tfName1);
+        add(tfName2);
+        add(tfBill);
+        add(btnPayBill);
+        add(btnTransfer);
+        add(labelOperations);
+
         setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
     }
 
@@ -60,6 +74,9 @@ public class UserView extends JFrame {
         tfAccountId = new JTextField("ID");
         tfAccountType = new JTextField("Type");
         tfAccountAmmount = new JTextField("Ammount");
+        tfName1 = new JTextField("Name1");
+        tfName2 = new JTextField("Name2");
+        tfBill = new JTextField("Bill");
 
         btnInfoView = new JButton("View information");
         btnInfoUpdate = new JButton("Update information");
@@ -67,9 +84,12 @@ public class UserView extends JFrame {
         btnAccountUpdate = new JButton("Update account");
         btnAccountDelete = new JButton("Delete account");
         btnAccountView = new JButton("View account");
+        btnPayBill = new JButton("Pay bill");
+        btnTransfer = new JButton("Transfer money");
 
         labelInfo = new JLabel("\n");
         labelAccount = new JLabel("\n");
+        labelOperations = new JLabel("\n");
     }
 
     public String getTfInfoName() {
@@ -108,6 +128,22 @@ public class UserView extends JFrame {
         return labelAccount;
     }
 
+    public String getTfName1() {
+        return tfName1.getText();
+    }
+
+    public String getTfName2() {
+        return tfName2.getText();
+    }
+
+    public String getTfBill() {
+        return tfBill.getText();
+    }
+
+    public JLabel getLabelOperations() {
+        return labelOperations;
+    }
+
     public void setBtnInfoViewListener(ActionListener listener){
         btnInfoView.addActionListener(listener);
     }
@@ -131,6 +167,10 @@ public class UserView extends JFrame {
     public void setBtnAccountViewListener(ActionListener listener){
         btnAccountView.addActionListener(listener);
     }
+
+    public void setBtnPayBillListener(ActionListener listener){btnPayBill.addActionListener(listener);}
+
+    public void setBtnTransferListener(ActionListener listener){btnTransfer.addActionListener(listener);}
 
     public void setVisible() {
         this.setVisible(true);

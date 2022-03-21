@@ -118,6 +118,41 @@ public class ClientRepositoryMySQL implements ClientRepository{
         }
     }
 
+    @Override
+    public boolean updateBalance(String name, int balance) {
+        try{
+            PreparedStatement insertClientStatement = connection
+                    .prepareStatement("Update `" + CLIENT +"` set `balance`=\'" + balance
+                            + "\' where `name`=\'" + name + "\'");
+            insertClientStatement.executeUpdate();
+
+            return true;
+        }catch (SQLException e){
+            e.printStackTrace();
+            return false;
+        }
+    }
+
+    @Override
+    public boolean updateTransfer(String name1, String name2, int balance1, int balance2) {
+        try{
+            PreparedStatement insertClientStatement = connection
+                    .prepareStatement("Update `" + CLIENT +"` set `balance`=\'" + balance1
+                            + "\' where `name`=\'" + name1 + "\'");
+            insertClientStatement.executeUpdate();
+
+            PreparedStatement insertClientStatement2 = connection
+                    .prepareStatement("Update `" + CLIENT +"` set `balance`=\'" + balance2
+                            + "\' where `name`=\'" + name2 + "\'");
+            insertClientStatement2.executeUpdate();
+
+            return true;
+        }catch (SQLException e){
+            e.printStackTrace();
+            return false;
+        }
+    }
+
     private Client getClientFromResultSet(ResultSet rs) throws SQLException {
         return new ClientBuilder()
                 .setName(rs.getString("name"))
@@ -130,4 +165,5 @@ public class ClientRepositoryMySQL implements ClientRepository{
                 .setDateOfCreation(rs.getDate("dateOfCreation"))
                 .build();
     }
+
 }

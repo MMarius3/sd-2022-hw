@@ -18,4 +18,8 @@ public interface ClientService {
     boolean updateAccount(Client client);
 
     void remove(Long id);
+
+    boolean updateBalance(String name, int balance);
+
+    boolean updateTransfer(String name1, String name2, int balance1, int balance2);
 }

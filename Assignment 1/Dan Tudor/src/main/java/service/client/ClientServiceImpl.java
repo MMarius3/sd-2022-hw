@@ -45,4 +45,14 @@ public class ClientServiceImpl implements ClientService {
     public void remove(Long id) {
         repository.remove(id);
     }
+
+    @Override
+    public boolean updateBalance(String name, int balance) {
+        return repository.updateBalance(name, balance);
+    }
+
+    @Override
+    public boolean updateTransfer(String name1, String name2, int balance1, int balance2) {
+        return repository.updateTransfer(name1,name2,balance1,balance2);
+    }
 }
