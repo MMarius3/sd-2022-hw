@@ -41,7 +41,7 @@ public class LoginController {
         @Override
         public void actionPerformed(ActionEvent e) {
             String username = loginView.getUsernameField().getText();
-            String password = new String(loginView.getPasswordField().getPassword());
+            String password = loginView.getPasswordField();
 
             userValidator.validate(username, password, true);
             final List<String> errors = userValidator.getErrors();
@@ -58,7 +58,7 @@ public class LoginController {
         @Override
         public void actionPerformed(ActionEvent e) {
             String username = loginView.getUsernameField().getText();
-            String password = new String(loginView.getPasswordField().getPassword());
+            String password = loginView.getPasswordField();
 
             User user = authenticationService.login(username, password);
 
@@ -79,11 +79,11 @@ public class LoginController {
     private class ShowPasswordListener implements ActionListener {
         @Override
         public void actionPerformed(ActionEvent e) {
-            boolean isCheckBoxSelected = loginView.getShowPassword().isSelected();
+            boolean isCheckBoxSelected = loginView.isCheckBoxSelected();
             if (isCheckBoxSelected) {
-                loginView.getPasswordField().setEchoChar((char) 0);
+                loginView.setPasswordFieldEchoChar((char) 0);
             } else {
-                loginView.getPasswordField().setEchoChar('*');
+                loginView.setPasswordFieldEchoChar('*');
             }
         }
     }

@@ -57,8 +57,8 @@ public class AddInformationController {
         @Override
         public void actionPerformed(ActionEvent e) {
             String name = addInformationView.getName();
-            String address = addInformationView.getAddress();
-            String cnp = addInformationView.getCNP();
+            String address = addInformationView.getAddressText();
+            String cnp = addInformationView.getCNPText();
 
             clientInformationValidator.validate(name, cnp, true);
 
@@ -80,7 +80,7 @@ public class AddInformationController {
                             .action(ADD_CLIENT)
                             .date(Date.valueOf(LocalDate.now()))
                             .build());
-                    employeeView.getInformationView().getBtnViewClientInformation().doClick();
+                    employeeView.getInformationView().clickViewButton();
                 }
 
             } else {

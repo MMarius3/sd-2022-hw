@@ -54,8 +54,8 @@ public class ProcessBillController {
     private class ProcessBillListener implements ActionListener {
         @Override
         public void actionPerformed(ActionEvent e) {
-            String accountId = processBillView.getAccountIdField().getText();
-            String money = processBillView.getMoneyField().getText();
+            String accountId = processBillView.getAccountIdText();
+            String money = processBillView.getMoneyText();
 
             accountValidator.validate(accountId, money);
 
@@ -72,7 +72,7 @@ public class ProcessBillController {
                             .action(PROCESS_BILL)
                             .date(Date.valueOf(LocalDate.now()))
                             .build());
-                    employeeView.getAccountView().getBtnViewClientAccount().doClick();
+                    employeeView.getAccountView().clickViewButton();
                 } else {
                     JOptionPane.showMessageDialog(processBillView.getContentPane(), accountValidator.getFormattedErrors());
                 }

@@ -1,19 +1,16 @@
 package view.client.account;
 
-import lombok.Getter;
-
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
 import java.awt.*;
 import java.awt.event.ActionListener;
 
-@Getter
 public class AccountView extends JFrame {
 
     private Container container;
 
     private JScrollPane jScrollPane;
-    private JTable accountInformationTable;
+    private JTable accountTable;
 
     private JButton btnAddClientAccount;
     private JButton btnUpdateClientAccount;
@@ -33,14 +30,14 @@ public class AccountView extends JFrame {
     private void initializeFields() {
         container = getContentPane();
 
-        accountInformationTable = new JTable(new DefaultTableModel() {
+        accountTable = new JTable(new DefaultTableModel() {
             @Override
             public boolean isCellEditable(int row, int column) {
                 return false;
             }
         });
 
-        jScrollPane = new JScrollPane(accountInformationTable);
+        jScrollPane = new JScrollPane(accountTable);
         jScrollPane.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
         jScrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED);
 
@@ -108,4 +105,23 @@ public class AccountView extends JFrame {
         this.processBill.addActionListener(actionListener);
     }
 
+    public void clickViewButton() {
+        btnViewClientAccount.doClick();
+    }
+
+    public String getValueFromAccountTableCell(int row, int column) {
+        return (String) accountTable.getValueAt(row, column);
+    }
+
+    public DefaultTableModel getAccountTableDefaultTableModel() {
+        return (DefaultTableModel) this.accountTable.getModel();
+    }
+
+    public int[] getAccountTableSelectedRows() {
+        return this.accountTable.getSelectedRows();
+    }
+
+    public void setClientsTableReordering(boolean flag) {
+        accountTable.getTableHeader().setReorderingAllowed(flag);
+    }
 }

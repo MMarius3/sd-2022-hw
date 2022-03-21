@@ -30,13 +30,13 @@ public class GenerateReportController {
     private class GenerateReportButtonListener implements ActionListener {
         @Override
         public void actionPerformed(ActionEvent e) {
-            String fromYear = adminView.getFromYearField().getText();
-            String fromMonth = adminView.getFromMonthField().getText();
-            String fromDay = adminView.getFromDayField().getText();
+            String fromYear = adminView.getFromYearField();
+            String fromMonth = adminView.getFromMonthField();
+            String fromDay = adminView.getFromDayField();
 
-            String toYear = adminView.getToYearField().getText();
-            String toMonth = adminView.getToMonthField().getText();
-            String toDay = adminView.getToDayField().getText();
+            String toYear = adminView.getToYearField();
+            String toMonth = adminView.getToMonthField();
+            String toDay = adminView.getToDayField();
 
             DateValidator dateValidator = new DateValidator();
             dateValidator.validate(fromYear, fromMonth, fromDay, toYear, toMonth, toDay);
@@ -54,7 +54,7 @@ public class GenerateReportController {
 
                 Date fromDate = new Date(fromYearInt - 1900, fromMonthInt - 1, fromDayInt);
                 Date toDate = new Date(toYearInt-  1900, toMonthInt - 1, toDayInt);
-                String id = adminView.getUserIdField().getText();
+                String id = adminView.getUserIdField();
 
                 if(!isIdLong(id)) {
                     JOptionPane.showMessageDialog(adminView.getContentPane(), "Id must be long");
@@ -67,7 +67,7 @@ public class GenerateReportController {
 
                 ReportEmployeeView reportEmployeeView = new ReportEmployeeView();
 
-                DefaultTableModel defaultTableModel = (DefaultTableModel) reportEmployeeView.getReportsTable().getModel();
+                DefaultTableModel defaultTableModel = reportEmployeeView.getReportsTableDefaultTableModel();
                 defaultTableModel.setRowCount(0);
                 for(Action action: actions) {
                     final String[] row = new String[]{String.valueOf(action.getId()),

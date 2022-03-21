@@ -52,8 +52,8 @@ public class AddEmployeeController {
     private class AddButtonListener implements ActionListener {
         @Override
         public void actionPerformed(ActionEvent e) {
-            String username = addEmployeeView.getUsernameField().getText();
-            String password = new String(addEmployeeView.getPasswordField().getPassword());
+            String username = addEmployeeView.getUsername();
+            String password = addEmployeeView.getPassword();
 
             userValidator.validate(username, password, true);
 
@@ -71,7 +71,7 @@ public class AddEmployeeController {
                 if(flag) {
                     JOptionPane.showMessageDialog(addEmployeeView.getContentPane(), "Add successful");
                     addEmployeeView.setVisible(false);
-                    adminView.getViewEmployeesButton().doClick();
+                    adminView.clickViewEmployeesButton();
                 } else {
                     JOptionPane.showMessageDialog(addEmployeeView.getContentPane(), "An error occurred while trying" +
                             " to add an employee");

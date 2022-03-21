@@ -54,10 +54,10 @@ public class AddAccountController {
     private class AddAccountButtonListener implements ActionListener {
         @Override
         public void actionPerformed(ActionEvent e) {
-            String clientId = addAccountView.getIdField().getText();
-            String number = addAccountView.getNumberField().getText();
-            String type = addAccountView.getTypeField().getText();
-            String money = addAccountView.getMoneyField().getText();
+            String clientId = addAccountView.getIdText();
+            String number = addAccountView.getNumberText();
+            String type = addAccountView.getTypeText();
+            String money = addAccountView.getMoneyText();
 
             accountValidator.validate(clientId, number, money, false);
 
@@ -81,7 +81,7 @@ public class AddAccountController {
                             .action(ADD_ACCOUNT)
                             .date(Date.valueOf(LocalDate.now()))
                             .build());
-                    employeeView.getAccountView().getBtnViewClientAccount().doClick();
+                    employeeView.getAccountView().clickViewButton();
                 }
 
             } else {

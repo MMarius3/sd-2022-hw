@@ -40,7 +40,7 @@ public class UpdateEmployeeController {
     private void initializeFields() {
         User user = userService.findById(id);
 
-        updateEmployeeView.getUsernameField().setText(user.getUsername());
+        updateEmployeeView.setUsernameText(user.getUsername());
     }
 
     private class CancelButtonListener implements ActionListener {
@@ -53,8 +53,8 @@ public class UpdateEmployeeController {
     private class UpdateButtonListener implements ActionListener {
         @Override
         public void actionPerformed(ActionEvent e) {
-            String username = updateEmployeeView.getUsernameField().getText();
-            String password = new String(updateEmployeeView.getPasswordField().getPassword());
+            String username = updateEmployeeView.getUsername();
+            String password = updateEmployeeView.getPassword();
 
             User user = userService.findById(id);
             boolean verifyUsernameUniqueness = !user.getUsername().equals(username);
@@ -73,7 +73,7 @@ public class UpdateEmployeeController {
                     JOptionPane.showMessageDialog(updateEmployeeView.getContentPane(), "Update successful");
                     updateEmployeeView.setVisible(false);
                     userService.update(id, newUser);
-                    adminView.getViewEmployeesButton().doClick();
+                    adminView.clickViewEmployeesButton();
 
                 } else {
                     JOptionPane.showMessageDialog(updateEmployeeView.getContentPane(), "An error occurred while trying to " +

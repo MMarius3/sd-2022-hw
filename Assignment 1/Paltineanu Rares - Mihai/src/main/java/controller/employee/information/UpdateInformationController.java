@@ -53,9 +53,9 @@ public class UpdateInformationController {
 
     private void initializeTextFields() {
         Client client = clientService.findById(clientId);
-        actionInformationView.getAddressField().setText(client.getAddress());
-        actionInformationView.getNameField().setText(client.getName());
-        actionInformationView.getCnpField().setText(client.getCNP());
+        actionInformationView.setAddressTextField(client.getAddress());
+        actionInformationView.setNameTextField(client.getName());
+        actionInformationView.setCnpTextField(client.getCNP());
     }
 
     private class CancelButtonListener implements ActionListener {
@@ -68,9 +68,9 @@ public class UpdateInformationController {
     private class UpdateInformationButtonListener implements ActionListener {
         @Override
         public void actionPerformed(ActionEvent e) {
-            String name = actionInformationView.getName();
-            String address = actionInformationView.getAddress();
-            String cnp = actionInformationView.getCNP();
+            String name = actionInformationView.getNameText();
+            String address = actionInformationView.getAddressText();
+            String cnp = actionInformationView.getCNPText();
 
             Client client = clientService.findById(clientId);
             boolean validatePNCUniqueness = !client.getCNP().equals(cnp);
@@ -95,7 +95,7 @@ public class UpdateInformationController {
                             .action(UPDATE_CLIENT)
                             .date(Date.valueOf(LocalDate.now()))
                             .build());
-                    employeeView.getInformationView().getBtnViewClientInformation().doClick();
+                    employeeView.getInformationView().clickViewButton();
                 }
 
             } else {

@@ -6,7 +6,6 @@ import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
 import java.awt.*;
 
-@Getter
 public class ReportEmployeeView extends JFrame {
 
     private Container container;
@@ -54,5 +53,9 @@ public class ReportEmployeeView extends JFrame {
 
     private void addComponentsToContainer() {
         container.add(jScrollPane);
+    }
+
+    public DefaultTableModel getReportsTableDefaultTableModel() {
+        return (DefaultTableModel) reportsTable.getModel();
     }
 }

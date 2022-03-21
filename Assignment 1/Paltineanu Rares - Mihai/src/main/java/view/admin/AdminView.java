@@ -7,7 +7,6 @@ import javax.swing.table.DefaultTableModel;
 import java.awt.*;
 import java.awt.event.ActionListener;
 
-@Getter
 public class AdminView extends JFrame {
     private Container container;
 
@@ -189,5 +188,49 @@ public class AdminView extends JFrame {
 
     public void setGenerateReportButtonListener(ActionListener actionListener) {
         this.generateReportButton.addActionListener(actionListener);
+    }
+
+    public int[] getEmployeeTableSelectedRows() {
+        return this.employeesTable.getSelectedRows();
+    }
+
+    public DefaultTableModel getEmployeeTableDefaultTableModel() {
+        return (DefaultTableModel) this.employeesTable.getModel();
+    }
+
+    public void clickViewEmployeesButton() {
+        viewEmployeesButton.doClick();
+    }
+
+    public String getValueFromEmployeeTableCell(int row, int column) {
+        return (String) employeesTable.getValueAt(row, column);
+    }
+
+    public String getUserIdField() {
+        return userIdField.getText();
+    }
+
+    public String getFromYearField() {
+        return fromYearField.getText();
+    }
+
+    public String getFromMonthField() {
+        return fromMonthField.getText();
+    }
+
+    public String getFromDayField() {
+        return fromDayField.getText();
+    }
+
+    public String getToYearField() {
+        return toYearField.getText();
+    }
+
+    public String getToMonthField() {
+        return toMonthField.getText();
+    }
+
+    public String getToDayField() {
+        return toDayField.getText();
     }
 }

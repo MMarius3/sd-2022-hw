@@ -53,9 +53,9 @@ public class TransferMoneyController {
     private class TransferMoneyButtonListener implements ActionListener {
         @Override
         public void actionPerformed(ActionEvent e) {
-            String fromAccountId = transferMoneyView.getFromAccountField().getText();
-            String toAccountId = transferMoneyView.getToAccountField().getText();
-            String money = transferMoneyView.getMoneyAmountField().getText();
+            String fromAccountId = transferMoneyView.getFromAccountIdText();
+            String toAccountId = transferMoneyView.getToAccountIdText();
+            String money = transferMoneyView.getMoneyText();
 
             accountValidator.validate(fromAccountId, toAccountId, money);
             List<String> errors = accountValidator.getErrors();
@@ -71,7 +71,7 @@ public class TransferMoneyController {
                                     .action(TRANFER_MONEY)
                                     .date(Date.valueOf(LocalDate.now()))
                             .build());
-                    employeeView.getAccountView().getBtnViewClientAccount().doClick();
+                    employeeView.getAccountView().clickViewButton();
                 }
             } else {
                 JOptionPane.showMessageDialog(transferMoneyView.getContentPane(), accountValidator.getFormattedErrors());

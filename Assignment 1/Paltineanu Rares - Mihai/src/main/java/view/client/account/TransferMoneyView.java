@@ -1,12 +1,9 @@
 package view.client.account;
 
-import lombok.Getter;
-
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionListener;
 
-@Getter
 public class TransferMoneyView extends JFrame {
     private Container container;
 
@@ -83,5 +80,17 @@ public class TransferMoneyView extends JFrame {
 
     public void setCancelButtonActionListener(ActionListener actionListener) {
         this.cancelButton.addActionListener(actionListener);
+    }
+
+    public String getFromAccountIdText() {
+        return fromAccountField.getText();
+    }
+
+    public String getToAccountIdText() {
+        return toAccountField.getText();
+    }
+
+    public String getMoneyText() {
+        return moneyAmountField.getText();
     }
 }
