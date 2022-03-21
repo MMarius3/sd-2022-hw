@@ -1,22 +1,33 @@
 package controller;
 
-import com.mysql.cj.x.protobuf.MysqlxCrud;
-import repository.client.ClientRepositoryMySQL;
+import model.Account;
+import model.Client;
+import service.account.AccountServiceDisplay;
+import service.client.ClientServiceDisplay;
 import view.*;
 
+import javax.swing.*;
+import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.sql.Connection;
+import java.util.List;
 
 public class ActionsMenuController{
 
    private final UtilityView2 utilityView2;
 
+   private final ClientServiceDisplay clientServiceDisplay;
+
+   private final AccountServiceDisplay accountServiceDisplay;
+
    private final Connection connection;
 
-    public ActionsMenuController(UtilityView2 v, Connection connection){
+    public ActionsMenuController(UtilityView2 v, Connection connection, ClientServiceDisplay clientServiceDisplay, AccountServiceDisplay accountServiceDisplay){
         this.utilityView2 = v;
+        this.clientServiceDisplay = clientServiceDisplay;
         this.connection = connection;
+        this.accountServiceDisplay = accountServiceDisplay;
         this.utilityView2.addPerformSelectedButtonListener(new performSelectedButtonListener());
     }
 
@@ -56,8 +67,10 @@ public class ActionsMenuController{
                     utilityView2.dispose();
                     break;
                 case "View clients":
+                    List <Client> clientList = clientServiceDisplay.findAll();
                     break;
                 case "View accounts":
+                    List<Account> accountList = accountServiceDisplay.findAll();
                     break;
             }
         }
