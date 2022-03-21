@@ -1,0 +1,206 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
+  <component name="BranchesTreeState">
+    <expand>
+      <path>
+        <item name="ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="LOCAL_ROOT" type="e8cecc67:BranchNodeDescriptor" />
+      </path>
+      <path>
+        <item name="ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="REMOTE_ROOT" type="e8cecc67:BranchNodeDescriptor" />
+      </path>
+      <path>
+        <item name="ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="REMOTE_ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="GROUP_NODE:origin" type="e8cecc67:BranchNodeDescriptor" />
+      </path>
+      <path>
+        <item name="ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="REMOTE_ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="GROUP_NODE:upstream" type="e8cecc67:BranchNodeDescriptor" />
+      </path>
+    </expand>
+    <select />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="da3dad0a-954d-4745-a355-993afde7ec9f" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/../Attempt2/.idea/misc.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../Attempt2/.idea/modules.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../Attempt2/.idea/vcs.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../Attempt2/Attempt2.iml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../Attempt2/pom.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/compiler.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/jarRepositories.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/uiDesigner.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/AttemptFaraCodSursa.iml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/Controller/Response.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/Model/Account.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/Model/Client.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/Model/User.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/Model/Validators/UserValidator.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/Repository/User/UserRepository.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/Repository/User/UserRepositoryMySql.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../Campan Tudor - Cosmin/.idea/.gitignore" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../Campan Tudor - Cosmin/.idea/.name" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../Campan Tudor - Cosmin/.idea/compiler.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../Campan Tudor - Cosmin/.idea/dataSources.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../Campan Tudor - Cosmin/.idea/jarRepositories.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../Campan Tudor - Cosmin/.idea/misc.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../Campan Tudor - Cosmin/.idea/uiDesigner.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../Campan Tudor - Cosmin/.idea/vcs.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../Campan Tudor - Cosmin/Asaimant1.iml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../Campan Tudor - Cosmin/src/.idea/misc.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../Campan Tudor - Cosmin/src/.idea/modules.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../Campan Tudor - Cosmin/src/.idea/src.iml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../Campan Tudor - Cosmin/src/.idea/vcs.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../Campan Tudor - Cosmin/src/main/java/Main.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../Campan Tudor - Cosmin/src/main/java/controller/EmployeeController.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../Campan Tudor - Cosmin/src/main/java/controller/LoginController.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../Campan Tudor - Cosmin/src/main/java/controller/Response.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../Campan Tudor - Cosmin/src/main/java/database/Boostrap.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../Campan Tudor - Cosmin/src/main/java/database/Constants.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../Campan Tudor - Cosmin/src/main/java/database/DBConnectionFactory.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../Campan Tudor - Cosmin/src/main/java/database/JDBConnectionWrapper.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../Campan Tudor - Cosmin/src/main/java/database/SQLTableCreationFactory.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../Campan Tudor - Cosmin/src/main/java/model/Account.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../Campan Tudor - Cosmin/src/main/java/model/Book.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../Campan Tudor - Cosmin/src/main/java/model/Client.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../Campan Tudor - Cosmin/src/main/java/model/Role.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../Campan Tudor - Cosmin/src/main/java/model/User.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../Campan Tudor - Cosmin/src/main/java/model/builder/AccountBuilder.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../Campan Tudor - Cosmin/src/main/java/model/builder/BookBuilder.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../Campan Tudor - Cosmin/src/main/java/model/builder/ClientBuilder.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../Campan Tudor - Cosmin/src/main/java/model/builder/UserBuilder.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../Campan Tudor - Cosmin/src/main/java/model/validator/UserValidator.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../Campan Tudor - Cosmin/src/main/java/repository/Cache.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../Campan Tudor - Cosmin/src/main/java/repository/account/AccountRepository.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../Campan Tudor - Cosmin/src/main/java/repository/account/AccountRepositoryMySQL.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../Campan Tudor - Cosmin/src/main/java/repository/book/BookRepository.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../Campan Tudor - Cosmin/src/main/java/repository/book/BookRepositoryCacheDecorator.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../Campan Tudor - Cosmin/src/main/java/repository/book/BookRepositoryDecorator.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../Campan Tudor - Cosmin/src/main/java/repository/book/BookRepositoryMock.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../Campan Tudor - Cosmin/src/main/java/repository/book/BookRepositoryMySQL.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../Campan Tudor - Cosmin/src/main/java/repository/client/ClientRepository.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../Campan Tudor - Cosmin/src/main/java/repository/client/ClientRepositoryMySQL.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../Campan Tudor - Cosmin/src/main/java/repository/security/RightsRolesRepository.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../Campan Tudor - Cosmin/src/main/java/repository/security/RightsRolesRepositoryMySQL.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../Campan Tudor - Cosmin/src/main/java/repository/user/UserRepository.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../Campan Tudor - Cosmin/src/main/java/repository/user/UserRepositoryMySQL.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../Campan Tudor - Cosmin/src/main/java/service/book/BookService.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../Campan Tudor - Cosmin/src/main/java/service/book/BookServiceImpl.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../Campan Tudor - Cosmin/src/main/java/service/user/AuthenticationService.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../Campan Tudor - Cosmin/src/main/java/service/user/AuthenticationServiceMySQL.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../Campan Tudor - Cosmin/src/main/java/view/EmployeeView.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../Campan Tudor - Cosmin/src/main/java/view/LoginView.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../Campan Tudor - Cosmin/src/main/main.iml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../Campan Tudor - Cosmin/src/test/java/repository/book/BookRepositoryMockTest.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../Campan Tudor - Cosmin/src/test/java/repository/book/BookRepositoryMySQLTest.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../Campan Tudor - Cosmin/src/test/java/repository/client/ClientRepositoryMySQLTest.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../Campan Tudor - Cosmin/src/test/java/service/book/BookServiceImplTest.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../Campan Tudor - Cosmin/src/test/java/service/user/AuthenticationServiceMySQLTest.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../Campan Tudor - Cosmin/src/test/java/service/user/UserCrudTests.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../Campan Tudor - Cosmin/src/test/test.iml" afterDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Interface" />
+        <option value="Class" />
+      </list>
+    </option>
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/../.." />
+  </component>
+  <component name="MavenImportPreferences">
+    <option name="generalSettings">
+      <MavenGeneralSettings>
+        <option name="mavenHome" value="C:\Program Files\JetBrains\IntelliJ IDEA 2020.2.3\plugins\maven\lib\maven3" />
+      </MavenGeneralSettings>
+    </option>
+  </component>
+  <component name="ProjectId" id="26by72iTYtaEeo5khgbcg5rzclr" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent">
+    <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
+    <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
+    <property name="WebServerToolWindowFactoryState" value="false" />
+    <property name="aspect.path.notification.shown" value="true" />
+    <property name="project.structure.last.edited" value="Modules" />
+    <property name="project.structure.proportion" value="0.0" />
+    <property name="project.structure.side.proportion" value="0.0" />
+  </component>
+  <component name="RunManager">
+    <configuration default="true" type="ArquillianJUnit" factoryName="" nameIsGenerated="true">
+      <option name="arquillianRunConfiguration">
+        <value>
+          <option name="containerStateName" value="" />
+        </value>
+      </option>
+      <option name="TEST_OBJECT" value="class" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+  </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="da3dad0a-954d-4745-a355-993afde7ec9f" name="Default Changelist" comment="" />
+      <created>1647706411500</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1647706411500</updated>
+      <workItem from="1647706412890" duration="6744000" />
+    </task>
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="3" />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
+  </component>
+  <component name="WindowStateProjectService">
+    <state x="249" y="0" key="#Project_Structure" timestamp="1647706477428">
+      <screen x="0" y="0" width="1536" height="824" />
+    </state>
+    <state x="249" y="0" key="#Project_Structure/0.0.1536.824@0.0.1536.824" timestamp="1647706477428" />
+    <state x="531" y="113" key="#com.intellij.ide.util.MemberChooser" timestamp="1647706910183">
+      <screen x="0" y="0" width="1536" height="824" />
+    </state>
+    <state x="531" y="113" key="#com.intellij.ide.util.MemberChooser/0.0.1536.824@0.0.1536.824" timestamp="1647706910183" />
+    <state x="425" y="189" key="run.anything.popup" timestamp="1647722751230">
+      <screen x="0" y="0" width="1536" height="824" />
+    </state>
+    <state x="425" y="189" key="run.anything.popup/0.0.1536.824@0.0.1536.824" timestamp="1647722751230" />
+    <state x="431" y="145" width="672" height="678" key="search.everywhere.popup" timestamp="1647717954169">
+      <screen x="0" y="0" width="1536" height="824" />
+    </state>
+    <state x="431" y="145" width="672" height="678" key="search.everywhere.popup/0.0.1536.824@0.0.1536.824" timestamp="1647717954169" />
+  </component>
+</project>
