@@ -82,6 +82,7 @@ public class AdminController {
         public void actionPerformed(ActionEvent e) {
 
             String username = adminUpdateEmployeeView.getTfOldUsername();
+            userValidator.resetErrorsArray();
             userValidator.validateEmail(username);
             final List<String> errors = userValidator.getErrors();
             if (errors.isEmpty()){
@@ -157,6 +158,7 @@ public class AdminController {
         @Override
         public void actionPerformed(ActionEvent e) {
             String oldUsername = adminUpdateEmployeeView.getTfOldUsername();
+            userValidator.resetErrorsArray();
             userValidator.validateEmail(oldUsername);
             List<String> errors = userValidator.getErrors();
             if (errors.isEmpty()){
