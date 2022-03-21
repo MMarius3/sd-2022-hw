@@ -1,0 +1,1 @@
+INSERT INTO `User_Action` (`id`, `user_id`, `action`, `action_details`) VALUES (NULL, '4', 'GenerateReport', '01.01.2000-01.01.2050'), (NULL, '1', 'ReadClientInformation', 'id = 2');

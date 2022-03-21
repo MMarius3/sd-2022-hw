@@ -1,0 +1,2 @@
+ALTER TABLE `Transaction` ADD CONSTRAINT `Transaction_ibfk_2` FOREIGN KEY (`sender_account_id`) REFERENCES `Account`(`id`) ON DELETE CASCADE ON UPDATE CASCADE;
+ALTER TABLE `Transaction` ADD CONSTRAINT `Transaction_ibfk_3` FOREIGN KEY (`receiver_account_id`) REFERENCES `Account`(`id`) ON DELETE CASCADE ON UPDATE CASCADE;

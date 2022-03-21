@@ -1,0 +1,1 @@
+CREATE TABLE {DB}.`Administrator_User` ( `id` BIGINT NOT NULL AUTO_INCREMENT , `user_id` BIGINT NOT NULL , PRIMARY KEY (`id`), INDEX (`user_id`)) ENGINE = InnoDB;

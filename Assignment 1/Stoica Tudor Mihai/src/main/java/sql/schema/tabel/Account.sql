@@ -1,0 +1,1 @@
+CREATE TABLE {DB}.`Account` ( `id` BIGINT NOT NULL AUTO_INCREMENT , `client_id` BIGINT NOT NULL , `identification_number` VARCHAR(255) NOT NULL , `sum` FLOAT NOT NULL , `currency_id` BIGINT NOT NULL , `creation_date` DATE NOT NULL , PRIMARY KEY (`id`), INDEX (`client_id`), INDEX (`currency_id`)) ENGINE = InnoDB;
