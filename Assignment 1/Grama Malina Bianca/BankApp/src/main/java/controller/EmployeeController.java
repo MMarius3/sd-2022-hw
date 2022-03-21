@@ -6,7 +6,7 @@ import model.builder.AccountBuilder;
 import model.validation.Notification;
 import service.account.CRUDAccount;
 import service.client.CRUClient;
-import view.*;
+import view.employee.*;
 
 import javax.swing.*;
 import java.awt.event.ActionEvent;
@@ -21,19 +21,38 @@ public class EmployeeController {
     private final DisplayClientView displayClientView;
     private final AddAccountView addAccountView;
     private final UpdateAccountView updateAccountView;
+    private final DeleteAccountView deleteAccountView;
+    private final DisplayAccountView displayAccountView;
+    private final SearchClientAccountView searchClientAccountView;
+    private final TransferMoneyView transferMoneyView;
+    private final ProcessUtilitiesBillsView processUtilitiesBillsView;
     private final CRUClient cruClient;
     private final CRUDAccount crudAccount;
 
-    public EmployeeController(EmployeeView employeeView, AddClientView addClientView, UpdateClientView updateClientView, DisplayClientView displayClientView, AddAccountView addAccountView, UpdateAccountView updateAccountView, CRUClient cruClient, CRUDAccount crudAccount) {
+    public EmployeeController(EmployeeView employeeView, AddClientView addClientView,
+                              UpdateClientView updateClientView, DisplayClientView displayClientView,
+                              AddAccountView addAccountView, UpdateAccountView updateAccountView,
+                              DeleteAccountView deleteAccountView, DisplayAccountView displayAccountView,
+                              SearchClientAccountView searchClientAccountView, TransferMoneyView
+                                      transferMoneyView, ProcessUtilitiesBillsView processUtilitiesBillsView, CRUClient cruClient, CRUDAccount crudAccount) {
         this.displayClientView = displayClientView;
         this.addAccountView = addAccountView;
         this.updateAccountView = updateAccountView;
+        this.deleteAccountView = deleteAccountView;
+        this.displayAccountView = displayAccountView;
+        this.searchClientAccountView = searchClientAccountView;
+        this.transferMoneyView = transferMoneyView;
+        this.processUtilitiesBillsView = processUtilitiesBillsView;
         this.crudAccount = crudAccount;
         employeeView.setAddClientBtnListener(new SetAddClientBtnList());
         employeeView.setUpdateClientBtnListener(new SetUpdateClientBtnList());
         employeeView.setViewClientBtnListener(new SetDisplayClientBtnList());
         employeeView.setAddAccountBtnListener(new DisplayAddAccount());
         employeeView.setUpdateAccountBtnListener(new DisplayUpdateAccount());
+        employeeView.setDeleteAccountBtnListener(new DisplayDeleteAccount());
+        employeeView.setViewAccountBtnListener(new DisplaySearchForAccountView());
+        employeeView.setTransferMoneyListener(new DisplayTransferMoney());
+        employeeView.setProcessBillsListener(new DisplayProcessBills());
         this.addClientView = addClientView;
         this.addClientView.setAddClientButtonListener(new AddClientActionListener());
         this.updateClientView = updateClientView;
@@ -42,6 +61,11 @@ public class EmployeeController {
         this.addAccountView.setAddAccountBtnListener(new SetAddAccountBtnList());
         this.updateAccountView.setSearchAccountButtonListener(new UpdateAccountSearchButtonListener());
         this.updateAccountView.setUpdateAccountButtonListener(new UpdateAccountUpdateButtonListener());
+        this.deleteAccountView.setSearchAccountButtonListener(new DeleteAccountSearchButtonListener());
+        this.deleteAccountView.setDeleteAccountButtonListener(new DeleteAccountDeleteButtonListener());
+        this.searchClientAccountView.setSearchClientButtonListener(new SearchClientDisplayAccountActionListener());
+        this.transferMoneyView.setTransferListener(new TransferMoneyTransferButtonListener());
+        this.processUtilitiesBillsView.setProcessBillsBtnListener(new ProcessBillsBtnListener());
         this.cruClient = cruClient;
     }
 
@@ -112,7 +136,7 @@ public class EmployeeController {
             client.setCNP(updateClientView.getCnp());
             client.setIdCardNo(updateClientView.getCardNo());
             client.setAddress(updateClientView.getAddress());
-            if (!cruClient.updateClient(id, client)){
+            if (!cruClient.updateClient(id, client)) {
                 JOptionPane.showMessageDialog(updateClientView.getContentPane(), "Client updated successfully.");
             } else {
                 JOptionPane.showMessageDialog(updateClientView.getContentPane(), "There was an error in updating the client. Please try again.");
@@ -199,7 +223,7 @@ public class EmployeeController {
             Account account = new Account();
             account.setType(updateAccountView.getAccType());
             account.setAmount(Float.valueOf(updateAccountView.getAccAmount()));
-            if (crudAccount.update(id, account)){
+            if (crudAccount.update(id, account)) {
                 JOptionPane.showMessageDialog(updateAccountView.getContentPane(), "Account updated successfully.");
             } else {
                 JOptionPane.showMessageDialog(updateAccountView.getContentPane(), "There was an error in updating the account. Please try again.");
@@ -207,5 +231,123 @@ public class EmployeeController {
         }
     }
 
+    private class DisplayDeleteAccount implements ActionListener {
+
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            deleteAccountView.setVisible();
+        }
+    }
+
+    private class DeleteAccountSearchButtonListener implements ActionListener {
+
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            Long id = Long.valueOf(deleteAccountView.getId());
+            Account account = crudAccount.findById(id);
+            if (account != null) {
+                deleteAccountView.setType(account.getType());
+                deleteAccountView.setAmount(String.valueOf(account.getAmount()));
+            } else {
+                JOptionPane.showMessageDialog(deleteAccountView.getContentPane(), "Account not found.");
+            }
+        }
+    }
+
+    private class DeleteAccountDeleteButtonListener implements ActionListener {
+
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            Long id = Long.valueOf(deleteAccountView.getId());
+            if (crudAccount.delete(id)) {
+                JOptionPane.showMessageDialog(updateAccountView.getContentPane(), "Account deleted successfully.");
+            } else {
+                JOptionPane.showMessageDialog(updateAccountView.getContentPane(), "There was an error in deleting the account. Please try again.");
+            }
+        }
+    }
+
+    private class DisplaySearchForAccountView implements ActionListener {
+
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            searchClientAccountView.setVisible(true);
+        }
+    }
+
+    private class SearchClientDisplayAccountActionListener implements ActionListener {
+
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            Long id = Long.valueOf(searchClientAccountView.getClientId());
+            Client client = cruClient.searchById(id);
+            if (client != null) {
+                List<Account> accounts = crudAccount.viewAccountForClient(client.getId());
+                displayAccountView.initializeTable(accounts);
+            } else {
+                JOptionPane.showMessageDialog(searchClientAccountView.getContentPane(), "Client not found.");
+            }
+        }
+    }
+
+    private class DisplayTransferMoney implements ActionListener {
+
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            transferMoneyView.setVisible(true);
+        }
+    }
+
+    private class TransferMoneyTransferButtonListener implements ActionListener {
+
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            Long id1 = Long.valueOf(transferMoneyView.getAccount1Id());
+            Long id2 = Long.valueOf(transferMoneyView.getAccount2Id());
+            Account from = crudAccount.findById(id1);
+            Account to = crudAccount.findById(id2);
+            if (from != null && to != null) {
+                Float amount = Float.valueOf(transferMoneyView.getAmount());
+                boolean result = crudAccount.transferMoney(from, to, amount);
+                if (result) {
+                    JOptionPane.showMessageDialog(transferMoneyView.getContentPane(), "Money transferred successfully.");
+                } else {
+                    JOptionPane.showMessageDialog(transferMoneyView.getContentPane(), "Insufficient money.");
+                }
+            } else if (from == null) {
+                JOptionPane.showMessageDialog(transferMoneyView.getContentPane(), "FROM account not found.");
+            } else {
+                JOptionPane.showMessageDialog(transferMoneyView.getContentPane(), "TO account not found.");
+            }
+        }
+    }
+
+    private class DisplayProcessBills implements ActionListener {
+
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            processUtilitiesBillsView.setVisible();
+        }
+    }
+
+    private class ProcessBillsBtnListener implements ActionListener {
+
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            Long accountId = Long.valueOf(processUtilitiesBillsView.getId());
+            Account account = crudAccount.findById(accountId);
+            if (account != null) {
+                Float amount = Float.valueOf(processUtilitiesBillsView.getAmount());
+                boolean response = crudAccount.extractMoney(account, amount);
+                if (response) {
+                    JOptionPane.showMessageDialog(processUtilitiesBillsView.getContentPane(), "Bill Processed Successfully.");
+                }  else {
+                    JOptionPane.showMessageDialog(processUtilitiesBillsView.getContentPane(), "Failed to Process Bill. Check if there is enough money in the account, then try again.");
+                }
+            } else {
+                JOptionPane.showMessageDialog(processUtilitiesBillsView.getContentPane(), "Account not found.");
+            }
+        }
+    }
 
 }

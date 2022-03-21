@@ -1,4 +1,4 @@
-package view;
+package view.employee;
 
 import javax.swing.*;
 import javax.swing.event.DocumentEvent;

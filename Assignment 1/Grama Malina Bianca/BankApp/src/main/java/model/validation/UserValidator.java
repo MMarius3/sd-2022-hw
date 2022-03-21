@@ -34,6 +34,16 @@ public class UserValidator {
         return errors.isEmpty();
     }
 
+    public boolean validateUser() {
+        validateUsername(user.getUsername());
+        return errors.isEmpty();
+    }
+
+    public boolean validatePassword() {
+        validatePassword(user.getPassword());
+        return errors.isEmpty();
+    }
+
     private void validateUsername(String username) {
         if (!Pattern.compile(EMAIL_VALIDATION_REGEX).matcher(username).matches()) {
             errors.add("Invalid email!");
@@ -41,9 +51,10 @@ public class UserValidator {
         validateEmailUniqueness(username);
     }
 
+
     public void validateEmailUniqueness(String email) {
         boolean response = userRepository.existsByUsername(email);
-        if (!response) {
+        if (response) {
             errors.add("Email is already taken");
         }
     }

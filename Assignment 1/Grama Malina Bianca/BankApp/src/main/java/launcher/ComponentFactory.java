@@ -20,7 +20,11 @@ import service.authentication.AuthenticationService;
 import service.authentication.AuthenticationServiceMySQL;
 import service.client.CRUClient;
 import service.client.CRUClientMySQL;
+import service.user.CRUDUser;
+import service.user.CRUDUserMySQL;
 import view.*;
+import view.admin.*;
+import view.employee.*;
 
 import java.sql.Connection;
 
@@ -29,25 +33,13 @@ public class ComponentFactory {
     private final LoginView loginView;
     private final EmployeeView employeeView;
     private final AdminView adminView;
-    private final AddClientView addClientView;
-    private final UpdateClientView updateClientView;
-    private final DisplayClientView displayClientView;
-    private final AddAccountView addAccountView;
-    private final UpdateAccountView updateAccountView;
 
     private final LoginController loginController;
-    private final EmployeeController employeeController;
-    private final AdminController adminController;
 
     private final AuthenticationService authenticationService;
-    private final CRUClient cruClient;
-    private final CRUDAccount crudAccount;
 
     private final UserRepository userRepository;
     private final RightsRolesRepository rightsRolesRepository;
-    private final ClientRepository clientRepository;
-    private final AccountRepository accountRepository;
-    private final ClientAccountRepository clientAccountRepository;
 
     private static ComponentFactory instance;
 
@@ -62,23 +54,34 @@ public class ComponentFactory {
         Connection connection = new DBConnectionFactory().getConnectionWrapper(componentsForTests).getConnection();
         this.rightsRolesRepository = new RightsRolesRepositoryMySQL(connection);
         this.userRepository = new UserRepositoryMySQL(connection, rightsRolesRepository);
-        this.clientRepository = new ClientRepositoryMySQL(connection);
-        this.accountRepository = new AccountRepositoryMySQL(connection);
-        this.clientAccountRepository = new ClientAccountRepositoryMySQL(connection);
+        ClientRepository clientRepository = new ClientRepositoryMySQL(connection);
+        AccountRepository accountRepository = new AccountRepositoryMySQL(connection);
+        ClientAccountRepository clientAccountRepository = new ClientAccountRepositoryMySQL(connection);
         this.authenticationService = new AuthenticationServiceMySQL(this.userRepository, this.rightsRolesRepository);
-        this.cruClient = new CRUClientMySQL(clientRepository);
-        this.crudAccount = new CRUDAccountMySQL(clientRepository, accountRepository, clientAccountRepository);
+        CRUClient cruClient = new CRUClientMySQL(clientRepository);
+        CRUDAccount crudAccount = new CRUDAccountMySQL(clientRepository, accountRepository, clientAccountRepository);
+        CRUDUser crudUser = new CRUDUserMySQL(userRepository, authenticationService, rightsRolesRepository);
         this.loginView = new LoginView();
         this.employeeView = new EmployeeView();
         this.adminView = new AdminView();
-        this.addClientView = new AddClientView();
-        this.addAccountView = new AddAccountView();
-        this.updateAccountView = new UpdateAccountView();
-        this.updateClientView = new UpdateClientView();
-        this.displayClientView = new DisplayClientView();
+        AddClientView addClientView = new AddClientView();
+        AddAccountView addAccountView = new AddAccountView();
+        UpdateAccountView updateAccountView = new UpdateAccountView();
+        DeleteAccountView deleteAccountView = new DeleteAccountView();
+        UpdateClientView updateClientView = new UpdateClientView();
+        DisplayClientView displayClientView = new DisplayClientView();
+        DisplayAccountView displayAccountView = new DisplayAccountView();
+        SearchClientAccountView searchClientAccountView = new SearchClientAccountView();
+        TransferMoneyView transferMoneyView = new TransferMoneyView();
+        AddUserView addUserView = new AddUserView();
+        EditUserView editUserView = new EditUserView();
+        DeleteUserView deleteUserView = new DeleteUserView();
+        DisplayUserView displayUserView = new DisplayUserView();
+        ProcessUtilitiesBillsView processUtilitiesBillsView = new ProcessUtilitiesBillsView();
         this.loginController = new LoginController(this, loginView, authenticationService);
-        this.employeeController = new EmployeeController(employeeView, addClientView, updateClientView, displayClientView, addAccountView, updateAccountView, cruClient, crudAccount);
-        this.adminController = new AdminController();
+        EmployeeController employeeController = new EmployeeController(employeeView, addClientView, updateClientView, displayClientView,
+                addAccountView, updateAccountView, deleteAccountView, displayAccountView, searchClientAccountView, transferMoneyView, processUtilitiesBillsView, cruClient, crudAccount);
+        AdminController adminController = new AdminController(adminView, addUserView, editUserView, deleteUserView, displayUserView, crudUser);
     }
 
     public AuthenticationService getAuthenticationService() {

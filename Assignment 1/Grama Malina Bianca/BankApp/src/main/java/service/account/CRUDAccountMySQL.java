@@ -28,6 +28,11 @@ public class CRUDAccountMySQL implements CRUDAccount{
     }
 
     @Override
+    public List<Account> viewAccountForClient(Long clientId) {
+        return clientAccountRepository.findAccountsForClient(clientId);
+    }
+
+    @Override
     public Account findById(Long id) {
         return accountRepository.findByID(id);
     }
@@ -59,6 +64,11 @@ public class CRUDAccountMySQL implements CRUDAccount{
     }
 
     @Override
+    public boolean delete(Long id) {
+        return accountRepository.deleteByID(id);
+    }
+
+    @Override
     public boolean openAccount(Client client, Account account) {
         Client foundClient = clientRepository.findByID(client.getId());
         if (foundClient != null) {
@@ -87,5 +97,14 @@ public class CRUDAccountMySQL implements CRUDAccount{
             }
         }
         return false;
+    }
+
+    @Override
+    public boolean extractMoney(Account from, Float amount) {
+        if (from.getAmount() - amount > 0.0) {
+            from.setAmount(from.getAmount() - amount);
+            return updateAccount(from, from, AccountUpdateFields.AMOUNT);
+        }
+        else return false;
     }
 }

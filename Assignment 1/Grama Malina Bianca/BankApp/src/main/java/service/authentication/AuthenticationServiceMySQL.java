@@ -12,7 +12,6 @@ import java.nio.charset.StandardCharsets;
 import java.security.MessageDigest;
 import java.util.Collections;
 
-import static database.Constants.Roles.ADMINISTRATOR;
 import static database.Constants.Roles.EMPLOYEE;
 
 public class AuthenticationServiceMySQL implements AuthenticationService {
@@ -58,7 +57,8 @@ public class AuthenticationServiceMySQL implements AuthenticationService {
         return false;
     }
 
-    private String encodePassword(String password) {
+    @Override
+    public String encodePassword(String password) {
         try {
             MessageDigest digest = MessageDigest.getInstance("SHA-256");
             byte[] hash = digest.digest(password.getBytes(StandardCharsets.UTF_8));

@@ -98,6 +98,19 @@ public class UserRepositoryMySQL implements repository.user.UserRepository {
     }
 
     @Override
+    public boolean remove(Long id) {
+        try {
+            PreparedStatement statement = connection.prepareStatement("DELETE from user where id = ?", Statement.RETURN_GENERATED_KEYS);
+            statement.setLong(1, id);
+            statement.executeUpdate();
+            return true;
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return false;
+    }
+
+    @Override
     public boolean existsByUsername(String username) {
         try {
             Statement statement = connection.createStatement();
@@ -110,6 +123,42 @@ public class UserRepositoryMySQL implements repository.user.UserRepository {
             e.printStackTrace();
         }
         return false;
+    }
+
+    @Override
+    public boolean update(Long id, String username, String password) {
+        try {
+            PreparedStatement updateClientStatement = connection
+                    .prepareStatement("UPDATE user SET username = ?, password = ? WHERE id = ?", Statement.RETURN_GENERATED_KEYS);
+            updateClientStatement.setString(1, username);
+            updateClientStatement.setString(2, password);
+            updateClientStatement.setLong(3, id);
+            updateClientStatement.executeUpdate();
+            return true;
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return false;
+        }
+    }
+
+    @Override
+    public User findById(Long id) {
+        try {
+            Statement statement = connection.createStatement();
+            String sql = "Select * from `" + USER + "` where `id`=\'" + id + "\'";
+            ResultSet userResultSet = statement.executeQuery(sql);
+            userResultSet.next();
+
+            return new UserBuilder()
+                    .setID(id)
+                    .setUsername(userResultSet.getString("username"))
+                    .setPassword(userResultSet.getString("password"))
+                    .setRoles(rightsRolesRepository.findRolesForUser(id))
+                    .build();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return null;
     }
 
     private User getUserFromResultSet(ResultSet rs) throws SQLException {

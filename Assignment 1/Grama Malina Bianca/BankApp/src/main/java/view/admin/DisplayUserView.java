@@ -1,38 +1,22 @@
-package view;
-
-import model.Client;
+package view.admin;
+import model.User;
 
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableModel;
-
 import java.awt.*;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Vector;
 
+public class DisplayUserView extends JFrame {
+    private List<User> users;
 
-public class DisplayClientView extends JFrame {
-
-    private List<Client> clients;
-
-    public DisplayClientView() {
-    }
-
-    public void fetchClients(List<Client> clients) {
-        this.clients = clients;
-    }
-
-    public void initializeTable(List<Client> clients){
-        this.clients = clients;
+    public void initializeTable(List<User> users){
+        this.users = users;
         JFrame frame = createFrame();
         TableModel tableModel = createTableModel();
         JTable table = new JTable(tableModel);
-
-        // JTextField filterField = RowFilterUtil.createRowFilter(table);
-        JPanel jp = new JPanel();
-        // jp.add(filterField);
-        frame.add(jp, BorderLayout.NORTH);
 
         JScrollPane pane = new JScrollPane(table);
         frame.add(pane, BorderLayout.CENTER);
@@ -41,21 +25,19 @@ public class DisplayClientView extends JFrame {
     }
 
     private JFrame createFrame() {
-        JFrame frame = new JFrame("View Clients");
+        JFrame frame = new JFrame("View Users");
         frame.setSize(new Dimension(500, 500));
         return frame;
     }
 
     private TableModel createTableModel() {
-        Vector<String> columns = new Vector<>(Arrays.asList("Name", "IC Number", "CNP", "Address"));
+        Vector<String> columns = new Vector<>(Arrays.asList("Username", "Password"));
         Vector<Vector<Object>> rows = new Vector<>();
 
-        for (Client value : clients) {
+        for (User value : users) {
             Vector<Object> v = new Vector<>();
-            v.add(value.getName());
-            v.add(value.getIdCardNo());
-            v.add(value.getCNP());
-            v.add(value.getAddress());
+            v.add(value.getUsername());
+            v.add(value.getPassword());
             rows.add(v);
         }
 
@@ -67,5 +49,4 @@ public class DisplayClientView extends JFrame {
 
         };
     }
-
 }

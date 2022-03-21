@@ -149,6 +149,20 @@ public class AccountRepositoryMySQL implements AccountRepository{
     }
 
     @Override
+    public boolean deleteByID(Long id) {
+        try {
+            PreparedStatement updateAccountStatement = connection
+                    .prepareStatement("DELETE from account WHERE id = ?", Statement.RETURN_GENERATED_KEYS);
+            updateAccountStatement.setLong(1, id);
+            updateAccountStatement.executeUpdate();
+            return true;
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return false;
+        }
+    }
+
+    @Override
     public boolean delete(Account account) {
         String type = account.getType();
         Float amount = account.getAmount();

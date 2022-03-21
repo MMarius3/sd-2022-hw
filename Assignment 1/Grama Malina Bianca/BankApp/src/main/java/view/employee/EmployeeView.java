@@ -1,4 +1,4 @@
-package view;
+package view.employee;
 
 import javax.swing.*;
 import java.awt.*;
@@ -15,6 +15,8 @@ public class EmployeeView extends JFrame {
     private JButton updateAccountBtn;
     private JButton deleteAccountBtn;
     private JButton viewAccountBtn;
+    private JButton transferMoney;
+    private JButton processBills;
 
     public EmployeeView() throws HeadlessException {
         setSize(500, 500);
@@ -29,6 +31,8 @@ public class EmployeeView extends JFrame {
         add(updateAccountBtn);
         add(deleteAccountBtn);
         add(viewAccountBtn);
+        add(transferMoney);
+        add(processBills);
     }
 
     private void initializeFields() {
@@ -39,6 +43,8 @@ public class EmployeeView extends JFrame {
         updateAccountBtn = new JButton("Update Client Account");
         deleteAccountBtn = new JButton("Delete Client Account");
         viewAccountBtn = new JButton("View Client Accounts");
+        transferMoney = new JButton("Transfer Money");
+        processBills = new JButton("Process Bills");
     }
 
     public void setAddClientBtnListener(ActionListener addClientBtnListener) {
@@ -67,6 +73,14 @@ public class EmployeeView extends JFrame {
 
     public void setViewAccountBtnListener(ActionListener viewAccountBtnListener) {
         viewAccountBtn.addActionListener(viewAccountBtnListener);
+    }
+
+    public void setTransferMoneyListener(ActionListener transferMoneyListener) {
+        transferMoney.addActionListener(transferMoneyListener);
+    }
+
+    public void setProcessBillsListener(ActionListener processBillsListener) {
+        processBills.addActionListener(processBillsListener);
     }
 
     public void setVisible() {

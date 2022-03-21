@@ -13,6 +13,7 @@ public interface AccountRepository {
     boolean updateAmount(Account account, Float amount);
     boolean updateDate(Account account, Date date);
     boolean update(Long id, Account account);
+    boolean deleteByID(Long id);
     boolean delete(Account account);
     void removeAll();
 }

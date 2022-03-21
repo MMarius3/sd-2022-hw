@@ -1,4 +1,4 @@
-package view;
+package view.employee;
 
 import javax.swing.*;
 import java.awt.*;
@@ -6,14 +6,14 @@ import java.awt.event.ActionListener;
 
 import static javax.swing.BoxLayout.Y_AXIS;
 
-public class UpdateAccountView extends JFrame {
+public class DeleteAccountView extends JFrame {
     private JTextField id;
     private JButton searchBtn;
     private JTextField type;
     private JTextField amount;
-    private JButton updateBtn;
+    private JButton deleteBtn;
 
-    public UpdateAccountView() throws HeadlessException {
+    public DeleteAccountView() throws HeadlessException {
         setSize(500, 500);
         setLocationRelativeTo(null);
         initializeFields();
@@ -22,15 +22,17 @@ public class UpdateAccountView extends JFrame {
         add(searchBtn);
         add(type);
         add(amount);
-        add(updateBtn);
+        add(deleteBtn);
     }
 
     private void initializeFields() {
-        id = new JTextField("Type the id of the client to be updated.");
+        id = new JTextField("Type the id of the account to be deleted.");
         type = new JTextField("Type of Account");
+        type.setEditable(false);
         amount = new JTextField("Amount of $ in Account");
+        amount.setEditable(false);
         searchBtn = new JButton("Search");
-        updateBtn = new JButton("Update Client Account");
+        deleteBtn = new JButton("Delete Client Account");
     }
 
     public String getId() {return id.getText();}
@@ -51,8 +53,8 @@ public class UpdateAccountView extends JFrame {
         return amount.getText();
     }
 
-    public void setUpdateAccountButtonListener(ActionListener updateAccountButtonListener) {
-        updateBtn.addActionListener(updateAccountButtonListener);
+    public void setDeleteAccountButtonListener(ActionListener deleteAccountButtonListener) {
+        deleteBtn.addActionListener(deleteAccountButtonListener);
     }
 
     public void setSearchAccountButtonListener(ActionListener searchAccountButtonListener) {

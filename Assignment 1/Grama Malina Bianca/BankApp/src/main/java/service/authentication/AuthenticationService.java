@@ -9,6 +9,8 @@ public interface AuthenticationService {
 
     Notification<User> login(String username, String password);
 
+    String encodePassword(String password);
+
     boolean logout(User user);
 
 }
