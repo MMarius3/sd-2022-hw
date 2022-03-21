@@ -16,7 +16,7 @@
 *.ear
 
 # simply ignore .idea
-/.idea/
+.idea
 
 # From https://github.com/github/gitignore/blob/master/Gradle.gitignore
 .gradle
