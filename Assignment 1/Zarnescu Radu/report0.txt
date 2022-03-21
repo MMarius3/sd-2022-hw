@@ -1,0 +1,5 @@
+2022-03-21: Transfer -> From account #1 to account #2, amount = 5.0
+2022-03-21: Bill payment -> From account #1, amount = 5.0
+2022-03-21: Transfer -> From account #2 to account #1, amount = 5.0
+2022-03-21: Transfer -> From account #2 to account #1, amount = 10.0
+2022-03-21: Bill payment -> From account #1, amount = 15.0
