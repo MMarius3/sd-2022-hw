@@ -73,39 +73,9 @@ public class LoginController {
                 if(user.getRoles().get(0).getRole().equals("employee")){
                     Sentinel sentinel = new Sentinel(user);
                     authenticationService.setSentinel(sentinel);
-//                    final ClientRepository clientRepository = new ClientRepositoryMySQL(connection);
-//                    final ClientService clientService = new ClientServiceMySQL(clientRepository);
-//                    ClientValidator clientValidator = new ClientValidator(clientRepository);
-//
-//                    final AccountRepository accountRepository = new AccountRepositoryMySQL(connection);
-//                    final AccountService accountService = new AccountServiceMySQL(accountRepository);
-//                    final AccountValidator accountValidator = new AccountValidator(clientRepository);
-//                    EmployeeIndexView employeeIndexView = new EmployeeIndexView();
-//                    EmployeeAddClientView employeeAddClientView = new EmployeeAddClientView();
-//                    EmployeeUpdateClientView employeeUpdateClientView = new EmployeeUpdateClientView();
-//                    EmployeeAddAccountView employeeAddAccountView = new EmployeeAddAccountView();
-//                    EmployeeUpdateAccountView employeeUpdateAccountView = new EmployeeUpdateAccountView();
-//                    EmployeeTransferMoneyView employeeTransferMoneyView = new EmployeeTransferMoneyView();
-//                    EmployeeProcessBillsView employeeProcessBillsView = new EmployeeProcessBillsView();
-//
-//                    final ActivityRepository activityRepository = new ActivityRepositoryMySQL(connection);
-//                    final ActivityService activityService = new ActivityServiceMySQL(activityRepository);
-//                    EmployeeController employeeController = new EmployeeController(clientService, clientValidator, employeeIndexView, employeeAddClientView,
-//                            employeeUpdateClientView, employeeAddAccountView, accountValidator, accountService, employeeUpdateAccountView,
-//                            employeeTransferMoneyView, employeeProcessBillsView, activityService, user);
                     employeeIndexView.setVisible(true);
 
                 } else{
-//                    final RolesRepository rolesRepository = new RolesRepositoryMySQL(connection);
-//                    final UserRepository userRepository = new UserRepositoryMySQL(connection, rolesRepository);
-//                    final UserService userService = new UserServiceMySQL(userRepository);
-//                    final AdminIndexView adminIndexView = new AdminIndexView();
-//                    final AdminAddEmployeeView adminAddEmployeeView = new AdminAddEmployeeView();
-//                    final AdminUpdateEmployeeView adminUpdateEmployeeView = new AdminUpdateEmployeeView();
-//                    final ActivityRepository activityRepository = new ActivityRepositoryMySQL(connection);
-//                    final ActivityService activityService = new ActivityServiceMySQL(activityRepository);
-//                    AdminController adminController = new AdminController(userService, authenticationService ,userValidator, adminIndexView,
-//                            adminAddEmployeeView, adminUpdateEmployeeView, activityService);
                     adminIndexView.setVisible(true);
                 }
             }
