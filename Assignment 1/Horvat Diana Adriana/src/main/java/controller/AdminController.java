@@ -102,6 +102,7 @@ public class AdminController {
         @Override
         public void actionPerformed(ActionEvent e) {
             String oldUsername = adminUpdateEmployeeView.getTfOldUsername();
+            userValidator.resetErrorsArray();
             userValidator.validateEmail(oldUsername);
             List<String> errors = userValidator.getErrors();
             if (errors.isEmpty()) {
@@ -110,6 +111,7 @@ public class AdminController {
                     String username = adminUpdateEmployeeView.getTfUsername();
                     String password = adminUpdateEmployeeView.getTfPassword();
 
+                    userValidator.resetErrorsArray();
                     if(!user.getPassword().equals(password) && !user.getUsername().equals(username)){
                         userValidator.validate(username, password);
                     }
@@ -117,7 +119,7 @@ public class AdminController {
                         userValidator.validateEmailUniqueness(username);
                         userValidator.validateEmail(username);
                     }
-                    else {
+                    else if(!user.getPassword().equals(password)){
                         userValidator.validatePasswordDigit(password);
                         userValidator.validatePasswordLength(password);
                         userValidator.validatePasswordSpecial(password);

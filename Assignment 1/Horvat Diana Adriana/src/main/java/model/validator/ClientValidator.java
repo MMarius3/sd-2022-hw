@@ -10,6 +10,7 @@ import java.util.List;
 public class ClientValidator {
 
     private static final String EMAIL_VALIDATION_REGEX = "^[a-zA-Z0-9_!#$%&'*+/=?`{|}~^.-]+@[a-zA-Z0-9.-]+$";
+    private static final String PNC_VALIDATION_REGEX = "^[1-9]\\d{2}(0[1-9]|1[0-2])(0[1-9]|[12]\\d|3[01])(0[1-9]|[1-4]\\d|5[0-2]|99)(00[1-9]|0[1-9]\\d|[1-9]\\d\\d)\\d$";
 
     private final List<String> errors = new ArrayList<>();
     private final ClientRepository clientRepository;
@@ -22,30 +23,26 @@ public class ClientValidator {
         errors.clear();
         Long idCardNrLong = validateidCardNr(idCardNr);
         Long PNCLong = validatePNC(PNC);
-        if(idCardNrLong == null || PNCLong == null){
-            errors.add("Identification card number or personal numerical code is not valid");
-        }else{
-            validateIdCardNrUniqueness(idCardNrLong);
-            validatePNCUniqueness(PNCLong);
-            validateEmail(email);
-            validateEmailUniqueness(email);
-        }
+        validateIdCardNrUniqueness(idCardNrLong);
+        validatePNCUniqueness(PNCLong);
+        validateEmail(email);
+        validateEmailUniqueness(email);
 
     }
 
     public void validateUpdate(String idCardNr, String PNC, String email){
         errors.clear();
-        Long idCardNrLong = validateidCardNr(idCardNr);
-        Long PNCLong = validatePNC(PNC);
-        if(idCardNrLong == null || PNCLong == null){
-            errors.add("Identification card number or personal numerical code is not valid");
-        }else{
-            this.validateEmail(email);
-        }
+        validateidCardNr(idCardNr);
+        validatePNC(PNC);
+        validateEmail(email);
     }
 
     public Long validatePNC(String PNC){
         try{
+            if (!PNC.matches(PNC_VALIDATION_REGEX)) {
+                errors.add("Personal numerical code is not valid");
+                return null;
+            }
             Long PNCLong = Long.parseLong(PNC);
             return PNCLong;
         }catch(NumberFormatException e){
@@ -58,6 +55,7 @@ public class ClientValidator {
             Long idCardNrLong = Long.parseLong(idCardNr);
             return idCardNrLong;
         }catch(NumberFormatException e){
+            errors.add("Identification card number is not valid");
             return null;
         }
     }

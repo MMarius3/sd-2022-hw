@@ -44,9 +44,16 @@ public class AccountValidator {
     public void validateAmount(String amount){
         try{
             Long amount_long = Long.parseLong(amount);
+            if(amount_long < 0 ){
+                errors.add("Amount is smaller than 0");
+            }
         }catch(NumberFormatException e){
             errors.add("Amount is not valid");
         }
+    }
+
+    public void resetErrorsArray(){
+        errors.clear();
     }
 
     public List<String> getErrors() {

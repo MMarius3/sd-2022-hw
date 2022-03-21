@@ -152,6 +152,7 @@ public class EmployeeController {
             String email = employeeUpdateClientView.getTfEmail();
             String name = employeeUpdateClientView.getTfName();
 
+
             clientValidator.validateUpdate(idCardNrStr, PNCStr, email);
             final List<String> errors = clientValidator.getErrors();
 
@@ -257,6 +258,7 @@ public class EmployeeController {
             String amountStr = employeeUpdateAccountView.getTfAmount();
             String accountId = employeeUpdateAccountView.getTfAccountId();
 
+            accountValidator.resetErrorsArray();
             accountValidator.validateAmount(amountStr);
             accountValidator.validateClientOrAccountId(accountId);
             final List<String> errors = accountValidator.getErrors();
@@ -292,6 +294,7 @@ public class EmployeeController {
         @Override
         public void actionPerformed(ActionEvent e) {
             String accountId = employeeUpdateAccountView.getTfAccountId();
+            accountValidator.resetErrorsArray();
             if(accountValidator.validateClientOrAccountId(accountId) != -1){
                 int account_id = Integer.parseInt(accountId);
                 Account account = accountService.findById(account_id);
@@ -329,6 +332,7 @@ public class EmployeeController {
             String toAccountId = employeeTransferMoneyView.getTfTo();
             String amountStr = employeeTransferMoneyView.getTfAmount();
 
+            accountValidator.resetErrorsArray();
             accountValidator.validateClientOrAccountId(fromAccountId);
             accountValidator.validateClientOrAccountId(toAccountId);
             accountValidator.validateAmount(amountStr);
@@ -343,15 +347,19 @@ public class EmployeeController {
                 Account fromAccount = accountService.findById(fromAccount_id);
                 Account toAccount = accountService.findById(toAccount_id);
                 if(fromAccount != null && toAccount != null){
-                    fromAccount.setAmount(fromAccount.getAmount() - amount);
-                    toAccount.setAmount(toAccount.getAmount() + amount);
-
-                    if(accountService.updateAccount(fromAccount) && accountService.updateAccount(toAccount)){
-                        JOptionPane.showMessageDialog(employeeTransferMoneyView.getContentPane(), "Transferred successfully");
-                        Activity activity = activityService.save("Transferred money");
-                        activityService.addActivityToUser(authenticationService.getSentinel().getUser(), activity.getId());
+                    if(fromAccount.getAmount() - amount < 0){
+                        JOptionPane.showMessageDialog(employeeTransferMoneyView.getContentPane(), "Not enough money in the first account");
                     }else{
-                        JOptionPane.showMessageDialog(employeeTransferMoneyView.getContentPane(), "Something went wrong");
+                        fromAccount.setAmount(fromAccount.getAmount() - amount);
+                        toAccount.setAmount(toAccount.getAmount() + amount);
+
+                        if(accountService.updateAccount(fromAccount) && accountService.updateAccount(toAccount)){
+                            JOptionPane.showMessageDialog(employeeTransferMoneyView.getContentPane(), "Transferred successfully");
+                            Activity activity = activityService.save("Transferred money");
+                            activityService.addActivityToUser(authenticationService.getSentinel().getUser(), activity.getId());
+                        }else{
+                            JOptionPane.showMessageDialog(employeeTransferMoneyView.getContentPane(), "Something went wrong");
+                        }
                     }
 
                 }else{
@@ -378,6 +386,7 @@ public class EmployeeController {
             String account_id = employeeProcessBillsView.getTfFrom();
             String amountStr = employeeProcessBillsView.getTfAmount();
 
+            accountValidator.resetErrorsArray();
             accountValidator.validateClientOrAccountId(account_id);
             accountValidator.validateAmount(amountStr);
 
@@ -389,14 +398,18 @@ public class EmployeeController {
 
                 Account account = accountService.findById(accountId);
                 if(account != null){
-                    account.setAmount(account.getAmount() - amount);
-                    if(accountService.updateAccount(account)){
-                        JOptionPane.showMessageDialog(employeeProcessBillsView.getContentPane(), "Bill payed successfully");
-                        Activity activity = activityService.save("Payed bill");
-                        activityService.addActivityToUser(authenticationService.getSentinel().getUser(), activity.getId());
-                    }
-                    else{
-                        JOptionPane.showMessageDialog(employeeProcessBillsView.getContentPane(), "Something went wrong");
+                    if(account.getAmount() - amount < 0){
+                        JOptionPane.showMessageDialog(employeeTransferMoneyView.getContentPane(), "Not enough money in the account");
+                    }else{
+                        account.setAmount(account.getAmount() - amount);
+                        if(accountService.updateAccount(account)){
+                            JOptionPane.showMessageDialog(employeeProcessBillsView.getContentPane(), "Bill payed successfully");
+                            Activity activity = activityService.save("Payed bill");
+                            activityService.addActivityToUser(authenticationService.getSentinel().getUser(), activity.getId());
+                        }
+                        else{
+                            JOptionPane.showMessageDialog(employeeProcessBillsView.getContentPane(), "Something went wrong");
+                        }
                     }
 
                 }else{

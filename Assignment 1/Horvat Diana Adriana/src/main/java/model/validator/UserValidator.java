@@ -73,6 +73,10 @@ public class UserValidator {
         }
     }
 
+    public void resetErrorsArray(){
+        errors.clear();
+    }
+
     public List<String> getErrors() {
         return errors;
     }
