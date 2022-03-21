@@ -66,7 +66,7 @@ public class UserValidator {
     public boolean validateId(String id){
         try
         {
-            int id_int = Integer.parseInt(id);
+            Integer.parseInt(id);
             return true;
         }catch(NumberFormatException e){
             return false;
