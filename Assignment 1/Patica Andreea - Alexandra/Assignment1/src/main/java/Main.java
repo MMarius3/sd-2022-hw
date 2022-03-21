@@ -8,7 +8,7 @@ import repository.client.ClientRepositoryMySQL;
 import repository.security.RightsRolesRepository;
 import repository.security.RightsRolesRepositoryMySQL;
 import repository.type.AccountTypeRepository;
-import repository.type.AccountTypeRepositoryImpl;
+import repository.type.AccountTypeRepositoryMySQL;
 import repository.user.UserRepository;
 import repository.user.UserRepositoryMySQL;
 import service.account.AccountService;
@@ -44,7 +44,7 @@ public class Main{
         final ClientRepository clientRepository = new ClientRepositoryMySQL(connection);
         final ClientService clientService = new ClientServiceImpl(clientRepository);
 
-        final AccountTypeRepository accountTypeRepository = new AccountTypeRepositoryImpl(connection);
+        final AccountTypeRepository accountTypeRepository = new AccountTypeRepositoryMySQL(connection);
         final AccountRepository accountRepository = new AccountRepositoryMySQL(accountTypeRepository, connection);
         final AccountService accountService = new AccountServiceImpl(accountRepository);
 

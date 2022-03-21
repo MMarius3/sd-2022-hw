@@ -1,7 +1,10 @@
 package database;
 
+import repository.account.AccountRepository;
 import repository.security.RightsRolesRepository;
 import repository.security.RightsRolesRepositoryMySQL;
+import repository.type.AccountTypeRepository;
+import repository.type.AccountTypeRepositoryMySQL;
 
 import java.sql.Connection;
 import java.sql.SQLException;
@@ -19,6 +22,7 @@ import static database.Constants.getRolesRights;
 public class Boostrap {
 
     private static RightsRolesRepository rightsRolesRepository;
+    private static AccountTypeRepository accountTypeRepository;
 
     public static void main(String[] args) throws SQLException {
         dropAll();
@@ -87,11 +91,13 @@ public class Boostrap {
 
             JDBConnectionWrapper connectionWrapper = new JDBConnectionWrapper(schema);
             rightsRolesRepository = new RightsRolesRepositoryMySQL(connectionWrapper.getConnection());
+            accountTypeRepository = new AccountTypeRepositoryMySQL(connectionWrapper.getConnection());
 
             bootstrapRoles();
             bootstrapRights();
             bootstrapRoleRight();
             bootstrapUserRoles();
+            bootstrapTypes();
         }
     }
 
@@ -109,7 +115,7 @@ public class Boostrap {
 
     private static void bootstrapTypes() throws SQLException {      //TODO
         for (String type : ACCOUNT_TYPES) {
-            //rightsRolesRepository.addType(type);
+            accountTypeRepository.addType(type);
         }
     }
 

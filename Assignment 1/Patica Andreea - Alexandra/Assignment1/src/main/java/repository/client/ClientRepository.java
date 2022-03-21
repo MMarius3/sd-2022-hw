@@ -1,9 +1,6 @@
 package repository.client;
 
-import controller.Response;
-import model.Book;
 import model.Client;
-import model.User;
 
 import java.util.List;
 import java.util.Optional;

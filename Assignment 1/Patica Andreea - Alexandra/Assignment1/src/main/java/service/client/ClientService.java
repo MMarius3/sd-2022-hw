@@ -1,6 +1,5 @@
 package service.client;
 
-import model.Book;
 import model.Client;
 
 import java.util.List;

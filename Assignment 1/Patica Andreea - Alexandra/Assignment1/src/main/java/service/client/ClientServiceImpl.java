@@ -1,8 +1,6 @@
 package service.client;
 
-import model.Book;
 import model.Client;
-import repository.book.BookRepository;
 import repository.client.ClientRepository;
 
 import java.util.List;

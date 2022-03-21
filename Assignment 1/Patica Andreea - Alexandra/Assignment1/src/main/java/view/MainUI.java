@@ -7,7 +7,7 @@ import view.LoginView;
 
 public class MainUI extends Application {
     private static Stage window;
-    private LoginView loginView;
+    private static LoginView loginView;
 
 
     public static void launchGUI() {
@@ -27,6 +27,10 @@ public class MainUI extends Application {
 
     public static Stage getWindow(){
         return window;
+    }
+
+    public static void setLoginScene(){
+        window.setScene(loginView.display(window));
     }
 
     public static void changeScene(Scene scene){

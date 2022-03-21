@@ -123,6 +123,13 @@ public class UserController {
         };
     }
 
+    public EventHandler<ActionEvent> handleLogoutButtonListener(){
+        return e ->{
+            user = null;
+            MainUI.setLoginScene();
+        };
+    }
+
     private void addUserList(List<User> users){
         List<Button> buttons = new ArrayList<>();
         for (User user1 : users){

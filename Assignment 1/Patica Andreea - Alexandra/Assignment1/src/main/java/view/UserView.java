@@ -69,6 +69,7 @@ public class UserView {
     private void initializeButtons(){
         searchButton.setOnAction(controller.handleSearchButtonListener());
         addButton.setOnAction(controller.handleAddButtonListener());
+        logoutButton.setOnAction(controller.handleLogoutButtonListener());
     }
 
     private void initializeGridPane(){
