@@ -3,6 +3,9 @@ import controller.EmployeeController;
 import controller.EmployeeManagerController;
 import controller.LoginController;
 import database.JDBConnectionWrapper;
+import model.validator.ClientValidator;
+import model.validator.DateValidator;
+import model.validator.UserValidator;
 import repository.account.AccountRepository;
 import repository.account.AccountRepositoryMySQL;
 import repository.client.ClientRepository;
@@ -60,11 +63,17 @@ public class Main {
 
     final EmployeeManagerView employeeManagerView = new EmployeeManagerView();
     final UserInfoService userInfoService = new UserInfoServiceImpl(userRepository);
-    final EmployeeManagerController employeeManagerController = new EmployeeManagerController(employeeManagerView, userInfoService, rightsRolesRepository, authenticationService);
 
-//    final UserValidator userValidator = new UserValidator(userRepository);
+    final UserValidator userValidator = new UserValidator(userRepository);
+    final DateValidator dateValidator = new DateValidator();
 
-    final EmployeeController employeeController = new EmployeeController(employeeView, clientService, accountService, employeeActivityService, rightsRolesRepository);
+    final ClientValidator clientValidator = new ClientValidator();
+
+    final EmployeeManagerController employeeManagerController = new EmployeeManagerController(employeeManagerView,
+            userInfoService, employeeActivityService, rightsRolesRepository, authenticationService, userValidator, dateValidator);
+
+    final EmployeeController employeeController = new EmployeeController(employeeView, clientService, accountService,
+            employeeActivityService, rightsRolesRepository, clientValidator);
 
     final AdminController adminController = new AdminController(adminView, employeeController, employeeManagerController);
 

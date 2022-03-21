@@ -94,7 +94,7 @@ public class EmployeeActivityRepositoryMySQL implements EmployeeActivityReposito
 
         List<EmployeeActivity> employeeActivities = new ArrayList<>();
         try {
-            PreparedStatement statement = connection.prepareStatement("Select * from employee_activity where id=?");
+            PreparedStatement statement = connection.prepareStatement("Select * from employee_activity where employee_id=?");
             statement.setLong(1, id);
             ResultSet rs = statement.executeQuery();
 
@@ -107,9 +107,9 @@ public class EmployeeActivityRepositoryMySQL implements EmployeeActivityReposito
         RightsRolesRepository rightsRolesRepository = new RightsRolesRepositoryMySQL(connection);
         UserRepository userRepository = new UserRepositoryMySQL(connection, rightsRolesRepository);
         List<String> formattedReport = employeeActivities.stream()
-                .filter(x -> x.getDateOfAction().after(startDate))
-                .filter(x -> x.getDateOfAction().before(endDate))
-                .map(x -> "Employee " + userRepository.findById(x.getId()).getUsername()  + " performed action '" + rightsRolesRepository.findRightById(x.getActionId()).getRight()  + "' at the time " + x.getDateOfAction().toString() + "\n")
+                .filter(x -> !x.getDateOfAction().before(startDate))
+                .filter(x -> !x.getDateOfAction().after(endDate))
+                .map(x -> "Employee " + userRepository.findById(x.getEmployeeId()).getUsername()  + " performed action '" + rightsRolesRepository.findRightById(x.getActionId()).getRight()  + "' at the time " + x.getDateOfAction().toString() + "\n")
                 .collect(Collectors.toList());
         return formattedReport;
     }

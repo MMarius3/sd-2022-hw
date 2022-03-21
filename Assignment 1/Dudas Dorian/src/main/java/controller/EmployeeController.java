@@ -4,12 +4,14 @@ import database.Constants;
 import model.*;
 import model.builder.AccountBuilder;
 import model.builder.ClientBuilder;
+import model.validator.ClientValidator;
 import repository.security.RightsRolesRepository;
 import service.account.AccountService;
 import service.client.ClientService;
 import service.employeeActivity.EmployeeActivityService;
 import view.EmployeeView;
 
+import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -26,12 +28,15 @@ public class EmployeeController {
     private final EmployeeActivityService employeeActivityService;
     private final RightsRolesRepository rightsRolesRepository;
 
-    public EmployeeController(EmployeeView employeeView, ClientService clientService, AccountService accountService, EmployeeActivityService employeeActivityService, RightsRolesRepository rightsRolesRepository) {
+    private final ClientValidator clientValidator;
+
+    public EmployeeController(EmployeeView employeeView, ClientService clientService, AccountService accountService, EmployeeActivityService employeeActivityService, RightsRolesRepository rightsRolesRepository, ClientValidator clientValidator) {
         this.employeeView = employeeView;
         this.clientService = clientService;
         this.accountService = accountService;
         this.employeeActivityService = employeeActivityService;
         this.rightsRolesRepository = rightsRolesRepository;
+        this.clientValidator = clientValidator;
 
         this.employeeView.addViewClientInfoButtonListener(new ShowClientsListener());
         this.employeeView.addClientCreatorButtonListener(new AddClientListener());
@@ -68,8 +73,6 @@ public class EmployeeController {
     }
 
     private void refreshTable(){
-//        String[] columns = {"ID", "Full Name", "ID Number", "CNP", "Address"};
-//        DefaultTableModel model = new DefaultTableModel(columns, 0);
         DefaultTableModel model = new DefaultTableModel();
         model.addColumn("ID");
         model.addColumn("Full Name");
@@ -80,7 +83,6 @@ public class EmployeeController {
         List<Client> clients = clientService.findAll();
         for(Client c : clients){
             Object[] row = {c.getId(), c.getFullName(), c.getIdNumber(), c.getCnp(), c.getAddress()};
-//            model.addRow(row);
             model.insertRow(model.getRowCount(), row);
         }
         employeeView.getClientInfoTable().setModel(model);
@@ -115,11 +117,17 @@ public class EmployeeController {
         @Override
         public void actionPerformed(ActionEvent e) {
             Client newClient = getTextFieldInfo();
-            // to add client validator before .save()
-            clientService.save(newClient);
-            refreshTable();
-            Right right = rightsRolesRepository.findRightByTitle(Constants.Rights.ADD_CLIENT_INFO);
-            saveEmployeeActivity(right.getId());
+            clientValidator.validate(newClient.getCnp(), newClient.getIdNumber());
+            final List<String> errors = clientValidator.getErrors();
+            if(errors.isEmpty()){
+                clientService.save(newClient);
+                refreshTable();
+                Right right = rightsRolesRepository.findRightByTitle(Constants.Rights.ADD_CLIENT_INFO);
+                saveEmployeeActivity(right.getId());
+            }
+            else {
+                JOptionPane.showMessageDialog(employeeView.getContentPane(), clientValidator.getFormattedErrors());
+            }
         }
     }
 
@@ -173,11 +181,16 @@ public class EmployeeController {
         @Override
         public void actionPerformed(ActionEvent e) {
             Account newAccount = getTextFieldInfo2();
-            newAccount.setCreationDate(new Date());
-            accountService.save(newAccount);
-            refreshTable2();
-            Right right = rightsRolesRepository.findRightByTitle(Constants.Rights.CREATE_CLIENT_ACCOUNT);
-            saveEmployeeActivity(right.getId());
+            if(newAccount.getMoneyAmount() < 0){
+                JOptionPane.showMessageDialog(employeeView.getContentPane(), "Money amount must be positive");
+            }
+            else{
+                newAccount.setCreationDate(new Date());
+                accountService.save(newAccount);
+                refreshTable2();
+                Right right = rightsRolesRepository.findRightByTitle(Constants.Rights.CREATE_CLIENT_ACCOUNT);
+                saveEmployeeActivity(right.getId());
+            }
         }
     }
 
@@ -237,7 +250,7 @@ public class EmployeeController {
         String clientId = employeeView.getTfClientId().getText();
         String accountType = employeeView.getTfAccountType().getText();
         String moneyAmount = employeeView.getTfMoneyAmount().getText();
-        return new AccountBuilder().setClientId(Long.getLong(clientId)).setAccountType(accountType)
-                .setMoneyAmount(Long.getLong(moneyAmount)).build();
+        return new AccountBuilder().setClientId(Long.parseLong(clientId)).setAccountType(accountType)
+                .setMoneyAmount(Long.parseLong(moneyAmount)).build();
     }
 }

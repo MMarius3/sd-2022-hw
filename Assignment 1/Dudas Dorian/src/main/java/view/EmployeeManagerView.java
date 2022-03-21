@@ -23,6 +23,9 @@ public class EmployeeManagerView extends JFrame {
     private JTable employeeTable;
     private JPanel panel;
 
+    private JTextField tfStartDate, tfEndDate;
+    private JButton btnGenerateReport;
+
     public EmployeeManagerView(){
         setSize(600, 400);
         setLocationRelativeTo(null);
@@ -40,6 +43,14 @@ public class EmployeeManagerView extends JFrame {
         add(btnAddEmployee);
         add(btnUpdateEmployee);
         add(btnDeleteEmployee);
+
+        add(new JLabel("Use the dd/MM/yyyy format for the date fields"));
+        add(new JLabel("Start Date"));
+        add(tfStartDate);
+        add(new JLabel("End Date"));
+        add(tfEndDate);
+
+        add(btnGenerateReport);
 
         add(btnBack);
         setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
@@ -61,6 +72,11 @@ public class EmployeeManagerView extends JFrame {
         btnAddEmployee = new JButton("Add Employee");
         btnUpdateEmployee = new JButton("Update Employee");
         btnDeleteEmployee = new JButton("Delete Employee");
+
+        tfStartDate = new JTextField();
+        tfEndDate = new JTextField();
+
+        btnGenerateReport = new JButton("Generate Report");
 
         btnBack = new JButton("Back to Login");
     }
@@ -85,6 +101,10 @@ public class EmployeeManagerView extends JFrame {
         btnBack.addActionListener(actionListener);
     }
 
+    public void addGenerateReportListener(ActionListener actionListener){
+        btnGenerateReport.addActionListener(actionListener);
+    }
+
     public JTextField getTfUsername() {
         return tfUsername;
     }
@@ -95,5 +115,13 @@ public class EmployeeManagerView extends JFrame {
 
     public JTable getEmployeeTable() {
         return employeeTable;
+    }
+
+    public JTextField getTfStartDate() {
+        return tfStartDate;
+    }
+
+    public JTextField getTfEndDate() {
+        return tfEndDate;
     }
 }

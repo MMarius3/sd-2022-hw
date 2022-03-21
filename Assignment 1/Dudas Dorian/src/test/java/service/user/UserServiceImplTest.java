@@ -36,17 +36,31 @@ public class UserServiceImplTest {
     @BeforeEach
     public void cleanUp() {
         userRepository.removeAll();
+        userInfoService.save(new UserBuilder().setUsername("a").setPassword("123").setRoles(Collections.singletonList(rightsRolesRepository.findRoleByTitle(ADMINISTRATOR))).build());
+        userInfoService.save(new UserBuilder().setUsername("e1").setPassword("123").setRoles(Collections.singletonList(rightsRolesRepository.findRoleByTitle(EMPLOYEE))).build());
+        userInfoService.save(new UserBuilder().setUsername("e2").setPassword("123").setRoles(Collections.singletonList(rightsRolesRepository.findRoleByTitle(EMPLOYEE))).build());
     }
 
     @Test
     public void findAllEmployees(){
-        userInfoService.save(new UserBuilder().setUsername("a").setPassword("123").setRoles(Collections.singletonList(rightsRolesRepository.findRoleByTitle(ADMINISTRATOR))).build());
-        userInfoService.save(new UserBuilder().setUsername("e1").setPassword("123").setRoles(Collections.singletonList(rightsRolesRepository.findRoleByTitle(EMPLOYEE))).build());
-        userInfoService.save(new UserBuilder().setUsername("e2").setPassword("123").setRoles(Collections.singletonList(rightsRolesRepository.findRoleByTitle(EMPLOYEE))).build());
         List<User> employees = userInfoService.findAllWithRole(rightsRolesRepository.findRoleByTitle(EMPLOYEE));
-        for (User u : employees){
-            System.out.println(u.getUsername());
-        }
         assertEquals(2, employees.size());
+    }
+
+    @Test
+    public void updateEmployee(){
+        List<User> employees = userInfoService.findAllWithRole(rightsRolesRepository.findRoleByTitle(EMPLOYEE));
+        userInfoService.updateById(employees.get(0).getId(), new UserBuilder().setUsername("e3").setPassword(PasswordEncoder.encode("12")).build());
+        employees = userInfoService.findAllWithRole(rightsRolesRepository.findRoleByTitle(EMPLOYEE));
+        assertEquals(employees.get(0).getUsername(), "e3");
+    }
+
+    @Test
+    public void deleteEmployee(){
+        List<User> employees = userInfoService.findAllWithRole(rightsRolesRepository.findRoleByTitle(EMPLOYEE));
+        int initSize = employees.size();
+        userInfoService.removeById(employees.get(0).getId());
+        employees = userInfoService.findAllWithRole(rightsRolesRepository.findRoleByTitle(EMPLOYEE));
+        assertEquals(initSize-1, employees.size());
     }
 }

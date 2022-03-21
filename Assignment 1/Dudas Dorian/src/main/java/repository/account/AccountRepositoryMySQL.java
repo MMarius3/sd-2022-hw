@@ -55,10 +55,11 @@ public class AccountRepositoryMySQL implements AccountRepository{
     public boolean save(Account account) {
         try {
             PreparedStatement insertStatement = connection
-                    .prepareStatement("INSERT INTO account values (null, null, ?, ?, ?)");
-            insertStatement.setString(1, account.getAccountType());
-            insertStatement.setLong(2, account.getMoneyAmount());
-            insertStatement.setDate(3, new Date(account.getCreationDate().getTime()));
+                    .prepareStatement("INSERT INTO account values (null, ?, ?, ?, ?)");
+            insertStatement.setLong(1, account.getClientId());
+            insertStatement.setString(2, account.getAccountType());
+            insertStatement.setLong(3, account.getMoneyAmount());
+            insertStatement.setDate(4, new Date(account.getCreationDate().getTime()));
             insertStatement.executeUpdate();
             return true;
         } catch (SQLException e) {

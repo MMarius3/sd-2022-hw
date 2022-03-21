@@ -6,6 +6,7 @@ import model.Role;
 import model.User;
 import model.builder.UserBuilder;
 import repository.security.RightsRolesRepository;
+import service.user.PasswordEncoder;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -16,6 +17,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 import static database.Constants.Tables.USER;
 import static java.util.Collections.singletonList;
@@ -37,7 +39,8 @@ public class UserRepositoryMySQL implements UserRepository {
     List<User> users = new ArrayList<>();
     try {
       Statement statement = connection.createStatement();
-      String sql = "Select distinct user.id, username, password from user inner join user_role on role_id=" + role.getId();
+//      String sql = "Select distinct user.id, username, password from user inner join user_role on role_id=" + role.getId() + " where role_id=" + role.getId();
+      String sql = "Select * from user";
       ResultSet rs = statement.executeQuery(sql);
 
       while (rs.next()) {
@@ -47,7 +50,10 @@ public class UserRepositoryMySQL implements UserRepository {
       e.printStackTrace();
     }
 
-    return users;
+    return users.stream()
+            .filter(x -> x.getRoles().stream()
+                    .anyMatch(y -> y.getRole().equals(role.getRole())))
+            .collect(Collectors.toList());
   }
 
   @Override
@@ -113,7 +119,7 @@ public class UserRepositoryMySQL implements UserRepository {
               .prepareStatement("UPDATE user SET username=?, password=? WHERE id=?");
 
       insertStatement.setString(1, user.getUsername());
-      insertStatement.setString(2, user.getPassword());
+      insertStatement.setString(2, PasswordEncoder.encode(user.getPassword()));
       insertStatement.setLong(3, id);
       insertStatement.executeUpdate();
       return true;
