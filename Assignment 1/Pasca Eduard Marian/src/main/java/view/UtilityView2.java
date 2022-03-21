@@ -1,37 +1,36 @@
 package view;
 
-import controller.ActionsMenuController;
-
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionListener;
 
 public class UtilityView2 extends JFrame{
     private JPanel UtilityPanel;
     private JComboBox ActionComboBox;
     private JLabel ActionLabel;
-    private JTable UtilityTable;
     private JButton performSelectedButton;
 
-    ActionsMenuController controller = new ActionsMenuController(this);
-
     public UtilityView2() throws HeadlessException {
-
+        frameInit();
         setSize(300, 300);
         setLocationRelativeTo(null);
+        UtilityPanel.setLayout(new GridLayout(2,2));
+        String[] operations = {"Add client", "Add account", "Update client", "Update account", "Delete account", "View clients", "View accounts", "Transfer money"};
+        this.ActionComboBox = new JComboBox(operations);
+        UtilityPanel.add(ActionComboBox);
 
-        JFrame frame = new JFrame("GUI");
+        this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        this.setContentPane(UtilityPanel);
+        this.pack();
+    }
+
+    public static void main(String[] args){
+        JFrame frame = new JFrame("Actions window");
         frame.setContentPane(new UtilityView2().UtilityPanel);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.pack();
         frame.setLocationRelativeTo(null);
         frame.setVisible(true);
-
-        this.performSelectedButton = new JButton();
-        this.performSelectedButton.setActionCommand("CHOOSE");
-        this.performSelectedButton.addActionListener(this.controller);
-        this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        this.setContentPane(UtilityPanel);
-        this.pack();
     }
 
     public JPanel getUtilityPanel() {
@@ -58,14 +57,6 @@ public class UtilityView2 extends JFrame{
         ActionLabel = actionLabel;
     }
 
-    public JTable getUtilityTable() {
-        return UtilityTable;
-    }
-
-    public void setUtilityTable(JTable utilityTable) {
-        UtilityTable = utilityTable;
-    }
-
     public JButton getPerformSelectedButton() {
         return performSelectedButton;
     }
@@ -74,11 +65,7 @@ public class UtilityView2 extends JFrame{
         this.performSelectedButton = performSelectedButton;
     }
 
-    public ActionsMenuController getController() {
-        return controller;
-    }
-
-    public void setController(ActionsMenuController controller) {
-        this.controller = controller;
+    public void addPerformSelectedButtonListener(ActionListener performSelectedButtonListener){
+        performSelectedButton.addActionListener(performSelectedButtonListener);
     }
 }

@@ -34,12 +34,12 @@ public class LoginController {
             String username = loginView.getUsername();
             String password = loginView.getPassword();
 
-            authenticationService.login(username, password);
+            if(authenticationService.login(username, password)!=null){
+                UtilityView2 newView = new UtilityView2();
+                newView.setVisible(true);
+                loginView.dispose();
+            }
 
-            loginView.dispose();
-            UtilityView2 utilityView2 = new UtilityView2();
-            utilityView2.setVisible(true);
-            System.out.println(true);
         }
     }
 

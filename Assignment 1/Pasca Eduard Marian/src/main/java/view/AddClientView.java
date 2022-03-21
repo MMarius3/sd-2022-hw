@@ -4,7 +4,7 @@ import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-public class AddClientView {
+public class AddClientView extends JFrame{
     private JLabel nameLabel;
     private JTextField NameTextField;
     private JLabel idCardNumberLabel;
@@ -17,11 +17,20 @@ public class AddClientView {
     private JPanel addClient;
 
     public AddClientView() {
-        addClientButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
+        setSize(500, 500);
+        setLocationRelativeTo(null);
 
-            }
-        });
+        this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        this.setContentPane(addClient);
+        this.pack();
+    }
+
+    public static void main(String[] args){
+        JFrame frame = new JFrame("Add Account window");
+        frame.setContentPane(new AddClientView().addClient);
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        frame.pack();
+        frame.setLocationRelativeTo(null);
+        frame.setVisible(true);
     }
 }

@@ -34,9 +34,5 @@ public class Main {
         final UserValidator userValidator = new UserValidator(userRepository);
 
         new LoginController(loginView, authenticationService, userValidator);
-
-        loginView.setVisible();
-
-        final UtilityView2 utilityView = new UtilityView2();
     }
 }

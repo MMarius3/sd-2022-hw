@@ -47,7 +47,4 @@ public class LoginView extends JFrame {
         btnRegister.addActionListener(registerButtonListener);
     }
 
-    public void setVisible(){
-        this.setVisible(true);
-    }
 }
