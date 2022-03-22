@@ -1,16 +1,23 @@
+import controller.ActionsMenuController;
 import controller.LoginController;
 import database.JDBConnectionWrapper;
 import model.validator.UserValidator;
+import repository.account.AccountRepositoryMySQL;
+import repository.client.ClientRepositoryMySQL;
 import repository.security.RightsRolesRepository;
 import repository.security.RightsRolesRepositoryMySQL;
 import repository.user.UserRepository;
 import repository.user.UserRepositoryMySQL;
+import service.account.AccountServiceDisplay;
+import service.account.AccountServiceDisplayMySQL;
+import service.client.ClientServiceDisplay;
+import service.client.ClientServiceDisplayMySQL;
 import service.user.AuthenticationService;
 import service.user.AuthenticationServiceMySQL;
 import service.user.UserService;
 import service.user.UserServiceMySQL;
+import view.ActionsMenuView;
 import view.LoginView;
-import view.UtilityView2;
 
 import java.sql.Connection;
 
@@ -34,5 +41,10 @@ public class Main {
         final UserValidator userValidator = new UserValidator(userRepository);
 
         new LoginController(loginView, authenticationService, userValidator);
+
+        final ClientServiceDisplay clientServiceDisplay = new ClientServiceDisplayMySQL(new ClientRepositoryMySQL(connection));
+        final ActionsMenuView actionsMenuView = new ActionsMenuView();
+        AccountServiceDisplay accountServiceDisplay = new AccountServiceDisplayMySQL(new AccountRepositoryMySQL(connection));
+        new ActionsMenuController(actionsMenuView, connection, clientServiceDisplay, accountServiceDisplay);
     }
 }
