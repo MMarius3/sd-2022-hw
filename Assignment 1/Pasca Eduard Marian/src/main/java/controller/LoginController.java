@@ -2,8 +2,8 @@ package controller;
 
 import model.validator.UserValidator;
 import service.user.AuthenticationService;
+import view.ActionsMenuView;
 import view.LoginView;
-import view.UtilityView2;
 
 import javax.swing.*;
 import java.awt.event.ActionEvent;
@@ -35,7 +35,7 @@ public class LoginController {
             String password = loginView.getPassword();
 
             if(authenticationService.login(username, password)!=null){
-                UtilityView2 newView = new UtilityView2();
+                ActionsMenuView newView = new ActionsMenuView();
                 newView.setVisible(true);
                 loginView.dispose();
             }
