@@ -24,13 +24,12 @@ class EmployeeActivityRepositoryMySQLTest {
 
   private static EmployeeActivityRepository employeeActivityRepository;
   private static UserRepository userRepository;
-  private static RightsRolesRepository rightsRolesRepository;
   private static JDBConnectionWrapper connectionWrapper;
 
   @BeforeAll
   static void setUp() {
     connectionWrapper = DBConnectionFactory.getConnectionWrapper(true);
-    rightsRolesRepository = new RightsRolesRepositoryMySQL(connectionWrapper.getConnection());
+    RightsRolesRepository rightsRolesRepository = new RightsRolesRepositoryMySQL(connectionWrapper.getConnection());
     userRepository = new UserRepositoryMySQL(connectionWrapper.getConnection(), rightsRolesRepository);
     employeeActivityRepository = new EmployeeActivityRepositoryMySQL(connectionWrapper.getConnection(), userRepository, rightsRolesRepository);
   }
@@ -96,7 +95,7 @@ class EmployeeActivityRepositoryMySQLTest {
     int nrActivities = 10;
     User user = generateUserForTest(0L);
     assertTrue(userRepository.save(user));
-    for(int i = 1; i <= 10; i++) {
+    for(int i = 1; i <= nrActivities; i++) {
       Right activity = new Right((long) i, getRandomEmployeeRight());
       EmployeeActivity employeeActivity = generateEmployeeActivityForTest((long) i, user, activity);
       assertTrue(employeeActivityRepository.save(employeeActivity));
