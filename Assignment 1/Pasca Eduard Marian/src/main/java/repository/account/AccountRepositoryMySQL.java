@@ -55,7 +55,7 @@ public class AccountRepositoryMySQL implements AccountRepository{
     public boolean removeById(long id) {
         try {
             Statement statement = connection.createStatement();
-            String sql = "DELETE from client where id =" + Long.toString(id);
+            String sql = "DELETE from client where id =" + id;
             statement.executeUpdate(sql);
             return true;
         } catch (SQLException e) {

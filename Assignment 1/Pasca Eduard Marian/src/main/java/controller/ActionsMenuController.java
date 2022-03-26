@@ -2,8 +2,8 @@ package controller;
 
 import model.Account;
 import model.Client;
-import service.account.AccountServiceDisplay;
-import service.client.ClientServiceDisplay;
+import service.account.AccountService;
+import service.client.ClientService;
 import view.*;
 
 import java.awt.event.ActionEvent;
@@ -15,36 +15,39 @@ public class ActionsMenuController{
 
    private final ActionsMenuView actionsMenuView;
 
-    private final ClientServiceDisplay clientServiceDisplay;
+    private final ClientService clientService;
 
-   private final AccountServiceDisplay accountServiceDisplay;
+   private final AccountService accountService;
 
    private final Connection connection;
 
-    public ActionsMenuController(ActionsMenuView v, Connection connection, ClientServiceDisplay clientServiceDisplay, AccountServiceDisplay accountServiceDisplay){
+    public ActionsMenuController(ActionsMenuView v, Connection connection, ClientService clientService, AccountService accountService){
         this.actionsMenuView = v;
-        this.clientServiceDisplay = clientServiceDisplay;
+        this.clientService = clientService;
         this.connection = connection;
-        this.accountServiceDisplay = accountServiceDisplay;
-        System.out.println("aaaaaaaa");
+        this.accountService = accountService;
         this.actionsMenuView.addPerformSelectedButtonListener(new PerformSelectedButtonListener());
     }
 
     private class PerformSelectedButtonListener implements ActionListener{
         @Override
         public void actionPerformed(ActionEvent e){
-            System.out.println(" adad  dadadad   dadada   dada");
             String operation = actionsMenuView.getActionComboBox();
 
             switch (operation) {
                 case "Add client":
                     AddClientView newViewAddC = new AddClientView();
-                    newViewAddC.setVisible(true);
                     actionsMenuView.dispose();
+                    new AddClientController(newViewAddC, connection);
                     break;
                 case "Add account":
                     AddAccountView newViewAddA = new AddAccountView();
-                    newViewAddA.setVisible(true);
+                    actionsMenuView.dispose();
+                    new AddAccountController(newViewAddA, connection);
+                    break;
+                case "Delete user":
+                    DeleteUserView newViewDeleteU = new DeleteUserView();
+                    newViewDeleteU.setVisible(true);
                     actionsMenuView.dispose();
                     break;
                 case "Delete account":
@@ -68,10 +71,10 @@ public class ActionsMenuController{
                     actionsMenuView.dispose();
                     break;
                 case "View clients":
-                    List <Client> clientList = clientServiceDisplay.findAll();
+                    List <Client> clientList = clientService.findAll();
                     break;
                 case "View accounts":
-                    List<Account> accountList = accountServiceDisplay.findAll();
+                    List<Account> accountList = accountService.findAll();
                     break;
             }
         }

@@ -1,5 +1,6 @@
 package controller;
 
+import model.User;
 import model.validator.UserValidator;
 import service.user.AuthenticationService;
 import view.ActionsMenuView;
@@ -8,7 +9,6 @@ import view.LoginView;
 import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.sql.SQLOutput;
 import java.util.List;
 
 public class LoginController {
@@ -16,12 +16,15 @@ public class LoginController {
     private final LoginView loginView;
     private final AuthenticationService authenticationService;
     private final UserValidator userValidator;
+    private final ActionsMenuView actionsMenuView;
+    private User loggedUser;
 
 
-    public LoginController(LoginView loginView, AuthenticationService authenticationService, UserValidator userValidator) {
+    public LoginController(LoginView loginView, AuthenticationService authenticationService, UserValidator userValidator, ActionsMenuView actionsMenuView) {
         this.loginView = loginView;
         this.authenticationService = authenticationService;
         this.userValidator = userValidator;
+        this.actionsMenuView = actionsMenuView;
 
         this.loginView.addLoginButtonListener(new LoginButtonListener());
         this.loginView.addRegisterButtonListener(new RegisterButtonListener());
@@ -34,12 +37,12 @@ public class LoginController {
             String username = loginView.getUsername();
             String password = loginView.getPassword();
 
-            if(authenticationService.login(username, password)!=null){
-                ActionsMenuView newView = new ActionsMenuView();
-                newView.setVisible(true);
+            loggedUser = authenticationService.login(username, password);
+
+            if(loggedUser != null){
+                actionsMenuView.setVisible(true);
                 loginView.dispose();
             }
-
         }
     }
 
