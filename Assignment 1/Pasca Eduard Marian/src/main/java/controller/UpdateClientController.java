@@ -5,7 +5,7 @@ import model.builder.ClientBuilder;
 import repository.client.ClientRepositoryMySQL;
 import service.client.ClientService;
 import service.client.ClientServiceMySQL;
-import view.AddClientView;
+import view.UpdateClientView;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -17,23 +17,22 @@ public class UpdateClientController {
 
     private final Connection connection;
 
-    public UpdateClientController(UpdateClientView updateAccountView, Connection connection){
+    public UpdateClientController(UpdateClientView updateClientView, Connection connection){
         this.updateClientView = updateClientView;
-        this.updateClientView.updateClientButtonListener(new UpdateClientController.UpdateAccountButtonListener());
+        this.updateClientView.updateClientButtonListener(new UpdateClientController.UpdateClientButtonListener());
         this.connection = connection;
-
-        this.updateClientView.set
     }
 
-    private class UpdateAccountButtonListener implements ActionListener {
+    private class UpdateClientButtonListener implements ActionListener {
 
         @Override
         public void actionPerformed(ActionEvent e){
             Client client = new ClientBuilder()
-                    .setAddress(addClientView.getAddressTextField())
-                    .setPersNumCode(addClientView.getPncTextField())
-                    .setName(addClientView.getName())
-                    .setIdCardNumber(addClientView.getIcnTextField())
+                    .setId(updateClientView.getIcnTextField())
+                    .setAddress(updateClientView.getAddressTextField())
+                    .setPersNumCode(updateClientView.getPncTextField())
+                    .setName(updateClientView.getName())
+                    .setIdCardNumber(updateClientView.getIcnTextField())
                     .build();
 
             ClientService clientService = new ClientServiceMySQL(new ClientRepositoryMySQL(connection));

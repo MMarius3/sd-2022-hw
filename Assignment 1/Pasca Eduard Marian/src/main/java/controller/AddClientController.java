@@ -17,18 +17,16 @@ public class AddClientController {
 
     private final Connection connection;
 
-    public AddClientController(AddClientView addClientView, Connection connection){
+    public AddClientController(AddClientView addClientView, Connection connection) {
         this.addClientView = addClientView;
         this.addClientView.addClientButtonListener(new AddClientController.AddClientButtonListener());
         this.connection = connection;
-
-        this.addClientView.setVisible(true);
     }
 
     private class AddClientButtonListener implements ActionListener {
 
         @Override
-        public void actionPerformed(ActionEvent e){
+        public void actionPerformed(ActionEvent e) {
             Client client = new ClientBuilder()
                     .setAddress(addClientView.getAddressTextField())
                     .setPersNumCode(addClientView.getPncTextField())
