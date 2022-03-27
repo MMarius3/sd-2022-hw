@@ -1,5 +1,4 @@
-import controller.ActionsMenuController;
-import controller.LoginController;
+import controller.*;
 import database.JDBConnectionWrapper;
 import model.validator.UserValidator;
 import repository.account.AccountRepositoryMySQL;
@@ -16,8 +15,7 @@ import service.user.AuthenticationService;
 import service.user.AuthenticationServiceMySQL;
 import service.user.UserService;
 import service.user.UserServiceMySQL;
-import view.ActionsMenuView;
-import view.LoginView;
+import view.*;
 
 import java.sql.Connection;
 
@@ -44,8 +42,28 @@ public class Main {
 
         new LoginController(loginView, authenticationService, userValidator, actionsMenuView);
 
+
+        final AddClientView addClientView = new AddClientView();
+        final AddAccountView addAccountView = new AddAccountView();
+        final DeleteAccountView deleteAccountView = new DeleteAccountView();
+        final DeleteUserView deleteUserView = new DeleteUserView();
+        final UpdateClientView updateClientView = new UpdateClientView();
+        final UpdateAccountView updateAccountView = new UpdateAccountView();
+        final TransferMoneyView transferMoneyView = new TransferMoneyView();
+
+        final AddClientController addClientController = new AddClientController(addClientView, connection);
+        final AddAccountController addAccountController = new AddAccountController(addAccountView, connection);
+        final DeleteAccountController deleteAccountController = new DeleteAccountController(deleteAccountView, connection);
+        final DeleteUserController deleteUserController = new DeleteUserController(deleteUserView, connection);
+        final UpdateClientController updateClientController = new UpdateClientController(updateClientView, connection);
+        final UpdateAccountController updateAccountController = new UpdateAccountController(updateAccountView, connection);
+        final TransferMoneyController transferMoneyController = new TransferMoneyController(transferMoneyView, connection);
+
         final ClientService clientService = new ClientServiceMySQL(new ClientRepositoryMySQL(connection));
         AccountService accountService = new AccountServiceMySQL(new AccountRepositoryMySQL(connection));
-        new ActionsMenuController(actionsMenuView, connection, clientService, accountService);
+
+        new ActionsMenuController(actionsMenuView, clientService, accountService,
+                addAccountView, addClientView, deleteUserView, deleteAccountView,
+                updateClientView, updateAccountView, transferMoneyView);
     }
 }

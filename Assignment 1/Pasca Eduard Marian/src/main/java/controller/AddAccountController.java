@@ -22,8 +22,6 @@ public class AddAccountController {
         this.addAccountView = addAccountView;
         this.addAccountView.addAccountButtonListener(new AddAccountButtonListener());
         this.connection = connection;
-
-        this.addAccountView.setVisible(true);
     }
 
     private class AddAccountButtonListener implements ActionListener{

@@ -8,70 +8,86 @@ import view.*;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.sql.Connection;
 import java.util.List;
 
-public class ActionsMenuController{
+public class ActionsMenuController {
 
-   private final ActionsMenuView actionsMenuView;
+    private final ActionsMenuView actionsMenuView;
 
     private final ClientService clientService;
 
-   private final AccountService accountService;
+    private final AccountService accountService;
 
-   private final Connection connection;
 
-    public ActionsMenuController(ActionsMenuView v, Connection connection, ClientService clientService, AccountService accountService){
-        this.actionsMenuView = v;
+    private final AddAccountView addAccountView;
+    private final AddClientView addClientView;
+    private final DeleteUserView deleteUserView;
+    private final DeleteAccountView deleteAccountView;
+    private final UpdateClientView updateClientView;
+    private final UpdateAccountView updateAccountView;
+    private final TransferMoneyView transferMoneyView;
+
+    public ActionsMenuController(ActionsMenuView actionsMenuView,
+                                 ClientService clientService,
+                                 AccountService accountService,
+                                 AddAccountView addAccountView,
+                                 AddClientView addClientView,
+                                 DeleteUserView deleteUserView,
+                                 DeleteAccountView deleteAccountView,
+                                 UpdateClientView updateClientView,
+                                 UpdateAccountView updateAccountView,
+                                 TransferMoneyView transferMoneyView) {
+        this.actionsMenuView = actionsMenuView;
         this.clientService = clientService;
-        this.connection = connection;
         this.accountService = accountService;
+        this.addAccountView = addAccountView;
+        this.addClientView = addClientView;
+        this.deleteUserView = deleteUserView;
+        this.deleteAccountView = deleteAccountView;
+        this.updateClientView = updateClientView;
+        this.updateAccountView = updateAccountView;
+        this.transferMoneyView = transferMoneyView;
+
         this.actionsMenuView.addPerformSelectedButtonListener(new PerformSelectedButtonListener());
     }
 
-    private class PerformSelectedButtonListener implements ActionListener{
+
+    private class PerformSelectedButtonListener implements ActionListener {
         @Override
-        public void actionPerformed(ActionEvent e){
+        public void actionPerformed(ActionEvent e) {
             String operation = actionsMenuView.getActionComboBox();
 
             switch (operation) {
                 case "Add client":
-                    AddClientView newViewAddC = new AddClientView();
                     actionsMenuView.dispose();
-                    new AddClientController(newViewAddC, connection);
+                    addClientView.setVisible(true);
                     break;
                 case "Add account":
-                    AddAccountView newViewAddA = new AddAccountView();
                     actionsMenuView.dispose();
-                    new AddAccountController(newViewAddA, connection);
+                    addAccountView.setVisible(true);
                     break;
                 case "Delete user":
-                    DeleteUserView newViewDeleteU = new DeleteUserView();
-                    newViewDeleteU.setVisible(true);
                     actionsMenuView.dispose();
+                    deleteUserView.setVisible(true);
                     break;
                 case "Delete account":
-                    DeleteAccountView newViewDeleteA = new DeleteAccountView();
-                    newViewDeleteA.setVisible(true);
                     actionsMenuView.dispose();
+                    deleteAccountView.setVisible(true);
                     break;
                 case "Update client":
-                    UpdateClientView newViewUpdateC = new UpdateClientView();
-                    newViewUpdateC.setVisible(true);
                     actionsMenuView.dispose();
+                    updateClientView.setVisible(true);
                     break;
                 case "Update account":
-                    UpdateAccountView newViewUpdateA = new UpdateAccountView();
-                    newViewUpdateA.setVisible(true);
                     actionsMenuView.dispose();
+                    updateAccountView.setVisible(true);
                     break;
                 case "Transfer money":
-                    TransferMoneyView newViewTransfer = new TransferMoneyView();
-                    newViewTransfer.setVisible(true);
                     actionsMenuView.dispose();
+                    transferMoneyView.setVisible(true);
                     break;
                 case "View clients":
-                    List <Client> clientList = clientService.findAll();
+                    List<Client> clientList = clientService.findAll();
                     break;
                 case "View accounts":
                     List<Account> accountList = accountService.findAll();
