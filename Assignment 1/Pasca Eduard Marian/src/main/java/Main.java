@@ -8,10 +8,10 @@ import repository.security.RightsRolesRepository;
 import repository.security.RightsRolesRepositoryMySQL;
 import repository.user.UserRepository;
 import repository.user.UserRepositoryMySQL;
-import service.account.AccountServiceDisplay;
-import service.account.AccountServiceDisplayMySQL;
-import service.client.ClientServiceDisplay;
-import service.client.ClientServiceDisplayMySQL;
+import service.account.AccountService;
+import service.account.AccountServiceMySQL;
+import service.client.ClientService;
+import service.client.ClientServiceMySQL;
 import service.user.AuthenticationService;
 import service.user.AuthenticationServiceMySQL;
 import service.user.UserService;
@@ -40,11 +40,12 @@ public class Main {
 
         final UserValidator userValidator = new UserValidator(userRepository);
 
-        new LoginController(loginView, authenticationService, userValidator);
-
-        final ClientServiceDisplay clientServiceDisplay = new ClientServiceDisplayMySQL(new ClientRepositoryMySQL(connection));
         final ActionsMenuView actionsMenuView = new ActionsMenuView();
-        AccountServiceDisplay accountServiceDisplay = new AccountServiceDisplayMySQL(new AccountRepositoryMySQL(connection));
-        new ActionsMenuController(actionsMenuView, connection, clientServiceDisplay, accountServiceDisplay);
+
+        new LoginController(loginView, authenticationService, userValidator, actionsMenuView);
+
+        final ClientService clientService = new ClientServiceMySQL(new ClientRepositoryMySQL(connection));
+        AccountService accountService = new AccountServiceMySQL(new AccountRepositoryMySQL(connection));
+        new ActionsMenuController(actionsMenuView, connection, clientService, accountService);
     }
 }

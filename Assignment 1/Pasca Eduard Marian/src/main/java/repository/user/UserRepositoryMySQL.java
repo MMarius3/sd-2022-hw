@@ -101,17 +101,6 @@ public class UserRepositoryMySQL implements UserRepository {
     }
 
     @Override
-    public void removeAll() {
-        try {
-            Statement statement = connection.createStatement();
-            String sql = "DELETE from user where id >= 0";
-            statement.executeUpdate(sql);
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-    }
-
-    @Override
     public Response<Boolean> existsByUsername(String email) {
         try {
             Statement statement = connection.createStatement();

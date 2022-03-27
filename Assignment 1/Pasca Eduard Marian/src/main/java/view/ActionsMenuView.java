@@ -14,7 +14,7 @@ public class ActionsMenuView extends JFrame {
         setLocationRelativeTo(null);
         initializeFields();
         setLayout(new BoxLayout(getContentPane(), BoxLayout.Y_AXIS));
-        String[] operations = {"Add client", "Add account", "Update client", "Update account", "Delete account", "View clients", "View accounts", "Transfer money"};
+        String[] operations = {"Add client", "Add account", "Update client", "Update account", "Delete account", "View clients", "View accounts", "Transfer money", "Delete user"};
         this.actionComboBox = new JComboBox(operations);
         add(actionLabel);
         add(actionComboBox);

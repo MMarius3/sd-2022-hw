@@ -13,7 +13,5 @@ public interface UserRepository {
 
     boolean save(User user);
 
-    void removeAll();
-
     Response<Boolean> existsByUsername(String email);
 }
