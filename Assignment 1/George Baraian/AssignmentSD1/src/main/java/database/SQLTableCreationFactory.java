@@ -9,8 +9,8 @@ public class SQLTableCreationFactory {
             case CLIENT->
                  "CREATE TABLE IF NOT EXISTS client(" +
                         "  id int(11) NOT NULL AUTO_INCREMENT," +
-                        "  name LONG NOT NULL," +
-                         "  address String DEFAULT NULL," +
+                        "  name VARCHAR(500) NOT NULL," +
+                         "  address VARCHAR(500) NOT NULL," +
                         "  personalNumericalCode LONG NOT NULL," +
                         "  PRIMARY KEY (id)," +
                         "  UNIQUE KEY id_UNIQUE (id)" +
@@ -23,7 +23,7 @@ public class SQLTableCreationFactory {
                          "  password VARCHAR(64) NOT NULL," +
                         "  PRIMARY KEY (id)," +
                         "  UNIQUE INDEX id_UNIQUE (id ASC)," +
-                        "  UNIQUE INDEX role_UNIQUE (role ASC));";
+                        "  UNIQUE INDEX username_UNIQUE (username ASC));";
 
             case ROLE ->
                  "  CREATE TABLE IF NOT EXISTS role (" +

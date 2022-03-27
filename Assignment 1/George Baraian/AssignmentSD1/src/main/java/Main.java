@@ -14,7 +14,7 @@ public class Main {
        // System.out.println(connection);
 
         User user = new UserBuilder().setUsername("andrei").setPassword("Masina45!").build();
-        JDBConnectionWrapper connectionWrapper = DBConnectionFactory.getConnectionWrapper(true);
+        JDBConnectionWrapper connectionWrapper = DBConnectionFactory.getConnectionWrapper(false);
         boolean res = connectionWrapper.testConnection();
 
         if(res){

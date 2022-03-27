@@ -1,11 +1,13 @@
 package services.user;
 
 import launcher.ComponentFactory;
+import model.User;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import repositories.user.UserRepository;
 
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 class AuthenticationServiceMySQLTest {
@@ -35,7 +37,10 @@ class AuthenticationServiceMySQLTest {
     }
 
     @Test
-    void login() {
+    void login() throws Exception{
+        authenticationService.register(TEST_USERNAME, TEST_PASSWORD);
+        User user = authenticationService.login(TEST_USERNAME, TEST_PASSWORD).getResult();
+        assertNotNull(user);
     }
 
     @Test
