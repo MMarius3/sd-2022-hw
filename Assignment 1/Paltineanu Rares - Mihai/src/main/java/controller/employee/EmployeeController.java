@@ -72,16 +72,16 @@ public class EmployeeController {
         employeeView.getAccountView().setTransferAccountListener(new TransferButtonListener());
         employeeView.getAccountView().setProcessBillListener(new ProcessBillButtonListener());
 
-        employeeView.getInformationView().getBtnViewClientInformation().doClick();
-        employeeView.getAccountView().getBtnViewClientAccount().doClick();
+        employeeView.getInformationView().clickViewButton();
+        employeeView.getAccountView().clickViewButton();
 
     }
 
     private void setTablesHeader() {
-        DefaultTableModel defaultTableModel = (DefaultTableModel) employeeView.getInformationView().getClientsIntormationTable().getModel();
+        DefaultTableModel defaultTableModel = employeeView.getInformationView().getInformationTableDefaultTableModel();
         defaultTableModel.setColumnIdentifiers(informationTableColumns);
 
-        DefaultTableModel accountDefaultTableModel = (DefaultTableModel) employeeView.getAccountView().getAccountInformationTable().getModel();
+        DefaultTableModel accountDefaultTableModel = employeeView.getAccountView().getAccountTableDefaultTableModel();
         accountDefaultTableModel.setColumnIdentifiers(accountTableColumns);
     }
 
@@ -110,8 +110,8 @@ public class EmployeeController {
                 return;
             }
 
-            int selectedRow = employeeView.getInformationView().getClientsIntormationTable().getSelectedRow();
-            String id = (String) employeeView.getInformationView().getClientsIntormationTable().getValueAt(selectedRow, 0);
+            int selectedRow = employeeView.getInformationView().getInformationTableSelectedRows()[0];
+            String id = employeeView.getInformationView().getValueFromInformationTableCell(selectedRow, 0);
             new UpdateInformationController(new ActionInformationView(),
                     clientValidator,
                     clientService,
@@ -121,7 +121,7 @@ public class EmployeeController {
         }
 
         private boolean isOneClientSelected() {
-            return employeeView.getInformationView().getClientsIntormationTable().getSelectedRows().length == 1;
+            return employeeView.getInformationView().getInformationTableSelectedRows().length == 1;
         }
     }
 
@@ -129,7 +129,7 @@ public class EmployeeController {
         @Override
         public void actionPerformed(ActionEvent e) {
             List<Client> clients = clientService.findall();
-            DefaultTableModel defaultTableModel = (DefaultTableModel) employeeView.getInformationView().getClientsIntormationTable().getModel();
+            DefaultTableModel defaultTableModel = employeeView.getInformationView().getInformationTableDefaultTableModel();
             defaultTableModel.setRowCount(0);
             for(Client client: clients) {
                 final String[] data = new String[]{String.valueOf(client.getId()),
@@ -157,14 +157,14 @@ public class EmployeeController {
                 return;
             }
 
-            int selectedRow = employeeView.getAccountView().getAccountInformationTable().getSelectedRow();
-            String id = (String) employeeView.getAccountView().getAccountInformationTable().getValueAt(selectedRow, 0);
+            int selectedRow = employeeView.getAccountView().getAccountTableSelectedRows()[0];
+            String id = employeeView.getAccountView().getValueFromAccountTableCell(selectedRow, 0);
                 new UpdateAccountController(new ActionAccountView(), accountValidator, accountService,
                         employeeView, actionService, user, Long.valueOf(id));
         }
 
         private boolean isOneAccountSelected() {
-            return employeeView.getAccountView().getAccountInformationTable().getSelectedRows().length == 1;
+            return employeeView.getAccountView().getAccountTableSelectedRows().length == 1;
         }
     }
 
@@ -176,8 +176,8 @@ public class EmployeeController {
                         "Please select one account");
                 return;
             }
-            int row = employeeView.getAccountView().getAccountInformationTable().getSelectedRow();
-            Long id = Long.parseLong((String) employeeView.getAccountView().getAccountInformationTable().getValueAt(row, 0));
+            int row = employeeView.getAccountView().getAccountTableSelectedRows()[0];
+            Long id = Long.parseLong(employeeView.getAccountView().getValueFromAccountTableCell(row, 0));
             System.out.println(id);
             boolean flag = accountService.delete(id);
             if(flag) {
@@ -189,12 +189,12 @@ public class EmployeeController {
                         .date(Date.valueOf(LocalDate.now()))
                         .build();
                 actionService.save(action);
-                employeeView.getAccountView().getBtnViewClientAccount().doClick();
+                employeeView.getAccountView().clickViewButton();
             }
         }
 
         private boolean isOneAccountSelected() {
-            return employeeView.getAccountView().getAccountInformationTable().getSelectedRows().length == 1;
+            return employeeView.getAccountView().getAccountTableSelectedRows().length == 1;
         }
     }
 
@@ -202,7 +202,7 @@ public class EmployeeController {
         @Override
         public void actionPerformed(ActionEvent e) {
             List<Account> accounts = accountService.findall();
-            DefaultTableModel defaultTableModel = (DefaultTableModel) employeeView.getAccountView().getAccountInformationTable().getModel();
+            DefaultTableModel defaultTableModel = employeeView.getAccountView().getAccountTableDefaultTableModel();
             defaultTableModel.setRowCount(0);
             for(Account account: accounts) {
                 final String[] data = new String[]{String.valueOf(account.getId()),

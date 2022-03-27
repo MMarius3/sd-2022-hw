@@ -1,12 +1,9 @@
 package view.client.account;
 
-import lombok.Getter;
-
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionListener;
 
-@Getter
 public class ActionAccountView extends JFrame {
 
     protected Container container;
@@ -92,4 +89,42 @@ public class ActionAccountView extends JFrame {
         this.cancelButton.addActionListener(actionListener);
     }
 
+    public void addComponentToContainer(Component component) {
+        container.add(component);
+    }
+    public String getNumberText() {
+        return numberField.getText();
+    }
+
+    public String getTypeText() {
+        return typeField.getText();
+    }
+
+    public String getIdText() {
+        return idField.getText();
+    }
+
+    public String getMoneyText() {
+        return moneyField.getText();
+    }
+
+    public void setNumberTextField(String textField) {
+        numberField.setText(textField);
+    }
+
+    public void setTypeTextField(String textField) {
+        typeField.setText(textField);
+    }
+
+    public void setMoneyTextField(String textField) {
+        moneyField.setText(textField);
+    }
+
+    public void setIdTextField(String textField) {
+        idField.setText(textField);
+    }
+
+    public void setActionButtonText(String actionButtonText) {
+        actionButton.setText(actionButtonText);
+    }
 }

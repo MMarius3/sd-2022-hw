@@ -52,23 +52,23 @@ public class UpdateAccountController {
 
     private void initializeFields() {
         Account account = accountService.findById(accountId);
-        actionAccountView.getIdField().setText(String.valueOf(account.getClient_id()));
-        actionAccountView.getMoneyField().setText(String.valueOf(account.getMoney()));
-        actionAccountView.getTypeField().setText(account.getType());
-        actionAccountView.getNumberField().setText(account.getNumber());
+        actionAccountView.setIdTextField(String.valueOf(account.getClient_id()));
+        actionAccountView.setMoneyTextField(String.valueOf(account.getMoney()));
+        actionAccountView.setTypeTextField(account.getType());
+        actionAccountView.setNumberTextField(account.getNumber());
 
-        actionAccountView.getActionButton().setText("Update");
+        actionAccountView.setActionButtonText("Update");
         addCreationDateField(account);
     }
 
     private void addCreationDateField(Account account) {
         JLabel creationLabel = new JLabel("Creation date");
         creationLabel.setBounds(30, 130, 100, 30);
-        actionAccountView.getContainer().add(creationLabel);
+        actionAccountView.addComponentToContainer(creationLabel);
 
         JLabel creationField = new JLabel(String.valueOf(account.getDate()));
         creationField.setBounds(130, 130, 120, 30);
-        actionAccountView.getContainer().add(creationField);
+        actionAccountView.addComponentToContainer(creationField);
     }
 
     private class CancelButtonListener implements ActionListener {
@@ -81,10 +81,10 @@ public class UpdateAccountController {
     private class UpdateButtonListener implements ActionListener {
         @Override
         public void actionPerformed(ActionEvent e) {
-            String clientId = actionAccountView.getIdField().getText();
-            String number = actionAccountView.getNumberField().getText();
-            String type = actionAccountView.getTypeField().getText();
-            String money = actionAccountView.getMoneyField().getText();
+            String clientId = actionAccountView.getIdText();
+            String number = actionAccountView.getNumberText();
+            String type = actionAccountView.getTypeText();
+            String money = actionAccountView.getMoneyText();
 
             Account account = accountService.findById(accountId);
 
@@ -112,7 +112,7 @@ public class UpdateAccountController {
                             .action(UPDATE_ACCOUNT)
                             .date(Date.valueOf(LocalDate.now()))
                             .build());
-                    employeeView.getAccountView().getBtnViewClientAccount().doClick();
+                    employeeView.getAccountView().clickViewButton();
                 }
             } else {
                 JOptionPane.showMessageDialog(actionAccountView.getContentPane(), accountValidator.getFormattedErrors());

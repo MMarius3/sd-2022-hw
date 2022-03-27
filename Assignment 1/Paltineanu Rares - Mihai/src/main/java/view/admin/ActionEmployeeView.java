@@ -6,7 +6,6 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionListener;
 
-@Getter
 public class ActionEmployeeView extends JFrame {
     private Container container;
 
@@ -74,5 +73,21 @@ public class ActionEmployeeView extends JFrame {
 
     public void setCancelButtonListener(ActionListener actionListener) {
         this.cancelButton.addActionListener(actionListener);
+    }
+
+    public String getUsername() {
+        return this.usernameField.getText();
+    }
+
+    public String getPassword() {
+        return String.valueOf(this.passwordField.getPassword());
+    }
+
+    public void setUsernameEditable(boolean editable) {
+        usernameField.setEditable(editable);
+    }
+
+    public void setUsernameText(String text) {
+        usernameField.setText(text);
     }
 }

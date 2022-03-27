@@ -85,11 +85,15 @@ public class LoginView extends JFrame {
         showPassword.addActionListener(showPassowrdListener);
     }
 
-    public JCheckBox getShowPassword() {
-        return showPassword;
+    public boolean isCheckBoxSelected() {
+        return showPassword.isSelected();
     }
 
-    public JPasswordField getPasswordField() {
-        return passwordField;
+    public String getPasswordField() {
+        return String.valueOf(passwordField.getPassword());
+    }
+
+    public void setPasswordFieldEchoChar(char c) {
+        passwordField.setEchoChar(c);
     }
 }

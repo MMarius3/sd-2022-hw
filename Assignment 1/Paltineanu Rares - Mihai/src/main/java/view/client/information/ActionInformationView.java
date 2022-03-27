@@ -1,14 +1,9 @@
 package view.client.information;
 
-import lombok.Getter;
-import lombok.Setter;
-
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionListener;
 
-@Getter
-@Setter
 public class ActionInformationView extends JFrame {
     protected Container container;
 
@@ -85,15 +80,27 @@ public class ActionInformationView extends JFrame {
         this.cancelButton.addActionListener(actionListener);
     }
 
-    public String getName() {
+    public String getNameText() {
         return this.nameField.getText();
     }
 
-    public String getAddress() {
+    public String getAddressText() {
         return this.addressField.getText();
     }
 
-    public String getCNP() {
+    public String getCNPText() {
         return this.cnpField.getText();
+    }
+
+    public void setNameTextField(String text) {
+        nameField.setText(text);
+    }
+
+    public void setCnpTextField(String text) {
+        cnpField.setText(text);
+    }
+
+    public void setAddressTextField(String text) {
+        addressField.setText(text);
     }
 }

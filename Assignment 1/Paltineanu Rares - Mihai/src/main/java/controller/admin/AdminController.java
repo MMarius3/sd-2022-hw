@@ -19,14 +19,12 @@ public class AdminController {
     private final AdminView adminView;
     private final UserValidator userValidator;
     private final UserService userService;
-    private final ActionService actionService;
     private final RightsRolesRepository rightsRolesRepository;
 
     public AdminController(AdminView adminView, UserValidator userValidator, UserService userService, ActionService actionService, RightsRolesRepository rightsRolesRepository) {
         this.adminView = adminView;
         this.userValidator = userValidator;
         this.userService = userService;
-        this.actionService = actionService;
         this.rightsRolesRepository = rightsRolesRepository;
 
         new GenerateReportController(adminView, actionService);
@@ -40,11 +38,11 @@ public class AdminController {
         this.adminView.setAddEmployeeButtonListener(new AddUserButtonListener());
         this.adminView.setDeleteEmployeeButtonListener(new DeleteUserButtonListener());
         this.adminView.setUpdateEmployeeButtonListener(new UpdateUserButtonListener());
-        this.adminView.getViewEmployeesButton().doClick();
+        this.adminView.clickViewEmployeesButton();
     }
 
     private void setTableHeader() {
-        DefaultTableModel defaultTableModel = (DefaultTableModel) adminView.getEmployeesTable().getModel();
+        DefaultTableModel defaultTableModel = adminView.getEmployeeTableDefaultTableModel();
         defaultTableModel.setColumnIdentifiers(tableHeader);
     }
 
@@ -63,15 +61,15 @@ public class AdminController {
                         "Please select one user");
                 return;
             }
-            int selectedRow = adminView.getEmployeesTable().getSelectedRow();
-            Long id = Long.parseLong((String) adminView.getEmployeesTable().getValueAt(selectedRow, 0));
-            String username = (String) adminView.getEmployeesTable().getValueAt(selectedRow, 1);
+            int selectedRow = adminView.getEmployeeTableSelectedRows()[0];
+            Long id = Long.parseLong(adminView.getValueFromEmployeeTableCell(selectedRow, 0));
+            String username = adminView.getValueFromEmployeeTableCell(selectedRow, 1);
 
             ActionEmployeeView updateEmployeeView = new ActionEmployeeView();
             updateEmployeeView.setTitle("Update employee");
 
             if(username.equals("admin")) {
-                updateEmployeeView.getUsernameField().setEditable(false);
+                updateEmployeeView.setUsernameEditable(false);
             }
             new UpdateEmployeeController(updateEmployeeView, adminView, userValidator, userService, id);
         }
@@ -86,9 +84,9 @@ public class AdminController {
                 return;
             }
 
-            int selectedRow = adminView.getEmployeesTable().getSelectedRow();
-            Long id = Long.parseLong((String) adminView.getEmployeesTable().getValueAt(selectedRow, 0));
-            String username = (String) adminView.getEmployeesTable().getValueAt(selectedRow, 1);
+            int selectedRow = adminView.getEmployeeTableSelectedRows()[0];
+            Long id = Long.parseLong(adminView.getValueFromEmployeeTableCell(selectedRow, 0));
+            String username = adminView.getValueFromEmployeeTableCell(selectedRow, 1);
 
             if(username.equals("admin")) {
                 JOptionPane.showMessageDialog(adminView.getContentPane(), "You can not delete your own user");
@@ -99,7 +97,7 @@ public class AdminController {
 
             if(flag) {
                 JOptionPane.showMessageDialog(adminView.getContentPane(), "Delete successful");
-                adminView.getViewEmployeesButton().doClick();
+                adminView.clickViewEmployeesButton();
             } else {
                 JOptionPane.showMessageDialog(adminView.getContentPane(), "An error occurred while trying to delete user with " +
                         "id " + id);
@@ -111,7 +109,7 @@ public class AdminController {
         @Override
         public void actionPerformed(ActionEvent e) {
             List<User> users = userService.findAll();
-            DefaultTableModel defaultTableModel = (DefaultTableModel) adminView.getEmployeesTable().getModel();
+            DefaultTableModel defaultTableModel = adminView.getEmployeeTableDefaultTableModel();
             defaultTableModel.setRowCount(0);
             for(User user: users) {
                 final String[] row = new String[]{String.valueOf(user.getId()),
@@ -123,7 +121,7 @@ public class AdminController {
     }
 
     private boolean isOneUserSelected() {
-        return adminView.getEmployeesTable().getSelectedRows().length == 1;
+        return adminView.getEmployeeTableSelectedRows().length == 1;
     }
 
     public void setViewVisible() {

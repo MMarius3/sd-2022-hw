@@ -1,12 +1,9 @@
 package view.client.account;
 
-import lombok.Getter;
-
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionListener;
 
-@Getter
 public class ProcessBillView extends JFrame {
     private Container container;
 
@@ -73,5 +70,13 @@ public class ProcessBillView extends JFrame {
 
     public void setCancelAddInformationListener(ActionListener actionListener) {
         this.cancelButton.addActionListener(actionListener);
+    }
+
+    public String getAccountIdText() {
+        return accountIdField.getText();
+    }
+
+    public String getMoneyText() {
+        return moneyField.getText();
     }
 }

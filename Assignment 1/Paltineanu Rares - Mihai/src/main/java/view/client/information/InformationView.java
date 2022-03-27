@@ -1,13 +1,10 @@
 package view.client.information;
 
-import lombok.Getter;
-
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
 import java.awt.*;
 import java.awt.event.ActionListener;
 
-@Getter
 public class InformationView extends JFrame{
 
     private Container container;
@@ -80,12 +77,23 @@ public class InformationView extends JFrame{
         this.btnViewClientInformation.addActionListener(actionListener);
     }
 
-
-    public JButton getBtnViewClientInformation() {
-        return btnViewClientInformation;
+    public void clickViewButton() {
+        btnViewClientInformation.doClick();
     }
 
-    public JTable getClientsIntormationTable() {
-        return clientsIntormationTable;
+    public String getValueFromInformationTableCell(int row, int column) {
+        return (String) clientsIntormationTable.getValueAt(row, column);
+    }
+
+    public DefaultTableModel getInformationTableDefaultTableModel() {
+        return (DefaultTableModel) this.clientsIntormationTable.getModel();
+    }
+
+    public int[] getInformationTableSelectedRows() {
+        return this.clientsIntormationTable.getSelectedRows();
+    }
+
+    public void setClientsTableReordering(boolean flag) {
+        clientsIntormationTable.getTableHeader().setReorderingAllowed(flag);
     }
 }
