@@ -25,6 +25,7 @@ public class UpdateAccountView extends JFrame{
         add(typeTextField);
         add(amountLabel);
         add(amountTextField);
+        add(updateAccountButton);
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
     }
 

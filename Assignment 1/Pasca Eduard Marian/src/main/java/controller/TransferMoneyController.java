@@ -27,9 +27,7 @@ public class TransferMoneyController {
             long receiverId = transferMoneyView.getReceiverId();
             long amount = transferMoneyView.getAmount();
 
-            if (accountService.transferMoney(senderId, receiverId, amount) == false){
-                System.out.println("Invalid operation!\n");
-            }
+            accountService.transferMoney(senderId, receiverId, amount);
         }
     }
 }

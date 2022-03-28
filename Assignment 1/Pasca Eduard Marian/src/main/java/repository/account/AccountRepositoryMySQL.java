@@ -94,9 +94,7 @@ public class AccountRepositoryMySQL implements AccountRepository{
             statementSender.setLong(1,receiverId);
             ResultSet rsSender = statementSender.executeQuery();
             ResultSet rsReceiver = statementReceiver.executeQuery();
-            if(rsSender.getLong("amount") < amount){
-                return false;
-            }
+
             PreparedStatement preparedStatementSent = connection.prepareStatement(sentFrom);
             PreparedStatement preparedStatementReceived = connection.prepareStatement(sentTo);
 
