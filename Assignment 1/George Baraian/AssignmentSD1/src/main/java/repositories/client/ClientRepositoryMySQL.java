@@ -9,9 +9,11 @@ import java.util.List;
 public class ClientRepositoryMySQL implements ClientRepository{
 
     private final Connection connection;
+    private final ClientRepository clientRepository;
 
-    public ClientRepositoryMySQL(Connection connection) {
+    public ClientRepositoryMySQL(Connection connection, ClientRepository clientRepository) {
         this.connection = connection;
+        this.clientRepository = clientRepository;
     }
 
     @Override
@@ -80,12 +82,18 @@ public class ClientRepositoryMySQL implements ClientRepository{
     public boolean save(Client client) {
         try{
             PreparedStatement preparedStatement = connection
-                    .prepareStatement("INSERT INTO client values (null, ?, ?, ?)");
+                    .prepareStatement("INSERT INTO client values (null, ?, ?, ?)", Statement.RETURN_GENERATED_KEYS);
             preparedStatement.setString(1,client.getName());
-            preparedStatement.setLong(2,client.getPersonalNumericalCode());
-            preparedStatement.setString(3, client.getAddress());
+            preparedStatement.setString(2,client.getAddress());
+            preparedStatement.setLong(3, client.getPersonalNumericalCode());
             preparedStatement.executeUpdate();
 
+            ResultSet rs = preparedStatement.getGeneratedKeys();
+            rs.next();
+            long clientId = rs.getLong(1);
+            client.setId(clientId);
+
+            clientRepository.save(client);
 
             return true;
         } catch (SQLException e) {

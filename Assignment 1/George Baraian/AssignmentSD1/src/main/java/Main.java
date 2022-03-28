@@ -1,7 +1,5 @@
 import database.DBConnectionFactory;
 import database.JDBConnectionWrapper;
-import model.User;
-import model.builder.UserBuilder;
 
 import java.sql.SQLException;
 
@@ -13,8 +11,10 @@ public class Main {
         //final boolean connection = new JDBConnectionWrapper(PRODUCTION).testConnection();
        // System.out.println(connection);
 
-        User user = new UserBuilder().setUsername("andrei").setPassword("Masina45!").build();
-        JDBConnectionWrapper connectionWrapper = DBConnectionFactory.getConnectionWrapper(false);
+       // User user = new UserBuilder().setUsername("andrei").setPassword("Masina45!").build();
+
+        //testing connection
+        JDBConnectionWrapper connectionWrapper = DBConnectionFactory.getConnectionWrapper(true);
         boolean res = connectionWrapper.testConnection();
 
         if(res){
@@ -23,6 +23,7 @@ public class Main {
         else {
             System.out.println("Bad connection");
         }
+
 
     }
 

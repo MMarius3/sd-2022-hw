@@ -13,6 +13,8 @@ public class Launcher {
 
         ComponentFactory componentFactory = ComponentFactory.instance(false);
         componentFactory.getLoginView().setVisible();
+        componentFactory.getAdminView().setVisible();
+        componentFactory.getEmployeeView().setVisible();
 
     }
 
