@@ -2,9 +2,7 @@ package controller;
 
 import model.Account;
 import model.builder.AccountBuilder;
-import repository.account.AccountRepositoryMySQL;
 import service.account.AccountService;
-import service.account.AccountServiceMySQL;
 import view.AddAccountView;
 
 import java.awt.event.ActionEvent;
@@ -18,8 +16,11 @@ public class AddAccountController {
 
     private final Connection connection;
 
-    public AddAccountController(AddAccountView addAccountView, Connection connection){
+    private final AccountService accountService;
+
+    public AddAccountController(AddAccountView addAccountView, Connection connection, AccountService accountService){
         this.addAccountView = addAccountView;
+        this.accountService = accountService;
         this.addAccountView.addAccountButtonListener(new AddAccountButtonListener());
         this.connection = connection;
     }
@@ -34,7 +35,6 @@ public class AddAccountController {
                     .setDateOfCreation(addAccountView.getDateTextField())
                     .build();
 
-            AccountService accountService = new AccountServiceMySQL(new AccountRepositoryMySQL(connection));
             accountService.save(account);
         }
     }

@@ -41,6 +41,8 @@ public class TransferMoneyView extends JFrame {
 
     public Long getReceiverId(){ return Long.valueOf(receiverTextField.getText()); }
 
+    public Long getAmount(){ return Long.valueOf(amountTextField.getText()); }
+
     public void performTransferButtonListener(ActionListener performTransferBtnListener){
         performTransferButton.addActionListener(performTransferBtnListener);
     }

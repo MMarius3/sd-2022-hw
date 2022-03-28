@@ -17,8 +17,11 @@ public class UpdateClientController {
 
     private final Connection connection;
 
-    public UpdateClientController(UpdateClientView updateClientView, Connection connection){
+    private final ClientService clientService;
+
+    public UpdateClientController(UpdateClientView updateClientView, Connection connection, ClientService clientService){
         this.updateClientView = updateClientView;
+        this.clientService = clientService;
         this.updateClientView.updateClientButtonListener(new UpdateClientController.UpdateClientButtonListener());
         this.connection = connection;
     }
@@ -28,14 +31,13 @@ public class UpdateClientController {
         @Override
         public void actionPerformed(ActionEvent e){
             Client client = new ClientBuilder()
-                    .setId(updateClientView.getIcnTextField())
+                    .setId(updateClientView.getId())
                     .setAddress(updateClientView.getAddressTextField())
                     .setPersNumCode(updateClientView.getPncTextField())
-                    .setName(updateClientView.getName())
+                    .setName(updateClientView.getNameTextField())
                     .setIdCardNumber(updateClientView.getIcnTextField())
                     .build();
 
-            ClientService clientService = new ClientServiceMySQL(new ClientRepositoryMySQL(connection));
             clientService.save(client);
         }
     }

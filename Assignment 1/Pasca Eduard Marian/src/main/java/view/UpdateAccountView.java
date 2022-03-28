@@ -9,11 +9,9 @@ public class UpdateAccountView extends JFrame{
     private  JLabel idLabel;
     private JLabel typeLabel;
     private JLabel amountLabel;
-    private JLabel dateLabel;
     private JTextField idTextField;
     private JTextField typeTextField;
     private JTextField amountTextField;
-    private JTextField dateTextField;
     private JButton updateAccountButton;
 
     public UpdateAccountView() {
@@ -27,8 +25,6 @@ public class UpdateAccountView extends JFrame{
         add(typeTextField);
         add(amountLabel);
         add(amountTextField);
-        add(dateLabel);
-        add(dateTextField);
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
     }
 
@@ -37,10 +33,8 @@ public class UpdateAccountView extends JFrame{
         idTextField = new JTextField();
         typeLabel = new JLabel("Type:");
         amountLabel = new JLabel("Amount:");
-        dateLabel = new JLabel("Date:");
         typeTextField = new JTextField();
         amountTextField = new JTextField();
-        dateTextField = new JTextField();
         updateAccountButton = new JButton("Update account");
     }
     public Long getId(){ return Long.valueOf(idTextField.getText()); }
@@ -49,12 +43,8 @@ public class UpdateAccountView extends JFrame{
         return typeTextField.getText();
     }
 
-    public String getAmountTextField(){
-        return amountTextField.getText();
-    }
-
-    public Date getDateTextField(){
-        return Date.valueOf(dateTextField.getText());
+    public long getAmountTextField(){
+        return Long.valueOf(amountTextField.getText());
     }
 
     public void updateAccountButtonListener(ActionListener updateAccountBtnListener){

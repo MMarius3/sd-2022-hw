@@ -65,8 +65,51 @@ public class AccountRepositoryMySQL implements AccountRepository{
     }
 
     @Override
-    public Account update(Account account) {
-        return null;
+    public boolean update(Account account) {
+        String sql = "UPDATE account SET type = ?, amount = ? WHERE id = ? ";
+
+        try {
+            PreparedStatement preparedStatement = connection.prepareStatement(sql);
+            preparedStatement.setString(1, account.getType());
+            preparedStatement.setLong(2, account.getAmount());
+            preparedStatement.setLong(3, account.getId());
+            preparedStatement.executeUpdate();
+            return true;
+        } catch (SQLException e) {
+            return false;
+        }
+    }
+
+    @Override
+    public boolean transferMoney(long senderId, long receiverId, long amount) {
+        String sentFrom = "UPDATE account SET amount = ? WHERE id = ?";
+        String sentTo = "UPDATE account SET amount = ? WHERE id = ?";
+        String selectSender = "SELECT * FROM account WHERE id=?";
+        String selectReceiver = "SELECT * FROM account WHERE id=?";
+
+        try{
+            PreparedStatement statementSender = connection.prepareStatement(selectSender);
+            statementSender.setLong(1,senderId);
+            PreparedStatement statementReceiver = connection.prepareStatement(selectReceiver);
+            statementSender.setLong(1,receiverId);
+            ResultSet rsSender = statementSender.executeQuery();
+            ResultSet rsReceiver = statementReceiver.executeQuery();
+            if(rsSender.getLong("amount") < amount){
+                return false;
+            }
+            PreparedStatement preparedStatementSent = connection.prepareStatement(sentFrom);
+            PreparedStatement preparedStatementReceived = connection.prepareStatement(sentTo);
+
+            preparedStatementSent.setLong(1, rsSender.getLong("amount") - amount);
+            preparedStatementReceived.setLong(1,rsReceiver.getLong("amount") + amount);
+            preparedStatementSent.setLong(2,rsSender.getLong("id"));
+            preparedStatementReceived.setLong(2,rsReceiver.getLong("id"));
+            preparedStatementSent.executeUpdate();
+            preparedStatementReceived.executeUpdate();
+            return true;
+        } catch (SQLException e) {
+            return false;
+        }
     }
 
     private Account getAccountFromResultSet(ResultSet rs) throws SQLException {

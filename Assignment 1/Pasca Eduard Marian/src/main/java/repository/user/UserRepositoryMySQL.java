@@ -11,7 +11,6 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 
 import static database.Constants.Tables.USER;
@@ -97,7 +96,20 @@ public class UserRepositoryMySQL implements UserRepository {
             e.printStackTrace();
             return false;
         }
+    }
 
+    @Override
+    public boolean removeById(long id) {
+        String fetchUserSQL = "DELETE FROM user where id=?";
+        try {
+            PreparedStatement preparedStatement = connection.prepareStatement(fetchUserSQL);
+            preparedStatement.setLong(1, id);
+            preparedStatement.executeUpdate();
+            return true;
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return false;
+        }
     }
 
     @Override
@@ -113,6 +125,4 @@ public class UserRepositoryMySQL implements UserRepository {
             return new Response<>(singletonList(e.getMessage()));
         }
     }
-
-
 }
