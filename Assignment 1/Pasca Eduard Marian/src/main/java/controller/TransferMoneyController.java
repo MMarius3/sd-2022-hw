@@ -28,6 +28,7 @@ public class TransferMoneyController {
             long amount = transferMoneyView.getAmount();
 
             accountService.transferMoney(senderId, receiverId, amount);
+
         }
     }
 }

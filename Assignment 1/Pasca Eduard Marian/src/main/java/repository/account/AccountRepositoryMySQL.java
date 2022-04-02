@@ -91,13 +91,15 @@ public class AccountRepositoryMySQL implements AccountRepository{
             PreparedStatement statementSender = connection.prepareStatement(selectSender);
             statementSender.setLong(1,senderId);
             PreparedStatement statementReceiver = connection.prepareStatement(selectReceiver);
-            statementSender.setLong(1,receiverId);
+            statementReceiver.setLong(1,receiverId);
             ResultSet rsSender = statementSender.executeQuery();
             ResultSet rsReceiver = statementReceiver.executeQuery();
 
             PreparedStatement preparedStatementSent = connection.prepareStatement(sentFrom);
             PreparedStatement preparedStatementReceived = connection.prepareStatement(sentTo);
 
+            rsSender.next();
+            rsReceiver.next();
             preparedStatementSent.setLong(1, rsSender.getLong("amount") - amount);
             preparedStatementReceived.setLong(1,rsReceiver.getLong("amount") + amount);
             preparedStatementSent.setLong(2,rsSender.getLong("id"));
@@ -106,6 +108,7 @@ public class AccountRepositoryMySQL implements AccountRepository{
             preparedStatementReceived.executeUpdate();
             return true;
         } catch (SQLException e) {
+            e.printStackTrace();
             return false;
         }
     }
