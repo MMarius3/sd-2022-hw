@@ -9,6 +9,7 @@ import view.employee.EmployeeView;
 import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.List;
 
 public class EmployeeController {
 
@@ -19,6 +20,7 @@ public class EmployeeController {
         this.employeeView = employeeView;
         this.clientService = clientService;
         employeeView.setCreateClientButtonListener(new CreateClientButtonListener());
+        employeeView.setViewClientsButtonListener(new ViewClientsButtonListener());
     }
 
 
@@ -40,6 +42,14 @@ public class EmployeeController {
                 JOptionPane.showMessageDialog(employeeView.getContentPane(),"Client created successfully!");
             }
 
+        }
+    }
+
+    private class ViewClientsButtonListener implements ActionListener {
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            List<Client> all = clientService.findAll();
+            employeeView.createResultTable(all);
         }
     }
 }

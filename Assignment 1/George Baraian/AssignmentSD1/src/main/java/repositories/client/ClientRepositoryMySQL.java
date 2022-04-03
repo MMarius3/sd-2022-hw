@@ -4,6 +4,7 @@ import model.Client;
 import model.builder.ClientBuilder;
 
 import java.sql.*;
+import java.util.ArrayList;
 import java.util.List;
 
 public class ClientRepositoryMySQL implements ClientRepository{
@@ -18,7 +19,29 @@ public class ClientRepositoryMySQL implements ClientRepository{
 
     @Override
     public List<Client> findAll() {
-        return null;
+        List<Client> clients = new ArrayList<>();
+        try {
+            Statement statement = connection.createStatement();
+            String sql = "Select * from client";
+            ResultSet rs = statement.executeQuery(sql);
+
+            while(rs.next()){
+                clients.add(getClientFromResultSet(rs));
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return clients;
+    }
+
+    private Client getClientFromResultSet(ResultSet rs) throws SQLException{
+        return new ClientBuilder()
+                .setId(rs.getLong("id"))
+                .setName(rs.getString("name"))
+                .setAddress(rs.getString("address"))
+                .setPersonalNumericalCode(rs.getLong("personalNumericalCode"))
+                .build();
     }
 
     @Override
