@@ -43,4 +43,9 @@ public class EmployeeActivityServiceImpl implements EmployeeActivityService {
   public void deleteAll() {
     employeeActivityRepository.deleteAll();
   }
+
+  @Override
+  public List<EmployeeActivity> findActivitiesByEmployeeId(Long employeeId) {
+    return employeeActivityRepository.findActivitiesByEmployeeId(employeeId);
+  }
 }

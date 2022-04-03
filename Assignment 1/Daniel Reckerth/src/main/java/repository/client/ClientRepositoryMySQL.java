@@ -60,7 +60,7 @@ public class ClientRepositoryMySQL implements ClientRepository {
     String sql = "INSERT INTO %s VALUES(?, ?, ?, ?, ?)".formatted(CLIENT.getLabel());
 
     try {
-      PreparedStatement insertStatement = connection.prepareStatement(sql);
+      PreparedStatement insertStatement = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
       if(client.getId() == null) {
         insertStatement.setNull(1, Types.NULL);
       } else {
@@ -71,6 +71,11 @@ public class ClientRepositoryMySQL implements ClientRepository {
       insertStatement.setString(4, client.getSSN());
       insertStatement.setString(5, client.getAddress());
       insertStatement.executeUpdate();
+
+      ResultSet rs = insertStatement.getGeneratedKeys();
+      rs.next();
+      client.setId(rs.getLong(1));
+
       return true;
     } catch (SQLException throwables) {
       return false;

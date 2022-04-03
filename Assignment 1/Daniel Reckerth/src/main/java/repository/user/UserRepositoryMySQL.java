@@ -4,6 +4,7 @@ import model.Role;
 import model.User;
 import model.builder.UserBuilder;
 import repository.security.RightsRolesRepository;
+import service.user.PasswordEncoder;
 
 import java.sql.*;
 import java.util.ArrayList;
@@ -93,7 +94,7 @@ public class UserRepositoryMySQL implements UserRepository {
     try {
       PreparedStatement preparedStatement = connection.prepareStatement(sql);
       preparedStatement.setString(1, user.getUsername());
-      preparedStatement.setString(2, user.getPassword());
+      preparedStatement.setString(2, PasswordEncoder.encodePassword(user.getPassword()));
       preparedStatement.setLong(3, id);
       preparedStatement.executeUpdate();
       return true;

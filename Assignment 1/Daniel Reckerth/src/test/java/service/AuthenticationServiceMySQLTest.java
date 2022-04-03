@@ -2,6 +2,8 @@ package service;
 
 import database.DBConnectionFactory;
 import model.User;
+import model.validation.Notification;
+import model.validation.ResultFetchException;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -37,7 +39,8 @@ class AuthenticationServiceMySQLTest {
 
   @Test
   void register() {
-    assertTrue(authenticationService.register("test_username", "test_password"));
+    Notification<Boolean> authentication = authenticationService.register("daniel@gmail.com", "TestPass123");
+    assertTrue(authentication.getResult());
   }
 
   @Test
@@ -45,13 +48,11 @@ class AuthenticationServiceMySQLTest {
     String username = "test_username";
     String password = "test_password";
 
-    IllegalArgumentException illegalArgumentException = assertThrows(IllegalArgumentException.class, () -> {authenticationService.login(username, password);});
-    assertEquals("Wrong username or password!", illegalArgumentException.getMessage());
+    Notification<User> user = authenticationService.login(username, password);
+    assertThrows(ResultFetchException.class, user::getResult);
 
-    assertTrue(authenticationService.register(username, password));
-
-    User user = authenticationService.login(username, password);
-    assertNotNull(user);
-    assertEquals(username, user.getUsername());
+    assertTrue(authenticationService.register("daniel@gmail.com", "TestPass123").getResult());
+    Notification<User> userNotification = authenticationService.login("daniel@gmail.com", "TestPass123");
+   assertEquals("daniel@gmail.com", userNotification.getResult().getUsername());
   }
 }

@@ -13,6 +13,7 @@ import java.util.List;
 import java.util.Optional;
 
 import static database.enums.TableTypeSQL.ACTIVITY;
+import static database.enums.TableTypeSQL.USER;
 
 public class EmployeeActivityRepositoryMySQL implements EmployeeActivityRepository {
 
@@ -105,6 +106,24 @@ public class EmployeeActivityRepositoryMySQL implements EmployeeActivityReposito
     }
   }
 
+  @Override
+  public List<EmployeeActivity> findActivitiesByEmployeeId(Long id) {
+    String sql = "SELECT a.id, a.performed_at, a.employee_id, a.activity_id FROM %s a JOIN %s WHERE a.employee_id =?".formatted(ACTIVITY.getLabel(), USER.getLabel());
+    List<EmployeeActivity> activities = new ArrayList<>();
+    try {
+      PreparedStatement preparedStatement = connection.prepareStatement(sql);
+      preparedStatement.setLong(1, id);
+      ResultSet resultSet = preparedStatement.executeQuery();
+      while(resultSet.next()){
+        activities.add(getEmployeeActivityFromResultSet(resultSet));
+      }
+    } catch (SQLException throwables) {
+      throwables.printStackTrace();
+    }
+
+    return activities;
+  }
+
   private EmployeeActivity getEmployeeActivityFromResultSet(ResultSet resultSet) throws SQLException {
     EmployeeActivity activity = new EmployeeActivityBuilder()
             .setId(resultSet.getLong("id"))
@@ -118,4 +137,6 @@ public class EmployeeActivityRepositoryMySQL implements EmployeeActivityReposito
 
     return activity;
   }
+
+
 }
