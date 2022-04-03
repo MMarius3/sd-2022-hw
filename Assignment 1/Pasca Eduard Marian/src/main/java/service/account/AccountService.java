@@ -11,5 +11,7 @@ public interface AccountService {
 
     boolean removeById(long id);
 
-    Account update(Account account);
+    boolean update(Account account);
+
+    boolean transferMoney(long senderId, long receiverId, long amount);
 }

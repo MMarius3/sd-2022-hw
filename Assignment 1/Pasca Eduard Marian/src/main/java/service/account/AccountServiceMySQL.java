@@ -24,5 +24,10 @@ public class AccountServiceMySQL implements AccountService{
     @Override
     public boolean removeById(long id) { return accountRepositoryMySQL.removeById(id); }
 
-    public Account update(Account account) { return accountRepositoryMySQL.update(account); }
+    public boolean update(Account account) { return accountRepositoryMySQL.update(account); }
+
+    @Override
+    public boolean transferMoney(long senderId, long receiverId, long amount) {
+        return accountRepositoryMySQL.transferMoney(senderId, receiverId, amount);
+    }
 }

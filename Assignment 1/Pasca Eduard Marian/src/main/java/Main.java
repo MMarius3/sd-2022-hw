@@ -42,6 +42,9 @@ public class Main {
 
         new LoginController(loginView, authenticationService, userValidator, actionsMenuView);
 
+        final ClientService clientService = new ClientServiceMySQL(new ClientRepositoryMySQL(connection));
+        final AccountService accountService = new AccountServiceMySQL(new AccountRepositoryMySQL(connection));
+
 
         final AddClientView addClientView = new AddClientView();
         final AddAccountView addAccountView = new AddAccountView();
@@ -50,17 +53,18 @@ public class Main {
         final UpdateClientView updateClientView = new UpdateClientView();
         final UpdateAccountView updateAccountView = new UpdateAccountView();
         final TransferMoneyView transferMoneyView = new TransferMoneyView();
+        final UpdateUserView updateUserView = new UpdateUserView();
 
-        final AddClientController addClientController = new AddClientController(addClientView, connection);
-        final AddAccountController addAccountController = new AddAccountController(addAccountView, connection);
-        final DeleteAccountController deleteAccountController = new DeleteAccountController(deleteAccountView, connection);
-        final DeleteUserController deleteUserController = new DeleteUserController(deleteUserView, connection);
-        final UpdateClientController updateClientController = new UpdateClientController(updateClientView, connection);
-        final UpdateAccountController updateAccountController = new UpdateAccountController(updateAccountView, connection);
-        final TransferMoneyController transferMoneyController = new TransferMoneyController(transferMoneyView, connection);
+        final AddClientController addClientController = new AddClientController(addClientView, connection, clientService);
+        final AddAccountController addAccountController = new AddAccountController(addAccountView, connection, accountService);
+        final DeleteAccountController deleteAccountController = new DeleteAccountController(deleteAccountView, connection, accountService);
+        final DeleteUserController deleteUserController = new DeleteUserController(deleteUserView, connection, userService);
+        final UpdateClientController updateClientController = new UpdateClientController(updateClientView, connection, clientService);
+        final UpdateAccountController updateAccountController = new UpdateAccountController(updateAccountView, connection, accountService);
+        final TransferMoneyController transferMoneyController = new TransferMoneyController(transferMoneyView, connection, accountService);
+        final UpdateUserController updateUserController = new UpdateUserController(updateUserView, connection, userService);
 
-        final ClientService clientService = new ClientServiceMySQL(new ClientRepositoryMySQL(connection));
-        AccountService accountService = new AccountServiceMySQL(new AccountRepositoryMySQL(connection));
+
 
         new ActionsMenuController(actionsMenuView, clientService, accountService,
                 addAccountView, addClientView, deleteUserView, deleteAccountView,

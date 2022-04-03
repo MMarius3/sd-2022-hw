@@ -2,9 +2,7 @@ package controller;
 
 import model.Client;
 import model.builder.ClientBuilder;
-import repository.client.ClientRepositoryMySQL;
 import service.client.ClientService;
-import service.client.ClientServiceMySQL;
 import view.AddClientView;
 
 import java.awt.event.ActionEvent;
@@ -17,8 +15,11 @@ public class AddClientController {
 
     private final Connection connection;
 
-    public AddClientController(AddClientView addClientView, Connection connection) {
+    private final ClientService clientService;
+
+    public AddClientController(AddClientView addClientView, Connection connection, ClientService clientService) {
         this.addClientView = addClientView;
+        this.clientService = clientService;
         this.addClientView.addClientButtonListener(new AddClientController.AddClientButtonListener());
         this.connection = connection;
     }
@@ -34,7 +35,6 @@ public class AddClientController {
                     .setIdCardNumber(addClientView.getIcnTextField())
                     .build();
 
-            ClientService clientService = new ClientServiceMySQL(new ClientRepositoryMySQL(connection));
             clientService.save(client);
         }
     }

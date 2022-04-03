@@ -9,7 +9,6 @@ public interface UserService {
 
     boolean save(User user);
 
-    User removeById(long id);
+    boolean removeById(long id);
 
-    boolean delete();
 }

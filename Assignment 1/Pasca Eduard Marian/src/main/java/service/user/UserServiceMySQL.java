@@ -24,16 +24,11 @@ public class UserServiceMySQL implements UserService{
 
     @Override
     public boolean save(User user) {
-        return false;
+        return userRepository.save(user);
     }
 
     @Override
-    public User removeById(long id) {
-        return null;
-    }
-
-    @Override
-    public boolean delete() {
-        return false;
+    public boolean removeById(long id) {
+        return userRepository.removeById(id);
     }
 }

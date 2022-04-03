@@ -22,7 +22,7 @@ public class DeleteUserView extends JFrame{
     private void initializeFields(){
         idLabel = new JLabel("ID:");
         idTextField = new JTextField();
-        deleteUserButton = new JButton("Delete account");
+        deleteUserButton = new JButton("Delete user");
     }
 
     public Long getId(){ return Long.valueOf(idTextField.getText()); }

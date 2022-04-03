@@ -14,4 +14,6 @@ public interface UserRepository {
     boolean save(User user);
 
     Response<Boolean> existsByUsername(String email);
+
+    boolean removeById(long id);
 }
