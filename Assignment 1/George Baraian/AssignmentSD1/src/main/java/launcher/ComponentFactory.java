@@ -10,6 +10,8 @@ import repositories.security.RightsRolesRepository;
 import repositories.security.RightsRolesRepositoryMySQL;
 import repositories.user.UserRepository;
 import repositories.user.UserRepositoryMySQL;
+import services.admin.AdminService;
+import services.admin.AdminServiceImplementation;
 import services.client.ClientService;
 import services.client.ClientServiceImplementation;
 import services.user.AuthenticationService;
@@ -32,6 +34,7 @@ public class ComponentFactory {
 
     private final AuthenticationService authenticationService;
     private final ClientService clientService;
+    private final AdminService adminService;
 
     private final UserRepository userRepository;
     private final RightsRolesRepository rightsRolesRepository;
@@ -53,12 +56,13 @@ public class ComponentFactory {
         this.userRepository = new UserRepositoryMySQL(connection, rightsRolesRepository);
         this.authenticationService = new AuthenticationServiceMySQL(this.userRepository, this.rightsRolesRepository);
         this.clientService = new ClientServiceImplementation(this.getClientRepository());
+        this.adminService = new AdminServiceImplementation(this.authenticationService, this.userRepository);
 
         this.loginView = new LoginView();
         this.adminView = new AdminView();
         this.employeeView = new EmployeeView();
         this.loginController = new LoginController(loginView, authenticationService);
-        this.adminController = new AdminController(adminView, authenticationService);
+        this.adminController = new AdminController(adminView, authenticationService, adminService);
         this.employeeController = new EmployeeController(employeeView, clientService);
     }
 
@@ -68,6 +72,10 @@ public class ComponentFactory {
 
     public ClientService getClientService(){
         return clientService;
+    }
+
+    public AdminService getAdminService(){
+        return adminService;
     }
 
     public UserRepository getUserRepository() {

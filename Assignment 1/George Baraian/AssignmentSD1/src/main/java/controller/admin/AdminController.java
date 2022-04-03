@@ -1,6 +1,7 @@
 package controller.admin;
 
 import model.validation.Notification;
+import services.admin.AdminService;
 import services.user.AuthenticationService;
 import view.admin.AdminView;
 
@@ -11,11 +12,14 @@ import java.awt.event.ActionListener;
 public class AdminController {
     private final AdminView adminView;
     private final AuthenticationService authenticationService;
+    private final AdminService adminService;
 
-    public AdminController(AdminView adminView, AuthenticationService authenticationService) {
+    public AdminController(AdminView adminView, AuthenticationService authenticationService, AdminService adminService) {
         this.adminView = adminView;
         this.authenticationService = authenticationService;
+        this.adminService = adminService;
         adminView.setCreateEmployeeButtonListener(new CreateEmployeeButtonListener());
+        adminView.setDeleteEmployeeButtonListener(new DeleteEmployeeButtonListener());
     }
 
     private class CreateEmployeeButtonListener implements ActionListener {
@@ -37,6 +41,25 @@ public class AdminController {
                 }
             }
 
+        }
+    }
+
+
+    private class DeleteEmployeeButtonListener implements ActionListener {
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            String employeeUsername = adminView.getUsername();
+            Notification<Boolean> deleteEmployeeNotification = adminService.deleteEmployee(employeeUsername);
+            if(deleteEmployeeNotification.hasErrors()){
+                JOptionPane.showMessageDialog(adminView.getContentPane(),deleteEmployeeNotification.getFormattedErrors());
+            }else{
+                if(!deleteEmployeeNotification.getResult()){
+                    JOptionPane.showMessageDialog(adminView.getContentPane(),"Could not delete employee");
+                }
+                else{
+                    JOptionPane.showMessageDialog(adminView.getContentPane(),"Deleted the employee");
+                }
+            }
         }
     }
 }
