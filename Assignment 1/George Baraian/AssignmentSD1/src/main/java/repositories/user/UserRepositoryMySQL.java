@@ -6,6 +6,7 @@ import model.builder.UserBuilder;
 import repositories.security.RightsRolesRepository;
 
 import java.sql.*;
+import java.util.ArrayList;
 import java.util.List;
 
 import static database.Constants.Tables.USER;
@@ -23,7 +24,27 @@ public class UserRepositoryMySQL implements UserRepository {
 
     @Override
     public List<User> findAll() {
-        return null;
+        List<User> users = new ArrayList<>();
+        try{
+            Statement statement = connection.createStatement();
+            String sql = "Select * from user";
+            ResultSet rs = statement.executeQuery(sql);
+
+            while(rs.next()){
+                users.add(getUserFromResultSet(rs));
+            }
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return users;
+    }
+
+    private User getUserFromResultSet(ResultSet rs) throws SQLException{
+        return new UserBuilder()
+                .setUsername(rs.getString("username"))
+                .setPassword(rs.getString("password"))
+                .build();
     }
 
     @Override

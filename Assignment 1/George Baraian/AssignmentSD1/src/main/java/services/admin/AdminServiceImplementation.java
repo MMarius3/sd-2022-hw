@@ -1,8 +1,11 @@
 package services.admin;
 
+import model.User;
 import model.validation.Notification;
 import repositories.user.UserRepository;
 import services.user.AuthenticationService;
+
+import java.util.List;
 
 public class AdminServiceImplementation implements AdminService{
 
@@ -24,5 +27,11 @@ public class AdminServiceImplementation implements AdminService{
     public Notification<Boolean> deleteEmployee(String username) {
         return userRepository.delete(username);
     }
+
+    @Override
+    public List<User> viewAllEmployees() {
+        return userRepository.findAll();
+    }
+
 
 }
