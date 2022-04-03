@@ -17,6 +17,7 @@ public class EmployeeView extends JFrame {
     private JTextField clientPersonalNumericalCode;
     private JButton createClientButton;
     private JButton viewClientsButton;
+    private JButton updateClientButton;
 
     public EmployeeView() throws HeadlessException {
         setSize(300, 300);
@@ -29,6 +30,7 @@ public class EmployeeView extends JFrame {
         add(clientPersonalNumericalCode);
         add(createClientButton);
         add(viewClientsButton);
+        add(updateClientButton);
         setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
     }
 
@@ -39,6 +41,7 @@ public class EmployeeView extends JFrame {
         clientPersonalNumericalCode = new JTextField();
         createClientButton = new JButton("Create a client");
         viewClientsButton = new JButton("View clients");
+        updateClientButton = new JButton("Update client");
     }
 
     public String getId(){
@@ -63,6 +66,10 @@ public class EmployeeView extends JFrame {
 
     public void setViewClientsButtonListener(ActionListener viewClientsButtonListener){
         viewClientsButton.addActionListener(viewClientsButtonListener);
+    }
+
+    public void setUpdateClientButtonListener(ActionListener updateClientButtonListener){
+        updateClientButton.addActionListener(updateClientButtonListener);
     }
 
     public void createResultTable(List<Client> all) {

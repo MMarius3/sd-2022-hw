@@ -21,6 +21,7 @@ public class EmployeeController {
         this.clientService = clientService;
         employeeView.setCreateClientButtonListener(new CreateClientButtonListener());
         employeeView.setViewClientsButtonListener(new ViewClientsButtonListener());
+        employeeView.setUpdateClientButtonListener(new UpdateClientButtonListener());
     }
 
 
@@ -50,6 +51,28 @@ public class EmployeeController {
         public void actionPerformed(ActionEvent e) {
             List<Client> all = clientService.findAll();
             employeeView.createResultTable(all);
+        }
+    }
+
+    private class UpdateClientButtonListener implements ActionListener {
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            Long clientId = Long.valueOf(employeeView.getId());
+            String clientName = employeeView.getName();
+            String clientAddress = employeeView.getAddress();
+            Long clientPersonalNumericalCode = Long.valueOf(employeeView.getPersonalNumericalCode());
+            Client client1 = new ClientBuilder().setId(clientId).setName(clientName)
+                    .setAddress(clientAddress).setPersonalNumericalCode(clientPersonalNumericalCode).build();
+
+            Notification<Boolean> updateClientAccountNotification = clientService.updateClientInformation(clientName,
+                    clientAddress, clientPersonalNumericalCode, clientId);
+
+            if(updateClientAccountNotification.hasErrors()){
+                JOptionPane.showMessageDialog(employeeView.getContentPane(),updateClientAccountNotification.getFormattedErrors());
+            }else{
+                JOptionPane.showMessageDialog(employeeView.getContentPane(),"Client updated successfully!");
+            }
+
         }
     }
 }

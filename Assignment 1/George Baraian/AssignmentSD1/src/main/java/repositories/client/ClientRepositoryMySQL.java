@@ -102,6 +102,20 @@ public class ClientRepositoryMySQL implements ClientRepository{
     }
 
     @Override
+    public void updateClientInformation(String newName, String newAddress, Long personalNumericalCode, Long id) {
+        try {
+            String updateInfoSQL = "UPDATE client SET name = ?, address = ?, personalNumericalCode = ? WHERE id=" + id;
+            PreparedStatement preparedStatement = connection.prepareStatement(updateInfoSQL);
+            preparedStatement.setString(1, newName);
+            preparedStatement.setString(2, newAddress);
+            preparedStatement.setLong(3, personalNumericalCode);
+            preparedStatement.executeUpdate();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    @Override
     public boolean save(Client client) {
         try{
             PreparedStatement preparedStatement = connection
@@ -135,4 +149,29 @@ public class ClientRepositoryMySQL implements ClientRepository{
             e.printStackTrace();
         }
     }
+
+
+
+   /* @Override
+    public Client updateClientInformation(Long id) {
+        try {
+            Statement statement = connection.createStatement();
+            String fetchClientSql = "SELECT * from client where id=" + id;
+            ResultSet resultSet = statement.executeQuery(fetchClientSql);
+            if(resultSet.next()){
+                Client client = new ClientBuilder()
+                        .setId(resultSet.getLong("id"))
+                        .setName(resultSet.getString("name"))
+                        .setPersonalNumericalCode(resultSet.getLong("personalNumericalCode"))
+                        .setAddress(resultSet.getString("address"))
+                        .build();
+                Client client1 = client;
+                return client1;
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return null;
+    }*/
 }
