@@ -86,4 +86,16 @@ public class UserRepositoryMySQL implements UserRepository {
             e.printStackTrace();
         }
     }
+
+    @Override
+    public Notification<Boolean> delete(String username) {
+        try{
+            Statement statement = connection.createStatement();
+            String sql = "DELETE from user where `username`=\'" + username + "\'";
+            statement.execute(sql);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } ;
+        return null;
+    }
 }

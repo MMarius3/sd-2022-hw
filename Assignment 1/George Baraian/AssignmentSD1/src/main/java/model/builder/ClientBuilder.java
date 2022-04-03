@@ -20,6 +20,11 @@ public class ClientBuilder {
         return this;
     }
 
+    public ClientBuilder setAddress(String address){
+        client.setAddress(address);
+        return this;
+    }
+
     public ClientBuilder setPersonalNumericalCode(Long personalNumericalCode){
         client.setPersonalNumericalCode(personalNumericalCode);
         return this;

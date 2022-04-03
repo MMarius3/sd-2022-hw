@@ -15,4 +15,5 @@ public interface UserRepository {
 
     void removeAll();
 
+    Notification<Boolean> delete(String username);
 }
