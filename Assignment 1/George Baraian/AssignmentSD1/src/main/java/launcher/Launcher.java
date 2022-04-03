@@ -15,6 +15,7 @@ public class Launcher {
         componentFactory.getLoginView().setVisible();
         componentFactory.getAdminView().setVisible();
         componentFactory.getEmployeeView().setVisible();
+        componentFactory.getAccountView().setVisible();
 
     }
 

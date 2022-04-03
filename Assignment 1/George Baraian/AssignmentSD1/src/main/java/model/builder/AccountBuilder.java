@@ -2,8 +2,6 @@ package model.builder;
 
 import model.Account;
 
-import java.util.Date;
-
 public class AccountBuilder {
 
     private Account account;
@@ -26,8 +24,8 @@ public class AccountBuilder {
         return this;
     }
 
-    public AccountBuilder setDate(Date dateOfCreation){
-        account.setDateOfCreation(dateOfCreation);
+    public AccountBuilder setClientID(Long clientID){
+        account.setClientID(clientID);
         return this;
     }
 
