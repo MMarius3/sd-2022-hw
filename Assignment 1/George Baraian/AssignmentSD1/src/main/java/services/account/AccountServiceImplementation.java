@@ -4,6 +4,8 @@ import model.Account;
 import model.validation.Notification;
 import repositories.account.AccountRepository;
 
+import java.util.List;
+
 public class AccountServiceImplementation implements AccountService{
 
     private final AccountRepository accountRepository;
@@ -24,5 +26,10 @@ public class AccountServiceImplementation implements AccountService{
     @Override
     public void deleteByClientID(Long clientID) {
         accountRepository.deleteByClientId(clientID);
+    }
+
+    @Override
+    public List<Account> findByClientId(Long clientId) {
+        return accountRepository.findAllByClientId(clientId);
     }
 }

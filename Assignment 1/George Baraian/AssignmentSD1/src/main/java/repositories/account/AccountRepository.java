@@ -6,7 +6,7 @@ import java.util.List;
 
 public interface AccountRepository {
 
-    List<Account> findAllByClientId();
+    List<Account> findAllByClientId(Long clientId);
 
     boolean save(Account account);
 

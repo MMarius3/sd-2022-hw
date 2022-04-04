@@ -7,6 +7,7 @@ import view.employee.AccountView;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.List;
 
 public class AccountController {
 
@@ -18,6 +19,7 @@ public class AccountController {
         this.accountService = accountService;
         accountView.setCreateAccountButton(new CreateAccountButtonListener());
         accountView.setDeleteAccountsButton(new DeleteAccountsButtonListener());
+        accountView.setViewClientAccountsButton(new ViewClientAccountsButtonListener());
     }
 
 
@@ -39,6 +41,15 @@ public class AccountController {
         public void actionPerformed(ActionEvent e) {
             Long clientID = Long.valueOf(accountView.getClientID());
             accountService.deleteByClientID(clientID);
+        }
+    }
+
+    private class ViewClientAccountsButtonListener implements ActionListener {
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            Long clientId = Long.valueOf(accountView.getClientID());
+            List<Account> all = accountService.findByClientId(clientId);
+            accountView.createResultTable(all);
         }
     }
 }
