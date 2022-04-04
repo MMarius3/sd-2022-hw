@@ -53,14 +53,6 @@ public class AccountRepositoryMySQL implements AccountRepository{
             preparedStatement.setLong(3,account.getClientID());
             preparedStatement.executeUpdate();
 
-            ResultSet rs = preparedStatement.getGeneratedKeys();
-            rs.next();
-            long accountId = rs.getLong(1);
-            account.setId(accountId);
-
-            accountRepository.save(account);
-
-
             return true;
         } catch (Exception e) {
             e.printStackTrace();
@@ -78,5 +70,34 @@ public class AccountRepositoryMySQL implements AccountRepository{
         } catch (SQLException e) {
             e.printStackTrace();
         }
+    }
+
+    @Override
+    public void removeAll() {
+        try{
+            Statement statement = connection.createStatement();
+            String sql = "DELETE FROM account where id>= 0";
+            statement.executeUpdate(sql);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    @Override
+    public List<Account> findAll() {
+        List<Account> accounts = new ArrayList<>();
+        try{
+            Statement statement = connection.createStatement();
+            String sql = "Select * from account";
+            ResultSet rs = statement.executeQuery(sql);
+            while(rs.next()){
+                accounts.add(getAccountFromResultSet(rs));
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return accounts;
     }
 }

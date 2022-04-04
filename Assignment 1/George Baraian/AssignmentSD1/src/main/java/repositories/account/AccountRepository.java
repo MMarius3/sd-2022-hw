@@ -12,6 +12,10 @@ public interface AccountRepository {
 
     void deleteByClientId(Long clientId);
 
+    void removeAll();
+
+    List<Account> findAll();
+
     //void updateAccountInformation();
 
 }

@@ -119,18 +119,11 @@ public class ClientRepositoryMySQL implements ClientRepository{
     public boolean save(Client client) {
         try{
             PreparedStatement preparedStatement = connection
-                    .prepareStatement("INSERT INTO client values (null, ?, ?, ?)", Statement.RETURN_GENERATED_KEYS);
+                    .prepareStatement("INSERT INTO client values (null, ?, ?, ?)");
             preparedStatement.setString(1,client.getName());
             preparedStatement.setString(2,client.getAddress());
             preparedStatement.setLong(3, client.getPersonalNumericalCode());
             preparedStatement.executeUpdate();
-
-            ResultSet rs = preparedStatement.getGeneratedKeys();
-            rs.next();
-            long clientId = rs.getLong(1);
-            client.setId(clientId);
-
-            clientRepository.save(client);
 
             return true;
         } catch (SQLException e) {
