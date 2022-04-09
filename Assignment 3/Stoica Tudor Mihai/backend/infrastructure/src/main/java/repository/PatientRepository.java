@@ -1,10 +1,15 @@
 package repository;
+
+import entity.Patient;
+import lombok.RequiredArgsConstructor;
+import org.springframework.context.annotation.Primary;
+
 import java.util.List;
 import java.util.Optional;
-import entity.Patient;
 
-public class PatientRepository implements IPatientRepository{
-
+@Primary
+@RequiredArgsConstructor
+public class PatientRepository implements IPatientRepository {
     @Override
     public void insert(Patient object) {
 

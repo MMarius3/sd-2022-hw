@@ -1,14 +1,22 @@
 package repository;
 
 import entity.Consultation;
+import jpa_repository.JpaConsultationRepository;
+import lombok.RequiredArgsConstructor;
+import org.springframework.context.annotation.Primary;
+import org.springframework.stereotype.Component;
 
 import java.util.List;
 import java.util.Optional;
 
+@Primary
+@RequiredArgsConstructor
 public class ConsultationRepository implements IConsultationRepository {
+
+    private final JpaConsultationRepository jpaConsultationRepository;
+
     @Override
     public void insert(Consultation object) {
-
     }
 
     @Override
