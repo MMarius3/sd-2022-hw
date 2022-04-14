@@ -1,0 +1,44 @@
+package model.builder;
+
+import model.User;
+import model.Role;
+
+import java.util.List;
+
+public class UserBuilder {
+
+    private User user;
+
+    public UserBuilder(){
+        user = new User();
+    }
+
+    public UserBuilder setUsername(String username){
+        user.setUsername(username);
+        return this;
+    }
+
+    public UserBuilder setId(Long id){
+        user.setId(id);
+        return this;
+    }
+
+    public UserBuilder setPassword(String password){
+        user.setPassword(password);
+        return this;
+    }
+
+    public UserBuilder setRole(Role role){
+        user.setRole(role);
+        return this;
+    }
+
+    public User build(){
+        return user;
+    }
+
+
+
+
+
+}

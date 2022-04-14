@@ -1,0 +1,1 @@
+ALTER TABLE `Administrator_User` ADD CONSTRAINT `Administrator_User_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `User`(`id`) ON DELETE CASCADE ON UPDATE CASCADE;

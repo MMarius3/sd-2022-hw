@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="AccountServiceImplTest" tests="5" skipped="0" failures="0" errors="0" timestamp="2022-03-21T08:59:25" hostname="DESKTOP-E649024" time="0.276">
+  <properties/>
+  <testcase name="deleteAccount()" classname="AccountServiceImplTest" time="0.091"/>
+  <testcase name="payBill()" classname="AccountServiceImplTest" time="0.039"/>
+  <testcase name="transferBetweenAccounts()" classname="AccountServiceImplTest" time="0.078"/>
+  <testcase name="createAccount()" classname="AccountServiceImplTest" time="0.034"/>
+  <testcase name="updateAccount()" classname="AccountServiceImplTest" time="0.032"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>
