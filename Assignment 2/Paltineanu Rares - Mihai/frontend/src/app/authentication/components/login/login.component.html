@@ -1,10 +1,6 @@
 <div class="col-md-12">
-  <div class="card card-container">
-    <img
-      id="profile-img"
-      src="//ssl.gstatic.com/accounts/ui/avatar_2x.png"
-      class="profile-img-card"
-    />
+  <div class="center card card-container">
+    <h2 class="title">Login</h2>
     <form
       *ngIf="!isLoggedIn"
       name="form"
@@ -12,7 +8,7 @@
       #f="ngForm"
       novalidate
     >
-      <div class="form-group">
+      <div class="form-group ">
         <label>Username</label>
         <input
           type="text"
@@ -58,7 +54,7 @@
         </button>
 
         <a routerLink="/register">
-          <button type="button" class="btn btn-primary btn-block">
+          <button type="button" class="register-btn btn btn-primary btn-block">
             Register
 
           </button>

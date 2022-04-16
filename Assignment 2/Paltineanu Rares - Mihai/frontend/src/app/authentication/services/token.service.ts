@@ -11,6 +11,7 @@ export class TokenService {
     window.sessionStorage.clear();
   }
   public saveToken(token: string): void {
+    console.log(token)
     window.sessionStorage.removeItem(TOKEN_KEY);
     window.sessionStorage.setItem(TOKEN_KEY, token);
   }
