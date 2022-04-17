@@ -1,0 +1,41 @@
+<app-toolbar></app-toolbar>
+
+<dx-data-grid id="booksGrid"
+              [dataSource]="books"
+              [allowColumnReordering]="true"
+              [allowColumnResizing]="true"
+              [columnAutoWidth]="false"
+              [showBorders]="true"
+              [showRowLines]="true"
+              class="dx-datagrid dataGrid">
+
+  <dxi-column caption="ID"
+            dataField="id"
+            [width]="'10%'"
+            dataType="number"
+  ></dxi-column>
+
+  <dxi-column caption="Name"
+              dataField="name"
+              [width]="'10%'"
+              dataType="string"
+  ></dxi-column>
+
+  <dxi-column caption="Description"
+              dataField="description"
+              [width]="'10%'"
+              dataType="string"
+  ></dxi-column>
+
+  <dxi-column caption="Author"
+              dataField="author"
+              [width]="'10%'"
+              dataType="string"
+  ></dxi-column>
+
+  <dxi-column caption="Genre"
+              dataField="genre"
+              [width]="'10%'"
+              dataType="string"
+  ></dxi-column>
+</dx-data-grid>
