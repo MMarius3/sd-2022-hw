@@ -1,15 +1,13 @@
 package com.example.bookstore.book;
 
 import com.example.bookstore.book.model.Book;
+import com.example.bookstore.book.model.dto.BookDTO;
 import lombok.RequiredArgsConstructor;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
-import static com.example.bookstore.UrlMapping.BOOKS;
+import static com.example.bookstore.UrlMapping.*;
 
 
 @RestController
@@ -20,9 +18,17 @@ public class BookController {
     private final BookService bookService;
     //private final ReportServiceFactory reportServiceFactory;
 
-    @GetMapping
+    @GetMapping(GET_BOOKS)
     public List<Book> allItems() {
-        return bookService.findAll();
+        List<Book> books = bookService.findAll();
+        System.out.println(books.get(0).getName());
+        return books;
+    }
+
+    @PostMapping(ADD_BOOK)
+    public BookDTO create(@RequestBody BookDTO bookDTO) {
+        System.out.println(bookDTO.getName());
+        return bookService.create(bookDTO);
     }
 
 //    @GetMapping(EXPORT_REPORT)

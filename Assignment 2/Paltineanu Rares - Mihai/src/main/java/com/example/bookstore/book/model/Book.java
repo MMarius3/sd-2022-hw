@@ -2,6 +2,7 @@ package com.example.bookstore.book.model;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
+import lombok.Data;
 import lombok.RequiredArgsConstructor;
 
 import javax.persistence.*;
@@ -10,6 +11,7 @@ import javax.persistence.*;
 @Builder
 @AllArgsConstructor
 @RequiredArgsConstructor
+@Data
 public class Book {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -20,4 +22,10 @@ public class Book {
 
     @Column(length = 1024)
     private String description;
+
+    @Column(length = 128)
+    private String author;
+
+    @Column(length = 64)
+    private String genre;
 }
