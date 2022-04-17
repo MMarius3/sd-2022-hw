@@ -6,7 +6,7 @@ import java.sql.SQLException;
 
 public class Launcher {
 
-    public static boolean BOOTSTRAP = true;
+    public static boolean BOOTSTRAP = false;
 
     public static void main(String[] args) {
         bootstrap();
@@ -15,6 +15,7 @@ public class Launcher {
         componentFactory.getLoginView().setVisible();
         componentFactory.getAdminView().setVisible();
         componentFactory.getEmployeeView().setVisible();
+        componentFactory.getAccountView().setVisible();
 
     }
 

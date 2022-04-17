@@ -1,5 +1,6 @@
 package controller.admin;
 
+import model.User;
 import model.validation.Notification;
 import services.admin.AdminService;
 import services.user.AuthenticationService;
@@ -8,6 +9,7 @@ import view.admin.AdminView;
 import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.List;
 
 public class AdminController {
     private final AdminView adminView;
@@ -20,6 +22,7 @@ public class AdminController {
         this.adminService = adminService;
         adminView.setCreateEmployeeButtonListener(new CreateEmployeeButtonListener());
         adminView.setDeleteEmployeeButtonListener(new DeleteEmployeeButtonListener());
+        adminView.setViewEmployeesButtonListener(new ViewEmployeesButtonListener());
     }
 
     private class CreateEmployeeButtonListener implements ActionListener {
@@ -60,6 +63,14 @@ public class AdminController {
                     JOptionPane.showMessageDialog(adminView.getContentPane(),"Deleted the employee");
                 }
             }
+        }
+    }
+
+    private class ViewEmployeesButtonListener implements ActionListener {
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            List<User> all = adminService.viewAllEmployees();
+            adminView.createResultTable(all);
         }
     }
 }
