@@ -1,5 +1,6 @@
 package com.example.bookstore.user;
 
+import com.example.bookstore.user.dto.UserListDTO;
 import com.example.bookstore.user.dto.UserMinimalDTO;
 import com.example.bookstore.user.mapper.UserMapper;
 import lombok.RequiredArgsConstructor;
@@ -21,6 +22,12 @@ public class UserService {
                 .stream().map(userMapper::userMinimalFromUser)
                 .collect(toList());
 
+    }
+
+    public List<UserListDTO> allUsersForList() {
+        return userRepository.findAll()
+                .stream().map(userMapper::userListDtoFromUser)
+                .collect(toList());
     }
 
 }
