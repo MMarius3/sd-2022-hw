@@ -4,6 +4,7 @@ import UserList from "../views/UserList.vue";
 import ItemList from "../views/ItemList.vue";
 import { auth as store } from "../store/auth.module";
 import Login from "../views/Login";
+import BookList from "../views/BookList";
 
 Vue.use(VueRouter);
 
@@ -22,6 +23,18 @@ const routes = [
         next();
       } else {
         next({ name: "Items" });
+      }
+    },
+  },
+  {
+    path: "/books",
+    name: "Books",
+    component: BookList,
+    beforeEnter: (to, from, next) => {
+      if (store.state.status.loggedIn) {
+        next();
+      } else {
+        next({ name: "Home" });
       }
     },
   },

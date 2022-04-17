@@ -55,6 +55,7 @@ public class Bootstrapper implements ApplicationListener<ApplicationReadyEvent> 
                     .password("WooHoo1!")
                     .roles(Set.of("CUSTOMER"))
                     .build());
+
         }
     }
 }
