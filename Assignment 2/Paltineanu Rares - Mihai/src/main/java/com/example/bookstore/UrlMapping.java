@@ -9,6 +9,11 @@ public class UrlMapping {
     public static final String SIGN_IN = "/sign-in";
     public static final String SIGN_UP = "/sign-up";
 
+    public static final String USER = API_PATH + "/user";
+
     public static final String BOOKS = "/books";
+    public static final String ADD_BOOK = "/add-book";
+    public static final String GET_BOOKS = "/get-books";
+
 
 }
