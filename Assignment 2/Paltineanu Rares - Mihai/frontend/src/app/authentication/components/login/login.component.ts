@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import {AuthenticationService} from "../../services/authentication.service";
-import {TokenService} from "../../services/token.service";
+import {AuthenticationService} from "../../../api/services/authentication.service";
 import {ActivatedRouteSnapshot, CanActivate, Router, RouterStateSnapshot, UrlTree} from "@angular/router";
 import {LoginRequest} from "../../models/login-request.model";
 import {Observable} from 'rxjs';
@@ -10,7 +9,7 @@ import {Observable} from 'rxjs';
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.css']
 })
-export class LoginComponent implements OnInit, CanActivate {
+export class LoginComponent implements OnInit {
   form: LoginRequest = new LoginRequest();
   isLoggedIn = false;
   isLoginFailed = false;
@@ -18,35 +17,23 @@ export class LoginComponent implements OnInit, CanActivate {
   roles: string[] = [];
 
   constructor(private authenticationService: AuthenticationService,
-              private tokenService: TokenService,
               private router: Router) {
-  }
-
-  canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): boolean | UrlTree | Observable<boolean | UrlTree> | Promise<boolean | UrlTree> {
-    if (this.tokenService.getToken()) {
-      console.log('aaa')
-      this.isLoggedIn = true;
-      this.roles = this.tokenService.getUser().roles;
-      this.router.navigate(['/home']);
-      return true;
-    }
-    return false;
   }
 
   ngOnInit(): void {
   }
 
   attemptLogin(): void {
+
     this.authenticationService.login(this.form).subscribe(
       data => {
-        console.log(data)
-        this.tokenService.saveToken(data.token);
-        this.tokenService.saveUser(data);
+        localStorage.setItem('user', JSON.stringify(data));
         this.isLoginFailed = false;
         this.isLoggedIn = true;
-        this.roles = this.tokenService.getUser().roles;
-        this.reloadPage();
-        console.log('success')
+        // this.authenticationService.getAllUsers().subscribe(
+        //   users => console.log(users)
+        // )
+        this.router.navigate(['/employee'])
       },
       err => {
         console.log('error')
