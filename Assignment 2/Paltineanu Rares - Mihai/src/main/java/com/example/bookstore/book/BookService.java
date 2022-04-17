@@ -21,4 +21,8 @@ public class BookService {
     public BookDTO create(BookDTO book) {
         return bookMapper.toDto(bookRepository.save(bookMapper.fromDto(book)));
     }
+
+    public void delete(Long id) {
+        bookRepository.deleteById(id);
+    }
 }

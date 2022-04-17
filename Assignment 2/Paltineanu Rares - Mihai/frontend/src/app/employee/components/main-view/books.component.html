@@ -1,4 +1,4 @@
-<app-toolbar></app-toolbar>
+<app-toolbar [grid]="grid"></app-toolbar>
 
 <dx-data-grid id="booksGrid"
               [dataSource]="books"
@@ -9,6 +9,9 @@
               [showRowLines]="true"
               class="dx-datagrid dataGrid">
 
+  <dxo-column-chooser mode="select"></dxo-column-chooser>
+
+  <dxo-selection [showCheckBoxesMode]="'onClick'" mode="single"></dxo-selection>
   <dxi-column caption="ID"
             dataField="id"
             [width]="'10%'"
@@ -17,25 +20,25 @@
 
   <dxi-column caption="Name"
               dataField="name"
-              [width]="'10%'"
+              [width]="'23%'"
               dataType="string"
   ></dxi-column>
 
   <dxi-column caption="Description"
               dataField="description"
-              [width]="'10%'"
+              [width]="'23%'"
               dataType="string"
   ></dxi-column>
 
   <dxi-column caption="Author"
               dataField="author"
-              [width]="'10%'"
+              [width]="'23%'"
               dataType="string"
   ></dxi-column>
 
   <dxi-column caption="Genre"
               dataField="genre"
-              [width]="'10%'"
+              [width]="'23%'"
               dataType="string"
   ></dxi-column>
 </dx-data-grid>

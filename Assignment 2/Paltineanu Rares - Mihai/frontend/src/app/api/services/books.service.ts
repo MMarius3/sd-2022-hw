@@ -17,4 +17,11 @@ export class BooksService {
     const headers = authHeader();
     return this.http.post<Book>('http://localhost:8088/books/add-book', {book})
   }
+
+  deleteBook(id: number): Observable<any> {
+    const headers = authHeader();
+    const url = `http://localhost:8088/books/delete-book/${id}`;
+    this.http.delete<void>(url, {headers}).subscribe()
+    return this.getBooks()
+  }
 }

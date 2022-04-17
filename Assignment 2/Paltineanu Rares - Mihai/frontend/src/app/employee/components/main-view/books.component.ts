@@ -1,7 +1,8 @@
-import {Component, OnInit} from "@angular/core";
+import {Component, OnInit, ViewChild} from "@angular/core";
 import {Book} from "../../models/book.model";
 import {Router} from "@angular/router";
 import {BooksService} from "../../../api/services/books.service";
+import {DxDataGridComponent} from "devextreme-angular";
 
 @Component({
   selector: 'app-main-view',
@@ -9,6 +10,8 @@ import {BooksService} from "../../../api/services/books.service";
   styleUrls: ['books.component.css']
 })
 export class BooksComponent implements OnInit{
+  @ViewChild(DxDataGridComponent) grid: DxDataGridComponent;
+
   public books: Book[] = [];
 
   constructor(private router: Router,
@@ -16,6 +19,7 @@ export class BooksComponent implements OnInit{
   }
 
   ngOnInit(): void {
+    console.log(this.grid)
     this.booksService.getBooks()
       .subscribe(books => {
         this.books = books

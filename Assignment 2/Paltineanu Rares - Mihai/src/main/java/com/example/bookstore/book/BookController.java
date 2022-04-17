@@ -5,6 +5,7 @@ import com.example.bookstore.book.model.dto.BookDTO;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import static com.example.bookstore.UrlMapping.*;
@@ -21,7 +22,6 @@ public class BookController {
     @GetMapping(GET_BOOKS)
     public List<Book> allItems() {
         List<Book> books = bookService.findAll();
-        System.out.println(books.get(0).getName());
         return books;
     }
 
@@ -29,6 +29,11 @@ public class BookController {
     public BookDTO create(@RequestBody BookDTO bookDTO) {
         System.out.println(bookDTO.getName());
         return bookService.create(bookDTO);
+    }
+
+    @DeleteMapping(DELETE_BOOK)
+    public void delete(@PathVariable Long id) {
+        bookService.delete(id);
     }
 
 //    @GetMapping(EXPORT_REPORT)

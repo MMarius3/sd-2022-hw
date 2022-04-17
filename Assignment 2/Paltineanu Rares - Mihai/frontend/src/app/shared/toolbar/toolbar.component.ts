@@ -1,5 +1,7 @@
-import {Component} from "@angular/core";
+import {Component, Input} from "@angular/core";
 import {Router} from "@angular/router";
+import {DxDataGridComponent} from "devextreme-angular";
+import {BooksService} from "../../api/services/books.service";
 
 @Component({
   selector: 'app-toolbar',
@@ -8,7 +10,10 @@ import {Router} from "@angular/router";
 })
 export class ToolbarComponent {
 
-  constructor(private router: Router) {
+  // @ts-ignore
+  @Input() grid: DxDataGridComponent;
+  constructor(private bookService: BooksService,
+    private router: Router) {
 
   }
 
@@ -22,6 +27,6 @@ export class ToolbarComponent {
   }
 
   public onDeleteBook(): void {
-
+    this.bookService.deleteBook(this.grid.selectedRowKeys[0].id)
   }
 }
