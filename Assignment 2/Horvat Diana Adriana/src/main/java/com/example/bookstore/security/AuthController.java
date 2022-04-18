@@ -5,6 +5,7 @@ import com.example.bookstore.security.dto.LoginRequest;
 import com.example.bookstore.security.dto.MessageResponse;
 import com.example.bookstore.security.dto.SignupRequest;
 import com.example.bookstore.user.dto.UserDetailsImpl;
+import com.example.bookstore.user.model.User;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -12,6 +13,8 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
@@ -21,7 +24,7 @@ import java.util.stream.Collectors;
 import static com.example.bookstore.UrlMapping.*;
 
 @CrossOrigin(origins = "*", maxAge = 3600)
-@RestController
+@Controller
 @RequestMapping(AUTH)
 @RequiredArgsConstructor
 public class AuthController {
@@ -73,6 +76,18 @@ public class AuthController {
 
 
         return ResponseEntity.ok(new MessageResponse("User registered successfully!"));
+    }
+
+    @GetMapping(LOGIN)
+    public String showLoginForm(){
+        return "login";
+    }
+
+    @GetMapping(REGISTER)
+    public String showRegisterForm(Model model){
+        model.addAttribute("user", new User());
+
+        return "register";
     }
 
 }

@@ -29,6 +29,7 @@ dependencies {
     testImplementation group: 'org.mockito', name: 'mockito-core', version: '3.8.0'
 
     implementation group: 'org.springframework.boot', name: 'spring-boot-starter-security', version: '2.3.9.RELEASE'
+    implementation group: 'org.springframework.boot', name: 'spring-boot-starter-thymeleaf'
     implementation group: 'io.jsonwebtoken', name: 'jjwt', version: '0.9.1'
     implementation group: 'javax.validation', name: 'validation-api', version: '2.0.1.Final'
 }

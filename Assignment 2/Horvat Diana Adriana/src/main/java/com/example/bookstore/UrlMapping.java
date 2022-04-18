@@ -7,4 +7,7 @@ public class UrlMapping {
     public static final String AUTH = API_PATH + "/auth";
     public static final String SIGN_IN = "/sign-in";
     public static final String SIGN_UP = "/sign-up";
+
+    public static final String LOGIN = "/login";
+    public static final String REGISTER = "/register";
 }
