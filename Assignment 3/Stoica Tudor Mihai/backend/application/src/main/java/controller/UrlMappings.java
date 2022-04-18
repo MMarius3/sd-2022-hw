@@ -13,4 +13,6 @@ public class UrlMappings {
     public static final String SIGN_IN = "/signin";
 
     public static final String GET_USER_ACCOUNT = "/getUserAccount";
+    public static final String CREATE_USER_ACCOUNT = "/createUserAccount";
+    public static final String UPDATE_USER_ACCOUNT = "/updateUserAccount";
 }

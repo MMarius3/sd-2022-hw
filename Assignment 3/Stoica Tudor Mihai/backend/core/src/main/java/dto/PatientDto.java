@@ -4,7 +4,7 @@ import com.sun.istack.NotNull;
 import lombok.Data;
 
 @Data
-public class Patient {
+public class PatientDto {
 
     @NotNull
     private int id;

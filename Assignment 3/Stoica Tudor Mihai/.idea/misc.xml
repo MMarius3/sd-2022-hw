@@ -7,6 +7,7 @@
         <option value="$PROJECT_DIR$/backend/core/pom.xml" />
         <option value="$PROJECT_DIR$/backend/application/pom.xml" />
         <option value="$PROJECT_DIR$/backend/infrastructure/pom.xml" />
+        <option value="$PROJECT_DIR$/pom.xml" />
       </list>
     </option>
   </component>

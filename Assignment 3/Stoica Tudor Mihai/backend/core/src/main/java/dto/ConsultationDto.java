@@ -1,14 +1,12 @@
 package dto;
 
 import com.sun.istack.NotNull;
-import entity.Patient;
-import entity.User;
 import lombok.Data;
 
 import java.time.LocalDateTime;
 
 @Data
-public class Consultation {
+public class ConsultationDto {
 
     @NotNull
     private int id;
@@ -17,10 +15,10 @@ public class Consultation {
     private LocalDateTime date;
 
     @NotNull
-    private User doctor;
+    private UserDto doctor;
 
     @NotNull
-    private Patient patient;
+    private PatientDto patient;
 
     private String details;
 }

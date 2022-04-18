@@ -5,21 +5,21 @@ import entity.UserType;
 import lombok.Data;
 
 @Data
-public class User {
+public class UserDto {
     @NotNull
-    int id;
+    public int id;
 
     @NotNull
 //    @StringLength(minLimit = 3, maxLimit = 50)
-    String name;
+    public String name;
 
     @NotNull
 //    @StringLength(minLimit = 5, maxLimit = 50)
-    String email;
+    public String email;
 
     @NotNull
-    String password;
+    public String password;
 
     @NotNull
-    UserType userType;
+    public UserType userType;
 }
