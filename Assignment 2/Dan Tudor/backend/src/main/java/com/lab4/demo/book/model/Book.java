@@ -1,6 +1,7 @@
 package com.lab4.demo.book.model;
 
 
+import com.lab4.demo.book.model.dto.BookRequestDTO;
 import lombok.*;
 
 import javax.persistence.*;
@@ -30,4 +31,12 @@ public class Book {
 
     @Column
     private int price;
+
+    public void update(BookRequestDTO bookRequestDTO) {
+        this.title = bookRequestDTO.getTitle();
+        this.author = bookRequestDTO.getAuthor();
+        this.genre = bookRequestDTO.getGenre();
+        this.quantity = bookRequestDTO.getQuantity();
+        this.price = bookRequestDTO.getPrice();
+    }
 }

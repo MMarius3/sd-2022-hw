@@ -14,12 +14,16 @@ public class BookDTO {
     private String title;
     private String author;
     private String genre;
+    private int quantity;
+    private int price;
 
     public static BookDTO toDTO(Book book) {
         return BookDTO.builder()
                 .title(book.getTitle())
                 .author(book.getAuthor())
                 .genre(book.getGenre())
+                .quantity(book.getQuantity())
+                .price(book.getPrice())
                 .build();
     }
 }
