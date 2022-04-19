@@ -9,11 +9,23 @@ export class AuthenticationGuard implements CanActivate {
   constructor(private authenticationService: AuthenticationService,
               private router: Router) {}
   canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): boolean {
-    if(this.authenticationService.isAuthenticated()) {
-      return true;
+    if(!this.authenticationService.isAuthenticated()) {
+      this.navigateToLogin();
+      return false;
     }
-    this.router.navigate(['/login']);
-    return false;
+
+    if(this.router.url.indexOf('/admin') > -1) {
+      if(this.authenticationService.isAdmin()) {
+        return true;
+      }
+      this.navigateToLogin();
+      return false;
+    }
+
+    return true;
   }
 
+  private navigateToLogin(): void {
+    this.router.navigate(['/login']);
+  }
 }

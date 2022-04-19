@@ -1,16 +1,17 @@
-import {Component, OnInit, ViewChild} from "@angular/core";
-import {Book} from "../../models/book.model";
+import {Component, OnDestroy, OnInit, ViewChild} from "@angular/core";
 import {Router} from "@angular/router";
-import {BooksService} from "../../../api/services/books.service";
+import {BooksService} from "../../../../api/services/books.service";
 import {DxDataGridComponent} from "devextreme-angular";
+import { Book } from "src/app/models/book.model";
 
 @Component({
   selector: 'app-main-view',
   templateUrl : 'books.component.html',
   styleUrls: ['books.component.css']
 })
-export class BooksComponent implements OnInit{
-  @ViewChild(DxDataGridComponent) grid: DxDataGridComponent;
+export class BooksViewComponent implements OnInit, OnDestroy{
+  @ViewChild(DxDataGridComponent)
+  grid!: DxDataGridComponent;
 
   public books: Book[] = [];
 
@@ -19,10 +20,12 @@ export class BooksComponent implements OnInit{
   }
 
   ngOnInit(): void {
-    console.log(this.grid)
     this.booksService.getBooks()
       .subscribe(books => {
         this.books = books
       });
+  }
+  
+  ngOnDestroy(): void {
   }
 }

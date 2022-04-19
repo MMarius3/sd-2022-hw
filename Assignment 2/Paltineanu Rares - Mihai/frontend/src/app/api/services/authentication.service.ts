@@ -27,4 +27,12 @@ export class AuthenticationService {
   isAuthenticated(): boolean {
     return localStorage.getItem('user') !== '' ;
   }
+
+  isAdmin(): boolean {
+    let user = JSON.parse(localStorage.getItem('user')!);
+    if(user.roles.some((role:string) => role === 'ADMIN')) {
+      return true;
+    }
+    return false;
+  }
 }

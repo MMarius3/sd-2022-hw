@@ -12,10 +12,12 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import {RouterModule} from "@angular/router";
 import {AuthenticationGuard} from "./authentication/guards/authentication.guard";
 import {ToolbarComponent} from "./shared/toolbar/toolbar.component";
-import {BooksComponent} from "./employee/components/main-view/books.component";
+import { BooksViewComponent } from './user/admin/components/books-view/books.component';
 import {DxButtonModule, DxDataGridModule} from "devextreme-angular";
 import {BooksService} from "./api/services/books.service";
-import {AddBookComponent} from "./employee/components/add-book/addBook.component";
+import {AddBookComponent} from "./user/admin/components/add-book/addBook.component";
+import { UsersViewComponent } from './user/admin/components/users-view/users.component';
+import { EmployeeBooksViewComponent } from './user/employee/components/books-view/books.component';
 
 @NgModule({
   declarations: [
@@ -23,8 +25,10 @@ import {AddBookComponent} from "./employee/components/add-book/addBook.component
     RegisterComponent,
     LoginComponent,
     ToolbarComponent,
-    BooksComponent,
-    AddBookComponent
+    BooksViewComponent,
+    AddBookComponent,
+    UsersViewComponent,
+    EmployeeBooksViewComponent
   ],
   imports: [
     BrowserModule,

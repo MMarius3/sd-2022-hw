@@ -34,7 +34,7 @@
           name="description"
           [(ngModel)]="form.description"
           #description="ngModel"
-          pattern="[a-zA-Z0-9 ]*"
+          pattern="[a-zA-Z ]*"
         />
         <div
           class="alert alert-danger"
@@ -67,10 +67,10 @@
         <input
           type="text"
           class="form-control"
-          name="description"
+          name="genre"
           [(ngModel)]="form.genre"
           #genre="ngModel"
-          pattern="[a-zA-Z ]"
+          pattern="[a-zA-Z ]*"
         />
         <div
           class="alert alert-danger"
@@ -79,9 +79,43 @@
         >
         </div>
       </div>
+
+      <div class="form-group">
+        <label>Quantity</label>
+        <input
+          type="number"
+          class="form-control"
+          name="quantity"
+          [(ngModel)]="form.quantity"
+          #quantity="ngModel"
+        />
+      </div>
+
+      <div class="form-group">
+        <label>Price</label>
+        <input
+          type="number"
+          class="form-control"
+          name="price"
+          [(ngModel)]="form.price"
+          #price="ngModel"
+          pattern="^[+]?([.]\d+|\d+([.]\d+)?)$"
+        />
+        <div
+          class="alert alert-danger"
+          role="alert"
+          *ngIf="price.errors && f.submitted"
+        >
+          Price must be positive
+        </div>
+      </div>
       <div class="form-group">
         <button type="submit" class="btn btn-primary btn-block">
           Add Book
+        </button>
+
+        <button (click)="onCancel()" type="button" class="btn btn-secondary btn-block">
+          Cancel
         </button>
 
       </div>

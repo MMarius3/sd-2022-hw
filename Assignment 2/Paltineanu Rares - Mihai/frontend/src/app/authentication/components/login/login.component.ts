@@ -27,13 +27,15 @@ export class LoginComponent implements OnInit {
 
     this.authenticationService.login(this.form).subscribe(
       data => {
+        
         localStorage.setItem('user', JSON.stringify(data));
         this.isLoginFailed = false;
         this.isLoggedIn = true;
-        // this.authenticationService.getAllUsers().subscribe(
-        //   users => console.log(users)
-        // )
-        this.router.navigate(['/employee'])
+        if(this.isAdmin(data)) {
+          this.router.navigate(['/admin']);
+        } else {
+          this.router.navigate(['/employee']);
+        }
       },
       err => {
         console.log('error')
@@ -41,6 +43,13 @@ export class LoginComponent implements OnInit {
         this.isLoginFailed = true;
       }
     );
+  }
+
+  isAdmin(user: any):boolean {
+    if(user.roles.some((role:string) => role === 'ADMIN')) {
+      return true;
+    }
+    return false;
   }
 
   attemptRegister(): void {

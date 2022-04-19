@@ -1,8 +1,8 @@
 import {Injectable} from "@angular/core";
 import {Observable} from "rxjs";
-import {Book} from "../../employee/models/book.model";
 import {HttpClient} from "@angular/common/http";
 import {authHeader} from "../authentication/http";
+import { Book } from "src/app/models/book.model";
 
 @Injectable()
 export class BooksService {
@@ -13,9 +13,10 @@ export class BooksService {
     return this.http.get('http://localhost:8088/books/get-books', {headers})
   }
 
-  addBook(book: Book): Observable<Book> {
+  addBook(book: Book): Observable<any> {
     const headers = authHeader();
-    return this.http.post<Book>('http://localhost:8088/books/add-book', {book})
+    this.http.post<Book>('http://localhost:8088/books/add-book', book, {headers}).subscribe()
+    return this.getBooks();
   }
 
   deleteBook(id: number): Observable<any> {

@@ -23,10 +23,11 @@ export class ToolbarComponent {
   }
 
   public onAddBook(): void {
-    this.router.navigate(['/add-book'])
+    this.router.navigate(['/add-book']);
   }
 
   public onDeleteBook(): void {
-    this.bookService.deleteBook(this.grid.selectedRowKeys[0].id)
+    this.bookService.deleteBook(this.grid.selectedRowKeys[0].id);
+    this.router.navigate(['/admin']);
   }
 }
