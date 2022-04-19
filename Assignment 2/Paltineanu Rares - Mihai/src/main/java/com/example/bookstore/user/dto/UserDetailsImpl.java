@@ -2,6 +2,7 @@ package com.example.bookstore.user.dto;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.example.bookstore.user.model.User;
+import lombok.AllArgsConstructor;
 import lombok.Getter;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -13,6 +14,7 @@ import java.util.Objects;
 import java.util.stream.Collectors;
 
 @Getter
+@AllArgsConstructor
 public class UserDetailsImpl implements UserDetails {
     private static final long serialVersionUID = 1L;
 
@@ -26,15 +28,6 @@ public class UserDetailsImpl implements UserDetails {
     private final String password;
 
     private final Collection<? extends GrantedAuthority> authorities;
-
-    public UserDetailsImpl(Long id, String username, String email, String password,
-                           Collection<? extends GrantedAuthority> authorities) {
-        this.id = id;
-        this.username = username;
-        this.email = email;
-        this.password = password;
-        this.authorities = authorities;
-    }
 
     public static UserDetailsImpl build(User user) {
         List<GrantedAuthority> authorities = user.getRoles().stream()
