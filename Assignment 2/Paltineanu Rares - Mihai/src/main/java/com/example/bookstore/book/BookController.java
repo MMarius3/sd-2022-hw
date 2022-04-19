@@ -27,7 +27,6 @@ public class BookController {
 
     @PostMapping(ADD_BOOK)
     public BookDTO create(@RequestBody BookDTO bookDTO) {
-        System.out.println(bookDTO.getName());
         return bookService.create(bookDTO);
     }
 

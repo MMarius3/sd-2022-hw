@@ -28,4 +28,10 @@ public class Book {
 
     @Column(length = 64)
     private String genre;
+
+    @Column()
+    private Long quantity;
+
+    @Column()
+    private Float price;
 }
