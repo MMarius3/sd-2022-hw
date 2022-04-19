@@ -4,14 +4,16 @@ import com.security.dto.LoginRequest;
 import com.security.dto.MessageResponse;
 import com.security.dto.SignupRequest;
 import com.user.dto.UserDetailsImpl;
+import lombok.Data;
 import lombok.RequiredArgsConstructor;
-import org.springframework.context.annotation.Configuration;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
@@ -21,10 +23,9 @@ import java.util.stream.Collectors;
 import static com.UrlMapping.*;
 
 @CrossOrigin(origins = "*", maxAge = 3600)
-@RestController
+@Controller
 @RequestMapping(AUTH)
 @RequiredArgsConstructor
-@Configuration
 public class AuthController {
 
     private final AuthenticationManager authenticationManager;
@@ -58,6 +59,7 @@ public class AuthController {
 
     @PostMapping(SIGN_UP)
     public ResponseEntity<?> registerUser(@Valid @RequestBody SignupRequest signUpRequest) {
+
         if (authService.existsByUsername(signUpRequest.getUsername())) {
             return ResponseEntity
                     .badRequest()
@@ -72,8 +74,19 @@ public class AuthController {
 
         authService.register(signUpRequest);
 
-
         return ResponseEntity.ok(new MessageResponse("User registered successfully!"));
+    }
+
+//    @GetMapping(LOGIN)
+//    public String showLoginForm(){
+//        return "login";
+//    }
+//
+    @GetMapping(REGISTER)
+    public String showRegisterForm(Model model){
+//        model.addAttribute("signupRequest", new SignupRequest());
+
+        return "register123";
     }
 
 }
