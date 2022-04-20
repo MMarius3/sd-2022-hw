@@ -14,6 +14,10 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
+import org.thymeleaf.spring5.SpringTemplateEngine;
+import org.thymeleaf.spring5.view.ThymeleafViewResolver;
+
+import java.nio.charset.StandardCharsets;
 
 import static com.example.bookstore.UrlMapping.AUTH;
 
@@ -56,6 +60,17 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     @Bean
     public PasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
+    }
+
+    @Bean
+    public ThymeleafViewResolver viewResolver(SpringTemplateEngine templateEngine){
+        ThymeleafViewResolver viewResolver = new ThymeleafViewResolver();
+        viewResolver.setContentType("application/json");
+        viewResolver.setCharacterEncoding(StandardCharsets.UTF_8.name());
+        viewResolver.setOrder(1);
+        viewResolver.setViewNames(new String[] {"*.json"});
+        viewResolver.setTemplateEngine(templateEngine);
+        return viewResolver;
     }
 
 }

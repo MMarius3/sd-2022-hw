@@ -1,7 +1,8 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-    <meta charset="ISO-8859-1">
+<!--    <meta http-equiv="Content-Type" content="application/json; charset=UTF-8" />-->
+        <meta charset="ISO-8859-1">
     <title>Register</title>
     <link rel="stylesheet" type="text/css" href="/webjars/bootstrap/css/bootstrap.min.css" />
     <script type="text/javascript" src="/webjars/jquery/jquery.min.js"></script>
@@ -12,7 +13,7 @@
     <div>
         <h1>User Registration - Sign Up</h1>
     </div>
-    <form th:action="@{/api/auth/sign-up}" th:object="${user}"
+    <form th:action="@{/api/auth/sign-up}" th:object="${signupRequest}"
           method="post" style="max-width: 600px; margin: 0 auto;">
         <div class="m-3">
             <div class="form-group row">

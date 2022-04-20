@@ -5,7 +5,6 @@ import com.example.bookstore.security.dto.LoginRequest;
 import com.example.bookstore.security.dto.MessageResponse;
 import com.example.bookstore.security.dto.SignupRequest;
 import com.example.bookstore.user.dto.UserDetailsImpl;
-import com.example.bookstore.user.model.User;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -59,7 +58,9 @@ public class AuthController {
     }
 
     @PostMapping(SIGN_UP)
-    public ResponseEntity<?> registerUser(@Valid @RequestBody SignupRequest signUpRequest) {
+    public ResponseEntity<?> registerUser(@Valid  @RequestBody SignupRequest signUpRequest) {
+
+        System.out.println(signUpRequest);
         if (authService.existsByUsername(signUpRequest.getUsername())) {
             return ResponseEntity
                     .badRequest()
@@ -74,7 +75,6 @@ public class AuthController {
 
         authService.register(signUpRequest);
 
-
         return ResponseEntity.ok(new MessageResponse("User registered successfully!"));
     }
 
@@ -85,7 +85,8 @@ public class AuthController {
 
     @GetMapping(REGISTER)
     public String showRegisterForm(Model model){
-        model.addAttribute("user", new User());
+
+        model.addAttribute("signupRequest", new SignupRequest());
 
         return "register";
     }
