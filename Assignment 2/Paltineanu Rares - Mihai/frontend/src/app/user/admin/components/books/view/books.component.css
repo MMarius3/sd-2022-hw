@@ -1,0 +1,11 @@
+.dataGrid {
+  width: 100%;
+  height: 90%;
+  margin-top: 20px;
+}
+
+.detailsLink {
+  color: #0073e6;
+  cursor: pointer;
+  background: inherit;
+}

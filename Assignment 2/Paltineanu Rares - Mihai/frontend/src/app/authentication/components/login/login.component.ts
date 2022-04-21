@@ -32,7 +32,7 @@ export class LoginComponent implements OnInit {
         this.isLoginFailed = false;
         this.isLoggedIn = true;
         if(this.isAdmin(data)) {
-          this.router.navigate(['/admin']);
+          this.router.navigate(['/admin/books']);
         } else {
           this.router.navigate(['/employee']);
         }

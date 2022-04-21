@@ -1,20 +1,24 @@
 import {Component, Input} from "@angular/core";
 import {Router} from "@angular/router";
 import {DxDataGridComponent} from "devextreme-angular";
-import {BooksService} from "../../api/services/books.service";
+import { BookService } from "src/app/api/services/book.service";
 
 @Component({
-  selector: 'app-toolbar',
+  selector: 'app-book-toolbar',
   templateUrl :'./toolbar.component.html',
   styleUrls : ['toolbar.component.css']
 })
-export class ToolbarComponent {
+export class BookToolbarComponent {
 
   // @ts-ignore
   @Input() grid: DxDataGridComponent;
-  constructor(private bookService: BooksService,
-    private router: Router) {
 
+  buttonName: string = 'View users';
+
+  urlPage: string = '/admin/users';
+
+  constructor(private bookService: BookService,
+    private router: Router) {
   }
 
   public logout() {
@@ -28,6 +32,17 @@ export class ToolbarComponent {
 
   public onDeleteBook(): void {
     this.bookService.deleteBook(this.grid.selectedRowKeys[0].id);
-    this.router.navigate(['/admin']);
+    this.router.navigate(['/admin/books']);
+  }
+
+  public changePage(): void {
+    this.router.navigate([this.urlPage]);
+  }
+
+  get areBooksSelected(): boolean {
+    if(this.grid == null) {
+      return false;
+    }
+    return this.grid.instance.getSelectedRowsData().length > 0;
   }
 }

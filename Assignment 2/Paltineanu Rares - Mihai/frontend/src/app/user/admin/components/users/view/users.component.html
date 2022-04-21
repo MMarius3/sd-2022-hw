@@ -1,0 +1,50 @@
+<app-user-toolbar [grid]="grid"></app-user-toolbar>
+
+<dx-data-grid id="usersGrid"
+              [dataSource]="usersGrid"
+              [allowColumnReordering]="true"
+              [allowColumnResizing]="true"
+              [columnAutoWidth]="false"
+              [showBorders]="true"
+              [showRowLines]="true"
+              class="dx-datagrid dataGrid">
+
+  <dxo-column-chooser mode="select"></dxo-column-chooser>
+
+  <dxo-selection [showCheckBoxesMode]="'onClick'" mode="single"></dxo-selection>
+  <dxi-column caption="ID"
+              dataField="id"
+              [width]="'10%'"
+              dataType="number">
+            </dxi-column>
+
+  <dxi-column caption="Name"
+    dataField="name"
+    [width]="'15%'"
+    dataType="string"
+    cellTemplate="userTemplate">
+  </dxi-column>
+
+  <dxi-column caption="email"
+    dataField="email"
+    [width]="'15%'"
+    dataType="string">
+  </dxi-column>
+
+  <dxi-column caption="roles"
+    dataField="roleNames"
+    [width]="'15%'"
+    dataType="string[]">
+  </dxi-column>
+  
+  <div *dxTemplate="let user of 'userTemplate'" class="ellipsis-cell">
+    <dx-button (onClick)="openUserDetails(user.data)"
+    
+    class="detailsLink"
+    hint="{{user.value}}">
+  
+    {{ user.value }}
+  
+  </dx-button>
+  </div>
+</dx-data-grid>

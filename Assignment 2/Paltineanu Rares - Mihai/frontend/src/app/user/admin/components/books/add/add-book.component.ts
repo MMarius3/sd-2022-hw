@@ -1,20 +1,20 @@
 import {Component, OnInit} from "@angular/core";
-import {Book} from "../../../../models/book.model";
-import {BooksService} from "../../../../api/services/books.service";
+import {Book} from "../../../../../models/book.model";
+import {BookService} from "../../../../../api/services/book.service";
 import { Router } from "@angular/router";
 
 @Component({
   selector: 'app-add-book',
-  templateUrl: 'addBook.component.html',
-  styleUrls: ['addBook.component.css']
+  templateUrl: 'add-book.component.html',
+  styleUrls: ['add-book.component.css']
 })
 export class AddBookComponent implements OnInit{
   public form: Book = new Book();
   public addBookFailed: boolean = false;
   public errors: string[] = [];
-  errorMessage = '';
+  public errorMessage = '';
 
-  constructor(private bookService: BooksService,
+  constructor(private bookService: BookService,
     private router: Router) {
   }
 
@@ -24,10 +24,10 @@ export class AddBookComponent implements OnInit{
 
   public addBook(): void {
     this.bookService.addBook(this.form);
-    this.router.navigate(['/admin']);
+    this.router.navigate(['/admin/books']);
   }
 
   public onCancel(): void {
-    this.router.navigate(['/admin']);
+    this.router.navigate(['/admin/books']);
   }
 }

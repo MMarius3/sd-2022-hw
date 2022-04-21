@@ -1,6 +1,6 @@
 import {Component, OnDestroy, OnInit, ViewChild} from "@angular/core";
 import {Router} from "@angular/router";
-import {BooksService} from "../../../../api/services/books.service";
+import {BookService} from "../../../../../api/services/book.service";
 import {DxDataGridComponent} from "devextreme-angular";
 import { Book } from "src/app/models/book.model";
 
@@ -16,7 +16,7 @@ export class BooksViewComponent implements OnInit, OnDestroy{
   public books: Book[] = [];
 
   constructor(private router: Router,
-              private booksService: BooksService) {
+              private booksService: BookService) {
   }
 
   ngOnInit(): void {
@@ -26,6 +26,10 @@ export class BooksViewComponent implements OnInit, OnDestroy{
       });
   }
   
+  public openBookDetails(book: Book): void {
+    this.router.navigate(['/admin/books/' + book.id]);
+  }
+
   ngOnDestroy(): void {
   }
 }
