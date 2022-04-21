@@ -10,6 +10,7 @@
   "dependencies": {
     "axios": "0.18.1",
     "core-js": "^3.6.5",
+    "js-file-download": "^0.4.12",
     "jspdf": "^2.5.1",
     "material-design-icons-iconfont": "5.0.1",
     "vue": "^2.6.11",

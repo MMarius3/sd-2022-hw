@@ -35,7 +35,7 @@ public class ItemController {
 
     @GetMapping(EXPORT_REPORT)
     //@DeleteMapping
-    public String exportReport(@PathVariable String type, HttpServletResponse response) throws IOException {
+    public byte[] exportReport(@PathVariable String type, HttpServletResponse response) throws IOException {
         ReportType reportType = ReportType.valueOf(type);
 
 

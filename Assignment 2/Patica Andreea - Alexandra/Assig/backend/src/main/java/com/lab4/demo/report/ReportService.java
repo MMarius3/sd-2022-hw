@@ -4,7 +4,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
 public interface ReportService {
-    String export(HttpServletResponse response) throws IOException;
+    byte[] export(HttpServletResponse response) throws IOException;
 
     ReportType getType();
 }

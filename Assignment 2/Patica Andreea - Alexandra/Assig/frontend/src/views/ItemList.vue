@@ -60,6 +60,7 @@ export default {
       this.dialogVisible = true;
     },
     addItem() {
+      this.selectedItem = {};
       this.dialogVisible = true;
     },
     async refreshList() {

@@ -5,7 +5,9 @@ import com.lab4.demo.security.dto.LoginRequest;
 import com.lab4.demo.security.dto.MessageResponse;
 import com.lab4.demo.security.dto.SignupRequest;
 import com.lab4.demo.user.dto.UserDetailsImpl;
+import com.lab4.demo.user.validator.UserValidator;
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.http.converter.json.GsonBuilderUtils;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -30,10 +32,13 @@ public class AuthController {
     private final AuthenticationManager authenticationManager;
     private final AuthService authService;
     private final JwtUtils jwtUtils;
+    @Autowired
+    private final UserValidator userValidator;
 
     @PostMapping(SIGN_IN)
     public ResponseEntity<JwtResponse> authenticateUser(@Valid @RequestBody LoginRequest loginRequest) {
         System.out.println("aaaaaaaaaaaaa");
+
         Authentication authentication = authenticationManager.authenticate(
                 new UsernamePasswordAuthenticationToken(loginRequest.getUsername(), loginRequest.getPassword()));
 
@@ -58,22 +63,18 @@ public class AuthController {
 
     @PostMapping(SIGN_UP)
     public ResponseEntity<?> registerUser(@Valid @RequestBody SignupRequest signUpRequest) {
-        if (authService.existsByUsername(signUpRequest.getUsername())) {
+
+        String validationMessage = userValidator.validate(signUpRequest.getUsername(),signUpRequest.getEmail(),signUpRequest.getPassword());
+        if (validationMessage.equals("OK")) {
+
+            authService.register(signUpRequest);
+            return ResponseEntity.ok(new MessageResponse("User registered successfully!"));
+
+        }else{
             return ResponseEntity
                     .badRequest()
-                    .body(new MessageResponse("Error: Username is already taken!"));
+                    .body(new MessageResponse(validationMessage));
         }
-
-        if (authService.existsByEmail(signUpRequest.getEmail())) {
-            return ResponseEntity
-                    .badRequest()
-                    .body(new MessageResponse("Error: Email is already in use!"));
-        }
-
-        authService.register(signUpRequest);
-
-
-        return ResponseEntity.ok(new MessageResponse("User registered successfully!"));
     }
 
 }

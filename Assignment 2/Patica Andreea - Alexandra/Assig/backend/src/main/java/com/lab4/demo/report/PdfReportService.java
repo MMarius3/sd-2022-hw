@@ -3,16 +3,20 @@ package com.lab4.demo.report;
 import com.lab4.demo.item.ItemService;
 import com.lab4.demo.item.model.Item;
 import com.lowagie.text.*;
-import com.lowagie.text.Font;
-import com.lowagie.text.pdf.PdfPCell;
-import com.lowagie.text.pdf.PdfPTable;
-import com.lowagie.text.pdf.PdfWriter;
 import lombok.AllArgsConstructor;
+import org.apache.pdfbox.pdmodel.PDDocument;
+import org.apache.pdfbox.pdmodel.PDDocumentInformation;
+import org.apache.pdfbox.pdmodel.PDPage;
+import org.apache.pdfbox.pdmodel.PDPageContentStream;
+import org.apache.pdfbox.pdmodel.font.PDType1Font;
 import org.springframework.stereotype.Service;
 
 import javax.servlet.http.HttpServletResponse;
 import java.awt.*;
+import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
 import java.io.IOException;
+import java.io.InputStream;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -27,9 +31,9 @@ public class PdfReportService implements ReportService {
 
 
     @Override
-    public String export(HttpServletResponse response) throws DocumentException, IOException {
+    public byte[] export(HttpServletResponse response) throws DocumentException, IOException {
         response.setContentType("application/pdf" );
-        DateFormat dateFormatter = new SimpleDateFormat("yyyy-MM-dd_HH:mm:ss");
+        DateFormat dateFormatter = new SimpleDateFormat("yyyy-MM-dd_HH-mm-ss");
         String currentDateTime = dateFormatter.format(new Date());
 
         String headerKey = "Content-Disposition";
@@ -37,82 +41,61 @@ public class PdfReportService implements ReportService {
         response.setHeader(headerKey, headerValue);
 
         List<Item> itemList = itemService.findByQuantity(0);
-        Document document = new Document(PageSize.A4);
-        PdfWriter.getInstance(document, response.getOutputStream());
 
-        document.open();
-        Font font = FontFactory.getFont(FontFactory.HELVETICA_BOLD);
-        font.setSize(18);
-        font.setColor(Color.BLUE);
+        PDDocument document = new PDDocument();
 
-        Paragraph p = new Paragraph("List of Books", font);
-        p.setAlignment(Paragraph.ALIGN_CENTER);
+        PDPage page = new PDPage();
+        document.addPage(page);
 
-        document.add(p);
+        PDDocumentInformation pdd = document.getDocumentInformation();
+        pdd.setTitle("Report");
+        pdd.setSubject("Report");
 
-        PdfPTable table = new PdfPTable(5);
-        table.setWidthPercentage(100f);
-        table.setWidths(new float[] {1.5f, 3.5f, 3.0f, 3.0f, 1.5f});
-        table.setSpacingBefore(10);
+        writeData(document, page, itemList);
 
-        writeTableHeader(table);
-        writeTableData(table, itemList);
+        document.save("report" +currentDateTime+".pdf");
+        //document.close();
 
-        document.add(table);
-
-        document.close();
-        return "I am a PDF reporter.";
+        return convertDocumentToByteArray(document);
     }
-    /*public String export() {
-        List<Item> itemList = itemService.findByQuantity(0);
 
+    private byte[] convertDocumentToByteArray(PDDocument document) throws IOException {
+        ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
+        document.save(outputStream);
+        document.close();
+        InputStream inputStream = new ByteArrayInputStream(outputStream.toByteArray());
+        return inputStream.readAllBytes();
+    }
 
+    private void writeData(PDDocument document, PDPage page, List<Item> itemList) throws IOException {
+        PDPageContentStream contentStream = new PDPageContentStream(document, page);
 
+        contentStream.beginText();
+        contentStream.setFont(PDType1Font.TIMES_ROMAN, 12);
+        //Setting the leading
+        contentStream.setLeading(14.5f);
 
-        return "I am a PDF reporter.";
-    }*/
+        //Setting the position for the line
+        contentStream.newLineAtOffset(25, 725);
 
+        for (Item item: itemList){
+            String info = "";
+            info += "Title: " + item.getTitle();
+            info += ", Author: " + item.getAuthor();
+            info += ", Price: " + item.getPrice();
+
+            contentStream.showText(info);
+            contentStream.newLine();
+        }
+
+        //Ending the content stream
+        contentStream.endText();
+
+        contentStream.close();
+    }
 
     @Override
     public ReportType getType() {
         return PDF;
     }
-
-
-    private void writeTableHeader(PdfPTable table) {
-        PdfPCell cell = new PdfPCell();
-        cell.setBackgroundColor(Color.BLUE);
-        cell.setPadding(5);
-
-        Font font = FontFactory.getFont(FontFactory.HELVETICA);
-        font.setColor(Color.WHITE);
-
-        cell.setPhrase(new Phrase("User ID", font));
-
-        table.addCell(cell);
-
-        cell.setPhrase(new Phrase("E-mail", font));
-        table.addCell(cell);
-
-        cell.setPhrase(new Phrase("Full Name", font));
-        table.addCell(cell);
-
-        cell.setPhrase(new Phrase("Roles", font));
-        table.addCell(cell);
-
-        cell.setPhrase(new Phrase("Enabled", font));
-        table.addCell(cell);
-    }
-
-    private void writeTableData(PdfPTable table, List<Item> itemList) {
-        for (Item item : itemList) {
-            table.addCell(String.valueOf(item.getId()));
-            table.addCell(item.getTitle());
-            table.addCell(item.getAuthor());
-            table.addCell(item.getPrice().toString());
-            table.addCell(item.getDescription());
-        }
-    }
-
-
 }

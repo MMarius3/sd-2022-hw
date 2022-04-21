@@ -46,17 +46,17 @@ export default {
           })
           .then(() => this.$emit("refresh"));
       }
-      // else {
-      //   api.users
-      //     .edit({
-      //       //id: this.user.id,
-      //       username: this.user.username,
-      //       email: this.user.email,
-      //       password: this.user.password,
-      //       //TODO add roles
-      //     })
-      //     .then(() => this.$emit("refresh"));
-      // }
+      else {
+        api.users
+          .edit({
+            id: this.user.id,
+            username: this.user.username,
+            email: this.user.email,
+            password: this.user.password,
+            //TODO add roles
+          })
+          .then(() => this.$emit("refresh"));
+      }
     },
   },
   computed: {

@@ -21,7 +21,7 @@
 
     <UserDialog
       :opened="dialogVisible"
-      :item="selectedUser"
+      :user="selectedUser"
       @refresh="refreshList"
       @close="dialogVisible = !dialogVisible"
     ></UserDialog>
@@ -60,6 +60,7 @@ export default {
       this.dialogVisible = true;
     },
     addUser() {
+      this.selectedUser = {};
       this.dialogVisible = true;
     },
     async refreshList() {
