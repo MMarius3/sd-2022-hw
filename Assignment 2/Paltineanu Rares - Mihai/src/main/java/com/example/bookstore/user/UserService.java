@@ -3,6 +3,7 @@ package com.example.bookstore.user;
 import com.example.bookstore.user.dto.UserListDTO;
 import com.example.bookstore.user.dto.UserMinimalDTO;
 import com.example.bookstore.user.mapper.UserMapper;
+import com.example.bookstore.user.model.User;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -26,8 +27,16 @@ public class UserService {
 
     public List<UserListDTO> allUsersForList() {
         return userRepository.findAll()
-                .stream().map(userMapper::userListDtoFromUser)
+                .stream().map( user-> {
+                    UserListDTO userListDTO = userMapper.userListDtoFromUser(user);
+                    userMapper.populateRoles(user, userListDTO);
+                    return userListDTO;
+                })
                 .collect(toList());
+    }
+
+    public void deleteById(Long id) {
+        userRepository.deleteById(id);
     }
 
 }

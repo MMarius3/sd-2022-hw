@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 import static com.example.bookstore.UrlMapping.*;
 
@@ -25,6 +26,11 @@ public class BookController {
         return books;
     }
 
+    @GetMapping(GET_BOOK)
+    public Book findBookById(@PathVariable Long id) {
+        return bookService.findById(id);
+    }
+
     @PostMapping(ADD_BOOK)
     public BookDTO create(@RequestBody BookDTO bookDTO) {
         return bookService.create(bookDTO);
@@ -35,6 +41,10 @@ public class BookController {
         bookService.delete(id);
     }
 
+    @PutMapping(UPDATE_BOOK)
+    public BookDTO edit(@PathVariable Long id, @RequestBody BookDTO book) {
+        return bookService.edit(id, book);
+    }
 //    @GetMapping(EXPORT_REPORT)
 //    public String exportReport(@PathVariable ReportType type) {
 //        return reportServiceFactory.getReportService(type).export();
