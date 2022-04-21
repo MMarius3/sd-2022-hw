@@ -25,14 +25,8 @@ public class Book {
     @Column(length = 512,nullable = false)
     private String title;
 
+    @Column()
+    private Long price;
 
 
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-
-    public Long getId() {
-        return id;
-    }
 }

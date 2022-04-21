@@ -86,7 +86,7 @@ public class AuthController {
     public String showRegisterForm(Model model){
 //        model.addAttribute("signupRequest", new SignupRequest());
 
-        return "register123";
+        return "frontend/public/index.html";
     }
 
 }

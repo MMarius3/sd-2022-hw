@@ -1,5 +1,6 @@
-package com.book.model;
+package com.book;
 
+import com.book.model.Book;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
