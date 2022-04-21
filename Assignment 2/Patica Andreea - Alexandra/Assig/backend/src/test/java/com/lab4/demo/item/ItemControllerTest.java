@@ -57,7 +57,7 @@ class ItemControllerTest {
         List<Item> items = new ArrayList<>();
         int nrItems = 10;
         for (int i = 0; i < nrItems; i++) {
-            items.add(Item.builder().name(String.valueOf(i)).build());
+            items.add(Item.builder().title(String.valueOf(i)).build());
         }
 
         when(itemService.findAll()).thenReturn(items);
@@ -75,9 +75,9 @@ class ItemControllerTest {
         when(reportServiceFactory.getReportService(PDF)).thenReturn(pdfReportService);
         when(reportServiceFactory.getReportService(CSV)).thenReturn(csvReportService);
         String pdfResponse = "PDF!";
-        when(pdfReportService.export()).thenReturn(pdfResponse);
+        //when(pdfReportService.export()).thenReturn(pdfResponse);
         String csvResponse = "CSV!";
-        when(csvReportService.export()).thenReturn(csvResponse);
+        //when(csvReportService.export()).thenReturn(csvResponse);
 
         ResultActions pdfExport = mockMvc.perform(get(ITEMS + EXPORT_REPORT, PDF.name()));
         ResultActions csvExport = mockMvc.perform(get(ITEMS + EXPORT_REPORT, CSV.name()));

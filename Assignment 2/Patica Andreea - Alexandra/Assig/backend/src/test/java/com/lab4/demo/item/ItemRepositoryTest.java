@@ -24,7 +24,7 @@ public class ItemRepositoryTest {
 
     @Test
     public void testMock() {
-        Item itemSaved = repository.save(Item.builder().name("whatever").build());
+        Item itemSaved = repository.save(Item.builder().title("whatever").build());
 
         assertNotNull(itemSaved);
 

@@ -3,6 +3,7 @@
     transition="dialog-bottom-transition"
     max-width="600"
     :value="opened"
+    @click:outside="$emit('close')"
   >
     <template>
       <v-card>
@@ -19,6 +20,11 @@
         <v-card-actions>
           <v-btn @click="persist">
             {{ isNew ? "Create" : "Save" }}
+          </v-btn>
+        </v-card-actions>
+        <v-card-actions>
+          <v-btn @click="deleteItem">
+            {{ isNew ? "" : "Delete" }}
           </v-btn>
         </v-card-actions>
       </v-card>
@@ -50,6 +56,21 @@ export default {
       } else {
         api.items
           .edit({
+            id: this.item.id,
+            title: this.item.title,
+            author: this.item.author,
+            price: this.item.price,
+            quantity: this.item.quantity,
+            description: this.item.description,
+          })
+          .then(() => this.$emit("refresh"));
+      }
+    },
+    deleteItem() {
+      if (!this.isNew) {
+        console.log("delete");
+        api.items
+          .deleteItem({
             id: this.item.id,
             title: this.item.title,
             author: this.item.author,

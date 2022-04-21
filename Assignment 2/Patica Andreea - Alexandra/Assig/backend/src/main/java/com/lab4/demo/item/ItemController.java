@@ -5,9 +5,17 @@ import com.lab4.demo.item.model.Item;
 import com.lab4.demo.report.ReportServiceFactory;
 import com.lab4.demo.report.ReportType;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
+import java.util.Map;
 
 import static com.lab4.demo.UrlMapping.*;
 
@@ -22,20 +30,16 @@ public class ItemController {
 
     @GetMapping
     public List<Item> allItems() {
-        System.out.println("findAll");
-        for(Item item : itemService.findAll()){
-            System.out.println(item.getTile());
-        }
         return itemService.findAll();
     }
 
     @GetMapping(EXPORT_REPORT)
-    //@PostMapping
-    //@PutMapping
-    //@PatchMapping
     //@DeleteMapping
-    public String exportReport(@PathVariable ReportType type) {
-        return reportServiceFactory.getReportService(type).export();
+    public String exportReport(@PathVariable String type, HttpServletResponse response) throws IOException {
+        ReportType reportType = ReportType.valueOf(type);
+
+
+        return reportServiceFactory.getReportService(reportType).export(response);
     }
 
     @GetMapping(ID)
@@ -43,9 +47,25 @@ public class ItemController {
         return itemService.findById(id);
     }
 
-    @GetMapping(ADD_ITEM)
-    public boolean addItem(@RequestParam ItemDto itemDto){
-        System.out.println(itemDto);
-        return itemService.addItem(itemDto);
+    @PostMapping
+    public ItemDto create(@RequestBody ItemDto item) {
+        return itemService.addItem(item);
+    }
+
+    @PatchMapping(ITEMS_ID_PART)
+    public ItemDto edit(@PathVariable Long id, @RequestBody ItemDto item) {
+        return itemService.edit(id, item);
+    }
+
+    @DeleteMapping(DELETE)
+    public ResponseEntity<Long> delete(@PathVariable Long id) {
+
+        var isRemoved = itemService.delete(id);
+
+        if (!isRemoved) {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+
+        return new ResponseEntity<>(id, HttpStatus.OK);
     }
 }

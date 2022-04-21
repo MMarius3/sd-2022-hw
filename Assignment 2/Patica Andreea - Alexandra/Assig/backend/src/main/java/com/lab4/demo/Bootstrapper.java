@@ -1,5 +1,8 @@
 package com.lab4.demo;
 
+import com.lab4.demo.item.GenreRepository;
+import com.lab4.demo.item.model.EGenre;
+import com.lab4.demo.item.model.Genre;
 import com.lab4.demo.user.RoleRepository;
 import com.lab4.demo.user.UserRepository;
 import com.lab4.demo.user.model.ERole;
@@ -18,6 +21,8 @@ public class Bootstrapper implements ApplicationListener<ApplicationReadyEvent> 
 
     private final UserRepository userRepository;
 
+    private final GenreRepository genreRepository;
+
     @Value("${app.bootstrap}")
     private Boolean bootstrap;
 
@@ -26,9 +31,17 @@ public class Bootstrapper implements ApplicationListener<ApplicationReadyEvent> 
         if(bootstrap) {
             userRepository.deleteAll();
             roleRepository.deleteAll();
+            genreRepository.deleteAll();
             for (ERole value : ERole.values()) {
                 roleRepository.save(
                         Role.builder()
+                                .name(value)
+                                .build()
+                );
+            }
+            for (EGenre value : EGenre.values()) {
+                genreRepository.save(
+                        Genre.builder()
                                 .name(value)
                                 .build()
                 );

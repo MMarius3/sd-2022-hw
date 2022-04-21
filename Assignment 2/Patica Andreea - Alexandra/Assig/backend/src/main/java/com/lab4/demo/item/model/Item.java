@@ -1,8 +1,11 @@
 package com.lab4.demo.item.model;
 
+import com.lab4.demo.user.model.Role;
 import lombok.*;
 
 import javax.persistence.*;
+import java.util.HashSet;
+import java.util.Set;
 
 @Table
 @Entity
@@ -18,7 +21,7 @@ public class Item {//BOOK
     private Long id;
 
     @Column(length = 512, nullable = false)
-    private String tile;
+    private String title;
 
     @Column(length = 512, nullable = false)
     private String author;
@@ -31,6 +34,20 @@ public class Item {//BOOK
 
     @Column(length = 1024)
     private String description;
+
+    @ManyToMany(fetch = FetchType.EAGER)
+    @JoinTable(name = "item_genre",
+            joinColumns = @JoinColumn(name = "item_id"),
+            inverseJoinColumns = @JoinColumn(name = "genre_id"))
+    @Builder.Default
+    private Set<Genre> genres = new HashSet<>();
+
+//    @ManyToOne(fetch = FetchType.EAGER)
+//    @JoinTable(name = "genre",
+//            joinColumns = @JoinColumn(name = "id"),
+//            inverseJoinColumns = @JoinColumn(name = "name"))
+//    @Builder.Default
+//    private Genre genre = new Genre();
 
     /*
     @OneToMany(mappedBy = "item")

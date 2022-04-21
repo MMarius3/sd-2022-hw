@@ -30,6 +30,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
     private final AuthEntryPointJwt unauthorizedHandler; //handler pentru requesturi neautorizate (trimit aceeasi eroare la frontend indiferent de requestul neautorizat)
 
+    @Bean
     public AuthTokenFilter authenticationJwtTokenFilter() {
         return new AuthTokenFilter();
     }   //interceptor pt toate requesturile care vin in aplicatie (in spring se numesc filtre)

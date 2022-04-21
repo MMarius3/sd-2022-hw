@@ -10,20 +10,31 @@
         single-line
         hide-details
       ></v-text-field>
+      <v-btn @click="addUser">Add User</v-btn>
     </v-card-title>
     <v-data-table
       :headers="headers"
       :items="users"
       :search="search"
+      @click:row="editUser"
     ></v-data-table>
+
+    <UserDialog
+      :opened="dialogVisible"
+      :item="selectedUser"
+      @refresh="refreshList"
+      @close="dialogVisible = !dialogVisible"
+    ></UserDialog>
   </v-card>
 </template>
 
 <script>
 import api from "../api";
+import UserDialog from "../components/UserDialog";
 
 export default {
   name: "UserList",
+  components: { UserDialog },
   data() {
     return {
       users: [],
@@ -33,16 +44,34 @@ export default {
           text: "Username",
           align: "start",
           sortable: false,
-          value: "name",
+          value: "username",
         },
         { text: "Email", value: "email" },
-        { text: "Roles", value: "roles" },
+        { text: "Password", value: "password" },
+          //TODO add roles
       ],
+      dialogVisible: false,
+      selectedUser: {},
     };
   },
-  methods: {},
-  async created() {
-    this.users = await api.users.allUsers();
+  methods: {
+    editUser(user) {
+      this.selectedUser = user;
+      this.dialogVisible = true;
+    },
+    addUser() {
+      this.dialogVisible = true;
+    },
+    async refreshList() {
+      console.log("aaaaaaaaaaaaa");
+      this.dialogVisible = false;
+      this.selectedUser = {};
+      this.users = await api.users.allUsers();
+      console.log("bbbbbbbbbbbbbbb");
+    },
+  },
+  created() {
+    this.refreshList();
   },
 };
 </script>

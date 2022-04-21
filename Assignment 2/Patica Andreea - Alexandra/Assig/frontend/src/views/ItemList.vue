@@ -22,6 +22,7 @@
       :opened="dialogVisible"
       :item="selectedItem"
       @refresh="refreshList"
+      @close="dialogVisible = !dialogVisible"
     ></ItemDialog>
   </v-card>
 </template>

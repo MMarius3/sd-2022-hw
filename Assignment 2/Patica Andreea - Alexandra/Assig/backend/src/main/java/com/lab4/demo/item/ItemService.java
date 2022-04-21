@@ -43,15 +43,60 @@ public class ItemService {
                 .orElseThrow(() -> new RuntimeException(format("Item with id %s not found", id)));
     }
 
-    public boolean addItem(@NotNull ItemDto itemDto){
-        Item item = null;
+    public List<Item> findByQuantity(Integer quantity){
+        return itemRepository.findItemByQuantity(quantity);
+    }
+
+    public ItemDto addItem(ItemDto itemDto){
+        /*Item item = null;
         item = itemRepository.saveAndFlush(Item.builder()
-                .tile(itemDto.getTitle())
+                .title(itemDto.getTitle())
                 .author(itemDto.getAuthor())
                 .price(itemDto.getPrice())
                 .quantity(itemDto.getQuantity())
                 .description(itemDto.getDescription())
                 .build());
-        return item!=null;
+        return item!=null;*/
+
+        return ItemDto.toDto(itemRepository.save(Item.builder()
+                .title(itemDto.getTitle())
+                .author(itemDto.getAuthor())
+                .price(itemDto.getPrice())
+                .quantity(itemDto.getQuantity())
+                .description(itemDto.getDescription())
+                .build()
+        ));
+    }
+
+    public ItemDto edit(Long id, ItemDto item) {
+        ItemDto actItemDto = findById(id);
+        Item actItem = Item.builder()
+                .id(id)
+                .title(actItemDto.getTitle())
+                .author(actItemDto.getAuthor())
+                .price(actItemDto.getPrice())
+                .quantity(actItemDto.getQuantity())
+                .description(actItemDto.getDescription())
+                .build();
+        actItem.setTitle(item.getTitle());
+        actItem.setDescription(item.getDescription());
+        if(item.getPrice() >= 0){
+            actItem.setPrice(item.getPrice());
+        }
+        actItem.setQuantity(item.getQuantity());
+        return ItemDto.toDto(
+                itemRepository.save(actItem)
+        );
+    }
+
+    public boolean delete(Long id){
+        boolean message = false;
+        try{
+            itemRepository.deleteById(id);
+            message = true;
+        }catch(IllegalArgumentException e){
+            System.out.println("Item not found to delete");
+        }
+        return message;
     }
 }

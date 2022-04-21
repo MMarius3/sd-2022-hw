@@ -10,12 +10,18 @@ import lombok.*;
 @AllArgsConstructor
 public class ItemDto {
 
-    private String name;
+    private String title;
+    private String author;
+    private Integer price;
+    private Integer quantity;
     private String description;
 
     public static ItemDto toDto(Item item){
         return ItemDto.builder()
-                .name(item.getName())
+                .title(item.getTitle())
+                .author(item.getAuthor())
+                .price(item.getPrice())
+                .quantity(item.getQuantity())
                 .description(item.getDescription())
                 .build();
     }
