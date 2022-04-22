@@ -22,6 +22,7 @@ import { UserService } from './api/services/user.service';
 import { BookToolbarComponent } from './user/admin/components/books/toolbar/toolbar.component';
 import { UserToolbarComponent } from './user/admin/components/users/toolbar/toolbar.component';
 import { AddUserComponent } from './user/admin/components/users/add/add-user.component';
+import { EditUserComponent } from './user/admin/components/users/edit/edit-user.component';
 
 @NgModule({
   declarations: [
@@ -35,7 +36,8 @@ import { AddUserComponent } from './user/admin/components/users/add/add-user.com
     EmployeeBooksViewComponent,
     EditBookComponent,
     UserToolbarComponent,
-    AddUserComponent
+    AddUserComponent,
+    EditUserComponent
   ],
   imports: [
     BrowserModule,

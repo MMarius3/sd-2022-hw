@@ -1,9 +1,9 @@
 <div class="col-md-12">
     <div class="center card card-container">
-      <h2 class="title">Add User</h2>
+      <h2 class="title">Update User</h2>
       <form
         name="form"
-        (ngSubmit)="f.form.valid && addUser()"
+        (ngSubmit)="f.form.valid && updateUser()"
         #f="ngForm"
         novalidate
       >
@@ -13,7 +13,7 @@
             type="text"
             class="form-control"
             name="name"
-            [(ngModel)]="form.name"
+            [(ngModel)]="user.name"
             required
             #name="ngModel"
             pattern="[a-zA-Z ]*"
@@ -31,7 +31,7 @@
             type="email"
             class="form-control"
             name="email"
-            [(ngModel)]="form.email"
+            [(ngModel)]="user.email"
             email
             #email="ngModel"
           />
@@ -46,17 +46,17 @@
         <div class="form-group">
             <label>Password</label>
             <input
-              type="password"
+              [type]=""
               class="form-control"
-              name="roles"
-              [(ngModel)]="form.password"
+              name="password"
+              [(ngModel)]="user.password"
               required
-              #roles="ngModel"
+              #password="ngModel"
             />
             <div
               class="alert alert-danger"
               role="alert"
-              *ngIf="roles.errors && f.submitted">
+              *ngIf="password.errors && f.submitted">
               Password must not be empty
             </div>
           </div>
@@ -67,14 +67,14 @@
             type="text"
             class="form-control"
             name="roles"
-            [(ngModel)]="form.roles"
+            [(ngModel)]="user.roleNames"
             #roles="ngModel"
           />
         </div>
   
         <div class="form-group">
           <button type="submit" class="btn btn-primary btn-block">
-            Add User
+            Update User
           </button>
   
           <button (click)="onCancel()" type="button" class="btn btn-secondary btn-block">
@@ -86,9 +86,9 @@
           <div
             class="alert alert-danger"
             role="alert"
-            *ngIf="f.submitted && addUserFailed"
+            *ngIf="f.submitted && updateUserFailed"
           >
-            Add User failed: {{ errorMessage }}
+            Update User failed: {{ errorMessage }}
           </div>
         </div>
       </form>

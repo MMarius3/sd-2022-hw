@@ -9,6 +9,7 @@ import { EmployeeBooksViewComponent } from './user/employee/components/books-vie
 import { UsersViewComponent } from './user/admin/components/users/view/users.component';
 import { EditBookComponent } from './user/admin/components/books/edit/edit-book.component';
 import { AddUserComponent } from './user/admin/components/users/add/add-user.component';
+import { EditUserComponent } from './user/admin/components/users/edit/edit-user.component';
 
 const routes: Routes = [
   { path: '', component: LoginComponent},
@@ -16,10 +17,11 @@ const routes: Routes = [
   { path: 'register', component: RegisterComponent},
   { path: 'admin/books', component: BooksViewComponent, canActivate: [AuthenticationGuard]},
   { path: 'admin/books/:id', component: EditBookComponent, canActivate: [AuthenticationGuard]},
-  { path: 'add-book', component: AddBookComponent, canActivate: [AuthenticationGuard]},
+  { path: 'admin/add-book', component: AddBookComponent, canActivate: [AuthenticationGuard]},
   { path: 'employee', component: EmployeeBooksViewComponent, canActivate: [AuthenticationGuard]},
   { path: 'admin/users', component: UsersViewComponent, canActivate: [AuthenticationGuard]},
-  { path: 'add-user', component: AddUserComponent, canActivate: [AuthenticationGuard]}
+  { path: 'admin/add-user', component: AddUserComponent, canActivate: [AuthenticationGuard]},
+  { path: 'admin/users/:id', component: EditUserComponent, canActivate:[AuthenticationGuard]}
 ];
 
 @NgModule({

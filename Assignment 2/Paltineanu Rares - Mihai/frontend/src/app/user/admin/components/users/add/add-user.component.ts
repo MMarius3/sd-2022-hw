@@ -1,8 +1,7 @@
 import {Component, OnInit} from "@angular/core";
-import {Book} from "../../../../../models/book.model";
-import {BookService} from "../../../../../api/services/book.service";
 import { Router } from "@angular/router";
-import { User } from "src/app/models/user.model";
+import { UserService } from "src/app/api/services/user.service";
+import { UserAdd } from "src/app/models/user-add.model";
 
 @Component({
   selector: 'app-add-user',
@@ -10,25 +9,25 @@ import { User } from "src/app/models/user.model";
   styleUrls: ['add-user.component.css']
 })
 export class AddUserComponent implements OnInit{
-  public form: User = new User();
+  public form: UserAdd = new UserAdd();
   public addUserFailed: boolean = false;
   public errors: string[] = [];
   public errorMessage = '';
 
-  constructor(private bookService: BookService,
+  constructor(private userService: UserService,
     private router: Router) {
   }
 
   ngOnInit(): void {
-
   }
 
   public addUser(): void {
-    this.bookService.addBook(this.form);
-    this.router.navigate(['/admin/books']);
+    this.form.roles?.push('ADMIN');
+    //this.userService.addUser(this.form);
+    this.router.navigate(['/admin/users']);
   }
 
   public onCancel(): void {
-    this.router.navigate(['/admin/books']);
+    this.router.navigate(['/admin/users']);
   }
 }
