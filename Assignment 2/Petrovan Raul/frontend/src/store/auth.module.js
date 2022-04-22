@@ -2,8 +2,8 @@ import api from "../api";
 
 const user = JSON.parse(localStorage.getItem("user"));
 const initialState = user
-  ? { status: { loggedIn: true }, user }
-  : { status: { loggedIn: false }, user: null };
+  ? { status: { loggedIn: true }, user, drawer: false }
+  : { status: { loggedIn: false }, user: null, drawer: false };
 
 export const auth = {
   namespaced: true,
@@ -37,6 +37,9 @@ export const auth = {
         }
       );
     },
+    toggleDrawer({ commit }) {
+      commit("toggleDrawer");
+    },
   },
   mutations: {
     loginSuccess(state, user) {
@@ -50,6 +53,9 @@ export const auth = {
     logout(state) {
       state.status.loggedIn = false;
       state.user = null;
+      if(state.drawer) {
+        state.drawer = false;
+      }
     },
     registerSuccess(state) {
       state.status.loggedIn = false;
@@ -57,10 +63,17 @@ export const auth = {
     registerFailure(state) {
       state.status.loggedIn = false;
     },
+    toggleDrawer(state) {
+      state.drawer = !state.drawer;
+    },
   },
   getters: {
     isAdmin: (state) => {
       return state.user.roles.includes("ADMIN");
+    },
+    drawer: (state) => {
+      console.log('ye');
+      return state.drawer;
     },
   },
 };

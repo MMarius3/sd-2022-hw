@@ -1,5 +1,6 @@
 package com.lab4.demo.book.model;
 
+import com.fasterxml.jackson.core.JsonParser;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -33,5 +34,8 @@ public class Book {
 
     @Column()
     private Float price;
+
+    @Column(nullable = false)
+    private Integer quantity;
 
 }

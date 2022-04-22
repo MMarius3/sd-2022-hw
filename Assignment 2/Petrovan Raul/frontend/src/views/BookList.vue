@@ -1,7 +1,7 @@
 <template>
   <v-card>
     <v-card-title>
-      Items
+      Books
       <v-spacer></v-spacer>
       <v-text-field
         v-model="search"
@@ -10,58 +10,66 @@
         single-line
         hide-details
       ></v-text-field>
-      <v-btn @click="addItem">Add Item</v-btn>
+      <v-btn @click="addBook" v-if="$store.getters['auth/isAdmin']">Add Book</v-btn>
     </v-card-title>
     <v-data-table
       :headers="headers"
-      :items="items"
+      :items="books"
       :search="search"
-      @click:row="editItem"
+      @click:row="editBook"
     ></v-data-table>
-    <ItemDialog
+    <BookDialog
       :opened="dialogVisible"
-      :item="selectedItem"
+      :book="selectedBook"
       @refresh="refreshList"
-    ></ItemDialog>
+      v-on:close="closeDialog"
+    ></BookDialog>
   </v-card>
 </template>
 
 <script>
 import api from "../api";
-import ItemDialog from "../components/ItemDialog";
+import BookDialog from "../components/BookDialog";
 
 export default {
-  name: "ItemList",
-  components: { ItemDialog },
+  name: "BookList",
+  components: { BookDialog },
   data() {
     return {
-      items: [],
+      books: [],
       search: "",
       headers: [
         {
-          text: "Name",
+          text: "Title",
           align: "start",
           sortable: false,
-          value: "name",
+          value: "title",
         },
         { text: "Description", value: "description" },
+        { text: "Author", value: "author" },
+        { text: "Genre", value: "genre" },
+        { text: "Price", value: "price" },
+        { text: "Quantity", value: "quantity"},
       ],
       dialogVisible: false,
-      selectedItem: {},
+      selectedBook: {},
     };
   },
   methods: {
-    editItem(item) {
-      this.selectedItem = item;
+    editBook(book) {
+      this.selectedBook = book;
       this.dialogVisible = true;
     },
-    addItem() {
+    addBook() {
       this.dialogVisible = true;
+    },
+    closeDialog() {
+      this.refreshList();
     },
     async refreshList() {
       this.dialogVisible = false;
-      this.selectedItem = {};
-      this.items = await api.items.allItems();
+      this.selectedBook = {};
+      this.books = await api.books.allBooks();
     },
   },
   created() {

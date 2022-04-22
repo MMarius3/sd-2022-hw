@@ -25,7 +25,12 @@ public class UserService {
 
     public List<UserListDTO> allUsersForList() {
         return userRepository.findAll()
-                .stream().map(userMapper::userListDtoFromUser)
+                .stream().map(user -> {
+                    UserListDTO userDTO =
+                            userMapper.userListDtoFromUser(user);
+                    userMapper.populateRoles(user, userDTO);
+                    return userDTO;
+                })
                 .collect(toList());
     }
 

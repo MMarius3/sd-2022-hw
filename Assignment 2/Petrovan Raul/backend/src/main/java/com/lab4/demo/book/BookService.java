@@ -39,13 +39,28 @@ public class BookService {
     public BookDTO edit(Long id, BookDTO book) {
         Book actBook = findById(id);
         actBook.setAuthor(book.getAuthor());
+        actBook.setTitle(book.getTitle());
+        actBook.setGenre(book.getGenre());
+        actBook.setPrice(book.getPrice());
+        actBook.setQuantity(book.getQuantity());
         actBook.setDescription(book.getDescription());
         return bookMapper.toDto(
-                bookRepository.save(actBook)
+            bookRepository.save(actBook)
         );
     }
 
     public String export(ReportType type) {
         return reportServiceFactory.getReportService(type).export();
+    }
+
+    public BookDTO sellOne(Long id) {
+        Book actBook = findById(id);
+        if(actBook.getQuantity() == 0) {
+            throw new IllegalArgumentException("Book is not available");
+        }
+        actBook.setQuantity(actBook.getQuantity() - 1);
+        return bookMapper.toDto(
+                bookRepository.save(actBook)
+        );
     }
 }

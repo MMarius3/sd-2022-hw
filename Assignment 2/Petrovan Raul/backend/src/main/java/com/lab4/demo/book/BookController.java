@@ -8,11 +8,11 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 import static com.lab4.demo.UrlMapping.EXPORT_REPORT;
-import static com.lab4.demo.UrlMapping.ITEMS;
-import static com.lab4.demo.UrlMapping.ITEMS_ID_PART;
+import static com.lab4.demo.UrlMapping.BOOKS;
+import static com.lab4.demo.UrlMapping.BOOKS_ID_PART;
 
 @RestController
-@RequestMapping(ITEMS)
+@RequestMapping(BOOKS)
 @RequiredArgsConstructor
 public class BookController {
 
@@ -24,13 +24,18 @@ public class BookController {
     }
 
     @PostMapping
-    public BookDTO create(@RequestBody BookDTO item) {
-        return bookService.create(item);
+    public BookDTO create(@RequestBody BookDTO book) {
+        return bookService.create(book);
     }
 
-    @PutMapping(ITEMS_ID_PART)
-    public BookDTO edit(@PathVariable Long id, @RequestBody BookDTO item) {
-        return bookService.edit(id, item);
+    @PutMapping(BOOKS_ID_PART)
+    public BookDTO edit(@PathVariable Long id, @RequestBody BookDTO book) {
+        return bookService.edit(id, book);
+    }
+
+    @PutMapping(BOOKS_ID_PART + "/sellOne")
+    public BookDTO sellOne(@PathVariable Long id) {
+        return bookService.sellOne(id);
     }
 
     @GetMapping(EXPORT_REPORT)

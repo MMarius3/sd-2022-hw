@@ -16,8 +16,8 @@ import java.util.List;
 import static com.lab4.demo.TestCreationFactory.randomLong;
 import static com.lab4.demo.TestCreationFactory.randomString;
 import static com.lab4.demo.UrlMapping.EXPORT_REPORT;
-import static com.lab4.demo.UrlMapping.ITEMS;
-import static com.lab4.demo.UrlMapping.ITEMS_ID_PART;
+import static com.lab4.demo.UrlMapping.BOOKS;
+import static com.lab4.demo.UrlMapping.BOOKS_ID_PART;
 import static com.lab4.demo.report.ReportType.CSV;
 import static com.lab4.demo.report.ReportType.PDF;
 import static org.mockito.Mockito.when;
@@ -45,7 +45,7 @@ class BookControllerTest extends BaseControllerTest {
         List<BookDTO> items = TestCreationFactory.listOf(Book.class);
         when(bookService.findAll()).thenReturn(items);
 
-        ResultActions response = performGet(ITEMS);
+        ResultActions response = performGet(BOOKS);
 
         response.andExpect(status().isOk())
                 .andExpect(jsonContentToBe(items));
@@ -59,8 +59,8 @@ class BookControllerTest extends BaseControllerTest {
         when(bookService.export(CSV)).thenReturn(csv);
         when(bookService.export(PDF)).thenReturn(pdf);
 
-        ResultActions responseCsv = mockMvc.perform(get(ITEMS + EXPORT_REPORT, CSV.name()));
-        ResultActions responsePdf = mockMvc.perform(get(ITEMS + EXPORT_REPORT, PDF.name()));
+        ResultActions responseCsv = mockMvc.perform(get(BOOKS + EXPORT_REPORT, CSV.name()));
+        ResultActions responsePdf = mockMvc.perform(get(BOOKS + EXPORT_REPORT, PDF.name()));
 
         responseCsv.andExpect(status().isOk())
             .andExpect(content().string(csv));
@@ -76,7 +76,7 @@ class BookControllerTest extends BaseControllerTest {
 
         when(bookService.create(reqItem)).thenReturn(reqItem);
 
-        ResultActions result = performPostWithRequestBody(ITEMS, reqItem);
+        ResultActions result = performPostWithRequestBody(BOOKS, reqItem);
         result.andExpect(status().isOk())
                 .andExpect(jsonContentToBe(reqItem));
     }
@@ -91,7 +91,7 @@ class BookControllerTest extends BaseControllerTest {
 
         when(bookService.edit(id, reqItem)).thenReturn(reqItem);
 
-        ResultActions result = performPutWithRequestBodyAndPathVariables(ITEMS + ITEMS_ID_PART, reqItem, id);
+        ResultActions result = performPutWithRequestBodyAndPathVariables(BOOKS + BOOKS_ID_PART, reqItem, id);
         result.andExpect(status().isOk())
                 .andExpect(jsonContentToBe(reqItem));
     }

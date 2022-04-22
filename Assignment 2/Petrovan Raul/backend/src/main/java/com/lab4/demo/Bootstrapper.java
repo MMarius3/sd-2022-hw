@@ -59,10 +59,10 @@ public class Bootstrapper implements ApplicationListener<ApplicationReadyEvent> 
                     .build());
             bookRepository.save(
                     Book.builder().author("John").description("best book").genre(Genre.ACTION)
-                            .title("The Happening").build());
+                            .title("The Happening").price((float) 22.3).quantity(1).build());
             bookRepository.save(
                     Book.builder().author("John").description("best book 2").genre(Genre.DRAMA)
-                            .title("The Happening").build());
+                            .title("The Happening").price((float) 23.5).quantity(0).build());
         }
     }
 }
