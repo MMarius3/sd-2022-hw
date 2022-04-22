@@ -1,4 +1,4 @@
-package com.example.bookstore.book;
+package com.example.bookstore.book.mapper;
 
 import com.example.bookstore.book.model.Book;
 import com.example.bookstore.book.model.dto.BookDTO;

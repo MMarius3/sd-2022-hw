@@ -14,11 +14,13 @@ export class AuthenticationGuard implements CanActivate {
       return false;
     }
 
-    if(this.router.url.indexOf('/admin') > -1) {
+    let url = route.routeConfig?.path ?? '';
+
+    if(url.indexOf('admin') > -1) {
       if(this.authenticationService.isAdmin()) {
         return true;
       }
-      this.navigateToLogin();
+      this.navigateToCustomer();
       return false;
     }
 
@@ -27,5 +29,9 @@ export class AuthenticationGuard implements CanActivate {
 
   private navigateToLogin(): void {
     this.router.navigate(['/login']);
+  }
+
+  private navigateToCustomer(): void {
+    this.router.navigate(['/employee']);
   }
 }

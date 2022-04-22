@@ -17,7 +17,7 @@ export class BookService {
 
   getBookById(id: number): Observable<any> {
     const headers = authHeader();
-    const url: string = BOOKS_URL + '/get-book/' + id;
+    const url: string = BOOKS_URL + `/get-book/${id}`;
     return this.http.get(url, {headers});
   }
 
@@ -37,7 +37,7 @@ export class BookService {
 
   updateBook(id: number, book: Book): Observable<Book> {
     const headers = authHeader();
-    const url = BOOKS_URL + '/update-book/' + id;
+    const url = BOOKS_URL + `/update-book/${id}`;
     this.http.put(url, book, {headers})
       .subscribe(updatedBook => {
         if(updatedBook != null) {
