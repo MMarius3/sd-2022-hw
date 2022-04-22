@@ -2,6 +2,8 @@ import {Component, Input} from "@angular/core";
 import {Router} from "@angular/router";
 import {DxDataGridComponent} from "devextreme-angular";
 import { UserService } from "src/app/api/services/user.service";
+import { UserGrid } from "src/app/models/user-grid.model";
+import { User } from "src/app/models/user.model";
 
 @Component({
   selector: 'app-user-toolbar',
@@ -18,7 +20,6 @@ export class UserToolbarComponent {
   urlPage: string = '/admin/books';
   constructor(private userService: UserService,
     private router: Router) {
-
   }
 
   public logout() {
@@ -27,16 +28,33 @@ export class UserToolbarComponent {
   }
 
   public onAddUser(): void {
-    this.router.navigate(['/add-user']);
+    this.router.navigate(['/admin/add-user']);
   }
 
   public onDeleteUser(): void {
-    this.userService.deleteUser(this.grid.selectedRowKeys[0].id);
+    this.userService.deleteUser(this.grid.selectedRowKeys[0].id).subscribe(users => {
+      this.updateUsersGrid(users);
+    });
     this.router.navigate(['/admin/users']);
   }
 
   public changePage(): void {
     this.router.navigate([this.urlPage]);
+  }
+
+  private updateUsersGrid(usersList: User[]) {
+    let usersGrid: UserGrid[] = [];
+    usersList.forEach(user => {
+        usersGrid.push(this.convertUser(user));
+    })
+    console.log(usersGrid);
+    this.grid.dataSource = usersGrid;
+  }
+
+  private convertUser(user: User): UserGrid {
+      let userGrid: UserGrid = new UserGrid(user);
+      userGrid.roleNames = user.roles?.join('; ');
+      return userGrid;
   }
 
   get areBooksSelected(): boolean {

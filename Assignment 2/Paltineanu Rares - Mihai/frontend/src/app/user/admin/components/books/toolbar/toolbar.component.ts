@@ -27,7 +27,7 @@ export class BookToolbarComponent {
   }
 
   public onAddBook(): void {
-    this.router.navigate(['/add-book']);
+    this.router.navigate(['/admin/add-book']);
   }
 
   public onDeleteBook(): void {

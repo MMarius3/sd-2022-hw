@@ -29,8 +29,9 @@ export class UsersViewComponent implements OnInit{
         this.userService.getUsers()
             .subscribe(users =>  {
                 this.usersList = users;
-                console.log(users);
                 this.updateUsersGrid();
+                console.log(this.usersGrid );
+                
             })
     }
 
@@ -43,11 +44,10 @@ export class UsersViewComponent implements OnInit{
     private convertUser(user: User): UserGrid {
         let userGrid: UserGrid = new UserGrid(user);
         userGrid.roleNames = user.roles?.join('; ');
-        console.log(userGrid.roleNames)
         return userGrid;
     }
 
     public openUserDetails(user: User): void {
-        
+        this.router.navigate(['/admin/users/' + user.id]);
     }
 }
