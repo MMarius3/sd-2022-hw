@@ -4,6 +4,7 @@
     <v-btn @click="viewUsers">View Users</v-btn>
     <v-btn @click="generateReportPDF">Generate Report PDF</v-btn>
     <v-btn @click="generateReportCSV">Generate Report CSV</v-btn>
+    <v-btn @click="googleApi">Google Books</v-btn>
   </v-card>
 </template>
 
@@ -27,6 +28,9 @@ export default {
     generateReportCSV() {
       console.log("CSV");
       api.items.generateReport("CSV");
+    },
+    googleApi() {
+      router.push("/google-books");
     },
   },
 };

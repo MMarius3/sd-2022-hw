@@ -6,4 +6,5 @@ public enum EGenre {
     DETECTIVE,
     FANTASY,
     HORROR,
+    NONE,
 }

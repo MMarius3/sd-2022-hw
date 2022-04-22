@@ -6,6 +6,7 @@ import ItemList from "../views/ItemListEmployee.vue";
 import { auth as store } from "../store/auth.module";
 import Login from "../views/Login";
 import AdminOpts from "../views/AdminOptions.vue";
+import GoogleBooksApi from "../views/GoogleApi/GoogleBooksApi.vue"
 
 Vue.use(VueRouter);
 
@@ -43,6 +44,18 @@ const routes = [
     path: "/admin-items",
     name: "AdminItems",
     component: AdminItemList,
+    beforeEnter: (to, from, next) => {
+      if (store.getters.isAdmin) {
+        next();
+      } else {
+        next({ name: "Items" });
+      }
+    },
+  },
+  {
+    path: "/google-books",
+    name: "GoogleBooksApi",
+    component: GoogleBooksApi,
     beforeEnter: (to, from, next) => {
       if (store.getters.isAdmin) {
         next();

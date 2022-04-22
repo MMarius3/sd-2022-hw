@@ -1,6 +1,6 @@
 import authHeader, { BASE_URL, HTTP } from "../http";
-import { jsPDF } from "jspdf";
-import FileDownload from "js-file-download";
+//import { jsPDF } from "jspdf";
+//import FileDownload from "js-file-download";
 
 export default {
   getAllItemz() {

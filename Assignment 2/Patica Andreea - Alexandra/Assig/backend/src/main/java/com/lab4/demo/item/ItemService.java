@@ -58,14 +58,16 @@ public class ItemService {
                 .build());
         return item!=null;*/
 
-        return ItemDto.toDto(itemRepository.save(Item.builder()
+        Item item = Item.builder()
                 .title(itemDto.getTitle())
                 .author(itemDto.getAuthor())
                 .price(itemDto.getPrice())
                 .quantity(itemDto.getQuantity())
-                .description(itemDto.getDescription())
-                .build()
-        ));
+                .description(itemDto.getDescription().substring(0,
+                        Math.min(itemDto.getDescription().length(), 1024)))
+                .build();
+
+        return ItemDto.toDto(itemRepository.save(item));
     }
 
     public ItemDto edit(Long id, ItemDto item) {

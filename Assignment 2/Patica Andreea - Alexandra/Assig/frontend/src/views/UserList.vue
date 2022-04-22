@@ -48,7 +48,7 @@ export default {
         },
         { text: "Email", value: "email" },
         { text: "Password", value: "password" },
-          //TODO add roles
+        //TODO add roles
       ],
       dialogVisible: false,
       selectedUser: {},

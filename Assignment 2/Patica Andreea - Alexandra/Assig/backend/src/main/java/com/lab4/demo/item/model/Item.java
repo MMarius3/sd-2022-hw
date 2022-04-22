@@ -35,23 +35,10 @@ public class Item {//BOOK
     @Column(length = 1024)
     private String description;
 
-    @ManyToMany(fetch = FetchType.EAGER)
-    @JoinTable(name = "item_genre",
-            joinColumns = @JoinColumn(name = "item_id"),
-            inverseJoinColumns = @JoinColumn(name = "genre_id"))
-    @Builder.Default
-    private Set<Genre> genres = new HashSet<>();
-
-//    @ManyToOne(fetch = FetchType.EAGER)
-//    @JoinTable(name = "genre",
-//            joinColumns = @JoinColumn(name = "id"),
-//            inverseJoinColumns = @JoinColumn(name = "name"))
+//    @ManyToMany(fetch = FetchType.EAGER)
+//    @JoinTable(name = "item_genre",
+//            joinColumns = @JoinColumn(name = "item_id"),
+//            inverseJoinColumns = @JoinColumn(name = "genre_id"))
 //    @Builder.Default
-//    private Genre genre = new Genre();
-
-    /*
-    @OneToMany(mappedBy = "item")
-    @Builder.Default
-    private Set<Review> reviews = new HashSet<>();
-    */
+//    private Set<Genre> genres = new HashSet<>();
 }
