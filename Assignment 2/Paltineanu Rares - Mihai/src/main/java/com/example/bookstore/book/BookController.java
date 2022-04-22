@@ -22,8 +22,7 @@ public class BookController {
 
     @GetMapping(GET_BOOKS)
     public List<Book> allItems() {
-        List<Book> books = bookService.findAll();
-        return books;
+        return bookService.findAll();
     }
 
     @GetMapping(GET_BOOK)

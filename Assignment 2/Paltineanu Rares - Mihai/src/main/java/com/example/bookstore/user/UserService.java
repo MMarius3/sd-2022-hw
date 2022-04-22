@@ -1,5 +1,6 @@
 package com.example.bookstore.user;
 
+import com.example.bookstore.user.dto.UserDTO;
 import com.example.bookstore.user.dto.UserListDTO;
 import com.example.bookstore.user.dto.UserMinimalDTO;
 import com.example.bookstore.user.mapper.UserMapper;
@@ -7,6 +8,7 @@ import com.example.bookstore.user.model.User;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import javax.persistence.EntityNotFoundException;
 import java.util.List;
 
 import static java.util.stream.Collectors.toList;
@@ -37,6 +39,15 @@ public class UserService {
 
     public void deleteById(Long id) {
         userRepository.deleteById(id);
+    }
+
+    public UserDTO create(UserDTO user) {
+        return userMapper.toDto(userRepository.save(userMapper.fromDto(user)));
+    }
+
+    public UserDTO findById(Long id) {
+        return userMapper.toDto(userRepository.findById(id).orElseThrow(
+                () -> new EntityNotFoundException("User not found: " + id)));
     }
 
 }

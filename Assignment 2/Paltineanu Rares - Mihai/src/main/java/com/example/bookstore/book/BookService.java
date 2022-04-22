@@ -1,5 +1,6 @@
 package com.example.bookstore.book;
 
+import com.example.bookstore.book.mapper.BookMapper;
 import com.example.bookstore.book.model.Book;
 import com.example.bookstore.book.model.dto.BookDTO;
 import lombok.RequiredArgsConstructor;
@@ -7,7 +8,6 @@ import org.springframework.stereotype.Service;
 
 import javax.persistence.EntityNotFoundException;
 import java.util.List;
-import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor

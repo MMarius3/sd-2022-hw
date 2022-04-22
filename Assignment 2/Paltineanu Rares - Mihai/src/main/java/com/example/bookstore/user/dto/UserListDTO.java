@@ -12,6 +12,7 @@ import java.util.Set;
 @SuperBuilder
 @AllArgsConstructor
 public class UserListDTO extends UserMinimalDTO {
+    private String password;
     private String email;
     private Set<String> roles;
 }

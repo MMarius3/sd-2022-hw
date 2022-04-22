@@ -10,7 +10,10 @@ public class UrlMapping {
 
     public static final String USER = API_PATH + "/user";
     public static final String GET_USERS = "/get-users";
+    public static final String GET_USER = "/get-users/{id}";
     public static final String DELETE_USER = "delete-user/{id}";
+    public static final String ADD_USER = "/add-user";
+
     public static final String BOOKS = "/books";
     public static final String UPDATE_BOOK = "/update-book/{id}";
     public static final String ADD_BOOK = "/add-book";
