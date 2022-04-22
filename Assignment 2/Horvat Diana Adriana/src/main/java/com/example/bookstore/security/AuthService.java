@@ -9,10 +9,12 @@ import com.example.bookstore.user.model.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Service;
 
 import java.util.HashSet;
 import java.util.Set;
 
+@Service
 @Component
 @RequiredArgsConstructor
 public class AuthService {
@@ -44,7 +46,7 @@ public class AuthService {
 
         if (rolesStr == null) {
             Role defaultRole = roleRepository.findByName(ERole.EMPLOYEE)
-                    .orElseThrow(() -> new RuntimeException("Cannot find CUSTOMER role"));
+                    .orElseThrow(() -> new RuntimeException("Cannot find EMPLOYEE role"));
             roles.add(defaultRole);
         } else {
             rolesStr.forEach(r -> {

@@ -18,6 +18,4 @@ public class SignupRequest {
     private String password;
     private Set<String> roles = new HashSet<>();
 
-    public SignupRequest(){}
-
 }

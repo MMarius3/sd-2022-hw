@@ -23,7 +23,7 @@ import java.util.stream.Collectors;
 import static com.example.bookstore.UrlMapping.*;
 
 @CrossOrigin(origins = "*", maxAge = 3600)
-@Controller
+@RestController()
 @RequestMapping(AUTH)
 @RequiredArgsConstructor
 public class AuthController {
@@ -60,7 +60,6 @@ public class AuthController {
     @PostMapping(SIGN_UP)
     public ResponseEntity<?> registerUser(@Valid  @RequestBody SignupRequest signUpRequest) {
 
-        System.out.println(signUpRequest);
         if (authService.existsByUsername(signUpRequest.getUsername())) {
             return ResponseEntity
                     .badRequest()
@@ -78,17 +77,17 @@ public class AuthController {
         return ResponseEntity.ok(new MessageResponse("User registered successfully!"));
     }
 
-    @GetMapping(LOGIN)
-    public String showLoginForm(){
-        return "login";
-    }
-
-    @GetMapping(REGISTER)
-    public String showRegisterForm(Model model){
-
-        model.addAttribute("signupRequest", new SignupRequest());
-
-        return "register";
-    }
+//    @GetMapping(LOGIN)
+//    public String showLoginForm(){
+//        return "login";
+//    }
+//
+//    @GetMapping(REGISTER)
+//    public String showRegisterForm(Model model){
+//
+//        model.addAttribute("signupRequest", new SignupRequest());
+//
+//        return "register";
+//    }
 
 }

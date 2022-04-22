@@ -30,5 +30,5 @@ public class Book {
     private int quantity = 0;
 
     @Column(nullable = false)
-    private int price = 0;
+    private double price = 0;
 }
