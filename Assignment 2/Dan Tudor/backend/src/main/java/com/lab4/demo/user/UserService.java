@@ -29,4 +29,16 @@ public class UserService {
                 .collect(toList());
     }
 
+    public UserListDTO createUser(UserListDTO userListDTO) {
+        return userMapper.userListDtoFromUser(userRepository.save(userMapper.userFromUserListDto(userListDTO)));
+    }
+
+    public void deleteUser(Long id) {
+        userRepository.deleteById(id);
+    }
+
+    public UserListDTO updateUser(Long id, UserListDTO userListDTO) {
+        return userMapper.userListDtoFromUser(userRepository.save(userMapper.userFromUserListDto(userListDTO)));
+    }
+
 }

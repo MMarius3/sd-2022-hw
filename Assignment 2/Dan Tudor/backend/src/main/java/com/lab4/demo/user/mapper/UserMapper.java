@@ -9,6 +9,7 @@ import java.util.stream.Collectors;
 
 @Mapper(componentModel = "spring")
 public interface UserMapper {
+    User userFromUserListDto(UserListDTO userListDTO);
 
     @Mappings({
             @Mapping(target = "name", source = "user.username")

@@ -3,11 +3,13 @@ package com.lab4.demo.book;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.lab4.demo.BaseControllerTest;
+import com.lab4.demo.TestCreationFactory;
 import com.lab4.demo.book.model.Book;
 import com.lab4.demo.book.model.dto.BookDTO;
 import com.lab4.demo.book.model.dto.BookRequestDTO;
 import com.lab4.demo.book.model.dto.BookResponseDTO;
 import com.lab4.demo.item.ItemController;
+import com.lab4.demo.item.model.Item;
 import com.lab4.demo.item.model.dto.ItemDTO;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -16,6 +18,11 @@ import org.mockito.Mock;
 
 import org.mockito.MockitoAnnotations;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
+import org.springframework.data.util.Pair;
 import org.springframework.data.web.PageableHandlerMethodArgumentResolver;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
@@ -30,6 +37,7 @@ import java.util.Random;
 import static com.lab4.demo.TestCreationFactory.*;
 import static com.lab4.demo.UrlMapping.*;
 import static org.mockito.Mockito.*;
+import static org.springframework.data.domain.Sort.Direction.ASC;
 import static org.springframework.test.web.client.match.MockRestRequestMatchers.content;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
@@ -47,77 +55,72 @@ public class BookControllerTest extends BaseControllerTest {
 
     @BeforeEach
     public void setUp() {
-        /*MockitoAnnotations.openMocks(this);
-        bookController = new BookController(bookService);
-        mockMvc = MockMvcBuilders.standaloneSetup(bookController).build();*/
-
         super.setUp();
         bookController = new BookController(bookService);
         mockMvc = MockMvcBuilders.standaloneSetup(bookController)
-                //.setCustomArgumentResolvers(new PageableHandlerMethodArgumentResolver())
+                .setCustomArgumentResolvers(new PageableHandlerMethodArgumentResolver())
                 .build();
     }
 
     @Test
-    public void testGetAllBooks() throws Exception {
-        List<Book> books = new ArrayList<>();
-        int nrOfBooks = 5;
-        for (int i = 0; i < nrOfBooks; i++) {
-            books.add(Book.builder().title("Book " + i).build());
-        }
+    public void allBooks() throws Exception {
+        List<BookDTO> books = TestCreationFactory.listOf(Book.class);
+        when(bookService.findAll()).thenReturn(books);
 
-        //when(bookService.findAll()).thenReturn(books);
-        doReturn(books).when(bookService).findAll();
+        ResultActions response = mockMvc.perform(get(BOOKS));
 
-        ResultActions resultActions = mockMvc.perform(get(BOOKS));
-
-        verify(bookService, times(1)).findAll();
-
-        String expectedJsonContent = new ObjectMapper().writeValueAsString(books);
-        resultActions.andExpect(status().isOk());
-        //.andExpect(content().json(expectedJsonContent, true));
+        response.andExpect(status().isOk())
+                .andExpect(jsonContentToBe(books));
     }
 
     @Test
+    public void searchList() throws Exception {
+        List<BookDTO> books = TestCreationFactory.listOf(Book.class);
+        String search = "%b%";
+        when(bookService.findAllByTitleLikeOrAuthorLikeOrGenreLike(search,search,search)).thenReturn(books);
+
+//        ResultActions result = performGetWithPathVariable(SEARCH, search);
+        ResultActions result = mockMvc.perform(get(BOOKS + SEARCH, search));
+
+        verify(bookService, times(1)).findAllByTitleLikeOrAuthorLikeOrGenreLike(search,search,search);
+        result.andExpect(status().isOk())
+                .andExpect(jsonContentToBe(books));
+    }
+
+    /*@Test
+    public void findAllPaged() throws Exception {
+        String search = "%b%";
+
+        final int sortedPage = 4;
+        final int sortedPageSize = 100;
+        final String sortColumn = "title";
+        final PageRequest pagination = PageRequest.of(sortedPage, sortedPageSize, Sort.by(ASC, sortColumn));
+
+        Page<BookDTO> books = new PageImpl<>(listOf(BookDTO.class));
+        when(bookService.findAllByTitleLikeOrAuthorLikeOrGenreLike(search, search, search, pagination)).thenReturn(books);
+
+        ResultActions result = performGetWithModelAttributeAndParams(BOOKS + SEARCH, Pair.of("search", search), pairsFromPagination(pagination));
+
+        verify(bookService, times(1)).findAllByTitleLikeOrAuthorLikeOrGenreLike(search, search, search, pagination);
+        result.andExpect(status().isOk())
+                .andExpect(jsonContentToBe(books));
+    }*/
+
+    @Test
     public void create() throws Exception {
-        /*final Long id = 1L;
-        final String title = "Book 1";
-        final String author = "Author 1";
-        final String genre = "Genre 1";
-        final int quantity = 1;
-        final int price = 1;
-        BookRequestDTO bookRequestDTO = BookRequestDTO.builder().title(title).author(author).genre(genre).quantity(quantity).price(price).build();
-        BookResponseDTO bookResponseDTO = BookResponseDTO.builder().id(id).title(title).author(author).genre(genre).quantity(quantity).price(price).build();
-
-        when(bookService.create(bookRequestDTO)).thenReturn(bookResponseDTO);
-
-        final ResultActions resultActions = mockMvc.perform(
-                post(BOOKS)
-                        .content(contentToJson(bookRequestDTO)
-                        .contentType(MediaType.APPLICATION_JSON))
-                        .accept(MediaType.APPLICATION_JSON)
-        );*/
-        BookRequestDTO requestBook = BookRequestDTO.builder()
+        BookDTO bookDTO = BookDTO.builder()
                 .title(randomString())
                 .author(randomString())
                 .genre(randomString())
                 .quantity(randomInt(1, 10))
                 .price(randomInt(1, 10))
                 .build();
-        BookResponseDTO responseBook = BookResponseDTO.builder()
-                .id(1L)
-                .title(requestBook.getTitle())
-                .author(requestBook.getAuthor())
-                .genre(requestBook.getGenre())
-                .quantity(requestBook.getQuantity())
-                .price(requestBook.getPrice())
-                .build();
 
-        when(bookService.create(requestBook)).thenReturn(responseBook);
+        when(bookService.create(bookDTO)).thenReturn(bookDTO);
 
-        ResultActions result = performPostWithRequestBody(BOOKS, requestBook);
+        ResultActions result = performPostWithRequestBody(BOOKS, bookDTO);
         result.andExpect(status().isOk())
-                .andExpect(jsonContentToBe(responseBook));
+                .andExpect(jsonContentToBe(bookDTO));
 
     }
 
@@ -131,7 +134,59 @@ public class BookControllerTest extends BaseControllerTest {
 
         result.andExpect(status().isOk());
     }
-    /*private String contentToJson(Object bookRequestDTO) throws JsonProcessingException {
-        return new ObjectMapper().writeValueAsString(bookRequestDTO);
-    }*/
+
+    @Test
+    public void update() throws Exception {
+        BookDTO bookDTO = BookDTO.builder()
+                .id(randomLong())
+                .title(randomString())
+                .author(randomString())
+                .genre(randomString())
+                .quantity(randomInt(1, 10))
+                .price(randomInt(1, 10))
+                .build();
+        when(bookService.update(bookDTO.getId(), bookDTO)).thenReturn(bookDTO);
+
+        ResultActions result = performPutWithRequestBodyAndPathVariable(BOOKS + ENTITY, bookDTO, bookDTO.getId());
+        result.andExpect(status().isOk())
+                .andExpect(jsonContentToBe(bookDTO));
+    }
+
+    @Test
+    public void sell() throws Exception {
+        int quantity = 3;
+        BookDTO bookDTO = BookDTO.builder()
+                .id(randomLong())
+                .title(randomString())
+                .author(randomString())
+                .genre(randomString())
+                .quantity(randomInt(8, 10))
+                .price(randomInt(5, 10))
+                .build();
+        when(bookService.sell(bookDTO.getId(), quantity)).thenReturn(bookDTO);
+
+        ResultActions result = performPatchWithRequestBodyAndPathVariable(BOOKS + BOOKS_ID, quantity, bookDTO.getId());
+        result.andExpect(status().isOk())
+                .andExpect(jsonContentToBe(bookDTO));
+    }
+
+    @Test
+    public void changeName() throws Exception {
+        String newTitle = "Title";
+        BookDTO bookDTO = BookDTO.builder()
+                .id(randomLong())
+                .title(randomString())
+                .author(randomString())
+                .genre(randomString())
+                .quantity(randomInt(1, 10))
+                .price(randomInt(1, 10))
+                .build();
+        when(bookService.rename(bookDTO.getId(), newTitle)).thenReturn(bookDTO);
+
+        ResultActions result = performPatchWithRequestBodyAndPathVariable(BOOKS + ENTITY, newTitle, bookDTO.getId());
+        result.andExpect(status().isOk())
+                .andExpect(jsonContentToBe(bookDTO));
+    }
+
+
 }

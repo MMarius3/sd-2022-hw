@@ -1,6 +1,8 @@
 package com.lab4.demo.book;
 
 import com.lab4.demo.book.model.Book;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
@@ -15,4 +17,6 @@ public interface BookRepository extends JpaRepository<Book, Long> {
     Optional<Book> findByGenre(String genre);
     Optional<Book> findById(Long id);
     Stream<Book> findAllByOrderByTitle();
+    Page<Book> findAllByTitleLikeOrAuthorLikeOrGenreLike(String title, String author, String genre, Pageable pageable);
+    List<Book> findAllByTitleLikeOrAuthorLikeOrGenreLike(String title, String author, String genre);
 }

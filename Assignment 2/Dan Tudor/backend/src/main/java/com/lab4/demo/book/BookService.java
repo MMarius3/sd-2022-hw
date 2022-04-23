@@ -5,6 +5,8 @@ import com.lab4.demo.book.model.dto.BookDTO;
 import com.lab4.demo.book.model.dto.BookRequestDTO;
 import com.lab4.demo.book.model.dto.BookResponseDTO;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
@@ -16,33 +18,19 @@ import static java.util.stream.Collectors.toList;
 @RequiredArgsConstructor
 public class BookService {
     private final BookRepository bookRepository;
+    private final BookMapper bookMapper;
 
     @Transactional
     public List<BookDTO> findAll(){
-        return bookRepository.findAllByOrderByTitle().map(BookDTO::toDTO).collect(toList());
+        return bookRepository.findAllByOrderByTitle().map(bookMapper::toDto).collect(toList());
     }
 
     public Book findById(Long id){
         return bookRepository.findById(id).orElseThrow(() -> new RuntimeException("Book not found"));
     }
 
-    public BookResponseDTO create(BookRequestDTO bookRequestDTO){
-        Book book = Book.builder()
-                .title(bookRequestDTO.getTitle())
-                .author(bookRequestDTO.getAuthor())
-                .genre(bookRequestDTO.getGenre())
-                .quantity(bookRequestDTO.getQuantity())
-                .price(bookRequestDTO.getPrice())
-                .build();
-        final Book save = bookRepository.save(book);
-        return BookResponseDTO.builder()
-                .id(save.getId())
-                .title(save.getTitle())
-                .author(save.getAuthor())
-                .genre(save.getGenre())
-                .quantity(save.getQuantity())
-                .price(save.getPrice())
-                .build();
+    public BookDTO create(BookDTO bookDTO){
+        return bookMapper.toDto(bookRepository.save(bookMapper.fromDto(bookDTO)));
 
     }
 
@@ -50,37 +38,28 @@ public class BookService {
         bookRepository.deleteById(id);
     }
 
-    public BookResponseDTO update(Long id, BookRequestDTO bookRequestDTO){
-        if(!bookRepository.existsById(id)){
-            return create(bookRequestDTO);
-        }
-        final Book book = findById(id);
-        book.update(bookRequestDTO);
-
-        final Book save = bookRepository.save(book);
-        return BookResponseDTO.builder()
-                .id(save.getId())
-                .title(save.getTitle())
-                .author(save.getAuthor())
-                .genre(save.getGenre())
-                .quantity(save.getQuantity())
-                .price(save.getPrice())
-                .build();
-
+    public BookDTO update(Long id, BookDTO bookDTO){
+        return bookMapper.toDto(bookRepository.save(bookMapper.fromDto(bookDTO)));
     }
 
-    public BookResponseDTO rename(Long id, String newTitle){
-        final Book book = findById(id);
+    public BookDTO rename(Long id, String newTitle){
+        Book book = findById(id);
         book.setTitle(newTitle);
-        final Book save = bookRepository.save(book);
-        return BookResponseDTO.builder()
-                .id(save.getId())
-                .title(save.getTitle())
-                .author(save.getAuthor())
-                .genre(save.getGenre())
-                .quantity(save.getQuantity())
-                .price(save.getPrice())
-                .build();
+        return bookMapper.toDto(bookRepository.save(book));
+    }
+
+    public BookDTO sell(Long id, Integer quantity){
+        Book book = findById(id);
+        book.setQuantity(book.getQuantity() - quantity);
+        return bookMapper.toDto(bookRepository.save(book));
+    }
+
+    public Page<BookDTO> findAllByTitleLikeOrAuthorLikeOrGenreLike(String title, String author, String genre, Pageable pageable){
+        return bookRepository.findAllByTitleLikeOrAuthorLikeOrGenreLike(title, author, genre, pageable).map(bookMapper::toDto);
+    }
+
+    public List<BookDTO> findAllByTitleLikeOrAuthorLikeOrGenreLike(String title, String author, String genre){
+        return bookRepository.findAllByTitleLikeOrAuthorLikeOrGenreLike(title, author, genre).stream().map(bookMapper::toDto).collect(toList());
     }
 
 }

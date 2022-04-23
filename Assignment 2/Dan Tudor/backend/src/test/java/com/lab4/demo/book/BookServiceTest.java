@@ -29,7 +29,6 @@ public class BookServiceTest {
         bookRepository.saveAll(List.of(book, book2, book3));
         List<BookDTO> orderedBooks = bookService.findAll();
         assertEquals("Third Title", orderedBooks.get(1).getTitle());
-
     }
 
 
