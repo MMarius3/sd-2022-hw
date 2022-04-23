@@ -29,4 +29,11 @@ export default {
       return response.data;
     });
   },
+  sell(item) {
+    return HTTP.patch(BASE_URL + "/items/" + item.id, item, {
+      headers: authHeader(),
+    }).then((response) => {
+      return response.data;
+    });
+  },
 };

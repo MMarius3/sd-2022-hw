@@ -71,21 +71,20 @@ class BookControllerTest extends BaseControllerTest {
     }
 
     @Test
-    void changePrice() throws Exception {
+    void sellBook() throws Exception {
         Long id = randomLong();
-        Double newPrice = 34.4;
         BookDTO reqBook = BookDTO.builder()
                 .id(id)
                 .title(randomString())
                 .author(randomString())
                 .genre(randomString())
-                .quantity(randomBoundedInt(1000))
+                .quantity(100)
                 .price(randomBoundedInt(1000))
                 .build();
 
-        when(bookService.changePrice(id, newPrice)).thenReturn(reqBook);
+        when(bookService.sellBook(id, reqBook)).thenReturn(reqBook);
 
-        ResultActions result = performPatchWithRequestBodyAndPathVariable(ITEMS + ENTITY, newPrice, id);
+        ResultActions result = performPatchWithPathVariable(ITEMS + ENTITY, id);
         result.andExpect(status().isOk())
                 .andExpect(jsonContentToBe(reqBook));
     }

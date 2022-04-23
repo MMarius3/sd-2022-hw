@@ -27,9 +27,10 @@ public class BookController {
         return bookService.create(book);
     }
 
+    @CrossOrigin
     @PatchMapping(ENTITY)
-    public BookDTO changeName(@PathVariable Long id, @RequestBody Double newPrice) {
-        return bookService.changePrice(id, newPrice);
+    public BookDTO sellBook(@PathVariable Long id, @RequestBody BookDTO book) {
+        return bookService.sellBook(id, book);
     }
 
     @CrossOrigin

@@ -25,7 +25,6 @@ public class AuthService {
 
     private final PasswordEncoder encoder;
 
-
     public boolean existsByUsername(String username) {
         return userRepository.existsByUsername(username);
     }

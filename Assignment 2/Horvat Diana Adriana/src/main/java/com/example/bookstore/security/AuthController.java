@@ -77,17 +77,4 @@ public class AuthController {
         return ResponseEntity.ok(new MessageResponse("User registered successfully!"));
     }
 
-//    @GetMapping(LOGIN)
-//    public String showLoginForm(){
-//        return "login";
-//    }
-//
-//    @GetMapping(REGISTER)
-//    public String showRegisterForm(Model model){
-//
-//        model.addAttribute("signupRequest", new SignupRequest());
-//
-//        return "register";
-//    }
-
 }

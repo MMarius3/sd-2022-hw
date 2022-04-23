@@ -25,9 +25,15 @@
             <td>{{row.item.quantity}}</td>
             <td>{{row.item.price}}</td>
             <td>
-              <v-btn  color="red"
-                     depressed @click="deleteItem(row.item)">
-                      Delete
+              <v-btn  color="primary" :disabled="isOutOfStock(row.item)"
+                     depressed @click="sellItem(row.item)">
+                      Sell
+              </v-btn>
+            </td>
+            <td>
+              <v-btn  color="red" :disabled="isUnauthorized()"
+                      depressed @click="deleteItem(row.item)">
+                Delete
               </v-btn>
             </td>
           </tr>
@@ -45,6 +51,8 @@
 <script>
 import api from "../api";
 import ItemDialog from "../components/ItemDialog";
+
+const auth_user = JSON.parse(localStorage.getItem("user"));
 
 export default {
   name: "ItemList",
@@ -91,6 +99,12 @@ export default {
           sortable: false,
           value: "",
         },
+        {
+          text: "",
+          align: "start",
+          sortable: false,
+          value: "",
+        },
       ],
       dialogVisible: false,
       selectedItem: {},
@@ -111,10 +125,38 @@ export default {
           })
           .then(() => this.refreshList());
     },
+    sellItem(item) {
+      api.items
+          .sell({
+            id: item.id,
+            newQuantity: item.quantity - 1,
+          })
+          .then(() => this.refreshList());
+    },
     async refreshList() {
       this.dialogVisible = false;
       this.selectedItem = {};
       this.items = await api.items.allItems();
+    },
+
+    isUnauthorized(){
+      if(auth_user.roles[0] === "ADMIN"){
+        return false;
+      }else{
+        return true;
+      }
+    },
+
+    isOutOfStock(item) {
+      if(!this.isUnauthorized()){
+        if(item.quantity == 0){
+          return true;
+        }else {
+          return false;
+        }
+      }else{
+        return true;
+      }
     },
   },
   created() {

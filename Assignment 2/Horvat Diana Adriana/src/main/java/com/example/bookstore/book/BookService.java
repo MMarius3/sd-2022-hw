@@ -34,6 +34,12 @@ public class BookService {
         ));
     }
 
+    public List<BookDTO> findOutOfStockBooks(){
+        return bookRepository.findBooksByQuantityEquals(0).stream()
+                .map(bookMapper::toDto)
+                .collect(Collectors.toList());
+    }
+
     public BookDTO edit(Long id, BookDTO book) {
         Book actBook = findById(id);
         actBook.setTitle(book.getTitle());
@@ -46,9 +52,9 @@ public class BookService {
         );
     }
 
-    public BookDTO changePrice(Long id, Double newPrice) {
+    public BookDTO sellBook(Long id, BookDTO bookDto) {
         Book book = findById(id);
-        book.setPrice(newPrice);
+        book.setQuantity(book.getQuantity() - 1);
         return bookMapper.toDto(
                 bookRepository.save(book)
         );
