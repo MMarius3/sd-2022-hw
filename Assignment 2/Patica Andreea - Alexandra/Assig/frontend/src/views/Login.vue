@@ -33,6 +33,14 @@
                 v-model="login.password"
                 validate-on-blur
               ></v-text-field>
+
+              <v-checkbox
+                v-if="mode === 'register'"
+                v-model="checkbox"
+                :label="'Admin'"
+                @change="checkbox"
+              ></v-checkbox>
+
               <v-card-actions>
                 <v-container>
                   <v-layout v-if="inLoginMode" row justify-center>
@@ -76,8 +84,9 @@ export default {
     mode: "login",
     login: {
       email: "",
-      username: "alex",
-      password: "WooHoo1!",
+      username: "",
+      password: "",
+      admin: true,
     },
   }),
   methods: {
@@ -95,13 +104,18 @@ export default {
       });
     },
     async attemptRegister() {
-      await this.$store.dispatch("auth/register", this.login);
+      console.log("registeeeeer");
+      console.log(await this.$store.dispatch("auth/register", this.login));
     },
     toggleMode() {
       this.mode = this.mode === "login" ? "register" : "login";
     },
     logout() {
       this.$store.dispatch("auth/logout");
+    },
+    checkbox() {
+      this.login.admin = !this.login.admin;
+      console.log(this.login.admin);
     },
   },
   computed: {

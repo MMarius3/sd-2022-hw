@@ -39,8 +39,14 @@ public class AuthService {
                 .email(signUpRequest.getEmail())
                 .build();
 
-        Set<String> rolesStr = signUpRequest.getRoles();
+        //Set<String> rolesStr = signUpRequest.getRoles();
+        Set<String> rolesStr = null;
         Set<Role> roles = new HashSet<>();
+
+        if (signUpRequest.getAdmin()){
+            rolesStr = new HashSet<>();
+            rolesStr.add(ERole.ADMIN.toString());
+        }
 
         if (rolesStr == null) {
             Role defaultRole = roleRepository.findByName(ERole.EMPLOYEE)

@@ -28,14 +28,24 @@ export default {
       return response.data;
     });
   },
-  deleteItem(item){
+  deleteItem(item) {
     console.log("delete");
-    return HTTP.delete(BASE_URL + "/items/delete/" + item.id,{
+    return HTTP.delete(BASE_URL + "/items/delete/" + item.id, {
       headers: authHeader(),
     }).then((response) => {
       console.log(response.data);
       return response.data;
     });
+  },
+  dataURItoBlob(dataURI) {
+    const byteString = Buffer.from(dataURI).toString('base64');
+    const arrayBuffer = new ArrayBuffer(byteString.length);
+    const int8Array = new Uint8Array(arrayBuffer);
+    for (let i = 0; i < byteString.length; i++) {
+      int8Array[i] = byteString.charCodeAt(i);
+    }
+    const blob = new Blob([int8Array], { type: 'application/pdf'});
+    return blob;
   },
   generateReport(type) {
     console.log(type);
@@ -49,6 +59,9 @@ export default {
         // pdf.text(20, 20, response.data);
         // pdf.save("report.pdf");
         let FileDownloadPDF = require("js-file-download");
+        const blob = this.dataURItoBlob(response.data);
+        const url = URL.createObjectURL(blob);
+        window.open(url, '_blank');
         FileDownloadPDF(response.data, "report." + type);
       } else {
         console.log("CSV");

@@ -37,7 +37,7 @@ public class ItemRepositoryTest {
     public void testFindAll() {
         int nrItems = 10;
         for (int i = 0; i < nrItems; i++) {
-            repository.save(Item.builder().name(String.valueOf(i)).build());
+            repository.save(Item.builder().title(String.valueOf(i)).build());
         }
         List<Item> all = repository.findAll();
         assertEquals(nrItems, all.size());

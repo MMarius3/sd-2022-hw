@@ -71,6 +71,7 @@ public class AuthController {
             return ResponseEntity.ok(new MessageResponse("User registered successfully!"));
 
         }else{
+            System.out.println(validationMessage);
             return ResponseEntity
                     .badRequest()
                     .body(new MessageResponse(validationMessage));
