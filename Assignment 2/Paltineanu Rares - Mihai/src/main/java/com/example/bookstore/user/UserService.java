@@ -35,6 +35,12 @@ public class UserService {
 
     }
 
+    public List<UserMinimalDTO> allUsersMinimal() {
+        return userRepository.findAll()
+                .stream().map(userMapper::userMinimalFromUser)
+                .collect(toList());
+    }
+
     public boolean existsByUsername(String username) {
         return userRepository.existsByUsername(username);
     }

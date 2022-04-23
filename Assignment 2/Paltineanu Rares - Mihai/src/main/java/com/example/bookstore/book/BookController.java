@@ -67,8 +67,7 @@ public class BookController {
     }
 
     @GetMapping(FILTER_BOOKS)
-    public Page<BookDTO> filter(@ModelAttribute("filter") BookFilterRequestDTO filter, @PageableDefault(sort
-            = {"name"}) Pageable pageable) {
-        return bookService.filterBooks(filter, pageable);
+    public List<BookDTO> filter(@PathVariable String filter) {
+        return bookService.filterBooks(filter);
     }
 }

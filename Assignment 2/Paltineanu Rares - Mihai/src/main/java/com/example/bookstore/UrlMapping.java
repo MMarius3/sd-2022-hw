@@ -21,5 +21,5 @@ public class UrlMapping {
     public static final String GET_BOOK = "/get-book/{id}";
     public static final String GET_BOOKS = "/get-books";
     public static final String DELETE_BOOK = "/delete-book/{id}";
-    public static final String FILTER_BOOKS = "/filter";
+    public static final String FILTER_BOOKS = "/filter/{filter}";
 }

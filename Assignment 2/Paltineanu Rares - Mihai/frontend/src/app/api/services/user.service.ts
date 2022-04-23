@@ -10,17 +10,16 @@ import { authHeader } from "../authentication/http";
 export class UserService {
     constructor(private http: HttpClient) {}
 
-    public getUsers(): Observable<any> {
+    public getUsers(): Observable<User[]> {
         const headers = authHeader();
         const url: string = USERS_URL + '/get-users';
-        return this.http.get(url, {headers});
+        return this.http.get<User[]>(url, {headers});
     }
 
     public deleteUser(id: number): Observable<any> {
         const headers = authHeader();
         const url: string = USERS_URL + `/delete-user/${id}`;
-        this.http.delete(url, {headers}).subscribe();
-        return this.getUsers();
+        return this.http.delete(url, {headers});
     }
 
     public addUser(user: SignupRequest): Observable<any> {

@@ -9,10 +9,10 @@ import { BOOKS_URL } from "src/app/http/http-urls.component";
 export class BookService {
   constructor(private http: HttpClient) {}
 
-  public getBooks(): Observable<any> {
+  public getBooks(): Observable<Book[]> {
     const headers = authHeader()
     const url: string = BOOKS_URL + '/get-books';
-    return this.http.get(url, {headers})
+    return this.http.get<Book[]>(url, {headers})
   }
 
   public getBookById(id: number): Observable<any> {
@@ -24,18 +24,17 @@ export class BookService {
   public addBook(book: Book): Observable<any> {
     const headers = authHeader();
     const url: string = BOOKS_URL + '/add-book';
-    this.http.post<Book>(url, book, {headers}).subscribe()
+    this.http.post<Book>(url, book, {headers}).subscribe();
     return this.getBooks();
   }
 
   public deleteBook(id: number): Observable<any> {
     const headers = authHeader();
     const url = BOOKS_URL + `/delete-book/${id}`;
-    this.http.delete<void>(url, {headers}).subscribe()
-    return this.getBooks()
+    return this.http.delete<any>(url, {headers});
   }
 
-  public updateBook(id: number, book: Book): Observable<Book> {
+  public updateBook(id: number, book: Book): Observable<Book[]> {
     const headers = authHeader();
     const url = BOOKS_URL + `/update-book/${id}`;
     this.http.put(url, book, {headers})
@@ -49,7 +48,9 @@ export class BookService {
     return this.getBooks();
   }
 
-  public sellBooks(quantity: number, id: number) {
-    return new Observable();
+  public filterBooks(filter: string): Observable<any> {
+    const headers = authHeader();
+    const url = BOOKS_URL + `/filter/${filter}`;
+    return this.http.get(url, {headers});
   }
 }

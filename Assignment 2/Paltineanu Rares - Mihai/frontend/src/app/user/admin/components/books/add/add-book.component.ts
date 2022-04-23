@@ -23,8 +23,7 @@ export class AddBookComponent implements OnInit{
   }
 
   public addBook(): void {
-    this.bookService.addBook(this.form);
-    this.router.navigate(['/admin/books']);
+    this.bookService.addBook(this.form).subscribe(() => this.router.navigate(['/admin/books']));
   }
 
   public onCancel(): void {

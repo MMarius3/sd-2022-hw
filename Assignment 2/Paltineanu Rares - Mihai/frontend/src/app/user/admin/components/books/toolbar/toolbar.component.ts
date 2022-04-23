@@ -38,8 +38,21 @@ export class BookToolbarComponent {
   }
 
   public onDeleteBook(): void {
-    this.bookService.deleteBook(this.grid.selectedRowKeys[0].id);
-    this.router.navigate(['/admin/books']);
+    const bookId: number = this.grid.selectedRowKeys[0].id;
+    this.bookService.deleteBook(bookId)
+      .subscribe(async() => {
+        await this.delay(100);
+        this.updateDataSource()
+    });
+  }
+
+  delay(ms: number) {
+    return new Promise( resolve => setTimeout(resolve, ms) );
+  }
+
+  private updateDataSource(): void {
+    console.log('aaa')
+    this.bookService.getBooks().subscribe(books => this.grid.dataSource = books);
   }
 
   public changePage(): void {

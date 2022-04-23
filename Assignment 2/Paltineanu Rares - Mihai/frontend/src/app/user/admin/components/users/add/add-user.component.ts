@@ -26,8 +26,13 @@ export class AddUserComponent implements OnInit{
   public addUser(): void {
     this.form.roles?.push('ADMIN');
     let addedUser: SignupRequest = this.toSignUpRequest();
-    this.userService.addUser(addedUser);
-    this.router.navigate(['/admin/users']);
+    this.userService.addUser(addedUser).subscribe(async () => {
+      await this.delay(100);
+      this.router.navigate(['/admin/users'])});
+  }
+
+  delay(ms: number) {
+    return new Promise( resolve => setTimeout(resolve, ms) );
   }
 
   private toSignUpRequest(): SignupRequest {

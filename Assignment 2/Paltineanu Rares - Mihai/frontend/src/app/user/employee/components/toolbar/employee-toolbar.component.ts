@@ -14,6 +14,7 @@ export class EmployeeToolbarComponent{
     //@ts-ignore
     @Input() grid: DxDataGridComponent;
     public quantity: number = 0;
+    public filter: string = '';
     constructor(private router: Router,
         private bookService: BookService) {}
 
@@ -39,10 +40,14 @@ export class EmployeeToolbarComponent{
                 return;
             }
             book.quantity! -= this.quantity;
-            this.bookService.updateBook(bookId, book).subscribe();
+            this.bookService.updateBook(bookId, book).subscribe(books => this.grid.dataSource = books);
         });
 
         
+    }
+
+    public onFilter(): void {
+        this.bookService.filterBooks(this.filter).subscribe(books => this.grid.dataSource = books);
     }
 
     get isBookSelected(): boolean {

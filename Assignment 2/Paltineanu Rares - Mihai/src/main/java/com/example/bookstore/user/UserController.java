@@ -10,6 +10,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import java.util.HashSet;
 import java.util.List;
 
 import static com.example.bookstore.UrlMapping.*;
@@ -44,9 +45,9 @@ public class UserController {
                     .badRequest()
                     .body(new MessageResponse("Error: Email is already in use!"));
         }
-
+        user.setRoles(new HashSet<>());
+        user.getRoles().add("CUSTOMER");
         userService.create(user);
-
         return ResponseEntity.ok(new MessageResponse("User registered successfully!"));
     }
 

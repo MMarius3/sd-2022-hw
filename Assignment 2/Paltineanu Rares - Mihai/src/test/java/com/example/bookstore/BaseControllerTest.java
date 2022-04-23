@@ -52,6 +52,12 @@ public class BaseControllerTest {
                 .accept(MediaType.APPLICATION_JSON));
     }
 
+    protected ResultActions performPatchWithRequestBodyAndPathVariable(String path, Object body, Object pathVariable) throws Exception {
+        return mockMvc.perform(jsonType(patch(path, pathVariable)
+                .content(asJsonString(body)))
+        );
+    }
+
     protected String asJsonString(final Object obj) {
         try {
             ObjectMapper mapper = new ObjectMapper();

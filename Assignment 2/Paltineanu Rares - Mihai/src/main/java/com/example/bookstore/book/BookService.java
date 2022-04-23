@@ -7,6 +7,7 @@ import com.example.bookstore.book.model.dto.BookFilterRequestDTO;
 import com.example.bookstore.report.ReportType;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
@@ -49,9 +50,10 @@ public class BookService {
         return bookMapper.toDto(bookRepository.save(actBook));
     }
 
-    public Page<BookDTO> filterBooks(BookFilterRequestDTO filter, Pageable pageable) {
-        return bookRepository.findAll(
-                BookSpecifications.specificationsFromFilter(filter), pageable
-        ).map(bookMapper::toDto);
+    public List<BookDTO> filterBooks(String filter) {
+        return bookRepository.findAllByAuthorLikeOrNameLikeOrGenreLike("%" + filter + "%"
+                , "%" + filter + "%"
+                , "%" + filter + "%", PageRequest.of(0, 25))
+                .stream().map(bookMapper::toDto).collect(Collectors.toList());
     }
 }

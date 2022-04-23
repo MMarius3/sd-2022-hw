@@ -32,23 +32,24 @@ export class UserToolbarComponent {
   }
 
   public onDeleteUser(): void {
-    this.userService.deleteUser(this.grid.selectedRowKeys[0].id).subscribe(users => {
-      this.updateUsersGrid(users);
-    });
-    this.router.navigate(['/admin/users']);
+    this.userService.deleteUser(this.grid.selectedRowKeys[0].id).subscribe(lupa => {
+      console.log(lupa)
+      this.updateUsersGrid()});
+    ;
   }
 
   public changePage(): void {
     this.router.navigate([this.urlPage]);
   }
 
-  private updateUsersGrid(usersList: User[]) {
-    let usersGrid: UserGrid[] = [];
-    usersList.forEach(user => {
-        usersGrid.push(this.convertUser(user));
-    })
-    console.log(usersGrid);
-    this.grid.dataSource = usersGrid;
+  private updateUsersGrid() {
+    this.userService.getUsers().subscribe(users => {
+      let usersGrid: UserGrid[] = [];
+      users.forEach(user => {
+          usersGrid.push(this.convertUser(user));
+      })
+      this.grid.dataSource = usersGrid;
+    });
   }
 
   private convertUser(user: User): UserGrid {

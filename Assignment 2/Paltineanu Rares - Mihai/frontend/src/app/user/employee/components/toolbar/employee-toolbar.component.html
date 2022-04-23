@@ -4,7 +4,6 @@
   <input
         type="number"
         name="name"
-        ngModel="quantity"
         [(ngModel)]="quantity"
   />
   <button id="sellBookBtn"
@@ -16,6 +15,19 @@
     Sell Book
   </button >
 
+  <label>Filter:</label>
+  <input
+        type="text"
+        name="filter"
+        [(ngModel)]="filter"
+  />
+  <button id="sellBookBtn"
+          type="button"
+          class="btn btn-link button-secondary"
+          (click)="onFilter()"
+          title="Delete book">
+    Filter
+  </button >
   <div class="right-bar">
     <button (click)="logout()">Logout</button>
   </div>
