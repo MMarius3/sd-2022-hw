@@ -1,7 +1,7 @@
 package com.core.mapper;
 
 import com.infrastructure.entity.User;
-import com.core.dto.UserDto;
+import com.core.dto.user.UserDto;
 import org.mapstruct.Mapper;
 
 @Mapper(componentModel = "spring")

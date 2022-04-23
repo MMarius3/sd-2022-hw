@@ -1,13 +1,16 @@
 package com.core.service;
 
-import com.core.dto.PatientDto;
+import com.core.dto.patient.PatientDto;
 import com.core.mapper.PatientMapper;
+import org.springframework.context.annotation.ComponentScan;
 import org.springframework.stereotype.Service;
 import com.infrastructure.repository.PatientRepository;
 
 import java.util.Optional;
 
 @Service
+@ComponentScan({"mapper"})
+@ComponentScan({"repository"})
 public class PatientService {
 
     private final PatientRepository patientRepository;
@@ -28,5 +31,13 @@ public class PatientService {
         return patientRepository
                 .findByName(name)
                 .map(patientMapper::patientToPatientDto);
+    }
+
+    public void createPatient(PatientDto patientDto) {
+        patientRepository.save(patientMapper.patientDtoToPatient(patientDto));
+    }
+
+    public void updatePatient(PatientDto patientDto) {
+        patientRepository.save(patientMapper.patientDtoToPatient(patientDto));
     }
 }

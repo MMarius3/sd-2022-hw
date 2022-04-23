@@ -14,15 +14,18 @@ import javax.persistence.*;
 public class Patient {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id")
     private int id;
 
-    @Column(nullable = false, length = 50)
+    @Column(name="name", nullable = false, length = 50)
     private String name;
 
-    @Column(nullable = false, length = 50)
+    @Column(name="personal_numerical_code", nullable = false, length = 50)
     private String personalNumericalCode;
 
+    @Column(name = "birth_date")
     private String birthDate;
 
+    @Column(name = "address")
     private String address;
 }

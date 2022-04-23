@@ -11,23 +11,22 @@ import java.time.LocalDateTime;
 @Setter
 @Accessors(chain = true)
 @Entity
+@Table(name = "consultation")
 public class Consultation {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id")
     private int id;
+
+    @Column(name = "date")
     private LocalDateTime date;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinTable(name = "doctor_consultation",
-            joinColumns = @JoinColumn(name = "consultation_id"),
-            inverseJoinColumns = @JoinColumn(name = "doctor_id"))
+    @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private User doctor;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinTable(name = "patient_consultation",
-            joinColumns = @JoinColumn(name = "consultation_id"),
-            inverseJoinColumns = @JoinColumn(name = "patient_id"))
+    @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private Patient patient;
 
+    @Column(name = "details")
     private String details;
 }

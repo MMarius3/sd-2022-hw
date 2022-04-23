@@ -1,6 +1,6 @@
 package com.core.mapper;
 
-import com.core.dto.PatientDto;
+import com.core.dto.patient.PatientDto;
 import com.infrastructure.entity.Patient;
 import org.mapstruct.Mapper;
 
