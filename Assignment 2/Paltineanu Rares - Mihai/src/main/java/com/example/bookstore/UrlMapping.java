@@ -13,6 +13,7 @@ public class UrlMapping {
     public static final String GET_USER = "/get-users/{id}";
     public static final String DELETE_USER = "delete-user/{id}";
     public static final String ADD_USER = "/add-user";
+    public static final String UPDATE_USER = "/update-user/{id}";
 
     public static final String BOOKS = "/books";
     public static final String UPDATE_BOOK = "/update-book/{id}";
@@ -20,4 +21,5 @@ public class UrlMapping {
     public static final String GET_BOOK = "/get-book/{id}";
     public static final String GET_BOOKS = "/get-books";
     public static final String DELETE_BOOK = "/delete-book/{id}";
+    public static final String FILTER_BOOKS = "/filter";
 }

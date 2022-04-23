@@ -5,6 +5,8 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.util.Objects;
+
 @Data
 @Builder
 @AllArgsConstructor
@@ -17,4 +19,14 @@ public class BookDTO {
     private String genre;
     private Long quantity;
     private Float price;
+
+    @Override
+    public String toString() {
+        return id + "," +
+                name + "," +
+                description + "," +
+                author + "," +
+                genre + "," +
+                price + ",";
+    }
 }

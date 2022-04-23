@@ -30,8 +30,6 @@ export class UsersViewComponent implements OnInit{
             .subscribe(users =>  {
                 this.usersList = users;
                 this.updateUsersGrid();
-                console.log(this.usersGrid );
-                
             })
     }
 

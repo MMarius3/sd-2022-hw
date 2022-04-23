@@ -1,6 +1,7 @@
 import { HttpClient } from "@angular/common/http";
 import { Injectable } from "@angular/core";
 import { async, Observable } from "rxjs";
+import { SignupRequest } from "src/app/authentication/models/signup-request.model";
 import { USERS_URL } from "src/app/http/http-urls.component";
 import { User } from "src/app/models/user.model";
 import { authHeader } from "../authentication/http";
@@ -22,7 +23,7 @@ export class UserService {
         return this.getUsers();
     }
 
-    public addUser(user: User): Observable<any> {
+    public addUser(user: SignupRequest): Observable<any> {
         const headers = authHeader()
         const url: string = USERS_URL + '/add-user';
         this.http.post(url, user, {headers}).subscribe();
@@ -36,6 +37,9 @@ export class UserService {
     }
 
     public updateUser(id: number, user: User) {
-        
+        const headers = authHeader();
+        const url: string = USERS_URL + `/update-user/${id}`;
+        this.http.put(url, user, {headers}).subscribe();
+        return this.getUsers();
     }
 }

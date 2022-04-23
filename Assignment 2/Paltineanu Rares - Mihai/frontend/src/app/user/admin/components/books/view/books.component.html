@@ -8,7 +8,8 @@
               [showBorders]="true"
               [showRowLines]="true"
               class="dx-datagrid dataGrid">
-
+  <dxo-paging [pageSize]="10"> </dxo-paging>
+  <dxo-scrolling rowRenderingMode="virtual"> </dxo-scrolling>
   <dxo-column-chooser mode="select"></dxo-column-chooser>
 
   <dxo-selection [showCheckBoxesMode]="'onClick'" mode="single"></dxo-selection>

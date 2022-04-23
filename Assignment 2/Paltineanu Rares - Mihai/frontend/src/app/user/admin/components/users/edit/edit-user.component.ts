@@ -27,7 +27,6 @@ export class EditUserComponent implements OnInit{
         
         this.userService.getUserById(userId).subscribe(user => {
             this.user = new UserGrid(user);
-            console.log(user)
         });
     }
 
@@ -37,7 +36,8 @@ export class EditUserComponent implements OnInit{
 
     public updateUser(): void {
         if(this.user != undefined) {
-            this.userService.updateUser(this.user.id!, this.user);
+            let editUser: User = new User(this.user);
+            this.userService.updateUser(this.user.id!, editUser);
         }
         this.router.navigate(['/admin/users']);
     }

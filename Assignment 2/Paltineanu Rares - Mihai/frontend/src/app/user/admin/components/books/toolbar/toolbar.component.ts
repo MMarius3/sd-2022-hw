@@ -2,6 +2,12 @@ import {Component, Input} from "@angular/core";
 import {Router} from "@angular/router";
 import {DxDataGridComponent} from "devextreme-angular";
 import { BookService } from "src/app/api/services/book.service";
+import { ReportService } from "src/app/api/services/report.service";
+
+enum ReportType{
+  CSV = 'CSV',
+  PDF = 'PDF'
+}
 
 @Component({
   selector: 'app-book-toolbar',
@@ -18,6 +24,7 @@ export class BookToolbarComponent {
   urlPage: string = '/admin/users';
 
   constructor(private bookService: BookService,
+    private reportService: ReportService,
     private router: Router) {
   }
 
@@ -39,7 +46,15 @@ export class BookToolbarComponent {
     this.router.navigate([this.urlPage]);
   }
 
-  get areBooksSelected(): boolean {
+  public generateCsvReport(): void {
+    this.reportService.export(ReportType.CSV);
+  }
+
+  public generatePdfReport(): void {
+    this.reportService.export(ReportType.PDF);
+  }
+
+  get isBookSelected(): boolean {
     if(this.grid == null) {
       return false;
     }

@@ -2,6 +2,7 @@ package com.example.bookstore.user;
 
 import com.example.bookstore.BaseControllerTest;
 import com.example.bookstore.TestCreationFactory;
+import com.example.bookstore.security.dto.SignupRequest;
 import com.example.bookstore.user.dto.UserDTO;
 import com.example.bookstore.user.dto.UserListDTO;
 import com.example.bookstore.user.model.ERole;
@@ -54,14 +55,13 @@ class UserControllerTest extends BaseControllerTest {
     void addUser() throws Exception {
         Set<Role> roles = new HashSet<>();
         roles.add(new Role(1, ERole.ADMIN));
-        UserDTO userDTO = UserDTO.builder()
-                .id(1L)
+        SignupRequest userDTO = SignupRequest.builder()
                 .email("myemail@aaa.com")
-                .name("username")
+                .username("username")
                 .password("hallelujah")
-                .roles(roles)
+                //.roles(roles)
                 .build();
-        when(userService.create(userDTO)).thenReturn(userDTO);
+        //when(userService.create(userDTO)).thenReturn(userDTO);
         ResultActions result = performPostWithRequestBody(USER + ADD_USER, userDTO);
         result.andExpect(status().isOk())
                 .andExpect(jsonContentToBe(userDTO));

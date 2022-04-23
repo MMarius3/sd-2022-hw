@@ -23,6 +23,8 @@ import { BookToolbarComponent } from './user/admin/components/books/toolbar/tool
 import { UserToolbarComponent } from './user/admin/components/users/toolbar/toolbar.component';
 import { AddUserComponent } from './user/admin/components/users/add/add-user.component';
 import { EditUserComponent } from './user/admin/components/users/edit/edit-user.component';
+import { ReportService } from './api/services/report.service';
+import { EmployeeToolbarComponent } from './user/employee/components/toolbar/employee-toolbar.component';
 
 @NgModule({
   declarations: [
@@ -37,7 +39,8 @@ import { EditUserComponent } from './user/admin/components/users/edit/edit-user.
     EditBookComponent,
     UserToolbarComponent,
     AddUserComponent,
-    EditUserComponent
+    EditUserComponent,
+    EmployeeToolbarComponent
   ],
   imports: [
     BrowserModule,
@@ -53,7 +56,8 @@ import { EditUserComponent } from './user/admin/components/users/edit/edit-user.
     AuthenticationService,
     BookService,
     AuthenticationGuard,
-    UserService],
+    UserService,
+    ReportService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

@@ -6,4 +6,7 @@ export const AUTH_URL = API_URL + '/auth';
 
 export const BOOKS_URL = BASE_URL + '/books';
 
+export const REPORT_URL = BOOKS_URL + '/export';
+
 export const USERS_URL = API_URL + '/user';
+

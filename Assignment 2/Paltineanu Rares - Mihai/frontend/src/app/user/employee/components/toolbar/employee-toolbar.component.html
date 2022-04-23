@@ -1,0 +1,25 @@
+<div class="toolbar">
+
+  <label>Quantity:</label>
+  <input
+        type="number"
+        name="name"
+        ngModel="quantity"
+        [(ngModel)]="quantity"
+  />
+  <button id="sellBookBtn"
+          type="button"
+          class="btn btn-link button-secondary"
+          (click)="onSellBook()"
+          title="Delete book"
+          [disabled]="!isBookSelected">
+    Sell Book
+  </button >
+
+  <div class="right-bar">
+    <button (click)="logout()">Logout</button>
+  </div>
+</div>
+  
+  
+  

@@ -13,14 +13,29 @@
             class="btn btn-link button-secondary"
             (click)="onDeleteBook()"
             title="Delete book"
-            [disabled]="!areBooksSelected">
+            [disabled]="!isBookSelected">
       Delete
     </button >
     <button title="{{buttonName}}"
+      class="btn btn-link button-secondary"
       (click)="changePage()"
     >
       {{buttonName}}
   
+    </button>
+
+    <button title="csvReport"
+      class="btn btn-link button-secondary"
+      (click)="generateCsvReport()"
+    >
+      CSV Report
+    </button>
+
+    <button title="pdfReport"
+    class="btn btn-link button-secondary"
+      (click)="generatePdfReport()"
+    >
+      PDF Report
     </button>
   
     <div class="right-bar">
