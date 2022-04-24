@@ -24,12 +24,10 @@ public class ReportController {
     @CrossOrigin
     @GetMapping(EXPORT_REPORT)
     public ResponseEntity<?> export(@PathVariable String type) throws IOException {
-//        if(type.equals("pdf")) {
+        if (type.equals("pdf")) {
             return reportServiceFactory.getReportService(ReportType.PDF).export();
-//        }
-//        else{
-//            reportServiceFactory.getReportService(ReportType.CSV).export();
-//        }
+        }
 
+        return reportServiceFactory.getReportService(ReportType.CSV).export();
     }
 }

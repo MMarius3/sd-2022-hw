@@ -35,7 +35,7 @@ export default {
         return HTTP.get(BASE_URL + "/users/export/" + report.type, { responseType: 'arraybuffer', headers: authHeader() }).then(
             (response) => {
                 var fileDownload = require('js-file-download');
-                fileDownload(response.data, "Report_"+report.type+".pdf");
+                fileDownload(response.data, "Report"+"."+report.type);
                 return response.data;
             }
         );
