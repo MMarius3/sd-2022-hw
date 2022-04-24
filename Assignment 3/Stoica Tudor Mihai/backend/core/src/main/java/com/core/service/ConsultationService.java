@@ -9,7 +9,6 @@ import com.infrastructure.entity.Consultation;
 import com.infrastructure.repository.ConsultationRepository;
 import com.infrastructure.repository.PatientRepository;
 import com.infrastructure.repository.UserRepository;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.stereotype.Service;
 

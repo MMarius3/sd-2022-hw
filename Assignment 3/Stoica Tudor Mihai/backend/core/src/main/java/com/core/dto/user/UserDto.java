@@ -3,19 +3,22 @@ package com.core.dto.user;
 import com.sun.istack.NotNull;
 import com.infrastructure.entity.UserType;
 
+import javax.validation.constraints.Size;
+
 public class UserDto {
     @NotNull
     private int id;
 
     @NotNull
-//    @StringLength(minLimit = 3, maxLimit = 50)
+    @Size(min = 3, max = 50)
     private String name;
 
     @NotNull
-//    @StringLength(minLimit = 5, maxLimit = 50)
+    @Size(min = 3, max = 50)
     private String email;
 
     @NotNull
+    @Size(min = 3, max = 50)
     private String password;
 
     @NotNull

@@ -1,6 +1,7 @@
 package com.core.dto.consultation;
 
 import com.sun.istack.NotNull;
+import javax.validation.constraints.Size;
 
 import java.time.LocalDateTime;
 
@@ -18,6 +19,7 @@ public class ConsultationCreationDto {
     @NotNull
     private int patientId;
 
+    @Size(min = 10, max = 1000)
     private String details;
 
     public int getId() {

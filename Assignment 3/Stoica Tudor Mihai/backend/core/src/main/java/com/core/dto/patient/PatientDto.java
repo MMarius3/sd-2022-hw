@@ -2,6 +2,7 @@ package com.core.dto.patient;
 
 import com.sun.istack.NotNull;
 
+import javax.validation.constraints.Size;
 import java.time.LocalDateTime;
 
 public class PatientDto {
@@ -10,15 +11,18 @@ public class PatientDto {
     private int id;
 
     @NotNull
+    @Size(min = 3, max = 50)
     private String name;
 
     @NotNull
+    @Size(min = 1, max = 20)
     private String personalNumericalCode;
 
     @NotNull
     private LocalDateTime birthDate;
 
     @NotNull
+    @Size(min = 3, max = 50)
     private String address;
 
     public int getId() {

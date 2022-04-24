@@ -47,10 +47,10 @@ public class SecretaryControllerTest extends BaseControllerTest {
     @BeforeEach
     protected void setUp() {
         super.setUp();
-        secretaryController = new SecretaryController(consultationService, patientService);
-        mockMvc = MockMvcBuilders.standaloneSetup(secretaryController)
-                .setCustomArgumentResolvers(new PageableHandlerMethodArgumentResolver())
-                .build();
+//        secretaryController = new SecretaryController(consultationService, patientService);
+//        mockMvc = MockMvcBuilders.standaloneSetup(secretaryController)
+//                .setCustomArgumentResolvers(new PageableHandlerMethodArgumentResolver())
+//                .build();
     }
 
     @Test

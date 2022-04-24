@@ -6,8 +6,11 @@ import com.core.dto.consultation.ConsultationUpdateDto;
 import com.core.dto.patient.PatientDto;
 import com.core.service.ConsultationService;
 import com.core.service.PatientService;
+import com.core.service.doctor_notification.IUserNotifier;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
+
+import javax.swing.*;
 
 @RestController
 @RequestMapping(UrlMappings.SECRETARY)
@@ -16,12 +19,16 @@ import org.springframework.web.bind.annotation.*;
 public class SecretaryController {
 
     private final ConsultationService consultationService;
+    private final IUserNotifier doctorNotificationService;
     private final PatientService patientService;
 
     @PostMapping(UrlMappings.CREATE_CONSULTATION)
     public ConsultationDto createConsultation(@RequestBody ConsultationCreationDto consultationCreationDto) {
         try {
-            return consultationService.create(consultationCreationDto);
+            ConsultationDto consultationDto = consultationService.create(consultationCreationDto);
+            doctorNotificationService.sendNotification(consultationDto);
+
+            return consultationDto;
         } catch (Exception e) {
             e.printStackTrace();
             return null;

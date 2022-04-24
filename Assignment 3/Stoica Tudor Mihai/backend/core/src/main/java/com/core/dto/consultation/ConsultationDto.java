@@ -5,6 +5,7 @@ import com.core.dto.user.UserDto;
 import com.sun.istack.NotNull;
 import lombok.EqualsAndHashCode;
 
+import javax.validation.constraints.Size;
 import java.time.LocalDateTime;
 
 public class ConsultationDto {
@@ -21,6 +22,7 @@ public class ConsultationDto {
     @NotNull
     private PatientDto patient;
 
+    @Size(min = 10, max = 1000)
     private String details;
 
     public int getId() {
