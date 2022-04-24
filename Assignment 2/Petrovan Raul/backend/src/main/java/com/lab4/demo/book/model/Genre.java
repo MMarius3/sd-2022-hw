@@ -4,4 +4,5 @@ public enum Genre {
     ACTION,
     DRAMA,
     THRILLER,
+
 }

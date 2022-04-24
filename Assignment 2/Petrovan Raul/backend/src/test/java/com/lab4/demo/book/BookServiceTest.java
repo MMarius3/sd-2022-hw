@@ -44,4 +44,18 @@ class BookServiceTest {
 
         Assertions.assertEquals(books.size(), all.size());
     }
+
+    @Test
+    void findOutOfStock() {
+        List<Book> books = TestCreationFactory.listOf(Book.class);
+        System.out.println(books);
+        when(bookRepository.findAll()).thenReturn(books);
+
+        List<BookDTO> all = bookService.findAll();
+        List<BookDTO> expected = bookService.findOutOfStock();
+
+        Assertions.assertEquals(all.size(), books.size());
+        Assertions.assertEquals(expected.size(),
+                books.stream().filter(b -> b.getQuantity() == 0).count());
+    }
 }

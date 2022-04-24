@@ -54,6 +54,9 @@ public class TestCreationFactory {
                 .id(randomLong())
                 .author(randomString())
                 .description(randomString())
+                .quantity(randomBoundedInt(10))
+                .price((float) (randomBoundedInt(100)/7.0))
+                .title(randomString())
                 .build();
     }
 

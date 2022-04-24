@@ -9,18 +9,19 @@
         label="Search"
         single-line
         hide-details
+        @change="searchBooks"
       ></v-text-field>
       <v-btn @click="addBook" v-if="$store.getters['auth/isAdmin']">Add Book</v-btn>
     </v-card-title>
     <v-data-table
       :headers="headers"
       :items="books"
-      :search="search"
       @click:row="editBook"
     ></v-data-table>
     <BookDialog
       :opened="dialogVisible"
       :book="selectedBook"
+      :genres="genres"
       @refresh="refreshList"
       v-on:close="closeDialog"
     ></BookDialog>
@@ -53,6 +54,7 @@ export default {
       ],
       dialogVisible: false,
       selectedBook: {},
+      genres: [],
     };
   },
   methods: {
@@ -70,6 +72,11 @@ export default {
       this.dialogVisible = false;
       this.selectedBook = {};
       this.books = await api.books.allBooks();
+      this.genres = await api.books.getGenres();
+      this.search != "" ? this.books = await api.books.filterBooks(this.search) : {};
+    },
+    searchBooks() {
+      this.refreshList();
     },
   },
   created() {

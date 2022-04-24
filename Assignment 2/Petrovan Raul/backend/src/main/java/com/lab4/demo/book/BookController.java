@@ -1,15 +1,20 @@
 package com.lab4.demo.book;
 
+import com.lab4.demo.book.model.Genre;
+import com.lab4.demo.book.model.SearchObject;
 import com.lab4.demo.book.model.dto.BookDTO;
 import com.lab4.demo.report.ReportType;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Arrays;
 import java.util.List;
 
 import static com.lab4.demo.UrlMapping.EXPORT_REPORT;
 import static com.lab4.demo.UrlMapping.BOOKS;
 import static com.lab4.demo.UrlMapping.BOOKS_ID_PART;
+import static com.lab4.demo.UrlMapping.FILTER;
+import static com.lab4.demo.UrlMapping.GENRES;
 
 @RestController
 @RequestMapping(BOOKS)
@@ -21,6 +26,16 @@ public class BookController {
     @GetMapping
     public List<BookDTO> allItems() {
         return bookService.findAll();
+    }
+
+    @GetMapping(GENRES)
+    public List<String> getAllGenres() {
+        return Arrays.stream(Genre.values()).map(Genre::name).collect(java.util.stream.Collectors.toList());
+    }
+
+    @GetMapping("/outOfStock")
+    public List<BookDTO> outOfStock() {
+        return bookService.findOutOfStock();
     }
 
     @PostMapping
@@ -41,5 +56,17 @@ public class BookController {
     @GetMapping(EXPORT_REPORT)
     public String exportReport(@PathVariable ReportType type) {
         return bookService.export(type);
+    }
+
+    @PostMapping(FILTER)
+    public List<BookDTO> filter(@RequestBody SearchObject filterObject) {
+        System.out.println(bookService.filter(filterObject.filter));
+        return bookService.filter(filterObject.filter);
+    }
+
+    @RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
+    @ResponseBody
+    public void delete(@PathVariable Long id) {
+        bookService.delete(id);
     }
 }

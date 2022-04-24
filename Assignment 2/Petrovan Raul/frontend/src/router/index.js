@@ -4,6 +4,7 @@ import UserList from "../views/UserList.vue";
 import BookList from "../views/BookList.vue";
 import { auth as store } from "../store/auth.module";
 import Login from "../views/Login";
+import Reports from "@/views/Reports";
 
 Vue.use(VueRouter);
 
@@ -18,7 +19,7 @@ const routes = [
     name: "Users",
     component: UserList,
     beforeEnter: (to, from, next) => {
-      if (store.getters.isAdmin) {
+      if (store.getters.isAdmin(store.state)) {
         next();
       } else {
         next({ name: "Books" });
@@ -34,6 +35,18 @@ const routes = [
         next();
       } else {
         next({ name: "Home" });
+      }
+    },
+  },
+  {
+    path: "/reports",
+    name: "Reports",
+    component: Reports,
+    beforeEnter: (to, from, next) => {
+      if (store.getters.isAdmin(store.state)) {
+        next();
+      } else {
+        next({ name: "Books" });
       }
     },
   },

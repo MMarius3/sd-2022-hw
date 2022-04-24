@@ -27,7 +27,7 @@ export default {
       links: [
         {icon: '', text: 'Users', to: '/users', requiresPrivilege: true},
         {icon: 'library_books', text: 'Books', to: '/books', requiresPrivilege: false},
-        {icon: '', text: 'Report Generator', to: '/report', requiresPrivilege: true}
+        {icon: '', text: 'Report Generator', to: '/reports', requiresPrivilege: true}
       ]
     };
   },

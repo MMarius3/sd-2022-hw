@@ -1,6 +1,7 @@
 package com.lab4.demo.book;
 
 import com.lab4.demo.book.model.Book;
+import com.lab4.demo.book.model.Genre;
 import com.lab4.demo.book.model.dto.BookDTO;
 import com.lab4.demo.report.ReportServiceFactory;
 import com.lab4.demo.report.ReportType;
@@ -8,6 +9,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import javax.persistence.EntityNotFoundException;
+import java.io.IOException;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -50,7 +52,11 @@ public class BookService {
     }
 
     public String export(ReportType type) {
-        return reportServiceFactory.getReportService(type).export();
+        try {
+            return reportServiceFactory.getReportService(type).export(findOutOfStock());
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
     }
 
     public BookDTO sellOne(Long id) {
@@ -62,5 +68,24 @@ public class BookService {
         return bookMapper.toDto(
                 bookRepository.save(actBook)
         );
+    }
+
+    public List<BookDTO> findOutOfStock() {
+        System.out.println(bookRepository.findBooksByQuantityLessThanEqual(0).stream()
+                .map(bookMapper::toDto)
+                .collect(Collectors.toList()));
+        return bookRepository.findBooksByQuantityLessThanEqual(0).stream()
+                .map(bookMapper::toDto)
+                .collect(Collectors.toList());
+    }
+
+    public void delete(Long id) {
+        bookRepository.deleteById(id);
+    }
+
+    public List<BookDTO> filter(String filter) {
+        return bookRepository.findBooksByTitleContainsIgnoreCaseOrAuthorContainingIgnoreCase(filter, filter).stream()
+                .map(bookMapper::toDto)
+                .collect(Collectors.toList());
     }
 }

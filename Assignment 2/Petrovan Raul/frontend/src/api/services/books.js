@@ -29,4 +29,26 @@ export default {
       return response.data;
     });
   },
+  getGenres() {
+    return HTTP.get(BASE_URL + "/books/genres", {
+      headers: authHeader(),
+    }).then((response) => {
+      return response.data;
+    });
+  },
+  deleteBook(book) {
+    return HTTP.delete(BASE_URL + "/books/" + book.id, {
+      headers: authHeader(),
+    }).then((response) => {
+      return response.data;
+    });
+  },
+  filterBooks(filter) {
+    return HTTP.post(BASE_URL + "/books/filter", {filter}, {
+      headers: authHeader(),
+      params: filter,
+    }).then((response) => {
+      return response.data;
+    });
+  },
 };
