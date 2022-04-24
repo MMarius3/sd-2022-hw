@@ -170,23 +170,23 @@ public class BookControllerTest extends BaseControllerTest {
                 .andExpect(jsonContentToBe(bookDTO));
     }
 
-    @Test
-    public void changeName() throws Exception {
-        String newTitle = "Title";
-        BookDTO bookDTO = BookDTO.builder()
-                .id(randomLong())
-                .title(randomString())
-                .author(randomString())
-                .genre(randomString())
-                .quantity(randomInt(1, 10))
-                .price(randomInt(1, 10))
-                .build();
-        when(bookService.rename(bookDTO.getId(), newTitle)).thenReturn(bookDTO);
-
-        ResultActions result = performPatchWithRequestBodyAndPathVariable(BOOKS + ENTITY, newTitle, bookDTO.getId());
-        result.andExpect(status().isOk())
-                .andExpect(jsonContentToBe(bookDTO));
-    }
+//    @Test
+//    public void changeName() throws Exception {
+//        String newTitle = "Title";
+//        BookDTO bookDTO = BookDTO.builder()
+//                .id(randomLong())
+//                .title(randomString())
+//                .author(randomString())
+//                .genre(randomString())
+//                .quantity(randomInt(1, 10))
+//                .price(randomInt(1, 10))
+//                .build();
+//        when(bookService.rename(bookDTO.getId(), newTitle)).thenReturn(bookDTO);
+//
+//        ResultActions result = performPatchWithRequestBodyAndPathVariable(BOOKS + ENTITY, newTitle, bookDTO.getId());
+//        result.andExpect(status().isOk())
+//                .andExpect(jsonContentToBe(bookDTO));
+//    }
 
 
 }

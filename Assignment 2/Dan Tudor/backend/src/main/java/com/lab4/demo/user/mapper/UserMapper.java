@@ -1,5 +1,6 @@
 package com.lab4.demo.user.mapper;
 
+import com.lab4.demo.user.dto.UserDTO;
 import com.lab4.demo.user.dto.UserListDTO;
 import com.lab4.demo.user.dto.UserMinimalDTO;
 import com.lab4.demo.user.model.User;
@@ -9,7 +10,13 @@ import java.util.stream.Collectors;
 
 @Mapper(componentModel = "spring")
 public interface UserMapper {
-    User userFromUserListDto(UserListDTO userListDTO);
+    @Mappings({
+            @Mapping(target = "roles", ignore = true),
+            @Mapping(target = "reviews", ignore = true)
+    })
+    User userFromUserDTO(UserDTO userDTO);
+
+    UserDTO userDTOFromUser(User user);
 
     @Mappings({
             @Mapping(target = "name", source = "user.username")

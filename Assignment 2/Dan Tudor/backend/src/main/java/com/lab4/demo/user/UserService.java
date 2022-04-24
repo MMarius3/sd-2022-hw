@@ -1,8 +1,10 @@
 package com.lab4.demo.user;
 
+import com.lab4.demo.user.dto.UserDTO;
 import com.lab4.demo.user.dto.UserListDTO;
 import com.lab4.demo.user.dto.UserMinimalDTO;
 import com.lab4.demo.user.mapper.UserMapper;
+import com.lab4.demo.user.model.User;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -29,16 +31,22 @@ public class UserService {
                 .collect(toList());
     }
 
-    public UserListDTO createUser(UserListDTO userListDTO) {
-        return userMapper.userListDtoFromUser(userRepository.save(userMapper.userFromUserListDto(userListDTO)));
+    public List<UserDTO> findAll() {
+        return userRepository.findAll()
+                .stream().map(userMapper::userDTOFromUser)
+                .collect(toList());
+    }
+
+    public UserDTO createUser(UserDTO userDTO) {
+        return userMapper.userDTOFromUser(userRepository.save(userMapper.userFromUserDTO(userDTO)));
     }
 
     public void deleteUser(Long id) {
         userRepository.deleteById(id);
     }
 
-    public UserListDTO updateUser(Long id, UserListDTO userListDTO) {
-        return userMapper.userListDtoFromUser(userRepository.save(userMapper.userFromUserListDto(userListDTO)));
+    public UserDTO updateUser(Long id, UserDTO userDTO) {
+        return userMapper.userDTOFromUser(userRepository.save(userMapper.userFromUserDTO(userDTO)));
     }
 
 }

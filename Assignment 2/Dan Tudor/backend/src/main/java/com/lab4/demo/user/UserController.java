@@ -1,5 +1,6 @@
 package com.lab4.demo.user;
 
+import com.lab4.demo.user.dto.UserDTO;
 import com.lab4.demo.user.dto.UserListDTO;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
@@ -16,19 +17,24 @@ public class UserController {
 
     private final UserService userService;
 
+//    @GetMapping
+//    public List<UserListDTO> allUsers() {
+//        return userService.allUsersForList();
+//    }
+
     @GetMapping
-    public List<UserListDTO> allUsers() {
-        return userService.allUsersForList();
+    public List<UserDTO> findAll() {
+        return userService.findAll();
     }
 
     @PostMapping
-    public void createUser(@RequestBody UserListDTO userListDTO) {
-        userService.createUser(userListDTO);
+    public void createUser(@RequestBody UserDTO userDTO) {
+        userService.createUser(userDTO);
     }
 
     @PutMapping(ENTITY)
-    public void updateUser(@PathVariable Long id, @RequestBody UserListDTO userListDTO) {
-        userService.updateUser(id, userListDTO);
+    public void updateUser(@PathVariable Long id, @RequestBody UserDTO userDTO) {
+        userService.updateUser(id, userDTO);
     }
 
     @DeleteMapping(ENTITY)

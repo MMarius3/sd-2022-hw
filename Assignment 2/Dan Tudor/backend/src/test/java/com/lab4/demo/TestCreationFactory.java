@@ -5,6 +5,7 @@ import com.lab4.demo.book.model.dto.BookDTO;
 import com.lab4.demo.item.model.Item;
 import com.lab4.demo.item.model.dto.ItemDTO;
 import com.lab4.demo.review.model.dto.ReviewDTO;
+import com.lab4.demo.user.dto.UserDTO;
 import com.lab4.demo.user.dto.UserListDTO;
 
 import java.util.List;
@@ -29,6 +30,8 @@ public class TestCreationFactory {
 
         if (cls.equals(UserListDTO.class)) {
             supplier = TestCreationFactory::newUserListDTO;
+        } else if (cls.equals(UserDTO.class)) {
+            supplier = TestCreationFactory::newUserDTO;
         } else if (cls.equals(Item.class)) {
             supplier = TestCreationFactory::newItem;
         } else if (cls.equals(ItemDTO.class)) {
@@ -77,6 +80,15 @@ public class TestCreationFactory {
                 .id(randomLong())
                 .name(randomString())
                 .email(randomEmail())
+                .build();
+    }
+
+    private static UserDTO newUserDTO() {
+        return UserDTO.builder()
+                .id(randomLong())
+                .username(randomString())
+                .email(randomEmail())
+                .password(randomString())
                 .build();
     }
 
