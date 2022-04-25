@@ -1,0 +1,11 @@
+﻿@model UserViewModel
+<form asp-controller="Accounts" asp-action="UpdateUser" method="post">
+
+    <input type="hidden" asp-for="Email" class="form-control" />
+    <div class="form-group row">
+        <label asp-for="UserName"></label>
+        <input asp-for="UserName" class="form-control" />
+        <span asp-validation-for="UserName" class="text-danger"></span>
+    </div>
+    <button type="submit" class="btn btn-info">Update user</button>
+</form>

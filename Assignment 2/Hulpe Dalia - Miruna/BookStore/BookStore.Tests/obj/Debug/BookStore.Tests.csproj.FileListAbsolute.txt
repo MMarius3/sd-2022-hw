@@ -1,0 +1,14 @@
+C:\Users\miruh\Documents\Facultate\An3Sem2\SD_Lab\sd-2022-hw\Assignment 2\Hulpe Dalia - Miruna\BookStore\BookStore.Tests\bin\Debug\Microsoft.VisualStudio.TestPlatform.MSTest.TestAdapter.dll
+C:\Users\miruh\Documents\Facultate\An3Sem2\SD_Lab\sd-2022-hw\Assignment 2\Hulpe Dalia - Miruna\BookStore\BookStore.Tests\bin\Debug\Microsoft.VisualStudio.TestPlatform.MSTestAdapter.PlatformServices.Interface.dll
+C:\Users\miruh\Documents\Facultate\An3Sem2\SD_Lab\sd-2022-hw\Assignment 2\Hulpe Dalia - Miruna\BookStore\BookStore.Tests\bin\Debug\Microsoft.VisualStudio.TestPlatform.MSTestAdapter.PlatformServices.dll
+C:\Users\miruh\Documents\Facultate\An3Sem2\SD_Lab\sd-2022-hw\Assignment 2\Hulpe Dalia - Miruna\BookStore\BookStore.Tests\bin\Debug\BookStore.Tests.dll
+C:\Users\miruh\Documents\Facultate\An3Sem2\SD_Lab\sd-2022-hw\Assignment 2\Hulpe Dalia - Miruna\BookStore\BookStore.Tests\bin\Debug\BookStore.Tests.pdb
+C:\Users\miruh\Documents\Facultate\An3Sem2\SD_Lab\sd-2022-hw\Assignment 2\Hulpe Dalia - Miruna\BookStore\BookStore.Tests\bin\Debug\Microsoft.VisualStudio.TestPlatform.TestFramework.dll
+C:\Users\miruh\Documents\Facultate\An3Sem2\SD_Lab\sd-2022-hw\Assignment 2\Hulpe Dalia - Miruna\BookStore\BookStore.Tests\bin\Debug\Microsoft.VisualStudio.TestPlatform.TestFramework.Extensions.dll
+C:\Users\miruh\Documents\Facultate\An3Sem2\SD_Lab\sd-2022-hw\Assignment 2\Hulpe Dalia - Miruna\BookStore\BookStore.Tests\bin\Debug\Microsoft.VisualStudio.TestPlatform.TestFramework.xml
+C:\Users\miruh\Documents\Facultate\An3Sem2\SD_Lab\sd-2022-hw\Assignment 2\Hulpe Dalia - Miruna\BookStore\BookStore.Tests\bin\Debug\Microsoft.VisualStudio.TestPlatform.TestFramework.Extensions.xml
+C:\Users\miruh\Documents\Facultate\An3Sem2\SD_Lab\sd-2022-hw\Assignment 2\Hulpe Dalia - Miruna\BookStore\BookStore.Tests\obj\Debug\BookStore.Tests.csprojAssemblyReference.cache
+C:\Users\miruh\Documents\Facultate\An3Sem2\SD_Lab\sd-2022-hw\Assignment 2\Hulpe Dalia - Miruna\BookStore\BookStore.Tests\obj\Debug\BookStore.Tests.csproj.CoreCompileInputs.cache
+C:\Users\miruh\Documents\Facultate\An3Sem2\SD_Lab\sd-2022-hw\Assignment 2\Hulpe Dalia - Miruna\BookStore\BookStore.Tests\obj\Debug\BookStore.Tests.csproj.CopyComplete
+C:\Users\miruh\Documents\Facultate\An3Sem2\SD_Lab\sd-2022-hw\Assignment 2\Hulpe Dalia - Miruna\BookStore\BookStore.Tests\obj\Debug\BookStore.Tests.dll
+C:\Users\miruh\Documents\Facultate\An3Sem2\SD_Lab\sd-2022-hw\Assignment 2\Hulpe Dalia - Miruna\BookStore\BookStore.Tests\obj\Debug\BookStore.Tests.pdb

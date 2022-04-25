@@ -1,0 +1,12 @@
+C:\Users\miruh\Documents\Facultate\An3Sem2\SD_Lab\sd-2022-hw\Assignment 2\Hulpe Dalia - Miruna\BookStore\BookStore.BusinessLogic\bin\Debug\netcoreapp3.1\BookStore.BusinessLogic.deps.json
+C:\Users\miruh\Documents\Facultate\An3Sem2\SD_Lab\sd-2022-hw\Assignment 2\Hulpe Dalia - Miruna\BookStore\BookStore.BusinessLogic\bin\Debug\netcoreapp3.1\BookStore.BusinessLogic.dll
+C:\Users\miruh\Documents\Facultate\An3Sem2\SD_Lab\sd-2022-hw\Assignment 2\Hulpe Dalia - Miruna\BookStore\BookStore.BusinessLogic\bin\Debug\netcoreapp3.1\BookStore.BusinessLogic.pdb
+C:\Users\miruh\Documents\Facultate\An3Sem2\SD_Lab\sd-2022-hw\Assignment 2\Hulpe Dalia - Miruna\BookStore\BookStore.BusinessLogic\bin\Debug\netcoreapp3.1\BookStore.Repository.dll
+C:\Users\miruh\Documents\Facultate\An3Sem2\SD_Lab\sd-2022-hw\Assignment 2\Hulpe Dalia - Miruna\BookStore\BookStore.BusinessLogic\bin\Debug\netcoreapp3.1\BookStore.Repository.pdb
+C:\Users\miruh\Documents\Facultate\An3Sem2\SD_Lab\sd-2022-hw\Assignment 2\Hulpe Dalia - Miruna\BookStore\BookStore.BusinessLogic\obj\Debug\netcoreapp3.1\BookStore.BusinessLogic.csprojAssemblyReference.cache
+C:\Users\miruh\Documents\Facultate\An3Sem2\SD_Lab\sd-2022-hw\Assignment 2\Hulpe Dalia - Miruna\BookStore\BookStore.BusinessLogic\obj\Debug\netcoreapp3.1\BookStore.BusinessLogic.AssemblyInfoInputs.cache
+C:\Users\miruh\Documents\Facultate\An3Sem2\SD_Lab\sd-2022-hw\Assignment 2\Hulpe Dalia - Miruna\BookStore\BookStore.BusinessLogic\obj\Debug\netcoreapp3.1\BookStore.BusinessLogic.AssemblyInfo.cs
+C:\Users\miruh\Documents\Facultate\An3Sem2\SD_Lab\sd-2022-hw\Assignment 2\Hulpe Dalia - Miruna\BookStore\BookStore.BusinessLogic\obj\Debug\netcoreapp3.1\BookStore.BusinessLogic.csproj.CoreCompileInputs.cache
+C:\Users\miruh\Documents\Facultate\An3Sem2\SD_Lab\sd-2022-hw\Assignment 2\Hulpe Dalia - Miruna\BookStore\BookStore.BusinessLogic\obj\Debug\netcoreapp3.1\BookStore.BusinessLogic.csproj.CopyComplete
+C:\Users\miruh\Documents\Facultate\An3Sem2\SD_Lab\sd-2022-hw\Assignment 2\Hulpe Dalia - Miruna\BookStore\BookStore.BusinessLogic\obj\Debug\netcoreapp3.1\BookStore.BusinessLogic.dll
+C:\Users\miruh\Documents\Facultate\An3Sem2\SD_Lab\sd-2022-hw\Assignment 2\Hulpe Dalia - Miruna\BookStore\BookStore.BusinessLogic\obj\Debug\netcoreapp3.1\BookStore.BusinessLogic.pdb
