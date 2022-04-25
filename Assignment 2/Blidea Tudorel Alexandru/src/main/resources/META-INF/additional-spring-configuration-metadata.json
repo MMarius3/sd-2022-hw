@@ -1,0 +1,33 @@
+{
+  "properties": [
+    {
+      "name": "mongodb.databaseName",
+      "type": "java.lang.String",
+      "description": "database name."
+    },
+    {
+      "name": "mongodb.connectionString",
+      "type": "java.lang.String",
+      "description": "URL connection to mongodb."
+    },
+    {
+      "name": "mongodb.userHistoryCollectionName",
+      "type": "java.lang.String",
+      "description": "Collection name to save user history."
+    },
+    {
+      "name": "bookstoreApp.security.jwt.secret",
+      "type": "java.lang.String",
+      "description": "JWT secret to create keys."
+    },
+    {
+      "name": "bookstoreApp.security.jwt.expirationMs",
+      "type": "java.lang.String",
+      "description": "Expiration time in ms for jwt."
+    },
+    {
+      "name": "bookstoreApp.mongodb.collections.history.*",
+      "type": "java.lang.String",
+      "description": "Collections where the history is stored."
+    }
+  ] }
