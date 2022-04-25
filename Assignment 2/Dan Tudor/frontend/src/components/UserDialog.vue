@@ -7,14 +7,12 @@
     <template>
       <v-card>
         <v-toolbar color="primary" dark>
-          {{ isNew ? "Create item" : "Edit item" }}
+          {{ isNew ? "Create user" : "Edit user" }}
         </v-toolbar>
         <v-form>
-          <v-text-field v-model="item.title" label="Title" />
-          <v-text-field v-model="item.author" label="Author" />
-          <v-text-field v-model="item.genre" label="Genre" />
-          <v-text-field v-model="item.quantity" label="Quantity" />
-          <v-text-field v-model="item.price" label="Price" />
+          <v-text-field v-model="user.username" label="Username" />
+          <v-text-field v-model="user.password" label="Password" />
+          <v-text-field v-model="user.email" label="Email" />
         </v-form>
         <v-card-actions>
           <v-btn @click="persist">
@@ -31,48 +29,45 @@
 import api from "../api";
 
 export default {
-  name: "ItemDialog",
+  name: "UserDialog",
   props: {
-    item: Object,
+    user: Object,
     opened: Boolean,
   },
   methods: {
     persist() {
       if (this.isNew) {
-        api.items
+        api.users
           .create({
-            title: this.item.title,
-            author: this.item.author,
-            genre: this.item.genre,
-            quantity: this.item.quantity,
-            price: this.item.price,
+            username: this.user.username,
+            password: this.user.password,
+            email: this.user.email,
           })
           .then(() => this.$emit("refresh"));
       } else {
-        api.items
+        api.users
           .edit({
-            id: this.item.id,
-            title: this.item.title,
-            author: this.item.author,
-            genre: this.item.genre,
-            quantity: this.item.quantity,
+            id: this.user.id,
+            username: this.user.username,
+            password: this.user.password,
+            email: this.user.email,
           })
           .then(() => this.$emit("refresh"));
       }
     },
     persist2() {
       if (!this.isNew) {
-        api.items
-            .delete({
-              id: this.item.id,
-            })
-            .then(() => this.$emit("refresh"));
+        api.users
+          .delete({
+            id: this.user.id,
+          })
+          .then(() => this.$emit("refresh"));
       }
     },
   },
   computed: {
     isNew: function () {
-      return !this.item.id;
+      return !this.users.id;
     },
   },
 };

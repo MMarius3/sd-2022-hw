@@ -17,6 +17,7 @@ public interface BookRepository extends JpaRepository<Book, Long> {
     Optional<Book> findByGenre(String genre);
     Optional<Book> findById(Long id);
     Stream<Book> findAllByOrderByTitle();
+    Page<Book> findAll(Pageable pageable);
     Page<Book> findAllByTitleLikeOrAuthorLikeOrGenreLike(String title, String author, String genre, Pageable pageable);
     List<Book> findAllByTitleLikeOrAuthorLikeOrGenreLike(String title, String author, String genre);
 }

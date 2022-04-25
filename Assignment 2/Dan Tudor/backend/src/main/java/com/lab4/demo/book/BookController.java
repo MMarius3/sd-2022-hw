@@ -17,19 +17,14 @@ import static com.lab4.demo.UrlMapping.*;
 @RestController
 @RequestMapping(BOOKS)
 @RequiredArgsConstructor
-@AllArgsConstructor
 public class BookController {
-    private BookService bookService;
+    private final BookService bookService;
 
     @GetMapping
     public List<BookDTO> findAll() {
+        System.out.println("FInd qxecuted");
         return bookService.findAll();
     }
-
-    /*@GetMapping(BOOKS + SEARCH)
-    public Page<BookDTO> findAllPaged(@PathVariable String search, @PageableDefault(sort = "title") Pageable pageable) {
-        return bookService.findAllByTitleLikeOrAuthorLikeOrGenreLike(search,search,search, pageable);
-    }*/
 
     @GetMapping(SEARCH)
     public List<BookDTO> searchList(@PathVariable String search) {
@@ -50,11 +45,6 @@ public class BookController {
     public BookDTO update(@PathVariable Long id, @RequestBody BookDTO bookDTO) {
         return bookService.update(id, bookDTO);
     }
-
-//    @PatchMapping(BOOKS_ID)
-//    public BookDTO rename(@PathVariable Long id, @RequestBody String newTitle) {
-//        return bookService.rename(id, newTitle);
-//    }
 
     @PatchMapping(BOOKS_ID)
     public BookDTO updateQuantity(@PathVariable Long id, @RequestBody Integer quantity) {

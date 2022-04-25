@@ -20,7 +20,6 @@ import java.util.Set;
 @Builder
 @Data
 public class User {
-
     @Id
     @GeneratedValue
     private Long id;

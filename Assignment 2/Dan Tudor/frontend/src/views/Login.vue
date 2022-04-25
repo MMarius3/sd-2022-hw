@@ -87,6 +87,7 @@ export default {
           if (this.$store.getters["auth/isAdmin"]) {
             router.push("/users");
           } else {
+            //router.push("/books");
             router.push("/items");
           }
         } else {

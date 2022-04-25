@@ -6,6 +6,7 @@ import com.lab4.demo.book.model.dto.BookRequestDTO;
 import com.lab4.demo.book.model.dto.BookResponseDTO;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
@@ -20,9 +21,8 @@ public class BookService {
     private final BookRepository bookRepository;
     private final BookMapper bookMapper;
 
-    @Transactional
     public List<BookDTO> findAll(){
-        return bookRepository.findAllByOrderByTitle().map(bookMapper::toDto).collect(toList());
+        return bookRepository.findAll(PageRequest.of(0,10)).stream().map(bookMapper::toDto).collect(toList());
     }
 
     public Book findById(Long id){
@@ -31,7 +31,6 @@ public class BookService {
 
     public BookDTO create(BookDTO bookDTO){
         return bookMapper.toDto(bookRepository.save(bookMapper.fromDto(bookDTO)));
-
     }
 
     public void delete(Long id){

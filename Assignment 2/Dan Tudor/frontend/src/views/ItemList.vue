@@ -11,6 +11,7 @@
         hide-details
       ></v-text-field>
       <v-btn @click="addItem">Add Item</v-btn>
+      <v-btn @click="searchFunc">Search Items</v-btn>
     </v-card-title>
     <v-data-table
       :headers="headers"
@@ -23,31 +24,42 @@
       :item="selectedItem"
       @refresh="refreshList"
     ></ItemDialog>
+    <SearchDialog
+      :opened="searchDialogVisible"
+      :items="searchItems"
+      @refresh="refreshList"
+    ></SearchDialog>
   </v-card>
 </template>
 
 <script>
 import api from "../api";
 import ItemDialog from "../components/ItemDialog";
+import SearchDialog from "../components/SearchDialog";
 
 export default {
   name: "ItemList",
-  components: { ItemDialog },
+  components: { ItemDialog, SearchDialog },
   data() {
     return {
       items: [],
       search: "",
       headers: [
         {
-          text: "Name",
+          text: "Title",
           align: "start",
           sortable: false,
-          value: "name",
+          value: "title",
         },
-        { text: "Description", value: "description" },
+        { text: "Author", value: "author" },
+        { text: "Genre", value: "genre" },
+        { text: "Quantity", value: "quantity" },
+        { text: "Price", value: "price" },
       ],
       dialogVisible: false,
       selectedItem: {},
+      searchDialogVisible: false,
+      searchItems: [],
     };
   },
   methods: {
@@ -57,6 +69,10 @@ export default {
     },
     addItem() {
       this.dialogVisible = true;
+    },
+    searchFunc() {
+      this.searchDialogVisible = true;
+      this.items = this.searchItems;
     },
     async refreshList() {
       this.dialogVisible = false;
