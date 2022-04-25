@@ -14,8 +14,6 @@ import java.util.List;
 import static com.lab4.demo.TestCreationFactory.randomLong;
 import static com.lab4.demo.TestCreationFactory.randomString;
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.mockito.Mockito.doNothing;
-import static org.mockito.Mockito.when;
 
 @SpringBootTest
 class ItemServiceIntegrationTest {

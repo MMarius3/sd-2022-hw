@@ -19,14 +19,14 @@ public class JwtUtils {
     private static final Logger logger = LoggerFactory.getLogger(JwtUtils.class);
 
     @Value(value = "${app.jwtSecret}")
-    private String jwtSecret;   //cheie prin care o sa encodez tokenurile (pt alg de criptare)
+    private String jwtSecret;
 
     @Value("${app.jwtExpirationMs}")
     private int jwtExpirationMs;
 
     public String generateJwtToken(Authentication authentication) {
 
-        UserDetailsImpl userPrincipal = (UserDetailsImpl) authentication.getPrincipal(); //detaliile userului logat
+        UserDetailsImpl userPrincipal = (UserDetailsImpl) authentication.getPrincipal();
 
         return Jwts.builder()
                 .setSubject((userPrincipal.getUsername()))

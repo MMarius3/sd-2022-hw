@@ -22,18 +22,6 @@ public class TestCreationFactory {
         int nrElements = new Random().nextInt(10) + 5;
         Supplier<?> supplier;
 
-//        if (cls.equals(UserListDTO.class)) {
-//            supplier = TestCreationFactory::newUserListDTO;
-//        } else if (cls.equals(Item.class)) {
-//            supplier = TestCreationFactory::newItem;
-//        } else if (cls.equals(ItemDTO.class)) {
-//            supplier = TestCreationFactory::newItemDTO;
-//        } else if (cls.equals(ReviewDTO.class)) {
-//            supplier = TestCreationFactory::newReviewDTO;
-//        } else {
-//            supplier = () -> new String("You failed.");
-//        }
-
         if (cls.equals(Item.class)) {
             supplier = TestCreationFactory::newItem;
         } else if (cls.equals(ItemDto.class)) {
@@ -49,13 +37,6 @@ public class TestCreationFactory {
                 .stream().collect(toList());
     }
 
-//    private static UserListDTO newUserListDTO() {
-//        return UserListDTO.builder()
-//                .id(randomLong())
-//                .name(randomString())
-//                .email(randomEmail())
-//                .build();
-//    }
 
     private static Item newItem() {
         return Item.builder()
@@ -72,17 +53,6 @@ public class TestCreationFactory {
                 .build();
     }
 
-//    private static ReviewDTO newReviewDTO() {
-//        return ReviewDTO.builder()
-//                .id(randomLong())
-//                .text(randomString())
-//                .reviewer(randomString())
-//                .build();
-//    }
-
-    public static String randomEmail() {
-        return randomString() + "@" + randomString() + ".com";
-    }
 
     public static byte[] randomBytes() {
         byte[] bytes = new byte[Math.toIntExact(randomLong())];
@@ -94,13 +64,6 @@ public class TestCreationFactory {
         return new Random().nextInt(1999);
     }
 
-    public static Boolean randomBoolean() {
-        return new Random().nextBoolean();
-    }
-
-    public static int randomBoundedInt(int upperBound) {
-        return new Random().nextInt(upperBound);
-    }
 
     public static String randomString() {
         int leftLimit = 48; // numeral '0'

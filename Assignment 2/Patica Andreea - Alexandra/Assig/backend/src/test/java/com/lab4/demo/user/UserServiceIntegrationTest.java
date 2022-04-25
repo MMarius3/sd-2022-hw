@@ -1,31 +1,18 @@
 package com.lab4.demo.user;
 
-import com.lab4.demo.TestCreationFactory;
-import com.lab4.demo.item.dto.ItemDto;
-import com.lab4.demo.item.model.Item;
 import com.lab4.demo.user.dto.UserDto;
 import com.lab4.demo.user.dto.UserMinimalDTO;
-import com.lab4.demo.user.model.ERole;
-import com.lab4.demo.user.model.Role;
 import com.lab4.demo.user.model.User;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.test.web.servlet.MvcResult;
-import org.springframework.test.web.servlet.ResultActions;
-import org.springframework.test.web.servlet.ResultMatcher;
 
 import java.util.*;
 
 import static com.lab4.demo.TestCreationFactory.randomLong;
 import static com.lab4.demo.TestCreationFactory.randomString;
-import static com.lab4.demo.UrlMapping.*;
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertTrue;
-import static org.mockito.Mockito.*;
-import static org.mockito.Mockito.when;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @SpringBootTest
 class UserServiceIntegrationTest {

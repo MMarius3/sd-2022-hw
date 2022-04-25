@@ -19,21 +19,21 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
 
 import static com.lab4.demo.UrlMapping.AUTH;
-//este um Bean = e manageuit de spring, putem sa injectam chestii in el
+
 @Configuration
 @EnableWebSecurity
 @EnableGlobalMethodSecurity(prePostEnabled = true)
 @RequiredArgsConstructor
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
-    private final UserDetailsService userDetailsService; //exista in pachetul de spring security (cu metoda loadUserByUsername)
+    private final UserDetailsService userDetailsService;
 
-    private final AuthEntryPointJwt unauthorizedHandler; //handler pentru requesturi neautorizate (trimit aceeasi eroare la frontend indiferent de requestul neautorizat)
+    private final AuthEntryPointJwt unauthorizedHandler;
 
     @Bean
     public AuthTokenFilter authenticationJwtTokenFilter() {
         return new AuthTokenFilter();
-    }   //interceptor pt toate requesturile care vin in aplicatie (in spring se numesc filtre)
+    }
 
     @Override
     public void configure(AuthenticationManagerBuilder authenticationManagerBuilder) throws Exception {
@@ -48,17 +48,6 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Bean
     public PasswordEncoder passwordEncoder() {
-//        return new PasswordEncoder() {
-//            @Override
-//            public String encode(CharSequence rawPassword) {
-//                return rawPassword.toString();
-//            }
-//
-//            @Override
-//            public boolean matches(CharSequence rawPassword, String encodedPassword) {
-//                return rawPassword.toString().equalsIgnoreCase(encodedPassword.toString());
-//            }
-//        };
         return new BCryptPasswordEncoder();
     }
 

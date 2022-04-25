@@ -1,6 +1,5 @@
 package com.lab4.demo.item.model;
 
-import com.lab4.demo.user.model.ERole;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;

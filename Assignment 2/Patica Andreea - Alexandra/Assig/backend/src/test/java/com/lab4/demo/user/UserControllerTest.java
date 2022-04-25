@@ -2,11 +2,6 @@ package com.lab4.demo.user;
 
 import com.lab4.demo.BaseControllerTest;
 import com.lab4.demo.TestCreationFactory;
-import com.lab4.demo.item.ItemController;
-import com.lab4.demo.item.ItemService;
-import com.lab4.demo.item.dto.ItemDto;
-import com.lab4.demo.item.model.Item;
-import com.lab4.demo.report.ReportServiceFactory;
 import com.lab4.demo.user.dto.UserDto;
 import com.lab4.demo.user.model.User;
 import org.junit.jupiter.api.BeforeEach;
@@ -23,12 +18,8 @@ import java.util.List;
 import static com.lab4.demo.TestCreationFactory.randomLong;
 import static com.lab4.demo.TestCreationFactory.randomString;
 import static com.lab4.demo.UrlMapping.*;
-import static com.lab4.demo.report.ReportType.CSV;
-import static com.lab4.demo.report.ReportType.PDF;
 import static org.mockito.Mockito.*;
 import static org.mockito.Mockito.when;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 public class UserControllerTest extends BaseControllerTest {

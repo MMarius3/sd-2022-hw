@@ -1,7 +1,5 @@
 package com.lab4.demo.user;
 
-import com.lab4.demo.item.ItemRepository;
-import com.lab4.demo.item.model.Item;
 import com.lab4.demo.user.model.ERole;
 import com.lab4.demo.user.model.Role;
 import com.lab4.demo.user.model.User;
@@ -13,7 +11,6 @@ import org.springframework.dao.DataIntegrityViolationException;
 
 import java.util.*;
 
-import static com.lab4.demo.TestCreationFactory.randomLong;
 import static com.lab4.demo.TestCreationFactory.randomString;
 import static org.junit.jupiter.api.Assertions.*;
 import static org.junit.jupiter.api.Assertions.assertEquals;

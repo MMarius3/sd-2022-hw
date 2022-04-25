@@ -4,16 +4,11 @@ import com.lab4.demo.BaseControllerTest;
 import com.lab4.demo.TestCreationFactory;
 import com.lab4.demo.item.dto.ItemDto;
 import com.lab4.demo.item.model.Item;
-import com.lab4.demo.item.dto.ItemDto;
-import com.lab4.demo.report.CSVReportService;
-import com.lab4.demo.report.PdfReportService;
 import com.lab4.demo.report.ReportServiceFactory;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.test.web.servlet.MvcResult;
 import org.springframework.test.web.servlet.ResultActions;
 import org.springframework.test.web.servlet.ResultMatcher;
@@ -65,7 +60,7 @@ class ItemControllerTest extends BaseControllerTest {
     void exportReport() throws Exception {
         final String csv = "csv";
         final String pdf = "pdf";
-        //when(itemService.export(CSV)).thenReturn(csv);
+        //when(itemService.export(CSV)).thenReturn(csv);        //TODO
         //when(itemService.export(PDF)).thenReturn(pdf);
 
         ResultActions responseCsv = mockMvc.perform(get(ITEMS + EXPORT_REPORT, CSV.name()));

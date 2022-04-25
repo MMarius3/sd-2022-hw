@@ -5,23 +5,16 @@ import com.lab4.demo.item.model.Item;
 import com.lab4.demo.report.ReportServiceFactory;
 import com.lab4.demo.report.ReportType;
 import lombok.RequiredArgsConstructor;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
-import java.util.Date;
 import java.util.List;
-import java.util.Map;
 
 import static com.lab4.demo.UrlMapping.*;
 import static org.springframework.http.HttpStatus.CREATED;
 
-//better dtos than simple entities
-@RestController   //trebuie sa se ocupe de crearea contextului (rest => protocol de comunicare prin json)
+@RestController
 @RequestMapping(ITEMS)
 @RequiredArgsConstructor
 public class ItemController {
@@ -40,11 +33,6 @@ public class ItemController {
 
         return reportServiceFactory.getReportService(reportType).export(response);
     }
-
-//    @GetMapping(ID)
-//    public ItemDto findById(@PathVariable Long id){
-//        return itemService.findById(id);
-//    }
 
     @PostMapping
     @ResponseStatus(CREATED)

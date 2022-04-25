@@ -39,7 +39,6 @@ public class UserService {
     }
 
     public List<User> allRegularUsers(){
-        //return userRepository.findAllByRoleEquals(ERole.EMPLOYEE.toString());
 
         return userRepository.findUserByRolesIsContaining(roleRepository.findByName(ERole.EMPLOYEE)
                 .orElseThrow(() -> new RuntimeException("Cannot find role: " + ERole.EMPLOYEE)));

@@ -21,7 +21,7 @@ import java.io.IOException;
 
 @RequiredArgsConstructor
 @AllArgsConstructor
-public class AuthTokenFilter extends OncePerRequestFilter { //login si register nu au un token
+public class AuthTokenFilter extends OncePerRequestFilter {
 
     @Autowired
     private JwtUtils jwtUtils;

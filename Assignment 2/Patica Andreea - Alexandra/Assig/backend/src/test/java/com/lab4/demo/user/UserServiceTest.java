@@ -1,9 +1,5 @@
 package com.lab4.demo.user;
 
-import com.lab4.demo.item.ItemRepository;
-import com.lab4.demo.item.ItemService;
-import com.lab4.demo.item.dto.ItemDto;
-import com.lab4.demo.item.model.Item;
 import com.lab4.demo.user.dto.UserDto;
 import com.lab4.demo.user.dto.UserMinimalDTO;
 import com.lab4.demo.user.mapper.UserMapper;
@@ -20,7 +16,6 @@ import java.util.List;
 
 import static com.lab4.demo.TestCreationFactory.randomLong;
 import static com.lab4.demo.TestCreationFactory.randomString;
-import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.Mockito.doNothing;
 import static org.mockito.Mockito.when;
 

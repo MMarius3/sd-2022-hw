@@ -3,9 +3,6 @@ package com.lab4.demo.report;
 import com.lab4.demo.item.ItemService;
 import com.lab4.demo.item.model.Item;
 import com.lowagie.text.*;
-import com.lowagie.text.Font;
-import com.lowagie.text.pdf.PdfPTable;
-import com.lowagie.text.pdf.PdfWriter;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 

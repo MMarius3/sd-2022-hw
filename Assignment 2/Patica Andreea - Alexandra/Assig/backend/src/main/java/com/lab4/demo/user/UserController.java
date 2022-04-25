@@ -1,6 +1,5 @@
 package com.lab4.demo.user;
 
-import com.lab4.demo.item.dto.ItemDto;
 import com.lab4.demo.user.dto.UserDto;
 import com.lab4.demo.user.model.User;
 import lombok.RequiredArgsConstructor;
