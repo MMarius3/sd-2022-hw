@@ -1,26 +1,20 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
-  <component name="AutoImportSettings">
-    <option name="autoReloadType" value="SELECTIVE" />
-  </component>
   <component name="ChangeListManager">
-    <list default="true" id="3c87b878-e8a9-4024-ae02-4ce55976bfcc" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/.changeMe!" beforeDir="false" />
+    <list default="true" id="5416869f-8af3-4be1-a754-fe343fab6e4a" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/gradle.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../Assignment2/src/main/java/com/example/assignment2/security/WebSecurityConfig.java" beforeDir="false" afterPath="$PROJECT_DIR$/../../Assignment2/src/main/java/com/example/assignment2/security/WebSecurityConfig.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
-  <component name="ExternalProjectsData">
-    <projectState path="$PROJECT_DIR$">
-      <ProjectState />
-    </projectState>
-  </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/../.." />
   </component>
-  <component name="ProjectId" id="27ZWcYDbCMCe1sj22untFJxWyD2" />
+  <component name="ProjectId" id="2898QMLM1OokEBz0uoM8QjelYrf" />
   <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
@@ -30,40 +24,21 @@
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
-  </component>
-  <component name="RunManager">
-    <configuration default="true" type="JetRunConfigurationType">
-      <module name="Zarnescu Radu" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-    <configuration default="true" type="KotlinStandaloneScriptRunConfigurationType">
-      <module name="Zarnescu Radu" />
-      <option name="filePath" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-    <configuration name="Assignment2Application" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot">
-      <module name="demo.main" />
-      <option name="SPRING_BOOT_MAIN_CLASS" value="com.example.demo.Assignment2Application" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/backend" />
+    <property name="node.js.detected.package.eslint" value="true" />
+    <property name="node.js.selected.package.eslint" value="(autodetect)" />
+    <property name="vue.rearranger.settings.migration" value="true" />
   </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
-      <changelist id="3c87b878-e8a9-4024-ae02-4ce55976bfcc" name="Changes" comment="" />
-      <created>1649528168017</created>
+      <changelist id="5416869f-8af3-4be1-a754-fe343fab6e4a" name="Changes" comment="" />
+      <created>1650617423172</created>
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
-      <updated>1649528168017</updated>
-      <workItem from="1649528169395" duration="248000" />
-      <workItem from="1650364201697" duration="218000" />
+      <updated>1650617423172</updated>
+      <workItem from="1650617424309" duration="32000" />
+      <workItem from="1650732071575" duration="9000" />
     </task>
     <servers />
   </component>
