@@ -28,5 +28,8 @@ public class Book {
     @Column()
     private Long price;
 
+    @Column()
+    private Long quantity;
+
 
 }

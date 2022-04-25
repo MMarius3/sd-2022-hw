@@ -15,4 +15,5 @@ public class BookDto {
     private String author;
     private Long price;
     private String genre;
+    private Long quantity;
 }

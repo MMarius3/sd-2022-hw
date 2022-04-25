@@ -34,6 +34,8 @@ dependencies {
     implementation group: 'javax.validation', name: 'validation-api', version: '2.0.1.Final'
     implementation 'org.mapstruct:mapstruct:1.4.2.Final'
     annotationProcessor 'org.mapstruct:mapstruct-processor:1.4.2.Final'
+    implementation group: 'org.apache.pdfbox', name: 'pdfbox', version: '2.0.1'
+    annotationProcessor group: 'org.springframework.boot', name: 'spring-boot-configuration-processor'
 
 }
 

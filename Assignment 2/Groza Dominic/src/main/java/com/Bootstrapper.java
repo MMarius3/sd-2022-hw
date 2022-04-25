@@ -37,7 +37,7 @@ public class Bootstrapper implements ApplicationListener<ApplicationReadyEvent> 
     @Override
     public void onApplicationEvent(ApplicationReadyEvent event) {
         if (bootstrap) {
-//            itemRepository.deleteAll();
+            bookRepository.deleteAll();
             userRepository.deleteAll();
             roleRepository.deleteAll();
             for (ERole value : ERole.values()) {
@@ -66,6 +66,7 @@ public class Bootstrapper implements ApplicationListener<ApplicationReadyEvent> 
                         .title(String.format("Book%d",i+1))
                         .genre("Comedy")
                         .price((long) (i + 1) * rand.nextInt(1000))
+                        .quantity((long) (rand.nextInt(10)+1))
                         .build();
                 bookRepository.save(book);
             }

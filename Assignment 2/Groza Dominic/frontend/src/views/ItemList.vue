@@ -1,7 +1,7 @@
 <template>
   <v-card>
     <v-card-title>
-      Items
+      Books
       <v-spacer></v-spacer>
       <v-text-field
         v-model="search"
@@ -10,7 +10,7 @@
         single-line
         hide-details
       ></v-text-field>
-      <v-btn @click="addItem">Add Item</v-btn>
+      <v-btn @click="addItem">Add Book</v-btn>
     </v-card-title>
     <v-data-table
       :headers="headers"
@@ -18,6 +18,8 @@
       :search="search"
       @click:row="editItem"
     ></v-data-table>
+    <v-btn @click="generateReportPDF" color="yellow">Generate PDF</v-btn>
+    <v-btn @click="generateReportCSV" color="blue">Generate CSV</v-btn>
     <ItemDialog
       :opened="dialogVisible"
       :item="selectedItem"
@@ -31,20 +33,18 @@ import api from "../api";
 import ItemDialog from "../components/ItemDialog";
 
 export default {
-  name: "ItemList",
+  name: "Book list",
   components: { ItemDialog },
   data() {
     return {
       items: [],
       search: "",
       headers: [
-        {
-          text: "Name",
-          align: "start",
-          sortable: false,
-          value: "name",
-        },
-        { text: "Description", value: "description" },
+        {text: "Title", align: "start", sortable: false, value: "title",},
+        { text: "Author", value: "author" },
+        { text: "Genre", value: "genre" },
+        { text: "Price", value: "price" },
+        { text: "Quantity", value: "quantity" },
       ],
       dialogVisible: false,
       selectedItem: {},
@@ -62,7 +62,14 @@ export default {
       this.dialogVisible = false;
       this.selectedItem = {};
       this.items = await api.items.allItems();
+
     },
+    generateReportPDF(){
+      api.items.report("PDF");
+    },
+    generateReportCSV(){
+      api.items.report("CSV");
+    }
   },
   created() {
     this.refreshList();
