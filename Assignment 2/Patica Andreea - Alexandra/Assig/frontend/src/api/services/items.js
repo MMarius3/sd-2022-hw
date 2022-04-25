@@ -1,5 +1,6 @@
 import authHeader, { BASE_URL, HTTP } from "../http";
-import { jsPDF } from "jspdf";
+//import { jsPDF } from "jspdf";
+import ByteToDocument from "./reportGen";
 //import FileDownload from "js-file-download";
 
 export default {
@@ -38,13 +39,13 @@ export default {
     });
   },
   dataURItoBlob(dataURI) {
-    const byteString = Buffer.from(dataURI).toString('base64');
+    const byteString = Buffer.from(dataURI).toString("base64");
     const arrayBuffer = new ArrayBuffer(byteString.length);
     const int8Array = new Uint8Array(arrayBuffer);
     for (let i = 0; i < byteString.length; i++) {
       int8Array[i] = byteString.charCodeAt(i);
     }
-    const blob = new Blob([int8Array], { type: 'application/pdf'});
+    const blob = new Blob([int8Array], { type: "application/pdf" });
     return blob;
   },
   generateReport(type) {
@@ -53,17 +54,13 @@ export default {
       headers: authHeader(),
     }).then((response) => {
       console.log(response.data);
-      // pdf.output('dataurlnewwindow');
       if (type.localeCompare("PDF") === 0) {
-        var pdf = new jsPDF(response.data);
-        //pdf.text(20, 20, response.data);
-        //pdf.output(response.data);
-        pdf.save("report.pdf");
-        // let FileDownloadPDF = require("js-file-download");
-        // const blob = this.dataURItoBlob(response.data);
-        // const url = URL.createObjectURL(blob);
-        // window.open(url, '_blank');
-        // FileDownloadPDF(response.data, "report." + type);
+        //TODO
+        var sampleArr = ByteToDocument.base64ToArrayBuffer(response.data);
+        ByteToDocument.saveByteArray(
+          "Report_on_books_out_of_stock" + ".pdf",
+          sampleArr
+        );
       } else {
         console.log("CSV");
         let FileDownloadCSV = require("js-file-download");

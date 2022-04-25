@@ -10,7 +10,7 @@
         <v-toolbar color="primary" dark>
           {{ isNew ? "Create item" : "Edit item" }}
         </v-toolbar>
-        <v-form>
+        <v-form @submit="checkForm">
           <v-text-field v-model="item.title" label="Title" />
           <v-text-field v-model="item.author" label="Author" />
           <v-text-field v-model="item.price" label="Price" />
@@ -42,6 +42,24 @@ export default {
     opened: Boolean,
   },
   methods: {
+    checkForm: function () {
+
+          return true //TODO
+      //   this.title &&
+      //   this.author &&
+      //   this.price &&
+      //   this.quantity &&
+      //   this.description
+      // )
+      //   return true;
+      // this.errors = [];
+      // if (!this.title) this.errors.push("Name required.");
+      // if (!this.author) this.errors.push("Age required.");
+      // if (!this.price) this.errors.push("Age required.");
+      // if (!this.quantity) this.errors.push("Age required.");
+      // if (!this.description) this.errors.push("Age required.");
+      // e.preventDefault();
+    },
     persist() {
       if (this.isNew) {
         api.items
