@@ -1,5 +1,5 @@
 import authHeader, { BASE_URL, HTTP } from "../http";
-//import { jsPDF } from "jspdf";
+import { jsPDF } from "jspdf";
 //import FileDownload from "js-file-download";
 
 export default {
@@ -55,14 +55,15 @@ export default {
       console.log(response.data);
       // pdf.output('dataurlnewwindow');
       if (type.localeCompare("PDF") === 0) {
-        // var pdf = new jsPDF();
-        // pdf.text(20, 20, response.data);
-        // pdf.save("report.pdf");
-        let FileDownloadPDF = require("js-file-download");
-        const blob = this.dataURItoBlob(response.data);
-        const url = URL.createObjectURL(blob);
-        window.open(url, '_blank');
-        FileDownloadPDF(response.data, "report." + type);
+        var pdf = new jsPDF(response.data);
+        //pdf.text(20, 20, response.data);
+        //pdf.output(response.data);
+        pdf.save("report.pdf");
+        // let FileDownloadPDF = require("js-file-download");
+        // const blob = this.dataURItoBlob(response.data);
+        // const url = URL.createObjectURL(blob);
+        // window.open(url, '_blank');
+        // FileDownloadPDF(response.data, "report." + type);
       } else {
         console.log("CSV");
         let FileDownloadCSV = require("js-file-download");

@@ -1,5 +1,7 @@
 package com.lab4.demo.user;
 
+import com.lab4.demo.item.dto.ItemDto;
+import com.lab4.demo.item.model.Item;
 import com.lab4.demo.user.dto.UserDetailsImpl;
 import com.lab4.demo.user.dto.UserDto;
 import com.lab4.demo.user.dto.UserMinimalDTO;
@@ -66,4 +68,14 @@ public class UserService {
         return UserDto.toDto(userRepository.save(actUser));
     }
 
+    public boolean delete(Long id){
+        boolean message = false;
+        try{
+            userRepository.deleteById(id);
+            message = true;
+        }catch(IllegalArgumentException e){
+            System.out.println("Item not found to delete");
+        }
+        return message;
+    }
 }

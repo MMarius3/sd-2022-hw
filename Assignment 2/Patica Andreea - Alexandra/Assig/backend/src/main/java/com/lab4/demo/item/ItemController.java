@@ -18,6 +18,7 @@ import java.util.List;
 import java.util.Map;
 
 import static com.lab4.demo.UrlMapping.*;
+import static org.springframework.http.HttpStatus.CREATED;
 
 //better dtos than simple entities
 @RestController   //trebuie sa se ocupe de crearea contextului (rest => protocol de comunicare prin json)
@@ -34,20 +35,19 @@ public class ItemController {
     }
 
     @GetMapping(EXPORT_REPORT)
-    //@DeleteMapping
     public byte[] exportReport(@PathVariable String type, HttpServletResponse response) throws IOException {
         ReportType reportType = ReportType.valueOf(type);
-
 
         return reportServiceFactory.getReportService(reportType).export(response);
     }
 
-    @GetMapping(ID)
-    public ItemDto findById(@PathVariable Long id){
-        return itemService.findById(id);
-    }
+//    @GetMapping(ID)
+//    public ItemDto findById(@PathVariable Long id){
+//        return itemService.findById(id);
+//    }
 
     @PostMapping
+    @ResponseStatus(CREATED)
     public ItemDto create(@RequestBody ItemDto item) {
         return itemService.addItem(item);
     }
@@ -58,14 +58,14 @@ public class ItemController {
     }
 
     @DeleteMapping(DELETE)
-    public ResponseEntity<Long> delete(@PathVariable Long id) {
+    public void delete(@PathVariable Long id) {
 
-        var isRemoved = itemService.delete(id);
+        itemService.delete(id);
 
-        if (!isRemoved) {
-            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-        }
-
-        return new ResponseEntity<>(id, HttpStatus.OK);
+//        if (!isRemoved) {
+//            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+//        }
+//
+//        return new ResponseEntity<>(id, HttpStatus.OK);
     }
 }

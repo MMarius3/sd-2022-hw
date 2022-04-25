@@ -78,7 +78,7 @@ public class ItemService {
                 .author(actItemDto.getAuthor())
                 .price(actItemDto.getPrice())
                 .quantity(actItemDto.getQuantity())
-                .description(actItemDto.getDescription())
+                .description(actItemDto.getDescription())       //TODO genre
                 .build();
         actItem.setTitle(item.getTitle());
         actItem.setDescription(item.getDescription());

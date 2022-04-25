@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 import static com.lab4.demo.UrlMapping.*;
+import static org.springframework.http.HttpStatus.CREATED;
 
 @RestController
 @RequestMapping(USERS)
@@ -23,6 +24,7 @@ public class UserController {
     }
 
     @PostMapping
+    @ResponseStatus(CREATED)
     public UserDto create(@RequestBody UserDto user) {
         return userService.addUser(user);
     }
@@ -30,5 +32,12 @@ public class UserController {
     @PatchMapping(USERS_ID_PART)
     public UserDto edit(@PathVariable Long id, @RequestBody UserDto user) {
         return userService.edit(id, user);
+    }
+
+    @DeleteMapping(DELETE)
+    public void delete(@PathVariable Long id) {
+
+        userService.delete(id);
+
     }
 }
