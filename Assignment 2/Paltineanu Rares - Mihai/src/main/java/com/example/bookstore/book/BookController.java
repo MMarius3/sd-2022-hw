@@ -27,7 +27,6 @@ import static com.example.bookstore.UrlMapping.*;
 public class BookController {
 
     private final BookService bookService;
-    private final ReportServiceFactory reportServiceFactory;
 
     @GetMapping(GET_BOOKS)
     public List<BookDTO> allItems() {
@@ -40,9 +39,9 @@ public class BookController {
     }
 
     @PostMapping(ADD_BOOK)
-    public ResponseEntity<?> create(@RequestBody BookDTO bookDTO) {
-        bookService.create(bookDTO);
-        return ResponseEntity.ok("Book created successfully");
+    public BookDTO create(@RequestBody BookDTO bookDTO) {
+
+        return bookService.create(bookDTO);
     }
 
     @DeleteMapping(DELETE_BOOK)
@@ -52,18 +51,17 @@ public class BookController {
     }
 
     @PutMapping(UPDATE_BOOK)
-    public ResponseEntity<?> edit(@PathVariable Long id, @RequestBody BookDTO book) {
-        bookService.edit(id, book);
-        return ResponseEntity.ok("Book updated successfully");
+    public BookDTO edit(@PathVariable Long id, @RequestBody BookDTO book) {
+        return bookService.edit(id, book);
     }
 
     @GetMapping(EXPORT_REPORT)
-    public void exportReport(@PathVariable ReportType type) {
+    public String exportReport(@PathVariable ReportType type) {
         List<String> books = this.allItems().stream()
                 .filter(book -> book.getQuantity() == 0)
                 .map(BookDTO::toString)
                 .collect(Collectors.toList());
-        reportServiceFactory.getReportService(type).export(books);
+        return bookService.exportReport(books, type);
     }
 
     @GetMapping(FILTER_BOOKS)

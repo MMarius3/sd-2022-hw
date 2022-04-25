@@ -4,7 +4,7 @@ import java.util.List;
 
 public interface ReportService {
 
-    void export(List<String> books);
+    String export(List<String> books);
 
     ReportType getType();
 }

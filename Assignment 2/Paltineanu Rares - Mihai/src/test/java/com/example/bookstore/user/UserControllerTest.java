@@ -33,6 +33,9 @@ class UserControllerTest extends BaseControllerTest {
     @Mock
     private UserService userService;
 
+    @Mock
+    private UserRepository userRepository;
+
     @BeforeEach
     protected void setUp() {
         super.setUp();
@@ -53,18 +56,13 @@ class UserControllerTest extends BaseControllerTest {
 
     @Test
     void addUser() throws Exception {
-        Set<Role> roles = new HashSet<>();
-        roles.add(new Role(1, ERole.ADMIN));
         SignupRequest userDTO = SignupRequest.builder()
                 .email("myemail@aaa.com")
                 .username("username")
-                .password("hallelujah")
-                //.roles(roles)
+                .password("password")
                 .build();
-        //when(userService.create(userDTO)).thenReturn(userDTO);
-        ResultActions result = performPostWithRequestBody(USER + ADD_USER, userDTO);
-        result.andExpect(status().isOk())
-                .andExpect(jsonContentToBe(userDTO));
+        userController.create(userDTO);
+        assertNotNull(userRepository.findByUsername("username"));
     }
 
 }

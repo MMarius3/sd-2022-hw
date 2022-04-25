@@ -18,9 +18,9 @@ public class CSVReportService implements ReportService {
 
 
     @Override
-    public void export(List<String> books) {
+    public String export(List<String> books) {
         try {
-            PrintWriter writer = new PrintWriter("example.csv");
+            PrintWriter writer = new PrintWriter("report.csv");
             CSVWriter csvWriter = new CSVWriter(writer);
             String[] header = {"ID", "Name", "Description", "Author", "Genre", "Price"};
             csvWriter.writeNext(header);
@@ -32,6 +32,7 @@ public class CSVReportService implements ReportService {
         } catch (IOException e) {
             System.out.println("Error while trying to write to csv");
         }
+        return "CSV report!";
     }
 
     @Override

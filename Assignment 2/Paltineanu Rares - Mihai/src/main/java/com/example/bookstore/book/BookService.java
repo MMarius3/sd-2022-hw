@@ -4,6 +4,7 @@ import com.example.bookstore.book.mapper.BookMapper;
 import com.example.bookstore.book.model.Book;
 import com.example.bookstore.book.model.dto.BookDTO;
 import com.example.bookstore.book.model.dto.BookFilterRequestDTO;
+import com.example.bookstore.report.ReportServiceFactory;
 import com.example.bookstore.report.ReportType;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
@@ -21,7 +22,7 @@ public class BookService {
 
     private final BookRepository bookRepository;
     private final BookMapper bookMapper;
-
+    private final ReportServiceFactory reportServiceFactory;
     public List<BookDTO> findAll() {
         return bookRepository.findAll().stream().map(bookMapper::toDto).collect(Collectors.toList());
     }
@@ -55,5 +56,9 @@ public class BookService {
                 , "%" + filter + "%"
                 , "%" + filter + "%", PageRequest.of(0, 25))
                 .stream().map(bookMapper::toDto).collect(Collectors.toList());
+    }
+
+    public String exportReport(List<String> books, ReportType type) {
+        return reportServiceFactory.getReportService(type).export(books);
     }
 }
