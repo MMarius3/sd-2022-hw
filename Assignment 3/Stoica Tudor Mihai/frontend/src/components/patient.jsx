@@ -1,21 +1,17 @@
 import tr, { Component } from "react";
 import TextField from "@material-ui/core/TextField";
+import Consultation from "./consultation";
 
 class Patient extends Component {
   state = {};
-
-  handleChange = (e) => {
-    this.props.name = "aaa";
-  };
 
   render() {
     return (
       <tr>
         <td>
-          <button onClick={() => {}} className="btn btn-primary btn-sm">
-            Consultations
-          </button>
+          <Consultation />
         </td>
+
         <td>
           <button
             onClick={() => {

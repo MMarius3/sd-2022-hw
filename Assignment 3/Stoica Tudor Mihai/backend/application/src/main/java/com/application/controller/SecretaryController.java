@@ -19,8 +19,8 @@ import javax.swing.*;
 public class SecretaryController {
 
     private final ConsultationService consultationService;
-    private final IUserNotifier doctorNotificationService;
     private final PatientService patientService;
+    private final IUserNotifier doctorNotificationService;
 
     @PostMapping(UrlMappings.CREATE_CONSULTATION)
     public ConsultationDto createConsultation(@RequestBody ConsultationCreationDto consultationCreationDto) {

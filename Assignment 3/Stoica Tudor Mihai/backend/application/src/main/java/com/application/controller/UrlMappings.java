@@ -9,9 +9,6 @@ public class UrlMappings {
     public static final String DOCTOR = URL_PREFIX + "/doctor";
     public static final String ADMINISTRATOR = URL_PREFIX + "/administrator";
 
-    public static final String SIGN_UP = "/signup";
-    public static final String SIGN_IN = "/signin";
-
     public static final String GET_USER_ACCOUNT_BY_ID = "/getUserAccountById";
     public static final String GET_USER_ACCOUNT_BY_NAME = "/getUserAccountByName";
     public static final String CREATE_USER_ACCOUNT = "/createUserAccount";
@@ -24,4 +21,8 @@ public class UrlMappings {
 
     public static final String CREATE_PATIENT = "/createPatient";
     public static final String UPDATE_PATIENT = "/updatePatient";
+
+    public static final String AUTH = URL_PREFIX + "/auth";
+    public static final String SIGN_IN = "/sign-in";
+    public static final String SIGN_UP = "/sign-up";
 }
