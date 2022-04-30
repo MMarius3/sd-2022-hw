@@ -19,4 +19,6 @@ public interface ClientRepository {
     boolean save(Client client);
 
     void removeAll();
+
+    void updateClientInformation(String newName, String newAddress, Long personalNumericalCode,Long id);
 }

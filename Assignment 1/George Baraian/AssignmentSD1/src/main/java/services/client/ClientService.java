@@ -13,4 +13,8 @@ public interface ClientService {
 
     Client findById(Long id);
 
+    void updateName(Long id, String name);
+
+    Notification<Boolean> updateClientInformation(String newName, String newAddress, Long newPersonalNumericalCode, Long id);
+
 }

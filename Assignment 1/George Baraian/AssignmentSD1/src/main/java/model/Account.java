@@ -1,13 +1,11 @@
 package model;
 
-import java.util.Date;
-
 public class Account {
 
     private Long id;
     private String type;
     private Long amount;
-    private Date dateOfCreation;
+    private Long clientID;
 
     public Long getId() {
         return id;
@@ -33,11 +31,12 @@ public class Account {
         this.amount = amount;
     }
 
-    public Date getDateOfCreation() {
-        return dateOfCreation;
+    public Long getClientID() {
+        return clientID;
     }
 
-    public void setDateOfCreation(Date dateOfCreation) {
-        this.dateOfCreation = dateOfCreation;
+    public void setClientID(Long clientID) {
+        this.clientID = clientID;
     }
+
 }

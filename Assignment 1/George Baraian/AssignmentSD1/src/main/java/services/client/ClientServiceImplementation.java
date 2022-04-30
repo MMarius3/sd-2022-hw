@@ -33,4 +33,15 @@ public class ClientServiceImplementation implements ClientService {
     public Client findById(Long id) {
         return clientRepository.findById(id);
     }
+
+    @Override
+    public void updateName(Long id, String name) {
+
+    }
+
+    @Override
+    public Notification<Boolean> updateClientInformation(String newName, String newAddress, Long newPersonalNumericalCode, Long id) {
+        clientRepository.updateClientInformation(newName, newAddress, newPersonalNumericalCode, id);
+        return null;
+    }
 }

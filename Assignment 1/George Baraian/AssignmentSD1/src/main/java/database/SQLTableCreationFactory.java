@@ -21,6 +21,7 @@ public class SQLTableCreationFactory {
                             "id int(11) NOT NULL AUTO_INCREMENT, " +
                             "type VARCHAR(500) NOT NULL, "+
                             "amount LONG NOT NULL, " +
+                            "clientId int(11) NOT NULL, " +
                             "PRIMARY KEY (id), " +
                             "UNIQUE KEY id_UNIQUE (id)" +
                             ") ENGINE=InnoDB AUTO_INCREMENT=0 DEFAULT CHARSET=utf8;";
