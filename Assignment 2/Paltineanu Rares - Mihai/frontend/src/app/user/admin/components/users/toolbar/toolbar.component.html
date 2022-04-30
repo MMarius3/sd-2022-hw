@@ -1,0 +1,32 @@
+<div class="toolbar">
+
+    <button id="addBookBtn"
+      type="button"
+      class="btn btn-link button-secondary"
+      (click)="onAddUser()"
+      title="Add book">
+      <span class="dx-icon-add" aria-hidden="true"></span>
+    </button>
+  
+    <button id="deleteBookBtn"
+            type="button"
+            class="btn btn-link button-secondary"
+            (click)="onDeleteUser()"
+            title="Delete book"
+            [disabled]="!areBooksSelected">
+      Delete
+    </button >
+    <button title="{{buttonName}}"
+      (click)="changePage()"
+    >
+      {{buttonName}}
+  
+    </button>
+  
+    <div class="right-bar">
+      <button (click)="logout()">Logout</button>
+    </div>
+  </div>
+  
+  
+  

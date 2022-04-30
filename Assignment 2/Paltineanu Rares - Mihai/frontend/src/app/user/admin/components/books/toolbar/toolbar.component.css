@@ -1,0 +1,10 @@
+.toolbar {
+  position: relative;
+}
+  
+.right-bar {
+  position: absolute;
+  right: 0;
+  bottom: 0.5px;
+}
+  

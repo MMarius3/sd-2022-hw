@@ -1,0 +1,86 @@
+<div class="col-md-12">
+    <div class="center card card-container">
+      <h2 class="title">Add User</h2>
+      <form
+        name="form"
+        (ngSubmit)="f.form.valid && addUser()"
+        #f="ngForm"
+        novalidate
+      >
+        <div class="form-group ">
+          <label>Name</label>
+          <input
+            type="text"
+            class="form-control"
+            name="name"
+            [(ngModel)]="form.name"
+            required
+            #name="ngModel"
+            pattern="[a-zA-Z ]*"
+          />
+          <div
+            class="alert alert-danger"
+            role="alert"
+            *ngIf="name.errors && f.submitted">
+            Name must not be empty
+          </div>
+        </div>
+        <div class="form-group">
+          <label>Email</label>
+          <input
+            type="email"
+            class="form-control"
+            name="email"
+            [(ngModel)]="form.email"
+            email
+            #email="ngModel"
+          />
+          <div
+            class="alert alert-danger"
+            role="alert"
+            *ngIf="email.errors && f.submitted">
+            Invalid email
+          </div>
+        </div>
+        
+        <div class="form-group">
+            <label>Password</label>
+            <input
+              type="password"
+              class="form-control"
+              name="roles"
+              [(ngModel)]="form.password"
+              required
+              #roles="ngModel"
+            />
+            <div
+              class="alert alert-danger"
+              role="alert"
+              *ngIf="roles.errors && f.submitted">
+              Password must not be empty
+            </div>
+          </div>
+  
+        <div class="form-group">
+          <button type="submit" class="btn btn-primary btn-block">
+            Add User
+          </button>
+  
+          <button (click)="onCancel()" type="button" class="btn btn-secondary btn-block">
+            Cancel
+          </button>
+  
+        </div>
+        <div class="form-group">
+          <div
+            class="alert alert-danger"
+            role="alert"
+            *ngIf="f.submitted && addUserFailed"
+          >
+            Add User failed: {{ errorMessage }}
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+  

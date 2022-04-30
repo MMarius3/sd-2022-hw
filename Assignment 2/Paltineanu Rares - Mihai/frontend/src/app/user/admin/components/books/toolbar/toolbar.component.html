@@ -1,0 +1,47 @@
+<div class="toolbar">
+
+    <button id="addBookBtn"
+      type="button"
+      class="btn btn-link button-secondary"
+      (click)="onAddBook()"
+      title="Add book">
+      <span class="dx-icon-add" aria-hidden="true"></span>
+    </button>
+  
+    <button id="deleteBookBtn"
+            type="button"
+            class="btn btn-link button-secondary"
+            (click)="onDeleteBook()"
+            title="Delete book"
+            [disabled]="!isBookSelected">
+      Delete
+    </button >
+    <button title="{{buttonName}}"
+      class="btn btn-link button-secondary"
+      (click)="changePage()"
+    >
+      {{buttonName}}
+  
+    </button>
+
+    <button title="csvReport"
+      class="btn btn-link button-secondary"
+      (click)="generateCsvReport()"
+    >
+      CSV Report
+    </button>
+
+    <button title="pdfReport"
+    class="btn btn-link button-secondary"
+      (click)="generatePdfReport()"
+    >
+      PDF Report
+    </button>
+  
+    <div class="right-bar">
+      <button (click)="logout()">Logout</button>
+    </div>
+  </div>
+  
+  
+  

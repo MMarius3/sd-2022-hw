@@ -1,0 +1,66 @@
+<app-book-toolbar [grid]="grid"></app-book-toolbar>
+
+<dx-data-grid id="booksGrid"
+              [dataSource]="books"
+              [allowColumnReordering]="true"
+              [allowColumnResizing]="true"
+              [columnAutoWidth]="false"
+              [showBorders]="true"
+              [showRowLines]="true"
+              class="dx-datagrid dataGrid">
+  <dxo-paging [pageSize]="10"> </dxo-paging>
+  <dxo-scrolling rowRenderingMode="virtual"> </dxo-scrolling>
+  <dxo-column-chooser mode="select"></dxo-column-chooser>
+
+  <dxo-selection [showCheckBoxesMode]="'onClick'" mode="single"></dxo-selection>
+  <dxi-column caption="ID"
+            dataField="id"
+            [width]="'10%'"
+            dataType="number">
+  </dxi-column>
+
+  <dxi-column caption="Name"
+              dataField="name"
+              [width]="'15%'"
+              dataType="string"
+              cellTemplate="bookTemplate">
+  </dxi-column>
+
+  <dxi-column caption="Description"
+              dataField="description"
+              [width]="'15%'"
+              dataType="string">
+  </dxi-column>
+
+  <dxi-column caption="Author"
+              dataField="author"
+              [width]="'15%'"
+              dataType="string">
+  </dxi-column>
+
+  <dxi-column caption="Genre"
+              dataField="genre"
+              [width]="'15%'"
+              dataType="string">
+  </dxi-column>
+
+  <dxi-column caption="Quantity"
+              dataField="quantity"
+              [width]="'15%'"
+              dataType="number">
+  </dxi-column>
+
+  <dxi-column caption="Price"
+              dataField="price"
+              [width]="'15%'"
+              dataType="number">
+  </dxi-column>
+
+  <div *dxTemplate="let book of 'bookTemplate'" class="ellipsis-cell">
+    <dx-button (onClick)="openBookDetails(book.data)"
+      class="detailsLink"
+      hint="{{book.value}}">
+      {{ book.value }}
+    </dx-button>
+  </div>
+</dx-data-grid>
