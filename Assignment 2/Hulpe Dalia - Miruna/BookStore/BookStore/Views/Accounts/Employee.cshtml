@@ -1,0 +1,53 @@
+﻿@model EmployeeViewModel
+    <head>
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    </head>
+    <form asp-controller="Accounts" asp-action="SearchTitle" method="post">
+        <input asp-for="SearchValue" />
+        <button type="submit" class="btn btn-info">Search by title</button>
+    </form>
+    <form asp-controller="Accounts" asp-action="SearchAuthor" method="post">
+        <input asp-for="SearchValue" />
+        <button type="submit" class="btn btn-info">Search by author</button>
+    </form>
+    <form asp-controller="Accounts" asp-action="SearchGenre" method="post">
+        <input asp-for="SearchValue" />
+        <button type="submit" class="btn btn-info">Search by genre</button>
+    </form>
+    <div>
+        <table class="table table-striped table-borderless table-responsive-sm">
+            <thead>
+                <tr class="table-head">
+                    <th>Id</th>
+                    <th>Title</th>
+                    <th>Author</th>
+                    <th>Genre</th>
+                    <th>Price</th>
+                    <th>Quantity</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                @for (int i = 0; i < Model.Books.Count; i++)
+                {
+                <tr>
+                    <td class="table-element-custom">@Model.Books[i].Id</td>
+                    <td class="table-element-custom">@Model.Books[i].Title</td>
+                    <td class="table-element-custom">@Model.Books[i].Author</td>
+                    <td class="table-element-custom">@Model.Books[i].Genre</td>
+                    <td class="table-element-custom">@Model.Books[i].Price</td>
+                    <td class="table-element-custom">@Model.Books[i].Quantity</td>
+                    <td class="table-element-custom">
+                        <a asp-controller="Books" asp-action="SellBook" asp-route-id="@Model.Books[i].Id" style="color:black">
+                            <i class="fa fa-money"></i>
+                        </a>
+
+                        @*<a asp-controller="Books" asp-action="DeleteBook" asp-route-title="@Model.Books[i].Title" style="color:black">
+                <i class="fa fa-trash"></i>
+            </a>*@
+                    </td>
+                </tr>
+                }
+            </tbody>
+        </table>
+    </div>

@@ -1,0 +1,9 @@
+C:\Users\miruh\Documents\Facultate\An3Sem2\SD_Lab\sd-2022-hw\Assignment 2\Hulpe Dalia - Miruna\BookStore\BookStore.Repository\bin\Debug\netcoreapp3.1\BookStore.Repository.deps.json
+C:\Users\miruh\Documents\Facultate\An3Sem2\SD_Lab\sd-2022-hw\Assignment 2\Hulpe Dalia - Miruna\BookStore\BookStore.Repository\bin\Debug\netcoreapp3.1\BookStore.Repository.dll
+C:\Users\miruh\Documents\Facultate\An3Sem2\SD_Lab\sd-2022-hw\Assignment 2\Hulpe Dalia - Miruna\BookStore\BookStore.Repository\bin\Debug\netcoreapp3.1\BookStore.Repository.pdb
+C:\Users\miruh\Documents\Facultate\An3Sem2\SD_Lab\sd-2022-hw\Assignment 2\Hulpe Dalia - Miruna\BookStore\BookStore.Repository\obj\Debug\netcoreapp3.1\BookStore.Repository.csprojAssemblyReference.cache
+C:\Users\miruh\Documents\Facultate\An3Sem2\SD_Lab\sd-2022-hw\Assignment 2\Hulpe Dalia - Miruna\BookStore\BookStore.Repository\obj\Debug\netcoreapp3.1\BookStore.Repository.AssemblyInfoInputs.cache
+C:\Users\miruh\Documents\Facultate\An3Sem2\SD_Lab\sd-2022-hw\Assignment 2\Hulpe Dalia - Miruna\BookStore\BookStore.Repository\obj\Debug\netcoreapp3.1\BookStore.Repository.AssemblyInfo.cs
+C:\Users\miruh\Documents\Facultate\An3Sem2\SD_Lab\sd-2022-hw\Assignment 2\Hulpe Dalia - Miruna\BookStore\BookStore.Repository\obj\Debug\netcoreapp3.1\BookStore.Repository.csproj.CoreCompileInputs.cache
+C:\Users\miruh\Documents\Facultate\An3Sem2\SD_Lab\sd-2022-hw\Assignment 2\Hulpe Dalia - Miruna\BookStore\BookStore.Repository\obj\Debug\netcoreapp3.1\BookStore.Repository.dll
+C:\Users\miruh\Documents\Facultate\An3Sem2\SD_Lab\sd-2022-hw\Assignment 2\Hulpe Dalia - Miruna\BookStore\BookStore.Repository\obj\Debug\netcoreapp3.1\BookStore.Repository.pdb
