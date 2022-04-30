@@ -1,0 +1,181 @@
+package repository.security;
+
+import model.Right;
+import model.Role;
+import model.User;
+
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
+import java.util.ArrayList;
+import java.util.List;
+
+import static database.Constants.Tables.RIGHT;
+import static database.Constants.Tables.ROLE;
+import static database.Constants.Tables.ROLE_RIGHT;
+import static database.Constants.Tables.USER_ROLE;
+
+public class RightsRolesRepositoryPostgres implements RightsRolesRepository {
+
+  private final Connection connection;
+
+  public RightsRolesRepositoryPostgres(Connection connection) {
+    this.connection = connection;
+  }
+
+  @Override
+  public void addRole(String role) {
+    try {
+      PreparedStatement insertStatement = connection
+          .prepareStatement("INSERT INTO " + ROLE + " (role) values (?) ON CONFLICT (role) DO " +
+                  "NOTHING;");
+      insertStatement.setString(1, role);
+      insertStatement.executeUpdate();
+    } catch (SQLException e) {
+      e.printStackTrace();
+    }
+  }
+
+  @Override
+  public void addRight(String right) {
+    try {
+      PreparedStatement insertStatement = connection
+          .prepareStatement("INSERT INTO \"" + RIGHT + "\" (\"right\") values (?) ON CONFLICT " +
+                  "(\"right\") DO " +
+                  "NOTHING;");
+      insertStatement.setString(1, right);
+      insertStatement.executeUpdate();
+    } catch (SQLException e) {
+      e.printStackTrace();
+    }
+  }
+
+  @Override
+  public Role findRoleByTitle(String role) {
+    Statement statement;
+    try {
+      statement = connection.createStatement();
+      String fetchRoleSql = "Select * from " + ROLE + " where \"role\"=\'" + role + "\'";
+      ResultSet roleResultSet = statement.executeQuery(fetchRoleSql);
+      if(roleResultSet.next()) {
+        Long roleId = roleResultSet.getLong("id");
+        String roleTitle = roleResultSet.getString("role");
+        return new Role(roleId, roleTitle, null);
+      }
+    } catch (SQLException e) {
+      e.printStackTrace();
+    }
+
+    return null;
+  }
+
+  @Override
+  public Role findRoleById(Long roleId) {
+    Statement roleStatement, rightStatement;
+    try {
+      roleStatement = connection.createStatement();
+      String fetchRoleSql = "Select * from " + ROLE + " where \"id\"= " + roleId + ";";
+      ResultSet roleResultSet = roleStatement.executeQuery(fetchRoleSql);
+      if(roleResultSet.next()) {
+        String roleTitle = roleResultSet.getString("role");
+        List<Right> rights = new ArrayList<>();
+        rightStatement = connection.createStatement();
+        String fetchRightSql = "Select * from " + ROLE_RIGHT + " where role_id= " + roleId +
+                ";";
+        ResultSet rightResultSet = roleStatement.executeQuery(fetchRightSql);
+        while(rightResultSet.next()) {
+          rights.add(findRightById(rightResultSet.getLong("right_id")));
+        }
+
+        return new Role(roleId, roleTitle, rights);
+      }
+    } catch (SQLException e) {
+      e.printStackTrace();
+    }
+
+    return null;
+  }
+
+  @Override
+  public Right findRightByTitle(String right) {
+    Statement statement;
+    try {
+      statement = connection.createStatement();
+      String fetchRoleSql = "Select * from \"" + RIGHT + "\" where \"right\"='" + right + "'";
+      ResultSet rightResultSet = statement.executeQuery(fetchRoleSql);
+      rightResultSet.next();
+      Long rightId = rightResultSet.getLong("id");
+      String rightTitle = rightResultSet.getString("right");
+      return new Right(rightId, rightTitle);
+    } catch (SQLException e) {
+      e.printStackTrace();
+    }
+    return null;
+  }
+
+  @Override
+  public Right findRightById(Long rightId) {
+    Statement statement;
+    try {
+      statement = connection.createStatement();
+      String fetchRoleSql = "Select * from \"" + RIGHT + "\" where id= " + rightId + ";";
+      ResultSet rightResultSet = statement.executeQuery(fetchRoleSql);
+      rightResultSet.next();
+      String rightTitle = rightResultSet.getString("right");
+      return new Right(rightId, rightTitle);
+    } catch (SQLException e) {
+      e.printStackTrace();
+    }
+    return null;
+  }
+
+
+  @Override
+  public void addRolesToUser(User user, List<Role> roles) {
+    try {
+      for (Role role : roles) {
+        PreparedStatement insertUserRoleStatement = connection
+            .prepareStatement("INSERT INTO \"user_role\" (user_id, role_id) values (?, ?)");
+        insertUserRoleStatement.setLong(1, user.getId());
+        insertUserRoleStatement.setLong(2, role.getId());
+        insertUserRoleStatement.executeUpdate();
+      }
+    } catch (SQLException e) {
+      e.printStackTrace();
+    }
+  }
+
+  @Override
+  public List<Role> findRolesForUser(Long userId) {
+    try {
+      List<Role> roles = new ArrayList<>();
+      Statement statement = connection.createStatement();
+      String fetchRoleSql = "Select * from " + USER_ROLE + " where user_id = " + userId + ";";
+      ResultSet userRoleResultSet = statement.executeQuery(fetchRoleSql);
+      while (userRoleResultSet.next()) {
+        long roleId = userRoleResultSet.getLong("role_id");
+        roles.add(findRoleById(roleId));
+      }
+      return roles;
+    } catch (SQLException e) {
+      e.printStackTrace();
+    }
+    return null;
+  }
+
+  @Override
+  public void addRoleRight(Long roleId, Long rightId) {
+    try {
+      PreparedStatement insertStatement = connection
+          .prepareStatement("INSERT INTO " + ROLE_RIGHT + " (role_id, right_id) values " +
+                  "(?, ?) ON CONFLICT (role_id, right_id) DO NOTHING;");
+      insertStatement.setLong(1, roleId);
+      insertStatement.setLong(2, rightId);
+      insertStatement.executeUpdate();
+    } catch (SQLException e) {
+      e.printStackTrace();
+    }
+  }
+}

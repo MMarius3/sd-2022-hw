@@ -1,0 +1,147 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
+  <component name="BranchesTreeState">
+    <expand>
+      <path>
+        <item name="ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="LOCAL_ROOT" type="e8cecc67:BranchNodeDescriptor" />
+      </path>
+      <path>
+        <item name="ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="REMOTE_ROOT" type="e8cecc67:BranchNodeDescriptor" />
+      </path>
+      <path>
+        <item name="ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="REMOTE_ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="GROUP_NODE:origin" type="e8cecc67:BranchNodeDescriptor" />
+      </path>
+      <path>
+        <item name="ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="REMOTE_ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="GROUP_NODE:upstream" type="e8cecc67:BranchNodeDescriptor" />
+      </path>
+    </expand>
+    <select />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="3e84f339-f091-4ce4-9292-52815014364e" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/../AttemptFaraCodSursa/.idea/compiler.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../AttemptFaraCodSursa/.idea/jarRepositories.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../AttemptFaraCodSursa/.idea/misc.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../AttemptFaraCodSursa/.idea/uiDesigner.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../AttemptFaraCodSursa/.idea/vcs.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../AttemptFaraCodSursa/AttemptFaraCodSursa.iml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../AttemptFaraCodSursa/pom.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../AttemptFaraCodSursa/src/main/java/Controller/Response.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../AttemptFaraCodSursa/src/main/java/Model/Account.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../AttemptFaraCodSursa/src/main/java/Model/Client.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../AttemptFaraCodSursa/src/main/java/Model/User.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../AttemptFaraCodSursa/src/main/java/Model/Validators/UserValidator.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../AttemptFaraCodSursa/src/main/java/Repository/User/UserRepository.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../AttemptFaraCodSursa/src/main/java/Repository/User/UserRepositoryMySql.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../Campan Tudor - Cosmin/.idea/.gitignore" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../Campan Tudor - Cosmin/.idea/.name" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../Campan Tudor - Cosmin/.idea/compiler.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../Campan Tudor - Cosmin/.idea/dataSources.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../Campan Tudor - Cosmin/.idea/jarRepositories.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../Campan Tudor - Cosmin/.idea/misc.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../Campan Tudor - Cosmin/.idea/uiDesigner.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../Campan Tudor - Cosmin/.idea/vcs.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../Campan Tudor - Cosmin/Asaimant1.iml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../Campan Tudor - Cosmin/src/.idea/misc.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../Campan Tudor - Cosmin/src/.idea/modules.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../Campan Tudor - Cosmin/src/.idea/src.iml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../Campan Tudor - Cosmin/src/.idea/vcs.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../Campan Tudor - Cosmin/src/main/java/Main.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../Campan Tudor - Cosmin/src/main/java/controller/LoginController.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../Campan Tudor - Cosmin/src/main/java/controller/Response.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../Campan Tudor - Cosmin/src/main/java/database/Boostrap.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../Campan Tudor - Cosmin/src/main/java/database/Constants.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../Campan Tudor - Cosmin/src/main/java/database/DBConnectionFactory.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../Campan Tudor - Cosmin/src/main/java/database/JDBConnectionWrapper.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../Campan Tudor - Cosmin/src/main/java/database/SQLTableCreationFactory.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../Campan Tudor - Cosmin/src/main/java/model/Account.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../Campan Tudor - Cosmin/src/main/java/model/Book.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../Campan Tudor - Cosmin/src/main/java/model/Client.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../Campan Tudor - Cosmin/src/main/java/model/Role.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../Campan Tudor - Cosmin/src/main/java/model/User.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../Campan Tudor - Cosmin/src/main/java/model/builder/AccountBuilder.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../Campan Tudor - Cosmin/src/main/java/model/builder/BookBuilder.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../Campan Tudor - Cosmin/src/main/java/model/builder/ClientBuilder.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../Campan Tudor - Cosmin/src/main/java/model/builder/UserBuilder.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../Campan Tudor - Cosmin/src/main/java/model/validator/UserValidator.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../Campan Tudor - Cosmin/src/main/java/repository/Cache.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../Campan Tudor - Cosmin/src/main/java/repository/book/BookRepository.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../Campan Tudor - Cosmin/src/main/java/repository/book/BookRepositoryCacheDecorator.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../Campan Tudor - Cosmin/src/main/java/repository/book/BookRepositoryDecorator.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../Campan Tudor - Cosmin/src/main/java/repository/book/BookRepositoryMock.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../Campan Tudor - Cosmin/src/main/java/repository/book/BookRepositoryMySQL.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../Campan Tudor - Cosmin/src/main/java/repository/security/RightsRolesRepository.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../Campan Tudor - Cosmin/src/main/java/repository/security/RightsRolesRepositoryMySQL.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../Campan Tudor - Cosmin/src/main/java/repository/user/UserRepository.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../Campan Tudor - Cosmin/src/main/java/repository/user/UserRepositoryMySQL.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../Campan Tudor - Cosmin/src/main/java/service/book/BookService.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../Campan Tudor - Cosmin/src/main/java/service/book/BookServiceImpl.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../Campan Tudor - Cosmin/src/main/java/service/user/AuthenticationService.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../Campan Tudor - Cosmin/src/main/java/service/user/AuthenticationServiceMySQL.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../Campan Tudor - Cosmin/src/main/java/view/LoginView.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../Campan Tudor - Cosmin/src/main/main.iml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../Campan Tudor - Cosmin/src/test/java/repository/book/BookRepositoryMockTest.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../Campan Tudor - Cosmin/src/test/java/repository/book/BookRepositoryMySQLTest.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../Campan Tudor - Cosmin/src/test/java/service/book/BookServiceImplTest.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../Campan Tudor - Cosmin/src/test/java/service/user/AuthenticationServiceMySQLTest.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../Campan Tudor - Cosmin/src/test/test.iml" afterDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/../.." />
+  </component>
+  <component name="MavenImportPreferences">
+    <option name="generalSettings">
+      <MavenGeneralSettings>
+        <option name="mavenHome" value="C:\Program Files\JetBrains\IntelliJ IDEA 2020.2.3\plugins\maven\lib\maven3" />
+      </MavenGeneralSettings>
+    </option>
+  </component>
+  <component name="ProjectId" id="26fCQsH0msznTpFcRKtW6b9In3z" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent">
+    <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
+    <property name="WebServerToolWindowFactoryState" value="false" />
+    <property name="aspect.path.notification.shown" value="true" />
+  </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="3e84f339-f091-4ce4-9292-52815014364e" name="Default Changelist" comment="" />
+      <created>1647805242067</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1647805242067</updated>
+      <workItem from="1647805243171" duration="5000" />
+    </task>
+    <servers />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
+  </component>
+</project>
